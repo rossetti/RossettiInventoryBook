@@ -1,0 +1,1 @@
+Sitemap: https://rossetti.github.io/RossettiInventoryBook/sitemap.xml

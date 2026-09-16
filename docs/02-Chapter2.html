@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="A textbook and course notes on the modeling and analysis of inventory systems for upper-level undergraduate and graduate students.">
+
+<title>2&nbsp; Managing Inventory – Analysis of Inventory Systems</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-Chapter3.html" rel="next">
+<link href="./01-Chapter1.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6b6957c917596b414ec0b78690761e87.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f80f43bfe8f457ca6945be13c575d110.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ed4b495e6b34a49e86b26d315835ee57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f80f43bfe8f457ca6945be13c575d110.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="css/cover.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-Chapter2.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Managing Inventory</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analysis of Inventory Systems</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Chapter1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Inventory Systems</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Chapter2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Managing Inventory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Deterministic Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Chapter3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deterministic Lot Sizing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Chapter4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multi-Item and Constrained Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Chapter5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Lot Sizing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Chapter6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Material and Distribution Requirements Planning</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-Chapter7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Single-Period Stochastic Inventory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Chapter11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Simulating Inventory Systems</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AppNotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-AppProbability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Probability and Stochastic Processes Review</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-AppDistributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Common Probability Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-AppTables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Statistical Tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-AppKSLSetup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Kotlin and KSL Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-managing-problem" id="toc-sec-managing-problem" class="nav-link active" data-scroll-target="#sec-managing-problem"><span class="header-section-number">2.1</span> The Manager’s Problem</a>
+  <ul>
+  <li><a href="#sec-managing-problem-scale" id="toc-sec-managing-problem-scale" class="nav-link" data-scroll-target="#sec-managing-problem-scale"><span class="header-section-number">2.1.1</span> What Scale Changes</a></li>
+  <li><a href="#sec-managing-problem-decisions" id="toc-sec-managing-problem-decisions" class="nav-link" data-scroll-target="#sec-managing-problem-decisions"><span class="header-section-number">2.1.2</span> What the Manager Decides</a></li>
+  <li><a href="#sec-managing-problem-scope" id="toc-sec-managing-problem-scope" class="nav-link" data-scroll-target="#sec-managing-problem-scope"><span class="header-section-number">2.1.3</span> What This Chapter Does Not Cover</a></li>
+  </ul></li>
+  <li><a href="#sec-managing-grouping" id="toc-sec-managing-grouping" class="nav-link" data-scroll-target="#sec-managing-grouping"><span class="header-section-number">2.2</span> Grouping and Segmentation</a>
+  <ul>
+  <li><a href="#sec-managing-grouping-why" id="toc-sec-managing-grouping-why" class="nav-link" data-scroll-target="#sec-managing-grouping-why"><span class="header-section-number">2.2.1</span> Two Reasons to Group</a></li>
+  <li><a href="#sec-managing-grouping-abc" id="toc-sec-managing-grouping-abc" class="nav-link" data-scroll-target="#sec-managing-grouping-abc"><span class="header-section-number">2.2.2</span> Pareto Analysis and ABC Classification</a></li>
+  <li><a href="#sec-managing-grouping-criticality" id="toc-sec-managing-grouping-criticality" class="nav-link" data-scroll-target="#sec-managing-grouping-criticality"><span class="header-section-number">2.2.3</span> What One Criterion Misses</a></li>
+  <li><a href="#sec-managing-grouping-costcriterion" id="toc-sec-managing-grouping-costcriterion" class="nav-link" data-scroll-target="#sec-managing-grouping-costcriterion"><span class="header-section-number">2.2.4</span> Deriving the Criterion Instead of Choosing Weights</a></li>
+  <li><a href="#sec-managing-grouping-attributes" id="toc-sec-managing-grouping-attributes" class="nav-link" data-scroll-target="#sec-managing-grouping-attributes"><span class="header-section-number">2.2.5</span> Which Attributes, and Which Forbid Grouping</a></li>
+  <li><a href="#sec-managing-grouping-demandpattern" id="toc-sec-managing-grouping-demandpattern" class="nav-link" data-scroll-target="#sec-managing-grouping-demandpattern"><span class="header-section-number">2.2.6</span> Demand Pattern Segmentation</a></li>
+  <li><a href="#sec-managing-grouping-clustering" id="toc-sec-managing-grouping-clustering" class="nav-link" data-scroll-target="#sec-managing-grouping-clustering"><span class="header-section-number">2.2.7</span> Clustering for Policy</a></li>
+  <li><a href="#sec-managing-grouping-evaluating" id="toc-sec-managing-grouping-evaluating" class="nav-link" data-scroll-target="#sec-managing-grouping-evaluating"><span class="header-section-number">2.2.8</span> Evaluating a Grouping</a></li>
+  <li><a href="#sec-managing-grouping-combining" id="toc-sec-managing-grouping-combining" class="nav-link" data-scroll-target="#sec-managing-grouping-combining"><span class="header-section-number">2.2.9</span> Combining Schemes</a></li>
+  <li><a href="#sec-managing-grouping-using" id="toc-sec-managing-grouping-using" class="nav-link" data-scroll-target="#sec-managing-grouping-using"><span class="header-section-number">2.2.10</span> Using a Classification</a></li>
+  </ul></li>
+  <li><a href="#sec-managing-records" id="toc-sec-managing-records" class="nav-link" data-scroll-target="#sec-managing-records"><span class="header-section-number">2.3</span> Inventory Record Analysis</a>
+  <ul>
+  <li><a href="#sec-managing-records-drift" id="toc-sec-managing-records-drift" class="nav-link" data-scroll-target="#sec-managing-records-drift"><span class="header-section-number">2.3.1</span> What a Record Claims, and Why It Drifts</a></li>
+  <li><a href="#sec-managing-records-why" id="toc-sec-managing-records-why" class="nav-link" data-scroll-target="#sec-managing-records-why"><span class="header-section-number">2.3.2</span> Why Accuracy Comes First</a></li>
+  <li><a href="#sec-managing-records-cost" id="toc-sec-managing-records-cost" class="nav-link" data-scroll-target="#sec-managing-records-cost"><span class="header-section-number">2.3.3</span> What Error Actually Costs</a></li>
+  <li><a href="#sec-managing-records-measuring" id="toc-sec-managing-records-measuring" class="nav-link" data-scroll-target="#sec-managing-records-measuring"><span class="header-section-number">2.3.4</span> Measuring Record Accuracy</a></li>
+  <li><a href="#sec-managing-records-counting" id="toc-sec-managing-records-counting" class="nav-link" data-scroll-target="#sec-managing-records-counting"><span class="header-section-number">2.3.5</span> Physical Inventory and Cycle Counting</a></li>
+  <li><a href="#sec-managing-records-methods" id="toc-sec-managing-records-methods" class="nav-link" data-scroll-target="#sec-managing-records-methods"><span class="header-section-number">2.3.6</span> Cycle Counting Methods</a></li>
+  <li><a href="#sec-managing-records-frequency" id="toc-sec-managing-records-frequency" class="nav-link" data-scroll-target="#sec-managing-records-frequency"><span class="header-section-number">2.3.7</span> Setting Count Frequency</a></li>
+  <li><a href="#sec-managing-records-monitoring" id="toc-sec-managing-records-monitoring" class="nav-link" data-scroll-target="#sec-managing-records-monitoring"><span class="header-section-number">2.3.8</span> Monitoring Accuracy Over Time</a></li>
+  <li><a href="#sec-managing-records-chain" id="toc-sec-managing-records-chain" class="nav-link" data-scroll-target="#sec-managing-records-chain"><span class="header-section-number">2.3.9</span> Accuracy Is Not a Local Property</a></li>
+  <li><a href="#sec-managing-records-diagnosis" id="toc-sec-managing-records-diagnosis" class="nav-link" data-scroll-target="#sec-managing-records-diagnosis"><span class="header-section-number">2.3.10</span> Correction Is Not the Point</a></li>
+  </ul></li>
+  <li><a href="#sec-managing-other" id="toc-sec-managing-other" class="nav-link" data-scroll-target="#sec-managing-other"><span class="header-section-number">2.4</span> Other Responsibilities</a>
+  <ul>
+  <li><a href="#sec-managing-other-excess" id="toc-sec-managing-other-excess" class="nav-link" data-scroll-target="#sec-managing-other-excess"><span class="header-section-number">2.4.1</span> Excess and Obsolete Stock</a></li>
+  <li><a href="#sec-managing-other-reporting" id="toc-sec-managing-other-reporting" class="nav-link" data-scroll-target="#sec-managing-other-reporting"><span class="header-section-number">2.4.2</span> Performance Reporting</a></li>
+  </ul></li>
+  <li><a href="#sec-managing-summary" id="toc-sec-managing-summary" class="nav-link" data-scroll-target="#sec-managing-summary"><span class="header-section-number">2.5</span> Summary</a></li>
+  <li><a href="#sec-managing-exercises" id="toc-sec-managing-exercises" class="nav-link" data-scroll-target="#sec-managing-exercises"><span class="header-section-number">2.6</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-managing" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Managing Inventory</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled" title="Learning objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After reading this chapter you should be able to:</p>
+<ul>
+<li>describe the recurring decisions an inventory manager faces across a large item population</li>
+<li>construct an ABC classification and defend its cut points</li>
+<li>explain what a single-criterion classification misses, and apply a multi-criteria alternative</li>
+<li>classify items by demand pattern, and say which model each pattern selects</li>
+<li>explain why inventory records drift, and measure record accuracy</li>
+<li>design a cycle counting program and set count frequencies by class</li>
+</ul>
+</div>
+</div>
+<section id="sec-managing-problem" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-managing-problem"><span class="header-section-number">2.1</span> The Manager’s Problem</h2>
+<p>Recall that <a href="01-Chapter1.html#sec-performance-problem" class="quarto-xref"><span>Section 1.6.3</span></a> ends <a href="01-Chapter1.html" class="quarto-xref"><span>Chapter 1</span></a> with a single problem: choose the policy parameters that minimize <a href="01-Chapter1.html#eq-total-cost" class="quarto-xref">Equation&nbsp;<span>1.15</span></a>, or that meet a service target at least cost. Everything from <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a> onward solves that problem under different assumptions about demand, lead times, and review.</p>
+<p>All of it concerns one item. A manager does not have an item. In this chapter we take up the decisions that arise only when there are thousands of them, and none of those decisions is a lot sizing formula.</p>
+<section id="sec-managing-problem-scale" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-managing-problem-scale"><span class="header-section-number">2.1.1</span> What Scale Changes</h3>
+<p>A distributor carries tens of thousands of stock keeping units. A hospital system carries more. Each one has a demand history, a lead time, a unit cost, a supplier, and a policy that has to come from somewhere.</p>
+<p>Computation is not what breaks. A spreadsheet will produce forty thousand order quantities in a few seconds, and the models in this book are not expensive to evaluate. What breaks is everything around the computation. Someone has to decide which items deserve a considered decision instead of a default, keep the inputs current as demand and costs move, investigate the exceptions the system raises, and answer for the results. Those activities consume people, and people are finite in a way that arithmetic is not.</p>
+<div id="exm-attention-budget" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.1 (The attention budget)</strong></span> A distributor stocks 12,000 items. One planner is responsible for them, and about 30 hours a week of that planner’s time is genuinely available for reviewing items, the rest going to expediting, supplier problems, and meetings. A considered review of one item, looking at its recent demand, checking its parameters, and deciding whether to change anything, takes about six minutes. We work out what that buys.</p>
+<p>The weekly capacity is</p>
+<p><span class="math display">\[
+\frac{(30)(60)}{6} = 300 \text{ reviews per week}
+\]</span></p>
+<p>or 15,000 reviews a year over 50 working weeks. Spread evenly across the portfolio that is</p>
+<p><span class="math display">\[
+\frac{15{,}000}{12{,}000} = 1.25 \text{ reviews per item per year}
+\]</span></p>
+<p>Now we try to allocate that budget sensibly. Suppose 8% of items are important enough to want monthly attention. Then 960 items at 12 reviews a year consumes 11,520 reviews and leaves 3,480. Give the next 17%, some 2,040 items, a quarterly review and the requirement is 8,160 more, for a total of 19,680 against a budget of 15,000. It does not fit.</p>
+<p>Falling back to reviewing that middle group once a year costs 2,040 and leaves 1,440 reviews for the remaining 9,000 items. That works out to one review per item every six years.</p>
+<p>Two conclusions follow, and neither depends on the particular numbers.</p>
+<p><strong>Most items will never be looked at.</strong> That is not through neglect but by arithmetic. Whatever the portfolio size and however diligent the planner, the great majority of items must be handled by a rule that runs without anyone examining the item.</p>
+<p><strong>The scarce resource is attention, not computation.</strong> For example, giving all 12,000 items even a quarterly review would take 48,000 reviews a year, i.e.&nbsp;3.2 planners doing nothing else. The order quantities, by contrast, could be recomputed nightly at no meaningful cost.</p>
+</div>
+<p>A manager’s real decisions are not the ones the models answer. The models answer how much and when, for an item, once the inputs are known. The manager decides which items get a considered answer and which get a default, and whether the inputs can be trusted at all.</p>
+</section>
+<section id="sec-managing-problem-decisions" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="sec-managing-problem-decisions"><span class="header-section-number">2.1.2</span> What the Manager Decides</h3>
+<p><a href="#tbl-manager-decisions" class="quarto-xref">Table&nbsp;<span>2.1</span></a> lists the recurring responsibilities and where each is treated.</p>
+<div id="tbl-manager-decisions" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-manager-decisions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.1: The recurring responsibilities of inventory management. Two of them are the subject of this chapter.
+</figcaption>
+<div aria-describedby="tbl-manager-decisions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Responsibility</th>
+<th>The question</th>
+<th>Treated in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Segmentation</td>
+<td>Which items deserve attention, and which can share a policy?</td>
+<td><a href="#sec-managing-grouping" class="quarto-xref"><span>Section 2.2</span></a></td>
+</tr>
+<tr class="even">
+<td>Record accuracy</td>
+<td>Do the quantities the policies read match the shelf?</td>
+<td><a href="#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a></td>
+</tr>
+<tr class="odd">
+<td>Policy parameters</td>
+<td>How much to order, and when?</td>
+<td>Parts I and II</td>
+</tr>
+<tr class="even">
+<td>Service targets</td>
+<td>What availability is promised, and measured how?</td>
+<td><a href="01-Chapter1.html#sec-performance" class="quarto-xref"><span>Section 1.6</span></a></td>
+</tr>
+<tr class="odd">
+<td>Stocking decisions</td>
+<td>Which items are held where?</td>
+<td><a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+</tr>
+<tr class="even">
+<td>Excess and obsolete</td>
+<td>What happens to stock that will not sell?</td>
+<td><a href="#sec-managing-other" class="quarto-xref"><span>Section 2.4</span></a></td>
+</tr>
+<tr class="odd">
+<td>Performance reporting</td>
+<td>What is measured, and to whom?</td>
+<td><a href="#sec-managing-other" class="quarto-xref"><span>Section 2.4</span></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The first two are the subject of this chapter, and we place them before the models, not after, for the same reason.</p>
+<p><strong>Segmentation comes first because the models assume an allocation of attention that somebody has to make.</strong> Every result in Parts I and II is derived for an item whose parameters are known and current. Recall that <a href="#exm-attention-budget" class="quarto-xref">Example&nbsp;<span>2.1</span></a> shows this condition cannot hold for the whole portfolio. Thus, deciding which items it will hold for is a prior decision, and it is not a technical one.</p>
+<p><strong>Record accuracy comes first because the models read a record, not a shelf.</strong> <a href="01-Chapter1.html#sec-state" class="quarto-xref"><span>Section 1.3</span></a> defines the state of an inventory system as though <span class="math inline">\(I(t)\)</span> were directly observable. It is not. Every policy in this book triggers on a number the system believes, and <a href="#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a> is about the gap between that number and the truth. A correct policy applied to a wrong quantity is wrong, and nothing in its output says so.</p>
+<p>Both are prerequisites in the strong sense. That is, a policy can be derived perfectly and still fail, either because it was applied to items that never should have had individual treatment, or because it was computed from quantities that were not true. Notice that neither failure is visible in the policy itself.</p>
+</section>
+<section id="sec-managing-problem-scope" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="sec-managing-problem-scope"><span class="header-section-number">2.1.3</span> What This Chapter Does Not Cover</h3>
+<p>Two large topics are named here and treated elsewhere, because both need machinery this chapter does not have.</p>
+<p><strong>What to stock, and where</strong>, is a decision about the network, not about an item, and it turns on the stocking position cost <span class="math inline">\(f\)</span> of <a href="01-Chapter1.html#sec-costparams-f" class="quarto-xref"><span>Section 1.4.7</span></a> together with the structure of the supply network. <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> takes it up.</p>
+<p><strong>How much and when</strong> is the rest of the book.</p>
+<p>What remains here is the work that has to be done before either of those questions can be answered sensibly: dividing the portfolio so that attention can be allocated, and establishing that the numbers everything else depends on deserve that reliance.</p>
+</section>
+</section>
+<section id="sec-managing-grouping" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-managing-grouping"><span class="header-section-number">2.2</span> Grouping and Segmentation</h2>
+<p>A manager responsible for forty thousand items cannot make forty thousand decisions. Something has to reduce the problem, and that something is grouping. That is, we partition the item population so that decisions are made once per group instead of once per item.</p>
+<section id="sec-managing-grouping-why" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-managing-grouping-why"><span class="header-section-number">2.2.1</span> Two Reasons to Group</h3>
+<p>Grouping is done for two different purposes, and confusing them causes most of the trouble in practice <span class="citation" data-cites="abaydulla2016">(<a href="references.html#ref-abaydulla2016" role="doc-biblioref">Abaydulla 2016</a>)</span>.</p>
+<p><strong>Grouping for attention.</strong> Management effort is scarce and should go where it matters. An importance-based scheme ranks items so that the few worth individual review can be identified and the many that are not can be left to a rule. ABC classification is the standard instrument, and <a href="#sec-managing-grouping-abc" class="quarto-xref"><span>Section 2.2.2</span></a> takes it up.</p>
+<p><strong>Grouping for policy.</strong> Setting and maintaining a policy costs effort whether the item is important or not. An operations-based scheme puts items with similar operating characteristics together so that one policy can serve them all without much loss. Clustering methods are the standard instrument, and <a href="#sec-managing-grouping-clustering" class="quarto-xref"><span>Section 2.2.7</span></a> takes them up.</p>
+<p>These are not the same problem. They use different attributes, produce different groups, and are judged by different criteria. An importance ranking says nothing about whether two items can share a reorder policy, and a scheme that groups items by operating similarity says nothing about which deserve a planner’s attention.</p>
+<p>Applying one where the other is needed is the commonest failure in practice. It is why <span class="citation" data-cites="ernst1990">Ernst and Cohen (<a href="references.html#ref-ernst1990" role="doc-biblioref">1990</a>)</span> observe that classifications built on cost and volume alone “may provide unacceptable performance when evaluated with respect to cost and service measures in complex inventory environments.”</p>
+<p><a href="#tbl-grouping-purposes" class="quarto-xref">Table&nbsp;<span>2.2</span></a> sets out the distinction. Reading down the two columns, notice that they share no row: not the question, not the attributes, not the method, not even the criterion by which the result is judged. Thus, a scheme built for one column is not evidence about the other.</p>
+<div id="tbl-grouping-purposes" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-grouping-purposes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.2: The two purposes of grouping. A scheme built for one column is not evidence about the other.
+</figcaption>
+<div aria-describedby="tbl-grouping-purposes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Grouping for attention</th>
+<th>Grouping for policy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Question answered</td>
+<td>Which items deserve review?</td>
+<td>Which items can share a policy?</td>
+</tr>
+<tr class="even">
+<td>Typical attributes</td>
+<td>Annual dollar usage, criticality</td>
+<td>Demand rate, unit cost, lead time, demand pattern</td>
+</tr>
+<tr class="odd">
+<td>Typical method</td>
+<td>ABC classification</td>
+<td>Clustering</td>
+</tr>
+<tr class="even">
+<td>Number of groups</td>
+<td>Three to six</td>
+<td>Whatever the data supports</td>
+</tr>
+<tr class="odd">
+<td>Judged by</td>
+<td>Whether attention lands on the right items</td>
+<td>Cost penalty against individual policies</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-managing-grouping-abc" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-managing-grouping-abc"><span class="header-section-number">2.2.2</span> Pareto Analysis and ABC Classification</h3>
+<p>The observation behind ABC classification is that annual dollar usage is distributed very unevenly across items. A small fraction of items accounts for most of the money.</p>
+<ul>
+<li>Let <span class="math inline">\(\lambda_i\)</span> represent the annual demand for item <span class="math inline">\(i\)</span>, and <span class="math inline">\(c_i\)</span> its unit cost, so that their product is the <strong>annual dollar usage</strong> of that item. Ranking by</li>
+</ul>
+<p><span id="eq-dollar-usage"><span class="math display">\[
+\text{annual dollar usage} \;=\; \lambda_{i}\,c_{i}
+\tag{2.1}\]</span></span></p>
+<p>and cutting the ranked list into classes concentrates attention where the money is. Class A gets individual review and tight control, class C gets a simple rule and infrequent attention, and class B sits between them.</p>
+<div id="exm-abc" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.2 (Constructing an ABC classification)</strong></span> A location carries twelve items with the annual demands and unit costs below. The third column is <a href="#eq-dollar-usage" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>, and the rows are already sorted by it. We construct the classification in two steps, first accumulating the value and then choosing cut points.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Annual demand <span class="math inline">\(\lambda\)</span></th>
+<th style="text-align: right;">Unit cost <span class="math inline">\(c\)</span></th>
+<th style="text-align: right;">Annual dollar usage</th>
+<th style="text-align: right;">Cumulative</th>
+<th style="text-align: right;">Cumulative %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IT-01</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">$75.00</td>
+<td style="text-align: right;">$90,000</td>
+<td style="text-align: right;">$90,000</td>
+<td style="text-align: right;">51.4%</td>
+</tr>
+<tr class="even">
+<td>IT-02</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">$520.00</td>
+<td style="text-align: right;">$31,200</td>
+<td style="text-align: right;">$121,200</td>
+<td style="text-align: right;">69.3%</td>
+</tr>
+<tr class="odd">
+<td>IT-03</td>
+<td style="text-align: right;">9,000</td>
+<td style="text-align: right;">$2.40</td>
+<td style="text-align: right;">$21,600</td>
+<td style="text-align: right;">$142,800</td>
+<td style="text-align: right;">81.6%</td>
+</tr>
+<tr class="even">
+<td>IT-04</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">$38.00</td>
+<td style="text-align: right;">$11,400</td>
+<td style="text-align: right;">$154,200</td>
+<td style="text-align: right;">88.1%</td>
+</tr>
+<tr class="odd">
+<td>IT-05</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">$180.00</td>
+<td style="text-align: right;">$7,200</td>
+<td style="text-align: right;">$161,400</td>
+<td style="text-align: right;">92.2%</td>
+</tr>
+<tr class="even">
+<td>IT-06</td>
+<td style="text-align: right;">2,500</td>
+<td style="text-align: right;">$1.80</td>
+<td style="text-align: right;">$4,500</td>
+<td style="text-align: right;">$165,900</td>
+<td style="text-align: right;">94.8%</td>
+</tr>
+<tr class="odd">
+<td>IT-07</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">$22.00</td>
+<td style="text-align: right;">$3,300</td>
+<td style="text-align: right;">$169,200</td>
+<td style="text-align: right;">96.7%</td>
+</tr>
+<tr class="even">
+<td>IT-08</td>
+<td style="text-align: right;">18,000</td>
+<td style="text-align: right;">$0.15</td>
+<td style="text-align: right;">$2,700</td>
+<td style="text-align: right;">$171,900</td>
+<td style="text-align: right;">98.2%</td>
+</tr>
+<tr class="odd">
+<td>IT-09</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">$64.00</td>
+<td style="text-align: right;">$1,600</td>
+<td style="text-align: right;">$173,500</td>
+<td style="text-align: right;">99.2%</td>
+</tr>
+<tr class="even">
+<td>IT-10</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">$1.10</td>
+<td style="text-align: right;">$880</td>
+<td style="text-align: right;">$174,380</td>
+<td style="text-align: right;">99.7%</td>
+</tr>
+<tr class="odd">
+<td>IT-11</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">$0.08</td>
+<td style="text-align: right;">$400</td>
+<td style="text-align: right;">$174,780</td>
+<td style="text-align: right;">99.9%</td>
+</tr>
+<tr class="even">
+<td>IT-12</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">$2.20</td>
+<td style="text-align: right;">$198</td>
+<td style="text-align: right;">$174,978</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+</tbody>
+</table>
+<p>Total annual dollar usage is $174,978. Cutting at 80% and 95% of cumulative value gives <a href="#tbl-abc-classes" class="quarto-xref">Table&nbsp;<span>2.3</span></a>.</p>
+<div id="tbl-abc-classes" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-abc-classes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.3: The resulting classification.
+</figcaption>
+<div aria-describedby="tbl-abc-classes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Items</th>
+<th style="text-align: right;">Share of items</th>
+<th style="text-align: right;">Share of value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>IT-01 to IT-03</td>
+<td style="text-align: right;">25%</td>
+<td style="text-align: right;">81.6%</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>IT-04 to IT-06</td>
+<td style="text-align: right;">25%</td>
+<td style="text-align: right;">13.2%</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>IT-07 to IT-12</td>
+<td style="text-align: right;">50%</td>
+<td style="text-align: right;">5.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Notice that three items out of twelve carry 82% of the annual expenditure, while half the items carry 5%. The technique depends on that concentration, because a planner who reviews only IT-01, IT-02, and IT-03 is watching most of the money.</p>
+<p>Notice also that the cut points were chosen, not derived. For example, moving the A boundary up one item would put 88% of the value in class A, at the cost of reviewing a third of the portfolio. Nothing in the data says where to stop. Thus, the conventional 80/15/5 split is a convention, not a result, and you should be prepared to defend the cut points you choose.</p>
+</div>
+<p><a href="#fig-pareto" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> shows the same data as a cumulative curve, which is how the concentration is usually presented and how the cut points are usually chosen.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pareto" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pareto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-Chapter2_files/figure-html/fig-pareto-1.png" class="img-fluid figure-img" width="595">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pareto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Cumulative share of annual dollar usage against cumulative share of items, for the twelve items of <a href="#exm-abc" class="quarto-xref">Example&nbsp;<span>2.2</span></a>. The curve’s steepness at the left is the concentration that makes ABC classification useful. The dashed lines mark the 80% and 95% cuts.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Read the curve from left to right. It rises steeply over the first quarter of the items, reaching 82% of the value by the third item, and then flattens as each further item adds less. The diagonal is what the curve would look like if every item carried the same annual dollar usage. Thus, the gap between the curve and the diagonal is the concentration itself.</p>
+<p>Notice what that gap tells you before any cut point is chosen. An item file that plots close to the diagonal has no concentration to exploit, and ABC classification will not help there. The steeper the early rise, the more a small class A buys.</p>
+</section>
+<section id="sec-managing-grouping-criticality" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-managing-grouping-criticality"><span class="header-section-number">2.2.3</span> What One Criterion Misses</h3>
+<p>Ranking by annual dollar usage answers one question, where the money is. That is not always the right question.</p>
+<p>The failure runs in both directions <span class="citation" data-cites="flores1986">(<a href="references.html#ref-flores1986" role="doc-biblioref">Flores and Whybark 1986</a>)</span>. For example, a high dollar usage item may be entirely undemanding, i.e.&nbsp;readily available, substitutable, with a short lead time and no consequence to running out. It will be reviewed weekly because it is expensive. A low dollar usage item may be a fastener that halts an assembly line, available from one supplier on a four month lead time. It will be reviewed annually because it is cheap.</p>
+<p><span class="citation" data-cites="flores1986">Flores and Whybark (<a href="references.html#ref-flores1986" role="doc-biblioref">1986</a>)</span> propose that more than one criterion be used, and the criteria proposed since then are numerous: lead time, criticality, commonality, obsolescence, substitutability, reparability, scarcity, durability, order size requirements, stockability, and stockout penalty cost <span class="citation" data-cites="ramanathan2006">(<a href="references.html#ref-ramanathan2006" role="doc-biblioref">Ramanathan 2006</a>)</span>. Criticality is the most important of these, because it captures the consequence of not being able to supply, exactly what dollar usage cannot see.</p>
+<div id="exm-multicriteria" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.3 (Reclassifying on two criteria)</strong></span> Recall the twelve items of <a href="#exm-abc" class="quarto-xref">Example&nbsp;<span>2.2</span></a>, and add a criticality rating on a five-point scale, where 5 means an item whose absence halts an operation.</p>
+<p>We normalize each criterion to the unit interval, dollar usage by its maximum and criticality by <span class="math inline">\((\text{rating}-1)/4\)</span>, and then score each item with equal weights:</p>
+<p><span class="math display">\[
+\text{score}_{i} \;=\; 0.5\left(\frac{\lambda_{i} c_{i}}{\max_j \lambda_{j} c_{j}}\right)
+\;+\; 0.5\left(\frac{\text{criticality}_{i}-1}{4}\right)
+\]</span></p>
+<div id="tbl-multicriteria" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-multicriteria-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.4: The twelve items reranked, taking the top three as A and the next three as B.
+</figcaption>
+<div aria-describedby="tbl-multicriteria-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Dollar usage</th>
+<th style="text-align: right;">Criticality</th>
+<th style="text-align: right;">Score</th>
+<th style="text-align: center;">New class</th>
+<th style="text-align: center;">Old class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IT-01</td>
+<td style="text-align: right;">$90,000</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.750</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">A</td>
+</tr>
+<tr class="even">
+<td>IT-08</td>
+<td style="text-align: right;">$2,700</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.515</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><strong>C</strong></td>
+</tr>
+<tr class="odd">
+<td>IT-11</td>
+<td style="text-align: right;">$400</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.502</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><strong>C</strong></td>
+</tr>
+<tr class="even">
+<td>IT-05</td>
+<td style="text-align: right;">$7,200</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.415</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">B</td>
+</tr>
+<tr class="odd">
+<td>IT-03</td>
+<td style="text-align: right;">$21,600</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.370</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;"><strong>A</strong></td>
+</tr>
+<tr class="even">
+<td>IT-07</td>
+<td style="text-align: right;">$3,300</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.268</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;"><strong>C</strong></td>
+</tr>
+<tr class="odd">
+<td>IT-04</td>
+<td style="text-align: right;">$11,400</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.188</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;"><strong>B</strong></td>
+</tr>
+<tr class="even">
+<td>IT-02</td>
+<td style="text-align: right;">$31,200</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.173</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;"><strong>A</strong></td>
+</tr>
+<tr class="odd">
+<td>IT-06</td>
+<td style="text-align: right;">$4,500</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.150</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;"><strong>B</strong></td>
+</tr>
+<tr class="even">
+<td>IT-09</td>
+<td style="text-align: right;">$1,600</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.134</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">C</td>
+</tr>
+<tr class="odd">
+<td>IT-10</td>
+<td style="text-align: right;">$880</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">C</td>
+</tr>
+<tr class="even">
+<td>IT-12</td>
+<td style="text-align: right;">$198</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">C</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Seven of the twelve items change class. Two of the movements matter most.</p>
+<p><strong>IT-11 rises from C to A.</strong> It is an eight cent part with $400 of annual usage, ranked eleventh of twelve on money and third overall once criticality is counted. Thus, under the single-criterion scheme it would be counted once a year and reviewed never.</p>
+<p><strong>IT-02 falls from A to C.</strong> It is the second most expensive line in the file at $31,200 a year, and it is a criticality 1 item, i.e.&nbsp;substitutable, with no operational consequence to a stockout. It was receiving weekly attention because of its price tag alone.</p>
+<p>Notice that the weights were chosen, and that a different pair would move different items. That is the weakness of this approach, and <a href="#sec-managing-grouping-costcriterion" class="quarto-xref"><span>Section 2.2.4</span></a> is about avoiding it.</p>
+</div>
+</section>
+<section id="sec-managing-grouping-costcriterion" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="sec-managing-grouping-costcriterion"><span class="header-section-number">2.2.4</span> Deriving the Criterion Instead of Choosing Weights</h3>
+<p>The difficulty with <a href="#exm-multicriteria" class="quarto-xref">Example&nbsp;<span>2.3</span></a> is the 0.5. Nothing justified it, a manager who preferred 0.7 would get different classes, and no experiment settles the question.</p>
+<p>A better line of attack derives the ranking statistic from the cost model rather than assembling it from opinions. <span class="citation" data-cites="zhang2001">Zhang et al. (<a href="references.html#ref-zhang2001" role="doc-biblioref">2001</a>)</span> formulate the inventory problem as minimizing investment subject to service and order frequency constraints, and extract from the resulting expression for the reorder point a single classifying statistic combining unit cost, lead time, and demand. <span class="citation" data-cites="teunter2010">Teunter et al. (<a href="references.html#ref-teunter2010" role="doc-biblioref">2010</a>)</span> extend this with a cost criterion that includes shortage cost, so that criticality enters through the cost of failing to supply instead of through a subjective rating, and report that it outperforms both traditional ABC and the earlier criterion across several real datasets.</p>
+<p>The appeal is that several parameters are folded into one statistic without anyone choosing weights, and that the statistic is the one the objective function implies. Thus, where a defensible cost model exists, this is the better approach. Where one does not, weighted scoring remains, and you should record its weights as the assumptions they are.</p>
+</section>
+<section id="sec-managing-grouping-attributes" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="sec-managing-grouping-attributes"><span class="header-section-number">2.2.5</span> Which Attributes, and Which Forbid Grouping</h3>
+<p>Not every attribute plays the same role. <span class="citation" data-cites="lenard1995">Lenard and Roy (<a href="references.html#ref-lenard1995" role="doc-biblioref">1995</a>)</span> separate three kinds, given in <a href="#tbl-attribute-roles" class="quarto-xref">Table&nbsp;<span>2.5</span></a>, and the distinction is the most practically useful in this literature.</p>
+<div id="tbl-attribute-roles" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-attribute-roles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.5: Three roles an attribute can play in a grouping <span class="citation" data-cites="lenard1995">(<a href="references.html#ref-lenard1995" role="doc-biblioref">Lenard and Roy 1995</a>)</span>.
+</figcaption>
+<div aria-describedby="tbl-attribute-roles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Meaning</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Prevent</strong> grouping</td>
+<td>Items differing here must not share a group at all</td>
+<td>Storage structure, strategic importance</td>
+</tr>
+<tr class="even">
+<td><strong>Weaken</strong> grouping</td>
+<td>Differences degrade a shared policy without forbidding it</td>
+<td>Demand dispersion, lead time</td>
+</tr>
+<tr class="odd">
+<td><strong>Useful</strong> to the manager</td>
+<td>Make the resulting groups actionable</td>
+<td>Nature of the item, supplier, existing functional groups</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The first row of <a href="#tbl-attribute-roles" class="quarto-xref">Table&nbsp;<span>2.5</span></a> is the one that gets skipped. For example, two items stocked at different echelons serve different functions, so grouping them produces a policy correct for neither, however similar their demand rates. Thus, you should identify the preventing attributes first and partition on them before any statistical method is applied.</p>
+<p><span class="citation" data-cites="abaydulla2016">Abaydulla (<a href="references.html#ref-abaydulla2016" role="doc-biblioref">2016</a>)</span> draws a related line between <strong>structural</strong> attributes, which describe an item’s position in the supply network, and <strong>non-structural</strong> attributes, which do not. You should carry that finding forward. Structural attributes should not be fed into a clustering algorithm as ordinary numeric variables, because doing so raised both the cost penalty and the computation time. It was also unnecessary, since items sharing a network structure tended to cluster together on their other attributes anyway. Thus, partition on structure first, then cluster within.</p>
+<p>For operational attributes, <span class="citation" data-cites="vankampen2012">Kampen et al. (<a href="references.html#ref-vankampen2012" role="doc-biblioref">2012</a>)</span> offer four categories: <strong>volume</strong> (demand quantity and demand value), <strong>product</strong> (unit cost, lead time), <strong>customer</strong>, and <strong>timing</strong>. Timing is the least used of the four, and its most important member is the interval between demands. The next section takes that up, and the criterion there selects the model instead of merely describing the item.</p>
+</section>
+<section id="sec-managing-grouping-demandpattern" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="sec-managing-grouping-demandpattern"><span class="header-section-number">2.2.6</span> Demand Pattern Segmentation</h3>
+<p>Two items with identical annual demand can behave entirely differently. For example, one sells four units every week while the other sells two hundred units twice a year. Annual dollar usage cannot tell them apart, and no policy that suits one will suit the other.</p>
+<p>We describe the pattern with two quantities.</p>
+<ul>
+<li>Let <span class="math inline">\(\mathit{ADI}\)</span> represent the <strong>average demand interval</strong>, which measures intermittence, i.e.&nbsp;how often a demand occurs.</li>
+<li>Let <span class="math inline">\(\mathit{CV}^{2}\)</span> represent the squared coefficient of variation of the non-zero demand sizes, which measures lumpiness, i.e.&nbsp;how variable a demand is when it does occur.</li>
+</ul>
+<p>The first is the average interval between non-zero demands,</p>
+<p><span id="eq-adi"><span class="math display">\[
+\mathit{ADI} \;=\; \frac{\text{number of periods}}{\text{number of periods with non-zero demand}}
+\tag{2.2}\]</span></span></p>
+<p>and the second is</p>
+<p><span id="eq-cv2"><span class="math display">\[
+\mathit{CV}^{2} \;=\; \left(\frac{s}{\bar{x}}\right)^{2}
+\tag{2.3}\]</span></span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(s\)</span> are the mean and standard deviation of the non-zero demands. Cutting each at a threshold gives the four classes of <a href="#tbl-eils" class="quarto-xref">Table&nbsp;<span>2.6</span></a>.</p>
+<div id="tbl-eils" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eils-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.6: Demand classes by intermittence and lumpiness, with the conventional cut points.
+</figcaption>
+<div aria-describedby="tbl-eils-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Frequent (<span class="math inline">\(\mathit{ADI} \le 1.32\)</span>)</th>
+<th>Infrequent (<span class="math inline">\(\mathit{ADI} &gt; 1.32\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Variable</strong> (<span class="math inline">\(\mathit{CV}^{2} &gt; 0.49\)</span>)</td>
+<td>Erratic</td>
+<td>Lumpy</td>
+</tr>
+<tr class="even">
+<td><strong>Steady</strong> (<span class="math inline">\(\mathit{CV}^{2} \le 0.49\)</span>)</td>
+<td>Smooth</td>
+<td>Intermittent</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="exm-eils" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.4 (Classifying five demand histories)</strong></span> Five items each have twelve periods of demand. We classify them by computing <a href="#eq-adi" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> and <a href="#eq-cv2" class="quarto-xref">Equation&nbsp;<span>2.3</span></a> for each.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Demand by period</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S-1</td>
+<td>20, 22, 19, 21, 23, 20, 18, 22, 21, 19, 20, 21</td>
+</tr>
+<tr class="even">
+<td>E-1</td>
+<td>5, 40, 2, 60, 10, 35, 1, 50, 8, 45, 3, 30</td>
+</tr>
+<tr class="odd">
+<td>I-1</td>
+<td>0, 10, 0, 0, 9, 0, 11, 0, 0, 10, 0, 0</td>
+</tr>
+<tr class="even">
+<td>L-1</td>
+<td>0, 0, 45, 0, 0, 3, 0, 0, 0, 80, 0, 12</td>
+</tr>
+<tr class="odd">
+<td>B-1</td>
+<td>0, 15, 12, 0, 18, 14, 0, 16, 13, 0, 17, 15</td>
+</tr>
+</tbody>
+</table>
+<p>Take I-1 first. Four of the twelve periods carry demand, so from <a href="#eq-adi" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> <span class="math inline">\(\mathit{ADI} = 12/4 = 3.00\)</span>. The non-zero demands are 10, 9, 11, and 10, with mean 10.0 and standard deviation 0.816, so from <a href="#eq-cv2" class="quarto-xref">Equation&nbsp;<span>2.3</span></a> <span class="math inline">\(\mathit{CV}^{2} = (0.816/10.0)^{2} = 0.007\)</span>. That is infrequent and steady, so I-1 is <strong>intermittent</strong>.</p>
+<p>Repeating for all five gives <a href="#tbl-eils-worked" class="quarto-xref">Table&nbsp;<span>2.7</span></a>.</p>
+<div id="tbl-eils-worked" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eils-worked-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.7: The five histories classified.
+</figcaption>
+<div aria-describedby="tbl-eils-worked-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Non-zero periods</th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{ADI}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{CV}^{2}\)</span></th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S-1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.005</td>
+<td>Smooth</td>
+</tr>
+<tr class="even">
+<td>E-1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.798</td>
+<td>Erratic</td>
+</tr>
+<tr class="odd">
+<td>I-1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">0.007</td>
+<td>Intermittent</td>
+</tr>
+<tr class="even">
+<td>L-1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">1.001</td>
+<td>Lumpy</td>
+</tr>
+<tr class="odd">
+<td>B-1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.50</td>
+<td style="text-align: right;">0.018</td>
+<td>Intermittent</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>B-1 is the instructive one. It has demand in eight of twelve periods and very steady sizes, which reads as a well behaved item. However, <span class="math inline">\(\mathit{ADI} = 1.50\)</span> puts it just past the 1.32 cut and into the intermittent class. Thus, you should not let an item sitting that close to a boundary have its treatment decided by which side it fell on.</p>
+</div>
+<p>The classification matters because it selects the model and does not merely describe the item. The stochastic policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> and <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> assume a demand distribution that a smooth item satisfies and a lumpy one does not. The fill rate computed for a lumpy item from a normal approximation can be badly wrong.</p>
+<p>Two cautions apply. First, the thresholds are conventions, and the literature does not agree on when a series becomes intermittent. Proposals include at least 30% of periods with zero demand, no more than 60 to 70% of periods with demand, and a mean interval exceeding 1.25 review periods <span class="citation" data-cites="johnston1996">(<a href="references.html#ref-johnston1996" role="doc-biblioref">Johnston and Boylan 1996</a>)</span>.</p>
+<p>Second, the class depends on the period length chosen. The same transactions bucketed daily rather than monthly will show more zero periods and a longer inter-demand interval. Thus, an item can be moved between classes by changing nothing but the reporting calendar. You should never allow such a result to drive a policy.</p>
+<p>A portfolio is rarely mostly smooth. For example, in a hospital pharmacy study of roughly two thousand items, most items fell outside the smooth class <span class="citation" data-cites="varghese">(<a href="references.html#ref-varghese" role="doc-biblioref">Varghese et al. 2012</a>)</span>. That is the normal case and not a pathology, and it explains much of why fill rate estimates disappoint in practice.</p>
+</section>
+<section id="sec-managing-grouping-clustering" class="level3" data-number="2.2.7">
+<h3 data-number="2.2.7" class="anchored" data-anchor-id="sec-managing-grouping-clustering"><span class="header-section-number">2.2.7</span> Clustering for Policy</h3>
+<p>Classification schemes assign items to a small number of predetermined classes. Clustering instead lets the data determine the groups. That is, we place items in a space whose coordinates are their operational attributes and group those that lie close together.</p>
+<p>The practical algorithm at scale is <strong>k-means</strong>, which partitions items into <span class="math inline">\(k\)</span> groups by repeatedly assigning each item to the nearest group centre and recomputing the centres. Alternatives exist, including genetic algorithms, simulated annealing, and tabu search. However, they are far slower on problems of this size, and k-means and its close relatives are essentially the only methods that have been applied to inventory populations of realistic scale <span class="citation" data-cites="abaydulla2016">(<a href="references.html#ref-abaydulla2016" role="doc-biblioref">Abaydulla 2016</a>)</span>.</p>
+<p>Three practical points.</p>
+<p><strong>Attributes must be scaled.</strong> Demand rate in thousands and unit cost in dollars are not comparable distances, so an unscaled clustering is dominated by whatever attribute happens to carry the largest numbers.</p>
+<p><strong>Choosing <span class="math inline">\(k\)</span> is a judgment.</strong> More groups reduce the penalty of a shared policy and increase the work of maintaining policies. For example, <span class="citation" data-cites="abaydulla2016">Abaydulla (<a href="references.html#ref-abaydulla2016" role="doc-biblioref">2016</a>)</span> found seven groups outperformed three on penalty cost, which is unsurprising and is exactly the trade <a href="#sec-managing-grouping-evaluating" class="quarto-xref"><span>Section 2.2.8</span></a> makes explicit.</p>
+<p><strong>Group first, then decide how far to share.</strong> <span class="citation" data-cites="rossetti2011">Rossetti and Achlerkar (<a href="references.html#ref-rossetti2011" role="doc-biblioref">2011</a>)</span> distinguish two uses of the same clustering. Under <strong>group policies</strong>, every item in a cluster uses a single policy computed from the group’s average attributes. Under <strong>grouped individual policies</strong>, the clustering organizes the work but each item still receives its own policy. The first is fast and carries a real penalty, besides costing items their individual identity. The second lands close to individual optimization and costs computation. Both beat ABC on cost and service.</p>
+<p>You should keep that distinction in view, because it separates two things that are often run together. Grouping is a way of organizing decisions. It does not oblige you to give every member of a group the same answer.</p>
+</section>
+<section id="sec-managing-grouping-evaluating" class="level3" data-number="2.2.8">
+<h3 data-number="2.2.8" class="anchored" data-anchor-id="sec-managing-grouping-evaluating"><span class="header-section-number">2.2.8</span> Evaluating a Grouping</h3>
+<p>A classification is not right or wrong. It is more or less expensive, and the cost is measurable.</p>
+<p>The reference point is what the items would cost under individual policies. Any grouping that forces items to share a policy gives something up against that benchmark.</p>
+<ul>
+<li>Let the <strong>grouping penalty</strong> represent that loss, as a fraction of the individual policy cost.</li>
+</ul>
+<p>That is,</p>
+<p><span id="eq-grouping-penalty"><span class="math display">\[
+\text{penalty} \;=\;
+\frac{C(\text{group policies}) - C(\text{individual policies})}
+     {C(\text{individual policies})}
+\tag{2.4}\]</span></span></p>
+<p>Notice that <a href="#eq-grouping-penalty" class="quarto-xref">Equation&nbsp;<span>2.4</span></a> uses the relevant cost of <a href="01-Chapter1.html#eq-relevant-cost" class="quarto-xref">Equation&nbsp;<span>1.16</span></a> rather than <span class="math inline">\(\mathit{TC}\)</span>, and that the choice matters. Purchase cost is identical under every grouping, so it cancels in the numerator and only inflates the denominator. Dividing by <span class="math inline">\(\mathit{TC}\)</span> would make the same grouping look cheap for an expensive item and dear for a cheap one, a statement about unit cost and not about grouping.</p>
+<p>Set against the penalty is the effort saved, which is roughly the reduction in the number of policies to set, review, and maintain. A decision about grouping is made on those two numbers.</p>
+<div id="exm-grouping-penalty" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.5 (Is the grouping worth it?)</strong></span> Six items have been costed three ways: under individual policies, under a two-group scheme, and under a three-group scheme. All figures are annual relevant cost, so purchase cost is excluded. We compute the penalty for each scheme.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Individual</th>
+<th style="text-align: right;">Two groups</th>
+<th style="text-align: right;">Three groups</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td style="text-align: right;">$4,200</td>
+<td style="text-align: right;">$4,310</td>
+<td style="text-align: right;">$4,250</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td style="text-align: right;">$3,800</td>
+<td style="text-align: right;">$3,905</td>
+<td style="text-align: right;">$3,845</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td style="text-align: right;">$5,100</td>
+<td style="text-align: right;">$5,180</td>
+<td style="text-align: right;">$5,140</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td style="text-align: right;">$1,150</td>
+<td style="text-align: right;">$1,260</td>
+<td style="text-align: right;">$1,200</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td style="text-align: right;">$980</td>
+<td style="text-align: right;">$1,090</td>
+<td style="text-align: right;">$1,030</td>
+</tr>
+<tr class="even">
+<td>F</td>
+<td style="text-align: right;">$1,340</td>
+<td style="text-align: right;">$1,415</td>
+<td style="text-align: right;">$1,370</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>$16,570</strong></td>
+<td style="text-align: right;"><strong>$17,160</strong></td>
+<td style="text-align: right;"><strong>$16,835</strong></td>
+</tr>
+</tbody>
+</table>
+<p>From <a href="#eq-grouping-penalty" class="quarto-xref">Equation&nbsp;<span>2.4</span></a>, the two-group scheme costs</p>
+<p><span class="math display">\[
+\frac{17{,}160 - 16{,}570}{16{,}570} = 3.56\%
+\]</span></p>
+<p>and the three-group scheme costs</p>
+<p><span class="math display">\[
+\frac{16{,}835 - 16{,}570}{16{,}570} = 1.60\% \]</span> The decision is worth $590 a year against $265 a year, set against maintaining two policies, three, or six.</p>
+<p>For six items this is not a decision anybody needs to make, because anyone can maintain six policies. Scale it to forty thousand items and the same 3.56% is the price of reducing forty thousand policy calculations to two hundred, the difference between a procedure that runs and one that does not. Notice that the penalty is the same number either way. What changes is what it buys.</p>
+</div>
+</section>
+<section id="sec-managing-grouping-combining" class="level3" data-number="2.2.9">
+<h3 data-number="2.2.9" class="anchored" data-anchor-id="sec-managing-grouping-combining"><span class="header-section-number">2.2.9</span> Combining Schemes</h3>
+<p>Nothing requires choosing one method. Importance classification and operational clustering answer different questions, so applying both yields groups that are identified by importance and homogeneous in operation. However, the order in which they are applied matters <span class="citation" data-cites="abaydulla2016">(<a href="references.html#ref-abaydulla2016" role="doc-biblioref">Abaydulla 2016</a>)</span>.</p>
+<p><strong>Importance first, then clustering.</strong> Classify into A, B, and C, then cluster within each class. Items keep a visible priority label, and the clusters inside each class support a shared policy. It is the natural choice when management reporting is organized around the classes.</p>
+<p><strong>Clustering first, then importance.</strong> Cluster on operational attributes, then rank within each cluster. The number of operational groups is no longer constrained to three or six, and the importance label is applied inside groups that are already homogeneous.</p>
+<p>The simplest version of the first is a cross-tabulation, classifying items by dollar usage and by demand pattern and then reading the table. For example, an A item with lumpy demand and a C item with smooth demand are different management problems, and neither classification alone distinguishes them.</p>
+</section>
+<section id="sec-managing-grouping-using" class="level3" data-number="2.2.10">
+<h3 data-number="2.2.10" class="anchored" data-anchor-id="sec-managing-grouping-using"><span class="header-section-number">2.2.10</span> Using a Classification</h3>
+<p>A classification earns its place only through the decisions it changes. <a href="#tbl-class-decisions" class="quarto-xref">Table&nbsp;<span>2.8</span></a> lists the usual ones. Notice that a class appearing in none of those rows is changing nothing.</p>
+<div id="tbl-class-decisions" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-class-decisions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.8: What a classification is for. A class that changes none of these is decoration.
+</figcaption>
+<div aria-describedby="tbl-class-decisions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decision</th>
+<th>How the class enters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Review frequency</td>
+<td>A items reviewed individually and often, C items on a rule</td>
+</tr>
+<tr class="even">
+<td>Service target</td>
+<td>Higher fill rates for critical or high value classes</td>
+</tr>
+<tr class="odd">
+<td>Count frequency</td>
+<td>More frequent cycle counts for A items (<a href="#sec-managing-records-frequency" class="quarto-xref"><span>Section 2.3.7</span></a>)</td>
+</tr>
+<tr class="even">
+<td>Stocking decision</td>
+<td>Whether to hold the item at a location at all</td>
+</tr>
+<tr class="odd">
+<td>Policy sharing</td>
+<td>Whether a group policy is applied or each item is set individually</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Three failures recur in practice.</p>
+<p><strong>Classes become ends in themselves.</strong> A quarterly report of how many items are in each class, with no decision attached, is a measurement that costs money and returns nothing.</p>
+<p><strong>Boundaries are treated as cliffs.</strong> The item just below the A cut and the item just above it are nearly identical, so giving them materially different treatment is arbitrary. Thus, where a decision is sensitive at a boundary, you should look at the items near it, not at the rule.</p>
+<p><strong>Classes go stale.</strong> Demand moves, products reach end of life, and criticality changes when equipment is retired. Thus, a classification built three years ago and never revisited is directing today’s attention using yesterday’s item file. Reclassification should be scheduled, and its frequency is a decision of the same kind as count frequency in <a href="#sec-managing-records-frequency" class="quarto-xref"><span>Section 2.3.7</span></a>.</p>
+</section>
+</section>
+<section id="sec-managing-records" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-managing-records"><span class="header-section-number">2.3</span> Inventory Record Analysis</h2>
+<p>Nobody sets a reorder point by walking to the shelf and counting. The policy reads a <strong>record</strong>, and the record is a claim about the shelf, not the shelf itself. Claims decay. In this section we take up how far they decay, how to measure it, and what to do about it.</p>
+<section id="sec-managing-records-drift" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="sec-managing-records-drift"><span class="header-section-number">2.3.1</span> What a Record Claims, and Why It Drifts</h3>
+<p>An inventory record asserts, at a minimum, four things: a <strong>stock number</strong>, a <strong>location</strong>, a <strong>quantity on hand</strong>, and a <strong>condition</strong> <span class="citation" data-cites="rossetti2001">(<a href="references.html#ref-rossetti2001" role="doc-biblioref">Rossetti et al. 2001</a>)</span>. The record is inaccurate if any one of them is wrong. That is a stricter definition than it first appears, and it is the right one. For example, an item recorded in the correct quantity at the wrong location cannot be picked, and an item in the right place with the right count but the wrong condition code will be issued to a customer who cannot use it.</p>
+<p><a href="#tbl-record-errors" class="quarto-xref">Table&nbsp;<span>2.9</span></a> lists where the errors come from.</p>
+<div id="tbl-record-errors" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-record-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.9: Where record errors come from, and the signature each leaves. The signature matters because it is what makes a cause findable.
+</figcaption>
+<div aria-describedby="tbl-record-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>What happens</th>
+<th>How it shows up</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transaction error</td>
+<td>A receipt, issue, or transfer is keyed with the wrong quantity, item, or location</td>
+<td>A discrepancy with no offsetting entry</td>
+</tr>
+<tr class="even">
+<td>Unrecorded movement</td>
+<td>Stock is taken, borrowed, or returned without a transaction</td>
+<td>Record higher than shelf, drifting one way</td>
+</tr>
+<tr class="odd">
+<td>Shrinkage</td>
+<td>Theft, breakage, spoilage</td>
+<td>Record higher than shelf</td>
+</tr>
+<tr class="even">
+<td>Misidentification</td>
+<td>Two similar items confused at receipt or pick</td>
+<td>Paired errors, one item high and another low</td>
+</tr>
+<tr class="odd">
+<td>Unit of issue</td>
+<td>Each against case, pack against piece</td>
+<td>Errors that are exact multiples</td>
+</tr>
+<tr class="even">
+<td>Timing</td>
+<td>The count and the transaction fall on opposite sides of a cutoff</td>
+<td>A discrepancy that resolves itself</td>
+</tr>
+<tr class="odd">
+<td>Location error</td>
+<td>Stock physically moved without a transfer</td>
+<td>Correct total, wrong place</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Those sources fall into two mechanisms, and we separate them because they call for different responses <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. <strong>Transaction errors</strong> occur when a movement is recorded incorrectly, e.g.&nbsp;a receipt keyed at the wrong quantity or a transfer entered against the wrong item. They are process defects and can be designed out. <strong>Stock loss errors</strong> are unrecorded losses through shrinkage, damage, or theft, where the movement was real and no transaction was ever generated. No amount of transaction discipline prevents them, and they drift in one direction, with the record always above the shelf.</p>
+<p>Their relative weight depends on the setting. In retail store operations the errors concentrate at receiving and at the point of sale, followed by database processing, physical counting, ticketing, stocking, and shelf alignment <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. Knowing the order matters, because it says where process improvement effort returns the most.</p>
+<p>Notice one feature of <a href="#tbl-record-errors" class="quarto-xref">Table&nbsp;<span>2.9</span></a> that organizes the whole subject. Every source is a <strong>transaction</strong>, or the absence of one. That is, a record for an item that nothing has happened to cannot become wrong. <span class="citation" data-cites="orozco1993">Orozco (<a href="references.html#ref-orozco1993" role="doc-biblioref">1993</a>)</span> pressed this point hard, arguing that counting effort spent on items with no activity since the last count is wasted, which is the reasoning behind the transaction-based and opportunity-based counting methods of <a href="#sec-managing-records-methods" class="quarto-xref"><span>Section 2.3.6</span></a>.</p>
+</section>
+<section id="sec-managing-records-why" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="sec-managing-records-why"><span class="header-section-number">2.3.2</span> Why Accuracy Comes First</h3>
+<p>Recall that <a href="01-Chapter1.html#sec-state" class="quarto-xref"><span>Section 1.3</span></a> defined the on-hand inventory <span class="math inline">\(I(t)\)</span> as though it were a single quantity. It is two.</p>
+<ul>
+<li>Let <span class="math inline">\(I_{a}(t)\)</span> represent the amount actually on the shelf at time <span class="math inline">\(t\)</span>.</li>
+<li>Let <span class="math inline">\(I_{r}(t)\)</span> represent the amount the system believes is there.</li>
+<li>Let <span class="math inline">\(D(t)\)</span> represent the <strong>discrepancy</strong> between them.</li>
+</ul>
+<p>That is,</p>
+<p><span id="eq-discrepancy"><span class="math display">\[
+D(t) \;=\; I_{a}(t) - I_{r}(t)
+\tag{2.5}\]</span></span></p>
+<p>The record is accurate when <span class="math inline">\(D(t) = 0\)</span>. Notice that shrinkage and unrecorded issues make <span class="math inline">\(D(t)\)</span> negative, with the record standing above the shelf.</p>
+<p>The distinction matters because the two quantities are used for different things <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. Demand is filled from <span class="math inline">\(I_{a}(t)\)</span>, because that is what physically exists. However, the reorder decision is made on the inventory position, and the position is computed from the record:</p>
+<p><span id="eq-recorded-position"><span class="math display">\[
+\mathit{IP}(t) \;=\; I_{r}(t) + \mathit{IO}(t) - B(t)
+\tag{2.6}\]</span></span></p>
+<p>Every policy in this book compares that quantity against a reorder point. When <span class="math inline">\(D(t) \ne 0\)</span> the comparison is made against the wrong number. <span class="citation" data-cites="dehoratius2004">DeHoratius and Raman (<a href="references.html#ref-dehoratius2004" role="doc-biblioref">2004</a>)</span> note that the error runs both ways, since it can trigger an order that is not needed and it can suppress one that is.</p>
+<p>A policy computed from a wrong record is wrong, and it fails in a way that is difficult to detect.</p>
+<p>Consider a continuous review system holding a reorder point <span class="math inline">\(r\)</span> chosen to give some service level. The policy triggers when the recorded position reaches <span class="math inline">\(r\)</span>. If the record overstates what is on the shelf, then the trigger fires late, the effective reorder point is lower than the one designed, and the item runs short more often than the design allows. Notice that nothing in the system reports this. The model reports the service it was designed to deliver, and the warehouse delivers something worse.</p>
+<p><span class="citation" data-cites="kumar1992">Kumar and Arora (<a href="references.html#ref-kumar1992" role="doc-biblioref">1992</a>)</span> studied exactly this at a service parts operation and found that service levels were not being met, with record inaccuracy the cause. We dwell on that for a moment. The organization had a defensible policy, correctly derived, and the policy was not delivering, because the quantity it was reading was not the quantity it had.</p>
+<p>There is a second way to see it. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> will show that safety stock exists to absorb uncertainty in demand over the lead time. Record error is a second source of uncertainty, and the safety stock absorbs it too, whether or not anyone intended that. <span class="citation" data-cites="morey1985">Morey (<a href="references.html#ref-morey1985" role="doc-biblioref">1985</a>)</span> formalized this by defining a minimum actual protection level, i.e.&nbsp;the service a policy really achieves once record error is accounted for alongside demand variability. Thus, an organization with poor records is paying for safety stock twice, once for the demand uncertainty it knows about and again for the record uncertainty it does not.</p>
+</section>
+<section id="sec-managing-records-cost" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="sec-managing-records-cost"><span class="header-section-number">2.3.3</span> What Error Actually Costs</h3>
+<p>Simulation of a two-echelon chain, a supplier feeding a distribution centre feeding a retailer, each running an <span class="math inline">\((r, Q)\)</span> policy with backordering, separates the responses available to an organization whose records are wrong <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. There are three cases, and the comparison between them is the argument for this whole section.</p>
+<p><strong>Leave the policy alone.</strong> Running the parameters that were correct for accurate records, against records that are not, gives up service. For example, in the reported experiments the high error case lost roughly half its fill rate, and system backorders rose from about ten items to about three hundred and seventy.</p>
+<p><strong>Re-optimize the policy around the error.</strong> Recomputing <span class="math inline">\(r\)</span> and <span class="math inline">\(Q\)</span> to hit the same 90% fill rate target does restore the service, and pays for it in stock. The system carries substantially more inventory purely to mask the discrepancy, and backorders still rise sharply, by roughly 300% in the high error case for fast moving items.</p>
+<p>This second case is the one that explains why record inaccuracy survives for years without being raised. The customer facing measure is back at target, while the cost has moved into inventory, transportation, and handling, where nobody attributes it to record keeping <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. That is, the symptom that would have prompted an investigation has been bought off.</p>
+<p><strong>Count.</strong> Adding cycle counting raised fill rates while holding inventory the same or slightly lower. Notice that this is not a trade. The first two responses trade service against inventory, while counting improves service without buying it with stock, because it attacks the discrepancy instead of compensating for it. This section therefore comes before the policies. There is no point tuning a reorder point to the second decimal place against a record that is right eight times in ten.</p>
+</section>
+<section id="sec-managing-records-measuring" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="sec-managing-records-measuring"><span class="header-section-number">2.3.4</span> Measuring Record Accuracy</h3>
+<p>The standard measure is the fraction of records examined that are accurate:</p>
+<p><span id="eq-record-accuracy"><span class="math display">\[
+\text{record accuracy} \;=\;
+\frac{\text{number of accurate records}}{\text{number of records examined}}
+\tag{2.7}\]</span></span></p>
+<p>That is simple to state. However, it hides three choices that change the answer.</p>
+<p><strong>What counts as accurate.</strong> Requiring the count to match the record exactly is one convention. The other is a <strong>tolerance</strong>, under which a count within some percentage of the recorded quantity is treated as accurate. Tolerances exist because exact agreement on a bin of ten thousand washers is not worth what it costs to obtain. <span class="citation" data-cites="apics1980">APICS (<a href="references.html#ref-apics1980" role="doc-biblioref">1980</a>)</span> recommends tolerances of 0.5%, 1%, and 5% for A, B, and C items respectively. <span class="citation" data-cites="stahl1998">Stahl (<a href="references.html#ref-stahl1998" role="doc-biblioref">1998</a>)</span> argues the tolerance should be set from value, usage, lead time, method of counting, criticality, and bill of material level, not from value alone, on the reasoning that a cheap item that halts an assembly deserves a tight tolerance whatever it costs.</p>
+<p>The choice is not cosmetic. The same warehouse reports very different accuracy under a strict match rule and under a 5% tolerance. Thus, comparisons across organizations that do not state their tolerance are meaningless.</p>
+<p><strong>What is weighted.</strong> <a href="#eq-record-accuracy" class="quarto-xref">Equation&nbsp;<span>2.7</span></a> weights every record equally. An alternative weights by value, the thing a financial auditor cares about. These diverge sharply, and the divergence has a direction. A warehouse can be accurate in dollars while being inaccurate in records, because the large errors fall on cheap items and the expensive items are counted carefully. Aggregate dollar value therefore masks individual errors, the central criticism of accuracy programs built on financial sampling. Picking an item to fill an order requires that item’s record to be right, and no amount of dollar accuracy supplies it.</p>
+<div id="exm-record-accuracy" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.6 (Three accuracy figures from one count sheet)</strong></span> A cycle count of ten records returns the results below, where the error column is the absolute difference as a percentage of the recorded quantity. We compute the accuracy three ways.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Unit cost</th>
+<th style="text-align: right;">Recorded</th>
+<th style="text-align: right;">Counted</th>
+<th style="text-align: right;">Difference</th>
+<th style="text-align: right;">Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A-100</td>
+<td style="text-align: right;">$80.00</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr class="even">
+<td>A-101</td>
+<td style="text-align: right;">$150.00</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">2.2%</td>
+</tr>
+<tr class="odd">
+<td>A-102</td>
+<td style="text-align: right;">$2.00</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">495</td>
+<td style="text-align: right;">-5</td>
+<td style="text-align: right;">1.0%</td>
+</tr>
+<tr class="even">
+<td>B-200</td>
+<td style="text-align: right;">$400.00</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr class="odd">
+<td>B-201</td>
+<td style="text-align: right;">$0.40</td>
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">2,970</td>
+<td style="text-align: right;">-30</td>
+<td style="text-align: right;">1.0%</td>
+</tr>
+<tr class="even">
+<td>B-202</td>
+<td style="text-align: right;">$25.00</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-8</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr class="odd">
+<td>C-300</td>
+<td style="text-align: right;">$6.00</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr class="even">
+<td>C-301</td>
+<td style="text-align: right;">$0.75</td>
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">990</td>
+<td style="text-align: right;">-10</td>
+<td style="text-align: right;">1.0%</td>
+</tr>
+<tr class="odd">
+<td>C-302</td>
+<td style="text-align: right;">$3.00</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">+6</td>
+<td style="text-align: right;">10.0%</td>
+</tr>
+<tr class="even">
+<td>C-303</td>
+<td style="text-align: right;">$95.00</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strict match.</strong> Four records agree exactly, so</p>
+<p><span class="math display">\[
+\text{accuracy} = \frac{4}{10} = 40\%
+\]</span></p>
+<p><strong>Within a 2% tolerance.</strong> The four exact records qualify, and so do A-102, B-201, and C-301 at 1.0% each. However, A-101 misses at 2.2%, C-302 at 10%, and B-202 at 100%. Therefore,</p>
+<p><span class="math display">\[
+\text{accuracy} = \frac{7}{10} = 70\%
+\]</span></p>
+<p><strong>Weighted by value.</strong> Recorded value is <span class="math inline">\(80(120) + 150(45) + \cdots + 95(15) = \$27{,}405\)</span>, and the absolute dollar discrepancy is <span class="math inline">\(150(1) + 2(5) + 0.40(30) + 25(8) + 0.75(10) + 3(6) = \$397.50\)</span>. Therefore,</p>
+<p><span class="math display">\[
+\text{accuracy} = 1 - \frac{397.50}{27{,}405} = 98.55\%
+\]</span></p>
+<p>Notice that the same shelf, counted once, reports 40%, 70%, or 98.6% depending only on which definition is used. The value-weighted figure is highest because the errors sit on cheap items. Recall the masking effect described in <a href="#sec-managing-records-cost" class="quarto-xref"><span>Section 2.3.3</span></a>; this is that effect seen at the level of a single count sheet.</p>
+<p>Notice also what the dollar figure does to B-202. The item is missing entirely, with eight units recorded and none on the shelf, and it moves the value-weighted accuracy by $200 out of $27,405. Thus, the next customer who wants B-202 will not care that the warehouse is 98.6% accurate by value.</p>
+</div>
+<p><strong>Which fields.</strong> Quantity accuracy alone is the usual reported figure. Location accuracy and condition accuracy are separate measures. A program that reports only quantity is reporting on one of the four fields a record asserts.</p>
+<p><strong>Benchmarks.</strong> A survey of 410 manufacturing companies found roughly 20% of firms using cycle counting achieving 98% accuracy or better, with more than 60% between 90% and 97% <span class="citation" data-cites="rossetti2001">(<a href="references.html#ref-rossetti2001" role="doc-biblioref">Rossetti et al. 2001</a>)</span>. Materials requirements planning is usually said to require 95% or better in order to function, because <a href="06-Chapter6.html" class="quarto-xref"><span>Chapter 6</span></a> explodes a schedule through records and an error at one level propagates to every level below it. Best in class is 99% and above.</p>
+</section>
+<section id="sec-managing-records-counting" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="sec-managing-records-counting"><span class="header-section-number">2.3.5</span> Physical Inventory and Cycle Counting</h3>
+<p>There are two ways to find out what is really there.</p>
+<p>An <strong>annual physical inventory</strong>, counting everything at once, is the older practice and is often required for financial reporting. As a way of managing accuracy it has three defects. It is disruptive, usually requiring operations to stop. It is infrequent, so an error introduced in February is corrected in December after eleven months of decisions made on it. And it diagnoses nothing, because a wall to wall count produces a corrected balance and no information about how the balance became wrong.</p>
+<p><strong>Cycle counting</strong> counts a portion of the population continuously, on a schedule, without stopping operations. It corrects records as a by-product. Its actual purpose, as <span class="citation" data-cites="tersine1994">Tersine (<a href="references.html#ref-tersine1994" role="doc-biblioref">1994</a>)</span> sets out, is a list in a deliberate order:</p>
+<ol type="1">
+<li>Identify the causes of errors.</li>
+<li>Correct the conditions causing the errors.</li>
+<li>Maintain a high level of record accuracy.</li>
+<li>Provide a correct statement of assets.</li>
+</ol>
+<p>Notice that accuracy is third on that list and the balance sheet is fourth. A cycle counting program judged only on the number of records it corrected is being judged on its by-product.</p>
+<p>The two are not exclusive, and in practice most organizations run both, using cycle counting to manage accuracy and a physical inventory to satisfy an auditor. Where cycle counting is well established the physical inventory can often be dispensed with, which is a large part of its financial justification.</p>
+</section>
+<section id="sec-managing-records-methods" class="level3" data-number="2.3.6">
+<h3 data-number="2.3.6" class="anchored" data-anchor-id="sec-managing-records-methods"><span class="header-section-number">2.3.6</span> Cycle Counting Methods</h3>
+<p>The methods differ in how the sample is formed, and the choice has consequences for cost, coverage, and statistical validity. <a href="#tbl-counting-methods" class="quarto-xref">Table&nbsp;<span>2.10</span></a> summarizes the main ones <span class="citation" data-cites="rossetti2001 brooks1995">(<a href="references.html#ref-rossetti2001" role="doc-biblioref">Rossetti et al. 2001</a>; <a href="references.html#ref-brooks1995" role="doc-biblioref">Brooks and Wilson 1995</a>)</span>.</p>
+<div id="tbl-counting-methods" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-counting-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.10: Cycle counting methods. No method dominates, and large operations normally combine several.
+</figcaption>
+<div aria-describedby="tbl-counting-methods-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>How the sample is formed</th>
+<th>Strengths and weaknesses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Random sample</td>
+<td>Items drawn at random from the population, with or without replacement</td>
+<td>Statistically clean and easy to defend; ignores everything known about which items are likely to be wrong</td>
+</tr>
+<tr class="even">
+<td>ABC</td>
+<td>Population stratified by class, each class counted at its own frequency</td>
+<td>Focuses effort where value is; workload scales with the number of items; classifies on financial criteria that may not track error risk</td>
+</tr>
+<tr class="odd">
+<td>Process control</td>
+<td>The counter counts what is easy to count and skips the rest</td>
+<td>Fast, many counts per hour; the sample is biased, but biased toward the items most likely to be wrong</td>
+</tr>
+<tr class="even">
+<td>Location based</td>
+<td>An area is chosen and every item in it is counted</td>
+<td>Large economies of movement; the sample is formed by geography, so item characteristics play no part</td>
+</tr>
+<tr class="odd">
+<td>Opportunity based</td>
+<td>Counts triggered by events: a reorder, a put away, a balance near the reorder point, or a demand that exposes a discrepancy</td>
+<td>Counts at the moment the count is cheapest and most informative; coverage is uneven</td>
+</tr>
+<tr class="even">
+<td>Transaction based</td>
+<td>An item is counted after every <span class="math inline">\(n\)</span> transactions</td>
+<td>Targets the mechanism that creates errors; items with no activity are never counted</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Two entries in <a href="#tbl-counting-methods" class="quarto-xref">Table&nbsp;<span>2.10</span></a> deserve comment, because they look wrong at first.</p>
+<p><strong>Process control counting is deliberately biased</strong>, and its advocates know it. The counter is free to skip an item that is hard to count, so the sample is not random and the resulting accuracy figure is not an unbiased estimate of population accuracy. <span class="citation" data-cites="brooks1995">Brooks and Wilson (<a href="references.html#ref-brooks1995" role="doc-biblioref">1995</a>)</span> recommend it anyway, on the argument that the bias runs toward items with the greatest probability of containing errors, where the counting effort should go. That is, if the purpose is to find and fix causes rather than to estimate a population parameter, then a biased sample aimed at the problem beats an unbiased one that is mostly clean records. The counter is also not performing a blind count, since the record is visible, which is a separate and more serious objection.</p>
+<p><strong>Transaction and opportunity based counting</strong> follow from the observation in <a href="#sec-managing-records-drift" class="quarto-xref"><span>Section 2.3.1</span></a> that errors enter through transactions. Counting an item that has not moved since it was last counted correct is close to guaranteed to find nothing.</p>
+<p>Opportunity counting is more specific than a general instruction to count at convenient moments. Ordinary operation exposes discrepancies for free, and each exposure is a trigger <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>:</p>
+<ul>
+<li>A demand arrives, the record says there is not enough to fill it, and the stock is visibly on the shelf. The record is understating and can be corrected on the spot.</li>
+<li>A demand arrives, the record shows a positive balance, and the shelf cannot fill it. The record is overstating, and the stockout just made that visible.</li>
+<li>The recorded balance approaches the reorder point, so a count is about to matter for a decision, not for a report.</li>
+</ul>
+<p>Notice that the third trigger is the most useful of the three, because it verifies the record precisely when a wrong one would cause a wrong order.</p>
+</section>
+<section id="sec-managing-records-frequency" class="level3" data-number="2.3.7">
+<h3 data-number="2.3.7" class="anchored" data-anchor-id="sec-managing-records-frequency"><span class="header-section-number">2.3.7</span> Setting Count Frequency</h3>
+<p>Under ABC counting the conventional frequencies are four counts per year for A items, two for B, and one for C <span class="citation" data-cites="rossetti2001">(<a href="references.html#ref-rossetti2001" role="doc-biblioref">Rossetti et al. 2001</a>)</span>. Those numbers are a starting convention and not a result. We consider two ways to do better.</p>
+<p><strong>Work back from the error rate.</strong></p>
+<ul>
+<li>Let <span class="math inline">\(p\)</span> represent the probability that a record, once verified correct, becomes wrong in any one period, and assume it stays wrong until the next count finds it.</li>
+<li>Let <span class="math inline">\(n\)</span> represent the number of periods between counts, and <span class="math inline">\(A(n)\)</span> the average accuracy over the count cycle.</li>
+</ul>
+<p>A record counted every <span class="math inline">\(n\)</span> periods is correct for the first few periods and increasingly likely to be wrong later. Therefore,</p>
+<p><span id="eq-accuracy-decay"><span class="math display">\[
+A(n) \;=\; \frac{1}{n}\sum_{t=0}^{n-1}(1-p)^{t}
+\;=\; \frac{1-(1-p)^{n}}{n\,p}
+\tag{2.8}\]</span></span></p>
+<p><a href="#eq-accuracy-decay" class="quarto-xref">Equation&nbsp;<span>2.8</span></a> is the simplest useful version of the two-state Markov model <span class="citation" data-cites="neeley1987">Neeley (<a href="references.html#ref-neeley1987" role="doc-biblioref">1987</a>)</span> develops, in which a record is either accurate or inaccurate and counting returns it to the accurate state.</p>
+<p><a href="#fig-count-frequency" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> inverts the relation, so that given an error rate and a target accuracy it returns the count interval required. Read it by fixing a target accuracy and following that curve from left to right. As the error rate rises the required interval falls steeply at first and then flattens, so an item that goes wrong twice as often needs counting roughly twice as often. Notice how far apart the curves for different targets lie at low error rates and how they converge at high ones. That is, once a record is going wrong often enough, the target accuracy barely changes the schedule, because the record must be counted almost every period whatever the target is.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-count-frequency" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-count-frequency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-Chapter2_files/figure-html/fig-count-frequency-1.png" class="img-fluid figure-img" width="624">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-count-frequency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Average record accuracy over a count cycle, from <a href="#eq-accuracy-decay" class="quarto-xref">Equation&nbsp;<span>2.8</span></a>, against the interval between counts. Each curve is one monthly error rate <span class="math inline">\(p\)</span>. The dashed line marks a 95% target. Holding that target needs a count roughly every six months at <span class="math inline">\(p = 2\%\)</span> and every quarter at <span class="math inline">\(p = 4\%\)</span>, against every eleven months at <span class="math inline">\(p = 1\%\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that <a href="#fig-count-frequency" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> makes the case for differentiated frequencies without appealing to value at all. Items differ in <span class="math inline">\(p\)</span>, and it is <span class="math inline">\(p\)</span>, not annual dollar volume, that determines how often a record needs verifying. Thus, where the two disagree, counting by value alone spends effort in the wrong place.</p>
+<p>They do disagree. The discriminant analysis of a field experiment by <span class="citation" data-cites="sheppard1993">Sheppard and Brown (<a href="references.html#ref-sheppard1993" role="doc-biblioref">1993</a>)</span> found item value, dollar value of stock, and quantity on hand all predictive of error, with low value high volume items showing the <em>lowest</em> accuracy. That is precisely the population an ABC scheme counts least often.</p>
+<div id="exm-count-frequency" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.7 (Choosing a count interval from an error rate)</strong></span> An item’s record goes wrong with probability <span class="math inline">\(p = 0.03\)</span> in any month, and the target is 95% average accuracy. We evaluate <a href="#eq-accuracy-decay" class="quarto-xref">Equation&nbsp;<span>2.8</span></a> at successive intervals.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span> months</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(A(n)\)</span></td>
+<td style="text-align: right;">100.0%</td>
+<td style="text-align: right;">98.5%</td>
+<td style="text-align: right;">97.0%</td>
+<td style="text-align: right;"><strong>95.6%</strong></td>
+<td style="text-align: right;">94.2%</td>
+<td style="text-align: right;">92.8%</td>
+</tr>
+</tbody>
+</table>
+<p>Counting every four months holds 95.6%, while every five months falls to 94.2%. Thus, the item should be counted every four months, i.e.&nbsp;three times a year.</p>
+<p>Now suppose a second item is twice as error prone, with <span class="math inline">\(p = 0.06\)</span>. Then <span class="math inline">\(A(2) = 97.0\%\)</span> and <span class="math inline">\(A(3) = 94.1\%\)</span>, so it needs counting every two months, six times a year, in order to hold the same target. Notice that doubling the error rate roughly doubles the required count frequency, the flattening seen in <a href="#fig-count-frequency" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>.</p>
+<p>Notice also that the first answer lands near the conventional four counts a year for an A item. The difference is that it was derived from a measured error rate rather than assumed, and that it applies whatever the item’s annual dollar volume happens to be.</p>
+</div>
+<div id="exm-sample-size" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.8 (Sizing a sample to estimate accuracy)</strong></span> Accuracy is believed to be near 92%, and the goal is to estimate it within two percentage points at 95% confidence. From <a href="#eq-sample-size" class="quarto-xref">Equation&nbsp;<span>2.9</span></a> with <span class="math inline">\(z_{0.025} = 1.96\)</span>, <span class="math inline">\(\hat{a} = 0.92\)</span>, and <span class="math inline">\(e = 0.02\)</span>, we have</p>
+<p><span class="math display">\[
+m = \frac{(1.96)^{2}(0.92)(0.08)}{(0.02)^{2}}
+  = \frac{(3.8416)(0.0736)}{0.0004}
+  = 706.9 \]</span> Therefore, 707 records must be counted. Notice that tightening the margin to one percentage point quadruples the requirement, to 2,828 records, because <span class="math inline">\(m\)</span> varies as <span class="math inline">\(1/e^{2}\)</span>. For that practical reason, accuracy is usually reported to the nearest percentage point and no finer.</p>
+</div>
+<p><strong>Ask which items counting pays for.</strong> Accuracy and the value of accuracy are different things, so the item classes that score worst on one may not be the ones worth counting. For example, simulation of a retail supply chain found cycle counting essential for <strong>low demand, high cost</strong> items, where it produced substantial savings while holding fill rates, and close to worthless for <strong>high demand, low cost</strong> items, where the savings were negligible and sometimes negative <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. For fast moving cheap items it is usually cheaper to hold more stock than to count, and where counting them is worthwhile at all, opportunity counting outperforms a schedule.</p>
+<p>Set that beside <span class="citation" data-cites="sheppard1993">Sheppard and Brown (<a href="references.html#ref-sheppard1993" role="doc-biblioref">1993</a>)</span>, who found low value high volume items had the <em>lowest</em> accuracy. Both results hold. The cheap fast items have the worst records and are the least worth correcting, because the consequence of an error on them is small and a little extra stock covers it. Thus, counting effort should follow the cost of being wrong, not the probability of being wrong.</p>
+<p><strong>Optimize against cost.</strong> The alternative is to price counting and to price its absence. <span class="citation" data-cites="young1992">Young and Nie (<a href="references.html#ref-young1992" role="doc-biblioref">1992</a>)</span> build a total cost model with stockout cost, counting cost, ordering cost, and holding cost, and study frequency by simulation. <span class="citation" data-cites="iglehart1971">Iglehart and Morey (<a href="references.html#ref-iglehart1971" role="doc-biblioref">1971</a>)</span> go further and choose the counting policy and the stocking policy together, minimizing total cost per unit time subject to a bound on the probability of a stock denial. Both frame the count frequency as one more term in <a href="01-Chapter1.html#eq-total-cost" class="quarto-xref">Equation&nbsp;<span>1.15</span></a>, the right way to see it. Counting is a cost incurred in order to protect the accuracy that every other term depends on.</p>
+<p><strong>Sizing a sample.</strong> Estimating population accuracy is a separate problem from maintaining it.</p>
+<ul>
+<li>Let <span class="math inline">\(m\)</span> represent the number of records to count, <span class="math inline">\(e\)</span> the margin of error, and <span class="math inline">\(\hat{a}\)</span> a prior estimate of accuracy.</li>
+</ul>
+<p>To estimate a proportion within a margin <span class="math inline">\(e\)</span> at confidence <span class="math inline">\(1-\alpha\)</span>, the usual expression applies:</p>
+<p><span id="eq-sample-size"><span class="math display">\[
+m \;=\; \frac{z_{\alpha/2}^{2}\,\hat{a}(1-\hat{a})}{e^{2}}
+\tag{2.9}\]</span></span></p>
+<p>Notice the awkward consequence of high accuracy. As <span class="math inline">\(\hat{a}\)</span> approaches one the variance falls, and yet demonstrating that accuracy is 99% rather than 97% still requires a large sample. That is one reason mature programs stop trying to measure accuracy precisely and concentrate on causes.</p>
+<p>Stratified sampling reduces the sample needed, and <span class="citation" data-cites="buck1983">Buck and Sadowski (<a href="references.html#ref-buck1983" role="doc-biblioref">1983</a>)</span> give a method for choosing strata and allocating counts to them for a target confidence. However, their approach and its successors have been criticized for resting on aggregate dollar value, which returns to the masking problem of <a href="#sec-managing-records-measuring" class="quarto-xref"><span>Section 2.3.4</span></a>.</p>
+</section>
+<section id="sec-managing-records-monitoring" class="level3" data-number="2.3.8">
+<h3 data-number="2.3.8" class="anchored" data-anchor-id="sec-managing-records-monitoring"><span class="header-section-number">2.3.8</span> Monitoring Accuracy Over Time</h3>
+<p>Everything above treats accuracy as a quantity to be measured and a schedule to be set. Neither answers the operational question a manager actually has, which is whether accuracy is holding steady, drifting, or responding to a change that was made last month.</p>
+<p>Record accuracy is an attribute. That is, each record sampled is either accurate or it is not, so a sample of <span class="math inline">\(n\)</span> records yields a proportion. A <strong><span class="math inline">\(p\)</span> chart</strong> consumes exactly that data. We plot the sampled accuracy period by period against a center line and control limits, and the chart then separates ordinary sampling noise from a real change. A point inside the limits means the process is behaving as it has been, whatever its level. A point outside means something has changed, and you should investigate it.</p>
+<p><strong>Perpetual inventory record sampling</strong> is built on that, combining control group sampling with statistical process control <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. Rather than counting every record on a cycle, which is infeasible where a single department may carry twenty to fifty thousand items, a sample is drawn each period from a prioritized control group and charted. The recommendation from that work is a sample of 200 to 300 records per week, enough to make the chart informative without consuming a counting team.</p>
+<p><a href="#fig-p-chart" class="quarto-xref">Figure&nbsp;<span>2.3</span></a> shows such a chart. The center line is the process average and the two outer lines are the control limits, set three standard errors away. Following the points from left to right, the first eighteen weeks scatter within the limits with no pattern, which is what a stable process looks like however high or low its level. Notice that they range from 88% to 95%. That is, a week four points below the center line is ordinary, and on its own it means nothing.</p>
+<p>From week 19 the points drop, and nine of the last twelve fall below the lower limit. That run is the signal. Notice that it is a run and not a point. The chart is reporting a level that has moved and stayed moved, which is what separates a process change from the scatter above it.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-p-chart" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-p-chart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-Chapter2_files/figure-html/fig-p-chart-1.png" class="img-fluid figure-img" width="652">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-p-chart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: A <span class="math inline">\(p\)</span> chart of weekly record accuracy, 250 records sampled per week. Accuracy runs at 92% for eighteen weeks and then drops to 86% after a process change. Sampling alone moves the weekly reading between 88% and 95% over the stable period, so no single low week means anything on its own. The chart separates that noise from the shift, which breaks the lower control limit in week 19 and stays out for most of the weeks that follow.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="exm-p-chart" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.9 (Reading a control chart)</strong></span> A program samples <span class="math inline">\(n = 250\)</span> records a week, and accuracy has been running at <span class="math inline">\(\bar{p} = 0.92\)</span>. We compute the limits and then read two weeks against them.</p>
+<p>The standard error of a sampled proportion is</p>
+<p><span class="math display">\[
+s = \sqrt{\frac{\bar{p}(1-\bar{p})}{n}}
+  = \sqrt{\frac{(0.92)(0.08)}{250}} = 0.0172 \]</span> Therefore, the control limits are <span class="math inline">\(0.92 \pm 3(0.0172)\)</span>, giving a lower limit of 0.869 and an upper limit of 0.972.</p>
+<p>This week’s count finds 214 of 250 records accurate, i.e.&nbsp;85.6%. That falls below the lower limit, so the process has changed and the cause should be investigated.</p>
+<p>Contrast a week returning 220 of 250, i.e.&nbsp;88.0%. That is four percentage points below the center line and looks alarming. However, it sits inside the limits. A sample of 250 drawn from a process running at 92% produces readings that low often enough that one of them means nothing on its own. Thus, acting on it would send a team looking for a cause that does not exist.</p>
+</div>
+<p>Two cautions come with the chart, and you should keep both in view.</p>
+<p><strong>The population is not homogeneous.</strong> A <span class="math inline">\(p\)</span> chart assumes every unit sampled comes from the same process with the same probability of conforming. Inventory records do not satisfy that assumption. Each item has its own propensity to go wrong, for the reasons in <a href="#sec-managing-records-drift" class="quarto-xref"><span>Section 2.3.1</span></a>, so the sample mixes items with different underlying accuracies, so the false alarm rate is inflated. Simulation of the effect found the inflation slight, small enough that the chart remains usable in practice <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. However, the assumption is violated, and the chart’s stated false alarm rate is optimistic.</p>
+<p><strong>A signal is a prompt to investigate, not to adjust.</strong> An out of control point says the process producing records has changed. Correcting the sampled records addresses none of that. The response is a root cause investigation, the subject of <a href="#sec-managing-records-diagnosis" class="quarto-xref"><span>Section 2.3.10</span></a>.</p>
+<p>The chart’s value is not primarily in detecting deterioration. It is in demonstrating stability, and in showing whether a process improvement actually moved the level. Without a baseline and control limits, an improvement of two percentage points is indistinguishable from a good week.</p>
+</section>
+<section id="sec-managing-records-chain" class="level3" data-number="2.3.9">
+<h3 data-number="2.3.9" class="anchored" data-anchor-id="sec-managing-records-chain"><span class="header-section-number">2.3.9</span> Accuracy Is Not a Local Property</h3>
+<p>Everything so far treats record accuracy as something a location manages for itself. Across a supply chain it is not.</p>
+<p>A location’s replenishment orders are the demand its supplier sees. Thus, a retailer ordering against bad records sends distorted demand upstream, and the distribution centre serving it responds to orders that were triggered when they should not have been, or that failed to trigger when they should have.</p>
+<p>The same two-echelon experiments measured this directly. A single retailer declining to cycle count, while every other location did, cost that chain roughly 6% of fill rate, added about 2% to inventory, and raised backorders by roughly 400% <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. That is, the cost of one partner’s records lands on partners who have no control over them.</p>
+<p>Two consequences follow. First, record accuracy belongs in the performance measures a supply chain agrees on, and not only in each location’s internal reporting. <span class="citation" data-cites="brooks1995">Brooks and Wilson (<a href="references.html#ref-brooks1995" role="doc-biblioref">1995</a>)</span> make tying inventory managers’ evaluation to record accuracy a basic tenet of a working program. Second, where locations are separate firms, the natural instrument is contractual, i.e.&nbsp;performance clauses specifying the accuracy each partner will maintain, on the same footing as delivery or quality terms <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>.</p>
+<p><a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> takes up the analysis of these systems, where the assumption that each location knows its own stock is doing more work than it appears to.</p>
+</section>
+<section id="sec-managing-records-diagnosis" class="level3" data-number="2.3.10">
+<h3 data-number="2.3.10" class="anchored" data-anchor-id="sec-managing-records-diagnosis"><span class="header-section-number">2.3.10</span> Correction Is Not the Point</h3>
+<p>A count that finds a discrepancy and adjusts the record has closed a symptom. If the condition that produced the discrepancy is still in place, then the same record will be wrong again, and the program will count the same errors indefinitely at a steady cost.</p>
+<p><strong>Control group counting</strong> is the standard instrument for finding causes. A small representative set of items is counted repeatedly and frequently, often before a full program is deployed. Because the same items are counted again and again, the errors that appear are process errors, not history, and the short interval between counts localizes when each one entered <span class="citation" data-cites="stahl1998">(<a href="references.html#ref-stahl1998" role="doc-biblioref">Stahl 1998</a>)</span>. Control group counting is therefore diagnostic, not corrective, and it is the part of a program most often skipped.</p>
+<p>The most useful finding in the practitioner literature is a negative one. In benchmarking more than twenty companies, <span class="citation" data-cites="rossetti2001">Rossetti et al. (<a href="references.html#ref-rossetti2001" role="doc-biblioref">2001</a>)</span> report that best in class accuracy, 99% and above, was achieved by organizations that dedicated resources to counting, had strong system support, and concentrated on finding and eliminating common process errors. Those organizations did <strong>not</strong> emphasize statistical methods. Stratified sampling and control charting were not what carried them past 99%. Their attention went to enforcing procedures and resourcing the work.</p>
+<p>You should read that carefully, because it is easy to over-read. You should know the statistical material above, since it tells you how often to count, what a measured accuracy figure does and does not support, and how large a sample an estimate requires. What the benchmarking says is that statistical sophistication is not sufficient and is not the binding constraint. That is, an organization counting diligently on crude rules and fixing what it finds will outperform one sampling optimally and adjusting records without asking why they were wrong.</p>
+<p>The same conclusion is reached from the other direction in <span class="citation" data-cites="rossetti2006">Rossetti et al. (<a href="references.html#ref-rossetti2006" role="doc-biblioref">2006</a>)</span>, whose recommendation for a sampling program is explicit that a program producing only counts and adjustments delivers no real benefit. The counting is the instrument. Finding and preventing the causes is the work.</p>
+<p>The difference is also measurable. The two-echelon experiments included a <strong>learning effect</strong>, in which counting not only corrects records but reduces the rate at which errors are subsequently introduced. Its benefits ran both locally and across the chain, and they were larger than those from correction alone <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. That states the difference between the two activities quantitatively. Correcting a record improves one number once, while removing its cause improves every future period, at every location downstream.</p>
+</section>
+</section>
+<section id="sec-managing-other" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-managing-other"><span class="header-section-number">2.4</span> Other Responsibilities</h2>
+<p>Two responsibilities from <a href="#tbl-manager-decisions" class="quarto-xref">Table&nbsp;<span>2.1</span></a> remain. Neither gets a chapter of its own, and both arise constantly enough to state here.</p>
+<section id="sec-managing-other-excess" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="sec-managing-other-excess"><span class="header-section-number">2.4.1</span> Excess and Obsolete Stock</h3>
+<p><strong>Excess</strong> stock is more than will be used in any reasonable horizon. <strong>Obsolete</strong> stock will not be used at all, e.g.&nbsp;the product it served is gone, the equipment it repaired is retired, or the specification changed.</p>
+<p>It accumulates because every model in this book assumes demand continues. A replenishment policy has no mechanism for noticing that an item’s demand has stopped. It sees inventory position fall below a reorder point and orders, exactly as designed, until someone intervenes. Thus, excess is not a failure of the policy. It is the absence of a decision the policy was never asked to make.</p>
+<p>Disposing of it is a forward-looking decision, and the difficulty is that it does not feel like one.</p>
+<div id="exm-excess" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.10 (Keeping stock that will never be used)</strong></span> A location holds 400 units of an item that cost $28 each. Annual demand has fallen to 12 units, so the stock represents more than 33 years of supply. The carrying charge is <span class="math inline">\(i = 0.20\)</span> per year and the stocking position cost is <span class="math inline">\(f = \$30\)</span> per year. A liquidator offers $6 per unit. We compare keeping the excess against disposing of it.</p>
+<p>Suppose two years of supply is retained, i.e.&nbsp;24 units, leaving 376 units in excess. The holding cost per unit per year is <span class="math inline">\(h = ic = (0.20)(28) = \$5.60\)</span>, so keeping that excess costs</p>
+<p><span class="math display">\[
+(376)(5.60) + 30 = \$2{,}135.60 \text{ per year}
+\]</span></p>
+<p>Disposing of it returns <span class="math inline">\((376)(6.00) = \$2{,}256\)</span> now. Notice that one year of holding costs very nearly the entire salvage value, so the break-even is about 1.06 years. Since the stock represents three decades of demand, disposal dominates by a wide margin.</p>
+<p>What makes this decision hard is a number that does not appear above. The excess cost <span class="math inline">\((376)(28) = \$10{,}528\)</span> to buy, and disposing of it at $6 realizes a write-off of over $8,000 that someone must sign. That $10,528 is sunk. It is gone whether the stock is sold, held, or scrapped, and it is not a reason to keep anything. However, the write-off is visible and the $2,135 a year is not, so the common outcome is to spend the larger amount quietly rather than recognize the smaller one publicly.</p>
+</div>
+<p>Notice where the pieces of this decision came from. Holding cost is <a href="01-Chapter1.html#eq-holding" class="quarto-xref">Equation&nbsp;<span>1.12</span></a>, the stocking position cost is <a href="01-Chapter1.html#sec-costparams-f" class="quarto-xref"><span>Section 1.4.7</span></a>, and obsolescence risk is already inside the carrying charge through <a href="01-Chapter1.html#exm-carrying-charge" class="quarto-xref">Example&nbsp;<span>1.2</span></a>. Excess disposition is not a separate subject. It is the same cost model applied to an item whose demand has ended.</p>
+<p><strong>Detecting it is harder than it looks</strong>, and <a href="#sec-managing-grouping-demandpattern" class="quarto-xref"><span>Section 2.2.6</span></a> explains why. The obvious rule flags items with no movement in some number of months. However, an intermittent item with <span class="math inline">\(\mathit{ADI} = 4\)</span> has demand in one month of four, so three consecutive zero months is its normal behavior, not evidence of death. Thus, a no-movement rule applied without regard to demand pattern will flag healthy slow movers as obsolete and will be slow to catch a smooth item that has genuinely stopped. You should set detection thresholds by demand class.</p>
+</section>
+<section id="sec-managing-other-reporting" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="sec-managing-other-reporting"><span class="header-section-number">2.4.2</span> Performance Reporting</h3>
+<p>What an organization measures is what it manages, and inventory reporting is usually built from quantities already defined: fill rate and ready rate from <a href="01-Chapter1.html#sec-performance" class="quarto-xref"><span>Section 1.6</span></a>, average inventory and turnover from <a href="01-Chapter1.html#sec-state" class="quarto-xref"><span>Section 1.3</span></a>, and backorders, inventory investment, and record accuracy from <a href="#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a>.</p>
+<p>Two cautions apply to all of them.</p>
+<p><strong>Aggregation hides.</strong> For example, a portfolio fill rate of 96% is consistent with a class of critical items running at 60%, because the fast movers that dominate the average are the easy ones. Any measure reported for a portfolio should also be reported by class, which is one more thing the segmentation of <a href="#sec-managing-grouping" class="quarto-xref"><span>Section 2.2</span></a> is for.</p>
+<p><strong>Measures drive behavior, including behavior nobody wanted.</strong> Recall that <a href="01-Chapter1.html#sec-whyinventory" class="quarto-xref"><span>Section 1.1</span></a> described what happens when inventory reduction is mandated without saying which kind. Safety stock is the only component that can be cut on a deadline, so it is the one that gets cut, and the consequence appears a lead time later. Every inventory measure has an equivalent failure mode. Thus, the defense is to pair each with a counterweight that moves the other way, as in <a href="#tbl-measure-pairs" class="quarto-xref">Table&nbsp;<span>2.11</span></a>.</p>
+<div id="tbl-measure-pairs" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-measure-pairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.11: Inventory measures and their counterweights. A measure reported alone will eventually be met alone.
+</figcaption>
+<div aria-describedby="tbl-measure-pairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Improved cheaply by</th>
+<th>Counterweight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inventory turnover</td>
+<td>Cutting safety stock</td>
+<td>Fill rate, backorders</td>
+</tr>
+<tr class="even">
+<td>Inventory investment</td>
+<td>Deferring replenishment</td>
+<td>Fill rate, stockout frequency</td>
+</tr>
+<tr class="odd">
+<td>Fill rate</td>
+<td>Holding more of everything</td>
+<td>Turnover, investment</td>
+</tr>
+<tr class="even">
+<td>Order frequency</td>
+<td>Ordering in larger lots</td>
+<td>Average inventory</td>
+</tr>
+<tr class="odd">
+<td>Record accuracy</td>
+<td>Counting only easy items</td>
+<td>Accuracy on a random sample</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The last row of <a href="#tbl-measure-pairs" class="quarto-xref">Table&nbsp;<span>2.11</span></a> is the one <a href="#sec-managing-records-methods" class="quarto-xref"><span>Section 2.3.6</span></a> already anticipated. Process control counting is defensible as a way of finding errors precisely because it is biased toward items likely to be wrong, and it is indefensible as a way of reporting a population accuracy figure, for the same reason.</p>
+</section>
+</section>
+<section id="sec-managing-summary" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-managing-summary"><span class="header-section-number">2.5</span> Summary</h2>
+<p>The models in the rest of this book take an item and produce a policy. A manager has neither one item nor the attention to treat forty thousand of them individually. In this chapter we settled the two things that have to be in place before those models can be used at scale.</p>
+<p><strong>Attention is the binding constraint, not computation.</strong> <a href="#exm-attention-budget" class="quarto-xref">Example&nbsp;<span>2.1</span></a> shows that a realistic review capacity covers a small fraction of a portfolio. Thus, most items must be handled by a rule that runs without anyone examining them, and deciding which items escape the rule is a prior decision. It is a management decision rather than a technical one.</p>
+<p><strong>Grouping serves two purposes that should not be confused.</strong> Grouping for attention ranks items so effort lands where it matters, and ABC classification by annual dollar usage is the standard instrument. Grouping for policy puts operationally similar items together so one policy can serve them, and clustering is the standard instrument. Notice that a ranking says nothing about whether two items can share a policy.</p>
+<p>Single-criterion ABC misses in both directions, promoting expensive items that nothing depends on and burying cheap items that halt operations. <a href="#exm-multicriteria" class="quarto-xref">Example&nbsp;<span>2.3</span></a> demonstrates the problem, and multi-criteria schemes and cost-derived criteria address it. Whatever the method, a grouping is judged by the cost penalty it carries against individual policies, set against the policies it saves maintaining.</p>
+<p><strong>A policy reads a record, not a shelf.</strong> <a href="01-Chapter1.html#sec-state" class="quarto-xref"><span>Section 1.3</span></a> defines on-hand inventory as though it were observable, while <a href="#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a> separates what is on the shelf from what the system believes and shows that the reorder decision uses the second.</p>
+<p>Record accuracy is not one number. The same count sheet in <a href="#exm-record-accuracy" class="quarto-xref">Example&nbsp;<span>2.6</span></a> gives 40%, 70%, or 98.6% depending on the definition, so a figure reported without its definition says little. Errors enter through transactions, which is why counting effort belongs where activity is and why opportunity counting works.</p>
+<p><strong>Counting is not a trade against inventory.</strong> An organization with bad records can give up service or hold more stock in order to mask the problem. The second is why inaccuracy survives for years unremarked, because the customer facing measure returns to target and the cost moves somewhere nobody attributes to record keeping.</p>
+<p>Counting raises service without buying it with stock, because it removes the discrepancy instead of compensating for it. Notice also that correcting records is the by-product, not the purpose. A program that only adjusts will find the same errors indefinitely.</p>
+<p>Both subjects are prerequisites in a strong sense. A policy derived correctly can still fail, either because it was applied to items that should never have had individual treatment, or because it was computed from quantities that were not true. Neither failure is visible in the policy itself, which is why both belong before Part I rather than after it.</p>
+<p>In the next chapter we take up the first of the models themselves, under the strongest assumption available: that demand is known and constant.</p>
+</section>
+<section id="sec-managing-exercises" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sec-managing-exercises"><span class="header-section-number">2.6</span> Exercises</h2>
+<p>Unless an exercise says otherwise, use these conventions so that your answer and the instructor’s agree. Take the time unit to be one year. Report dollar usage and costs to the nearest cent, percentages and accuracy figures to one decimal place, and indices, ratios, and intervals to four significant figures. Where an exercise asks for a classification, state the cut points you used, since nothing in the data supplies them.</p>
+<div id="exr-ch2-1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.1</strong></span> A regional distribution center stocks 28,000 items. Three planners are responsible for them, each with about 26 hours a week available for item review over 48 working weeks a year. A considered review takes eight minutes.</p>
+<p>Determine the annual review capacity, and the average number of reviews per item per year if the capacity were spread evenly.</p>
+<p>Management proposes reviewing the top 6% of items monthly and the next 14% quarterly. Show that this proposal cannot be met with the present staffing, and determine by how much it exceeds capacity. Then find a feasible allocation that preserves monthly review for the top 6%, and report how often a typical item in the remaining group would be reviewed under it.</p>
+<p>Finally, determine how many planners would be needed to review every item at least twice a year, and comment on whether that is the right response to the finding.</p>
+</div>
+<div id="exr-ch2-2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Following <a href="#exm-abc" class="quarto-xref">Example&nbsp;<span>2.2</span></a>, and given the item file in the accompanying spreadsheet, construct an ABC classification by annual dollar usage. Report the fraction of items and the fraction of annual dollar volume falling in each class, plot the cumulative curve, and defend your cut points. State what would change if the cuts were moved by five percentage points in either direction.</p>
+</div>
+<div id="exr-ch2-3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.3</strong></span> Following <a href="#exm-multicriteria" class="quarto-xref">Example&nbsp;<span>2.3</span></a>, reclassify the same item file using at least two criteria, one of which is not dollar usage. Identify the items whose class changes, explain why each moved, and say which classification you would give to a planner.</p>
+</div>
+<div id="exr-ch2-4" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.4</strong></span> Four items have the following demand histories over twelve months.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Demand by month</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P-1</td>
+<td>0, 0, 8, 0, 0, 0, 12, 0, 0, 9, 0, 0</td>
+</tr>
+<tr class="even">
+<td>Q-1</td>
+<td>4, 6, 5, 7, 4, 6, 5, 6, 4, 7, 5, 6</td>
+</tr>
+<tr class="odd">
+<td>R-1</td>
+<td>0, 30, 0, 2, 0, 45, 0, 1, 0, 38, 0, 3</td>
+</tr>
+<tr class="even">
+<td>S-1</td>
+<td>12, 1, 20, 3, 15, 2, 18, 1, 22, 2, 14, 3</td>
+</tr>
+</tbody>
+</table>
+<p>Following <a href="#exm-eils" class="quarto-xref">Example&nbsp;<span>2.4</span></a>, compute <span class="math inline">\(\mathit{ADI}\)</span> and <span class="math inline">\(\mathit{CV}^{2}\)</span> for each item and assign it to a demand class.</p>
+<p>Now suppose the same transactions are reported in two-month buckets rather than monthly, so that each item’s history becomes six periods. Recompute both statistics and reclassify. Two of the four items change class. Identify which, explain why the change occurred, and state what this implies about reporting a demand classification without stating the period length it was computed on.</p>
+</div>
+<div id="exr-ch2-5" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.5</strong></span> Eight items have been costed under individual policies and under two candidate groupings, one forming two groups and one forming four. All figures are annual.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Individual</th>
+<th style="text-align: right;">Two groups</th>
+<th style="text-align: right;">Four groups</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td style="text-align: right;">$6,400</td>
+<td style="text-align: right;">$6,610</td>
+<td style="text-align: right;">$6,490</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td style="text-align: right;">$5,900</td>
+<td style="text-align: right;">$6,090</td>
+<td style="text-align: right;">$5,980</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td style="text-align: right;">$7,200</td>
+<td style="text-align: right;">$7,395</td>
+<td style="text-align: right;">$7,280</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td style="text-align: right;">$2,100</td>
+<td style="text-align: right;">$2,290</td>
+<td style="text-align: right;">$2,185</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td style="text-align: right;">$1,850</td>
+<td style="text-align: right;">$2,040</td>
+<td style="text-align: right;">$1,930</td>
+</tr>
+<tr class="even">
+<td>F</td>
+<td style="text-align: right;">$2,400</td>
+<td style="text-align: right;">$2,585</td>
+<td style="text-align: right;">$2,480</td>
+</tr>
+<tr class="odd">
+<td>G</td>
+<td style="text-align: right;">$980</td>
+<td style="text-align: right;">$1,145</td>
+<td style="text-align: right;">$1,050</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td style="text-align: right;">$1,120</td>
+<td style="text-align: right;">$1,290</td>
+<td style="text-align: right;">$1,195</td>
+</tr>
+</tbody>
+</table>
+<p>Using <a href="#eq-grouping-penalty" class="quarto-xref">Equation&nbsp;<span>2.4</span></a>, compute the grouping penalty for each scheme, as in <a href="#exm-grouping-penalty" class="quarto-xref">Example&nbsp;<span>2.5</span></a>.</p>
+<p>Then recommend a scheme in each of two settings, justifying each recommendation in terms of what the penalty buys. In the first, these eight items are the entire portfolio. In the second, they are a representative sample of a portfolio of 30,000 items, and a planner can maintain roughly 150 distinct policies.</p>
+</div>
+<div id="exr-ch2-6" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.6</strong></span> A cycle count of 200 item records finds 34 with a quantity discrepancy. Of those, 11 are within a 2% tolerance of the recorded quantity and the rest are not.</p>
+<p>Following <a href="#exm-record-accuracy" class="quarto-xref">Example&nbsp;<span>2.6</span></a>, report record accuracy under a strict count-match definition and under the tolerance-based definition, and explain which you would report to management and why. Then, following <a href="#exm-sample-size" class="quarto-xref">Example&nbsp;<span>2.8</span></a>, determine the sample size needed to estimate accuracy within two percentage points at 95% confidence, using your tolerance-based figure as the prior estimate.</p>
+</div>
+<div id="exr-ch2-7" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.7</strong></span> Three items have monthly record error rates of <span class="math inline">\(p = 0.01\)</span>, <span class="math inline">\(p = 0.02\)</span>, and <span class="math inline">\(p = 0.05\)</span>.</p>
+<p>Using <a href="#eq-accuracy-decay" class="quarto-xref">Equation&nbsp;<span>2.8</span></a>, determine the longest count interval that holds average record accuracy at 98% for each, as in <a href="#exm-count-frequency" class="quarto-xref">Example&nbsp;<span>2.7</span></a>. Express each answer as counts per year. Then determine the total annual counting workload for a population of 400 items split evenly among the three error rates, and compare it with the workload under a conventional schedule of four counts a year for A items, two for B, and one for C, assuming the population splits 20/30/50 across those classes.</p>
+</div>
+<div id="exr-ch2-8" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.8</strong></span> Design a cycle counting schedule for the item population of <a href="#exr-ch2-2" class="quarto-xref">Exercise&nbsp;<span>2.2</span></a>, given a counting team able to perform 60 counts per week. State the count frequency for each class, show that the schedule fits the available capacity, and justify the frequencies in terms of what a count is for.</p>
+</div>
+<div id="exr-ch2-9" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.9</strong></span> A location holds 900 units of a component that cost $14.50 each. The product it supported was discontinued eighteen months ago, and demand over the past year was 30 units, all from a single customer still running the old equipment. The carrying charge is 0.22 per year and the stocking position cost is $25 per year. A broker offers $2.75 per unit for the entire quantity.</p>
+<p>Determine the annual cost of retaining the stock beyond a three-year supply, the proceeds of disposing of that excess, and the break-even holding period. State your recommendation.</p>
+<p>Then identify the sunk cost in this problem, state its correct role in the decision, and explain why a manager might nonetheless act as though it mattered.</p>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-abaydulla2016" class="csl-entry" role="listitem">
+Abaydulla, Anvar. 2016. <span>“Grouping Techniques to Manage Large-Scale Multi-Item Multi-Echelon Inventory Systems.”</span> PhD thesis, University of Arkansas.
+</div>
+<div id="ref-apics1980" class="csl-entry" role="listitem">
+APICS. 1980. <em>Cycle Counting Training Guide</em>. American Production; Inventory Control Society.
+</div>
+<div id="ref-brooks1995" class="csl-entry" role="listitem">
+Brooks, Roger B., and Larry W. Wilson. 1995. <em>Inventory Record Accuracy: Unleashing the Power of Cycle Counting</em>. John Wiley; Sons.
+</div>
+<div id="ref-buck1983" class="csl-entry" role="listitem">
+Buck, James R., and Randall P. Sadowski. 1983. <span>“Optimum Stratified Cycle Counting.”</span> <em>IIE Transactions</em> 15 (2): 119–26.
+</div>
+<div id="ref-dehoratius2004" class="csl-entry" role="listitem">
+DeHoratius, Nicole, and Ananth Raman. 2004. <span>“Inventory Record Inaccuracy: An Empirical Analysis.”</span> <em>Management Science</em>.
+</div>
+<div id="ref-ernst1990" class="csl-entry" role="listitem">
+Ernst, Ricardo, and Morris A. Cohen. 1990. <span>“Operations Related Groups (<span>ORGs</span>): A Clustering Procedure for Production/Inventory Systems.”</span> <em>Journal of Operations Management</em> 9 (4): 574–98.
+</div>
+<div id="ref-flores1986" class="csl-entry" role="listitem">
+Flores, Benito E., and D. Clay Whybark. 1986. <span>“Multiple Criteria <span>ABC</span> Analysis.”</span> <em>International Journal of Operations and Production Management</em> 6 (3): 38–46.
+</div>
+<div id="ref-iglehart1971" class="csl-entry" role="listitem">
+Iglehart, Donald L., and Richard C. Morey. 1971. <span>“Inventory Systems with Imperfect Asset Information.”</span> <em>Management Science</em> 18 (8): B388–94.
+</div>
+<div id="ref-johnston1996" class="csl-entry" role="listitem">
+Johnston, F. R., and John E. Boylan. 1996. <span>“Forecasting for Items with Intermittent Demand.”</span> <em>Journal of the Operational Research Society</em> 47: 113–21.
+</div>
+<div id="ref-vankampen2012" class="csl-entry" role="listitem">
+Kampen, Tim J. Van, Renzo Akkerman, and Dirk Pieter van Donk. 2012. <span>“<span>SKU</span> Classification: A Literature Review and Conceptual Framework.”</span> <em>International Journal of Operations and Production Management</em> 32 (7): 850–76.
+</div>
+<div id="ref-kumar1992" class="csl-entry" role="listitem">
+Kumar, Sameer, and Sant Arora. 1992. <span>“Effects of Inventory Miscount and Non-Inclusion of Lead Time Variability on Inventory Performance.”</span> <em>IIE Transactions</em> 24 (2): 96–103.
+</div>
+<div id="ref-lenard1995" class="csl-entry" role="listitem">
+Lenard, J. D., and B. Roy. 1995. <span>“Multi-Item Inventory Control: A Multicriteria View.”</span> <em>European Journal of Operational Research</em> 87 (3): 685–92.
+</div>
+<div id="ref-morey1985" class="csl-entry" role="listitem">
+Morey, Richard C. 1985. <span>“Estimating Service Level Impacts from Changes in Cycle Count, Buffer Stock, or Corrective Action.”</span> <em>Journal of Operations Management</em> 5 (4): 411–18.
+</div>
+<div id="ref-neeley1987" class="csl-entry" role="listitem">
+Neeley, Paul. 1987. <span>“A Framework for Cycle Counting.”</span> <em>Production and Inventory Management</em> 24 (3): 64–69.
+</div>
+<div id="ref-orozco1993" class="csl-entry" role="listitem">
+Orozco, R. E. 1993. <span>“Is <span>ABC</span> Cycle Counting a Wasteful Approach.”</span> <em>American Production and Inventory Control Society International Conference Proceedings</em>, 536–37.
+</div>
+<div id="ref-ramanathan2006" class="csl-entry" role="listitem">
+Ramanathan, Ramakrishnan. 2006. <span>“<span>ABC</span> Inventory Classification with Multiple-Criteria Using Weighted Linear Optimization.”</span> <em>Computers and Operations Research</em> 33 (3): 695–700.
+</div>
+<div id="ref-rossetti2011" class="csl-entry" role="listitem">
+Rossetti, Manuel D., and A. V. Achlerkar. 2011. <span>“Evaluation of Segmentation Techniques for Inventory Management in Large Scale Multi-Item Inventory Systems.”</span> <em>International Journal of Logistics Systems and Management</em> 8 (4): 403–24.
+</div>
+<div id="ref-rossetti2008" class="csl-entry" role="listitem">
+Rossetti, Manuel D., Nebil Buyurgan, Amit Bhonsle, Seda Gumrukcu, and Kiran Chittoori. 2008. <span>“An Analysis of the Effect of Inventory Record Inaccuracy in a Two-Echelon Supply Chain.”</span> <em>International Journal of Inventory Research</em>.
+</div>
+<div id="ref-rossetti2001" class="csl-entry" role="listitem">
+Rossetti, Manuel D., Terry Collins, and Ravi Kurgund. 2001. <span>“Inventory Cycle Counting: A Review.”</span> <em>Proceedings of the 2001 Industrial Engineering Research Conference</em>.
+</div>
+<div id="ref-rossetti2006" class="csl-entry" role="listitem">
+Rossetti, Manuel D., John English, Nebil Buyurgan, Ronald Walker, Seda Gumrukcu, and Long Yu. 2006. <em>Improving Inventory Record Accuracy Within Retail Store Operations</em>. {CELDi} Project Report. Center for Engineering Logistics; Distribution, University of Arkansas.
+</div>
+<div id="ref-sheppard1993" class="csl-entry" role="listitem">
+Sheppard, G. M., and K. A. Brown. 1993. <span>“Predicting Inventory Record-Keeping Errors with Discriminant Analysis: A Field Experiment.”</span> <em>International Journal of Production Economics</em> 32: 39–51.
+</div>
+<div id="ref-stahl1998" class="csl-entry" role="listitem">
+Stahl, Robert A. 1998. <span>“Cycle Counting: A Quality Assurance Process.”</span> <em>Hospital Material Management Quarterly</em> 20 (2): 22–28.
+</div>
+<div id="ref-tersine1994" class="csl-entry" role="listitem">
+Tersine, Richard J. 1994. <em>Principles of Inventory and Materials Management</em>. 4th ed. Prentice Hall.
+</div>
+<div id="ref-teunter2010" class="csl-entry" role="listitem">
+Teunter, Ruud H., M. Zied Babai, and Aris A. Syntetos. 2010. <span>“<span>ABC</span> Classification: Service Levels and Inventory Costs.”</span> <em>Production and Operations Management</em> 19 (3): 343–52.
+</div>
+<div id="ref-varghese" class="csl-entry" role="listitem">
+Varghese, Vijith, Manuel D. Rossetti, Edward Pohl, Server Apras, and Douglas Marek. 2012. <span>“Applying Actual Usage Inventory Management Best Practice in a Health Care Supply Chain.”</span> <em>Working Paper, University of Arkansas</em>.
+</div>
+<div id="ref-young1992" class="csl-entry" role="listitem">
+Young, S., and W. Nie. 1992. <span>“A Cycle-Count Model Considering Inventory Policy and Record Variance.”</span> <em>Production and Inventory Management</em> 33 (1): 11–16.
+</div>
+<div id="ref-zhang2001" class="csl-entry" role="listitem">
+Zhang, R. Q., Wallace J. Hopp, and C. Supatgiat. 2001. <span>“Spreadsheet Implementable Inventory Control for a Distribution Center.”</span> <em>Journal of Heuristics</em> 7 (2): 185–203.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rossetti\.github\.io\/RossettiInventoryBook\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-Chapter1.html" class="pagination-link" aria-label="Introduction to Inventory Systems">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Inventory Systems</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-Chapter3.html" class="pagination-link" aria-label="Deterministic Lot Sizing">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deterministic Lot Sizing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

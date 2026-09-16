@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="A textbook and course notes on the modeling and analysis of inventory systems for upper-level undergraduate and graduate students.">
+
+<title>7&nbsp; Single-Period Stochastic Inventory – Analysis of Inventory Systems</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08-Chapter8.html" rel="next">
+<link href="./06-Chapter6.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6b6957c917596b414ec0b78690761e87.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f80f43bfe8f457ca6945be13c575d110.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ed4b495e6b34a49e86b26d315835ee57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f80f43bfe8f457ca6945be13c575d110.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="css/cover.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-Chapter7.html">Stochastic Models</a></li><li class="breadcrumb-item"><a href="./07-Chapter7.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Single-Period Stochastic Inventory</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analysis of Inventory Systems</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Chapter1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Inventory Systems</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Chapter2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Managing Inventory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Deterministic Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Chapter3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deterministic Lot Sizing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Chapter4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multi-Item and Constrained Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Chapter5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dynamic Lot Sizing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Chapter6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Material and Distribution Requirements Planning</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-Chapter7.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Single-Period Stochastic Inventory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Chapter11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Simulating Inventory Systems</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AppNotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-AppProbability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Probability and Stochastic Processes Review</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-AppDistributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Common Probability Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-AppTables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Statistical Tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-AppKSLSetup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Kotlin and KSL Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-newsvendor-once" id="toc-sec-newsvendor-once" class="nav-link active" data-scroll-target="#sec-newsvendor-once"><span class="header-section-number">7.1</span> One Order, One Chance</a>
+  <ul>
+  <li><a href="#sec-newsvendor-demandsales" id="toc-sec-newsvendor-demandsales" class="nav-link" data-scroll-target="#sec-newsvendor-demandsales"><span class="header-section-number">7.1.1</span> Demand Is Not Sales</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-marginal" id="toc-sec-newsvendor-marginal" class="nav-link" data-scroll-target="#sec-newsvendor-marginal"><span class="header-section-number">7.2</span> Working the Decision by Hand</a></li>
+  <li><a href="#sec-newsvendor-fitting" id="toc-sec-newsvendor-fitting" class="nav-link" data-scroll-target="#sec-newsvendor-fitting"><span class="header-section-number">7.3</span> Getting a Demand Distribution</a>
+  <ul>
+  <li><a href="#sec-newsvendor-fitting-look" id="toc-sec-newsvendor-fitting-look" class="nav-link" data-scroll-target="#sec-newsvendor-fitting-look"><span class="header-section-number">7.3.1</span> Look Before You Model</a></li>
+  <li><a href="#sec-newsvendor-fitting-summarize" id="toc-sec-newsvendor-fitting-summarize" class="nav-link" data-scroll-target="#sec-newsvendor-fitting-summarize"><span class="header-section-number">7.3.2</span> Summarize It</a></li>
+  <li><a href="#sec-newsvendor-fitting-fit" id="toc-sec-newsvendor-fitting-fit" class="nav-link" data-scroll-target="#sec-newsvendor-fitting-fit"><span class="header-section-number">7.3.3</span> Hypothesize, Estimate, Test</a></li>
+  <li><a href="#sec-newsvendor-fitting-limits" id="toc-sec-newsvendor-fitting-limits" class="nav-link" data-scroll-target="#sec-newsvendor-fitting-limits"><span class="header-section-number">7.3.4</span> What the Test Does Not Settle</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-intermittent" id="toc-sec-newsvendor-intermittent" class="nav-link" data-scroll-target="#sec-newsvendor-intermittent"><span class="header-section-number">7.4</span> Intermittent and Slow-Moving Demand</a></li>
+  <li><a href="#sec-newsvendor-model" id="toc-sec-newsvendor-model" class="nav-link" data-scroll-target="#sec-newsvendor-model"><span class="header-section-number">7.5</span> The Newsvendor Model</a>
+  <ul>
+  <li><a href="#sec-newsvendor-profit" id="toc-sec-newsvendor-profit" class="nav-link" data-scroll-target="#sec-newsvendor-profit"><span class="header-section-number">7.5.1</span> The Same Model as a Profit</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-criticalratio" id="toc-sec-newsvendor-criticalratio" class="nav-link" data-scroll-target="#sec-newsvendor-criticalratio"><span class="header-section-number">7.6</span> The Critical Ratio</a>
+  <ul>
+  <li><a href="#sec-newsvendor-reading" id="toc-sec-newsvendor-reading" class="nav-link" data-scroll-target="#sec-newsvendor-reading"><span class="header-section-number">7.6.1</span> Reading the Critical Ratio</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-continuous" id="toc-sec-newsvendor-continuous" class="nav-link" data-scroll-target="#sec-newsvendor-continuous"><span class="header-section-number">7.7</span> Continuous Demand</a></li>
+  <li><a href="#sec-newsvendor-discrete" id="toc-sec-newsvendor-discrete" class="nav-link" data-scroll-target="#sec-newsvendor-discrete"><span class="header-section-number">7.8</span> Discrete Demand</a></li>
+  <li><a href="#sec-newsvendor-extensions" id="toc-sec-newsvendor-extensions" class="nav-link" data-scroll-target="#sec-newsvendor-extensions"><span class="header-section-number">7.9</span> Extensions</a>
+  <ul>
+  <li><a href="#sec-newsvendor-penalty" id="toc-sec-newsvendor-penalty" class="nav-link" data-scroll-target="#sec-newsvendor-penalty"><span class="header-section-number">7.9.1</span> A Penalty Beyond the Lost Margin</a></li>
+  <li><a href="#sec-newsvendor-initial" id="toc-sec-newsvendor-initial" class="nav-link" data-scroll-target="#sec-newsvendor-initial"><span class="header-section-number">7.9.2</span> Stock Already on Hand</a></li>
+  <li><a href="#sec-newsvendor-improper" id="toc-sec-newsvendor-improper" class="nav-link" data-scroll-target="#sec-newsvendor-improper"><span class="header-section-number">7.9.3</span> When the Model Refuses</a></li>
+  <li><a href="#sec-newsvendor-singleperiod" id="toc-sec-newsvendor-singleperiod" class="nav-link" data-scroll-target="#sec-newsvendor-singleperiod"><span class="header-section-number">7.9.4</span> Is It Really a Single Period?</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-simulation" id="toc-sec-newsvendor-simulation" class="nav-link" data-scroll-target="#sec-newsvendor-simulation"><span class="header-section-number">7.10</span> Estimating the Answer by Simulation</a>
+  <ul>
+  <li><a href="#sec-newsvendor-simwhen" id="toc-sec-newsvendor-simwhen" class="nav-link" data-scroll-target="#sec-newsvendor-simwhen"><span class="header-section-number">7.10.1</span> When It Is Worth It</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-building" id="toc-sec-newsvendor-building" class="nav-link" data-scroll-target="#sec-newsvendor-building"><span class="header-section-number">7.11</span> Building These Models in a Worksheet</a></li>
+  <li><a href="#sec-newsvendor-design" id="toc-sec-newsvendor-design" class="nav-link" data-scroll-target="#sec-newsvendor-design"><span class="header-section-number">7.12</span> Designing the Software</a>
+  <ul>
+  <li><a href="#sec-newsvendor-design-nouns" id="toc-sec-newsvendor-design-nouns" class="nav-link" data-scroll-target="#sec-newsvendor-design-nouns"><span class="header-section-number">7.12.1</span> Finding the Nouns</a></li>
+  <li><a href="#sec-newsvendor-design-agreement" id="toc-sec-newsvendor-design-agreement" class="nav-link" data-scroll-target="#sec-newsvendor-design-agreement"><span class="header-section-number">7.12.2</span> The Two Routes Must Agree</a></li>
+  </ul></li>
+  <li><a href="#sec-newsvendor-summary" id="toc-sec-newsvendor-summary" class="nav-link" data-scroll-target="#sec-newsvendor-summary"><span class="header-section-number">7.13</span> Summary</a></li>
+  <li><a href="#sec-newsvendor-exercises" id="toc-sec-newsvendor-exercises" class="nav-link" data-scroll-target="#sec-newsvendor-exercises"><span class="header-section-number">7.14</span> Exercises</a>
+  <ul>
+  <li><a href="#sec-newsvendor-exr-concepts" id="toc-sec-newsvendor-exr-concepts" class="nav-link" data-scroll-target="#sec-newsvendor-exr-concepts"><span class="header-section-number">7.14.1</span> Terminology and Concepts</a></li>
+  <li><a href="#sec-newsvendor-exr-hand" id="toc-sec-newsvendor-exr-hand" class="nav-link" data-scroll-target="#sec-newsvendor-exr-hand"><span class="header-section-number">7.14.2</span> Working the Model by Hand</a></li>
+  <li><a href="#sec-newsvendor-exr-modeling" id="toc-sec-newsvendor-exr-modeling" class="nav-link" data-scroll-target="#sec-newsvendor-exr-modeling"><span class="header-section-number">7.14.3</span> Modeling Problems</a></li>
+  <li><a href="#sec-newsvendor-exr-software" id="toc-sec-newsvendor-exr-software" class="nav-link" data-scroll-target="#sec-newsvendor-exr-software"><span class="header-section-number">7.14.4</span> Using the Software</a></li>
+  <li><a href="#sec-newsvendor-exr-workbook" id="toc-sec-newsvendor-exr-workbook" class="nav-link" data-scroll-target="#sec-newsvendor-exr-workbook"><span class="header-section-number">7.14.5</span> Using the Workbook</a></li>
+  <li><a href="#sec-newsvendor-exr-literature" id="toc-sec-newsvendor-exr-literature" class="nav-link" data-scroll-target="#sec-newsvendor-exr-literature"><span class="header-section-number">7.14.6</span> From the Literature</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-Chapter7.html">Stochastic Models</a></li><li class="breadcrumb-item"><a href="./07-Chapter7.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Single-Period Stochastic Inventory</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-newsvendor" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Single-Period Stochastic Inventory</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled" title="Learning objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After reading this chapter you should be able to:</p>
+<ul>
+<li>recognize a single-period problem and say why it is not a one-period version of a multi-period one</li>
+<li>work the ordering decision by hand as a marginal analysis</li>
+<li>characterize a demand history and fit a distribution to it</li>
+<li>formulate the newsvendor problem in both its cost and its profit forms</li>
+<li>derive and interpret the critical ratio</li>
+<li>solve the model for continuous and for discrete demand</li>
+<li>extend the model to a penalty cost and to stock already on hand</li>
+<li>estimate the answer by simulation, and say when that is worth doing</li>
+</ul>
+</div>
+</div>
+<section id="sec-newsvendor-once" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-newsvendor-once"><span class="header-section-number">7.1</span> One Order, One Chance</h2>
+<p>Every model so far has known its demand. <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a> and <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> took a constant rate, <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> let the rate vary by period and still knew it, and <a href="06-Chapter6.html" class="quarto-xref"><span>Chapter 6</span></a> computed it from a production plan. Assumption 5 of <a href="06-Chapter6.html#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a> is the one this chapter removes. From here on demand is a random variable, and the decision is made before it is observed.</p>
+<p>We begin with the simplest such problem, in which the decision is made <strong>once</strong>.</p>
+<div id="exm-newsvendor-finalbuy" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.1 (The last order for the mower deck belt)</strong></span> The distributor of <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> has stocked the mower deck belt for years. The deck it fits is now out of production, so the seasonal pattern of <a href="05-Chapter5.html#tbl-dls-belt" class="quarto-xref">Table&nbsp;<span>5.1</span></a> is over and what remains is steady replacement demand from owners of machines already in the field. The supplier is discontinuing the belt and has offered one last order.</p>
+<p><em>What is stocked?</em> One item, the belt.</p>
+<p><em>What is the demand process?</em> Weekly demand is random and no longer seasonal. It will run for about fourteen more weeks, until a redesigned deck reaches the dealers and the belt becomes unsellable.</p>
+<p><em>When is inventory reviewed?</em> Once. There is one decision and no second chance.</p>
+<p><em>What triggers replenishment, and how much?</em> Nothing triggers it. The distributor names a quantity now.</p>
+<p><em>What happens to unmet demand?</em> It is lost. A dealer who cannot get the belt from this distributor gets it elsewhere.</p>
+<p><em>What costs are incurred, and when?</em> The belt costs $50 and sells for $95. Belts left when the deck is withdrawn go to a scrap dealer at $12.</p>
+</div>
+<p>Three things about <a href="#exm-newsvendor-finalbuy" class="quarto-xref">Example&nbsp;<span>7.1</span></a> distinguish it from everything before it.</p>
+<p><strong>There is no ordering cost in the model.</strong> Recall from <a href="01-Chapter1.html#tbl-problem-map" class="quarto-xref">Table&nbsp;<span>1.10</span></a> that <span class="math inline">\(k\)</span> is the price of placing an order, and that the models of <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a> through <a href="06-Chapter6.html" class="quarto-xref"><span>Chapter 6</span></a> trade it against holding. Here exactly one order is placed whatever its size, so <span class="math inline">\(k\)</span> is the same under every decision. A constant added to every alternative cannot change which alternative is least, which is the argument of <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a>. Thus, <span class="math inline">\(k\)</span> drops out, and with it the entire question those chapters were about.</p>
+<p><strong>Leftover stock has no future value.</strong> Recall from <a href="01-Chapter1.html#sec-classifying-horizon" class="quarto-xref"><span>Section 1.2.7</span></a> that a single-period problem is not a multi-period problem with the number of periods set to one. In a multi-period problem a unit left at the end of a period is available at the start of the next, so the cost of having too many is a holding charge for one period. Here it is the whole loss on the unit, $50 paid against $12 recovered. That is why the trade-off is overage against underage rather than holding against ordering.</p>
+<p><strong>The two errors are priced differently, and neither is free.</strong> Order too many and the distributor loses $38 a belt. Order too few and it loses the $45 margin on each belt it could have sold. Notice that both are opportunity costs measured against the decision that could have been made, and that neither appears in any ledger. <a href="01-Chapter1.html#sec-costparams-marginality" class="quarto-xref"><span>Section 1.4.2</span></a> is why.</p>
+<section id="sec-newsvendor-demandsales" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="sec-newsvendor-demandsales"><span class="header-section-number">7.1.1</span> Demand Is Not Sales</h3>
+<p>One distinction has to be made before any data are used, because it is the commonest error in this material and it is invisible in the answer.</p>
+<ul>
+<li>Let <strong>demand</strong> represent what customers would have bought.</li>
+<li>Let <strong>sales</strong> represent what they did buy.</li>
+</ul>
+<p>The two differ whenever the shelf was empty. A week that sold 40 belts because 40 were on the shelf and a week that sold 40 because 40 were wanted look identical in a sales record. That is, sales are demand <strong>censored</strong> at whatever was available, and a history of sales understates both the average and the spread. It understates them most in exactly the weeks when the item mattered, because those are the weeks it ran out.</p>
+<p>Recall from <a href="02-Chapter2.html#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a> that a stock record is only as good as the transactions behind it. This is the same point about a different record. An organization that wants to model demand has to record the demand it could not fill, and most do not. Where that record does not exist, the fitted distribution of <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> is biased low and every quantity computed from it is too small. You should say so when you report the answer, rather than let the arithmetic imply a precision the data do not carry.</p>
+<p>The next section makes the decision without any distribution theory at all.</p>
+</section>
+</section>
+<section id="sec-newsvendor-marginal" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-newsvendor-marginal"><span class="header-section-number">7.2</span> Working the Decision by Hand</h2>
+<p>Before any calculus, the decision can be made with arithmetic a planner would do on a whiteboard. The method is worth more than the answer, because it produces the rule that the rest of the chapter derives formally.</p>
+<p>Start with a sketch of demand rather than a fitted distribution. Suppose the distributor, asked for a judgment, offers five outcomes for total remaining demand and a probability for each.</p>
+<div id="tbl-newsvendor-sketch" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-sketch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.1: A five-point sketch of remaining demand for the belt. The mean is 485 belts. Notice that the sketch is coarse on purpose: the argument below needs the shape of demand and not its detail.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-sketch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Demand <span class="math inline">\(x\)</span>, belts</th>
+<th style="text-align: right;">300</th>
+<th style="text-align: right;">400</th>
+<th style="text-align: right;">500</th>
+<th style="text-align: right;">600</th>
+<th style="text-align: right;">700</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P\{X = x\}\)</span></td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P\{X \le x\}\)</span></td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The decision is how many belts to buy, in hundreds. Rather than evaluate every candidate, ask a smaller question. <strong>Given that we have decided on some quantity, is one more hundred belts worth buying?</strong></p>
+<p>Buying one more hundred pays off when demand turns out to exceed the quantity we already have, which happens with probability <span class="math inline">\(P\{X \ge Q+100\}\)</span>, and each of those belts earns the $45 margin. It costs when demand falls at or below the quantity we already have, which happens with probability <span class="math inline">\(P\{X \le Q\}\)</span>, and each unsold belt loses $38. The extra hundred is worth buying when</p>
+<p><span id="eq-newsvendor-marginal"><span class="math display">\[
+45 \times 100 \times P\{X \ge Q+100\} \;&gt;\; 38 \times 100 \times P\{X \le Q\}
+\tag{7.1}\]</span></span></p>
+<p><a href="#tbl-newsvendor-marginal" class="quarto-xref">Table&nbsp;<span>7.2</span></a> works <a href="#eq-newsvendor-marginal" class="quarto-xref">Equation&nbsp;<span>7.1</span></a> one step at a time.</p>
+<p><strong>Step 1, from 300 to 400.</strong> Demand reaches 400 or more with probability 0.85, so the gain is <span class="math inline">\(45(100)(0.85) = \$3{,}825\)</span>. Demand stops at 300 with probability 0.15, so the loss is <span class="math inline">\(38(100)(0.15) = \$570\)</span>. The step is worth $3,255. Take it.</p>
+<p><strong>Step 2, from 400 to 500.</strong> Demand reaches 500 or more with probability 0.60, giving <span class="math inline">\(45(100)(0.60) = \$2{,}700\)</span>. Demand stops at 400 or below with probability 0.40, giving <span class="math inline">\(38(100)(0.40) = \$1{,}520\)</span>. The step is worth $1,180. Take it.</p>
+<p><strong>Step 3, from 500 to 600.</strong> Demand reaches 600 or more with probability 0.30, giving $1,350. Demand stops at 500 or below with probability 0.70, giving $2,660. The step <strong>loses</strong> $1,310. Stop.</p>
+<div id="tbl-newsvendor-marginal" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-marginal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.2: The marginal analysis, one hundred belts at a time. Notice that the net column changes sign once and never changes back, which is what makes stopping at the first negative step correct rather than merely convenient.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-marginal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">From</th>
+<th style="text-align: right;">To</th>
+<th style="text-align: right;"><span class="math inline">\(P\{X \ge \text{to}\}\)</span></th>
+<th style="text-align: right;">Gain</th>
+<th style="text-align: right;"><span class="math inline">\(P\{X \le \text{from}\}\)</span></th>
+<th style="text-align: right;">Loss</th>
+<th style="text-align: right;">Net</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">$3,825</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">$570</td>
+<td style="text-align: right;"><strong>+$3,255</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">$2,700</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">$1,520</td>
+<td style="text-align: right;"><strong>+$1,180</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">$1,350</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">$2,660</td>
+<td style="text-align: right;">-$1,310</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">700</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">$450</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">$3,420</td>
+<td style="text-align: right;">-$2,970</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Order 500 belts.</strong> Notice that 500 is <em>more</em> than the mean of 485. The distributor should plan to be left with belts more often than it plans to run out, because running out costs more per belt than scrapping does.</p>
+<p>That the net column changes sign exactly once is not luck. Rearranging <a href="#eq-newsvendor-marginal" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>, the step is worth taking while</p>
+<p><span id="eq-newsvendor-stoprule"><span class="math display">\[
+P\{X \le Q\} &lt; \frac{45}{45+38} = \frac{c_{u}}{c_{u}+c_{o}} = 0.5422
+\tag{7.2}\]</span></span></p>
+<p>and the left side is a cumulative distribution function, which never decreases. Thus, once the test fails it fails for every larger quantity, and the rule is to order the smallest quantity whose cumulative probability reaches 0.5422. From <a href="#tbl-newsvendor-sketch" class="quarto-xref">Table&nbsp;<span>7.1</span></a> that is 500 belts, since <span class="math inline">\(F(400) = 0.40\)</span> is short of it and <span class="math inline">\(F(500) = 0.70\)</span> clears it.</p>
+<p>That ratio is the answer to the whole chapter, and <a href="#sec-newsvendor-criticalratio" class="quarto-xref"><span>Section 7.6</span></a> derives it properly.</p>
+<p><strong>A check, and a reason to trust the shortcut.</strong> Costing all five candidates directly should agree, and it does.</p>
+<div id="tbl-newsvendor-profit" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-profit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.3: Expected profit at each candidate quantity, computed from <a href="#tbl-newsvendor-sketch" class="quarto-xref">Table&nbsp;<span>7.1</span></a> without any shortcut.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-profit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Q\)</span></th>
+<th style="text-align: right;">300</th>
+<th style="text-align: right;">400</th>
+<th style="text-align: right;">500</th>
+<th style="text-align: right;">600</th>
+<th style="text-align: right;">700</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Expected profit</td>
+<td style="text-align: right;">$13,500</td>
+<td style="text-align: right;">$16,755</td>
+<td style="text-align: right;"><strong>$17,935</strong></td>
+<td style="text-align: right;">$16,625</td>
+<td style="text-align: right;">$13,655</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-newsvendor-profit" class="quarto-xref">Table&nbsp;<span>7.3</span></a> peaks at 500, which is where <a href="#tbl-newsvendor-marginal" class="quarto-xref">Table&nbsp;<span>7.2</span></a> stopped and where <a href="#eq-newsvendor-stoprule" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> pointed. Three routes, one answer. That check is worth performing the first time you use marginal analysis on a new problem, because the marginal argument is only valid when the expected profit has a single peak, and the direct calculation is what confirms it.</p>
+<p>Notice what the hand method cost. Five outcomes, four steps, no distribution and no calculus. What it cannot do is tell the distributor anything between 400 and 500 belts, and the real decision is a number of belts rather than a number of hundreds. For that we need a distribution, and that is the next two sections.</p>
+</section>
+<section id="sec-newsvendor-fitting" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-newsvendor-fitting"><span class="header-section-number">7.3</span> Getting a Demand Distribution</h2>
+<p>Every model from here to the end of the book takes a demand distribution as an input, and the distribution carries more of the answer than the policy formula built on top of it does. This section fits one.</p>
+<p>It is deliberately short, because the subject has a book of its own. Appendix B of <em>Simulation Modeling using the KSL</em> <span class="citation" data-cites="rossetti2026ksl">(<a href="references.html#ref-rossetti2026ksl" role="doc-biblioref">Rossetti 2026</a>)</span> gives the procedure in full, and Chapter 2 of the same text shows how to carry it out with the library this book’s code uses. What follows is that procedure applied to an inventory problem, with the one difference that matters here made explicit: demand for a spare part is a <strong>count</strong>, so every tool below is a discrete one.</p>
+<p><strong>The data.</strong> The distributor has 104 weeks of demand for the belt, recorded after the deck went out of production. They are in <code>data/ch7-weekly-demand.csv</code> in the course code project, two columns and a header:</p>
+<pre><code>week,demand
+1,94
+2,67
+3,31</code></pre>
+<p>Read them the way <a href="14-AppDistributions.html#sec-appdistributions-4" class="quarto-xref"><span>Section C.4</span></a> assumes they arrive, as a file whose contents you did not choose:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> DataFrame<span class="op">.</span>readCSV<span class="op">(</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    File<span class="op">(</span><span class="st">"data/ch7-weekly-demand.csv"</span><span class="op">),</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    colTypes <span class="op">=</span> mapOf<span class="op">(</span><span class="st">"week"</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">,</span> <span class="st">"demand"</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">history</span><span class="op">:</span> IntArray <span class="op">=</span> df<span class="op">.</span>getColumn<span class="op">(</span><span class="st">"demand"</span><span class="op">).</span>toList<span class="op">().</span>map <span class="op">{</span> it <span class="kw">as</span> <span class="kw">Int</span> <span class="op">}.</span>toIntArray<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that the column types are named rather than left to be inferred. That is the practice Section 2.4.4 of <span class="citation" data-cites="rossetti2026ksl">(<a href="references.html#ref-rossetti2026ksl" role="doc-biblioref">Rossetti 2026</a>)</span> follows, and the reason is that a column of counts silently read as text, or as real numbers, fails later and somewhere else.</p>
+<section id="sec-newsvendor-fitting-look" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-newsvendor-fitting-look"><span class="header-section-number">7.3.1</span> Look Before You Model</h3>
+<p>Appendix B of <span class="citation" data-cites="rossetti2026ksl">(<a href="references.html#ref-rossetti2026ksl" role="doc-biblioref">Rossetti 2026</a>)</span> opens its fitting procedure by plotting the data, and it is worth saying why rather than treating it as a ritual. A summary statistic answers a question you already thought to ask. A picture shows you the thing you did not.</p>
+<p>Three plots answer three different questions, and the KSL draws all three.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">h</span> <span class="op">=</span> Histogram<span class="op">(</span>Histogram<span class="op">.</span>createBreakPoints<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="fl">10.0</span><span class="op">),</span> <span class="st">"Weekly demand"</span><span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>h<span class="op">.</span>collect<span class="op">(</span>history<span class="op">.</span>toDoubles<span class="op">())</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>h<span class="op">.</span>histogramPlot<span class="op">().</span>showInBrowser<span class="op">()</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ObservationsPlot<span class="op">(</span>history<span class="op">.</span>toDoubles<span class="op">()).</span>showInBrowser<span class="op">()</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ACFPlot<span class="op">(</span>history<span class="op">.</span>toDoubles<span class="op">()).</span>showInBrowser<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>What shape is it?</strong> <a href="#fig-ch7-demand-histogram" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> is the histogram, on bins of ten belts. The break points are given rather than recommended, because ten belts to a bin is what the <code>Data</code> sheet of <code>Chapter7Models.xlsx</code> uses and a figure that disagrees with the spreadsheet beside it is worse than no figure.</p>
+<div id="fig-ch7-demand-histogram" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch7-demand-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ch7/ch7-demand-histogram.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch7-demand-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Weekly demand for the belt over 104 weeks, in bins of ten. Each bin is closed below and open above, so the tallest bar counts the 26 weeks that sold 10 through 19 belts. Notice the shape: a peak well to the left, a long thin tail reaching past 110, and no suggestion of symmetry anywhere in it. That single picture has already ruled out the normal distribution.
+</figcaption>
+</figure>
+</div>
+<p><strong>Is it the same process throughout?</strong> <a href="#fig-ch7-demand-observations" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> plots the weeks in the order they occurred. What you are looking for is a trend, a level shift, or a season, and what is there is none of those: the series wanders about a constant level for two years. That matters because the season really is over, which is what <a href="#exm-newsvendor-finalbuy" class="quarto-xref">Example&nbsp;<span>7.1</span></a> claimed and what this plot lets a reader check rather than accept.</p>
+<p><strong>Are the weeks independent?</strong> <a href="#fig-ch7-demand-acf" class="quarto-xref">Figure&nbsp;<span>7.3</span></a> is the autocorrelation plot. Every lag falls inside the band, including the first, whose correlation is 0.1423 against a band of about <span class="math inline">\(\pm 1.96/\sqrt{104} = \pm 0.19\)</span>. Recall from <a href="13-AppProbability.html#sec-appprobability-randomsums-caution" class="quarto-xref"><span>Section B.5.5</span></a> that autocorrelated demand breaks the variance of a sum. <a href="#sec-newsvendor-continuous" class="quarto-xref"><span>Section 7.7</span></a> is about to add fourteen of these weeks together and treat their variances as adding, so this is the plot that licenses the arithmetic two sections from now.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-ch7-demand-observations" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch7-demand-observations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ch7/ch7-demand-observations.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch7-demand-observations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.2: The weeks in the order they occurred.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-ch7-demand-acf" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch7-demand-acf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ch7/ch7-demand-acf.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch7-demand-acf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.3: Autocorrelation through twenty lags.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Taken together the three plots say the weeks are independent, identically distributed, and strongly right-skewed. That is the finding that lets the rest of the section treat the 104 numbers as 104 draws from one distribution.</p>
+</section>
+<section id="sec-newsvendor-fitting-summarize" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-newsvendor-fitting-summarize"><span class="header-section-number">7.3.2</span> Summarize It</h3>
+<p>Now the statistics, which the KSL accumulates as the data are collected.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">"Weekly demand"</span><span class="op">,</span> history<span class="op">.</span>toDoubles<span class="op">())</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">b</span> <span class="op">=</span> BoxPlotSummary<span class="op">(</span>history<span class="op">.</span>toDoubles<span class="op">(),</span> <span class="st">"Weekly demand"</span><span class="op">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>s<span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>b<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-newsvendor-summary" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.4: Summary of the 104 weeks. <code>Statistic</code> carries the first four moments and the lag one correlation; <code>BoxPlotSummary</code> carries the quartiles.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Statistic</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Weeks observed</td>
+<td style="text-align: right;">104</td>
+</tr>
+<tr class="even">
+<td>Mean</td>
+<td style="text-align: right;">33.2404</td>
+</tr>
+<tr class="odd">
+<td>Variance</td>
+<td style="text-align: right;">613.0387</td>
+</tr>
+<tr class="even">
+<td>Standard deviation</td>
+<td style="text-align: right;">24.7596</td>
+</tr>
+<tr class="odd">
+<td>Coefficient of variation</td>
+<td style="text-align: right;">0.7449</td>
+</tr>
+<tr class="even">
+<td>Variance to mean ratio</td>
+<td style="text-align: right;">18.4426</td>
+</tr>
+<tr class="odd">
+<td>Skewness</td>
+<td style="text-align: right;">1.2630</td>
+</tr>
+<tr class="even">
+<td>Smallest week</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>First quartile</td>
+<td style="text-align: right;">16.0</td>
+</tr>
+<tr class="even">
+<td>Median</td>
+<td style="text-align: right;">26.5</td>
+</tr>
+<tr class="odd">
+<td>Third quartile</td>
+<td style="text-align: right;">40.0</td>
+</tr>
+<tr class="even">
+<td>Largest week</td>
+<td style="text-align: right;">113</td>
+</tr>
+<tr class="odd">
+<td>Weeks with no demand</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Read three things off <a href="#tbl-newsvendor-summary" class="quarto-xref">Table&nbsp;<span>7.4</span></a> before going further.</p>
+<p><strong>The median sits well below the mean.</strong> A median of 26.5 against a mean of 33.24 says the distribution is right-skewed: most weeks are quiet and a few are very large. The skewness of 1.2630 is the same statement with a number attached, and <a href="#fig-ch7-demand-histogram" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> is the same statement with a picture attached. Three routes, one finding.</p>
+<p><strong>Demand is a count.</strong> The weeks are whole belts, two of them are zero, and the quantity has no meaning between whole numbers. Thus, the families to consider are the discrete ones of <a href="14-AppDistributions.html#sec-appdistributions-1" class="quarto-xref"><span>Section C.1</span></a> and not the continuous ones of <a href="14-AppDistributions.html#sec-appdistributions-2" class="quarto-xref"><span>Section C.2</span></a>.</p>
+<p><strong>For a count the diagnostic is the variance to mean ratio.</strong> <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> rather than the coefficient of variation, because the ratio is what each discrete family fixes or bounds. Here</p>
+<p><span class="math display">\[
+\mathit{VMR} = \frac{613.0387}{33.2404} = 18.44
+\]</span></p>
+</section>
+<section id="sec-newsvendor-fitting-fit" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="sec-newsvendor-fitting-fit"><span class="header-section-number">7.3.3</span> Hypothesize, Estimate, Test</h3>
+<p><strong>Step 1, hypothesize.</strong> <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> does most of this step by itself. Recall from <a href="14-AppDistributions.html#sec-appdistributions-poisson" class="quarto-xref"><span>Section C.1.1</span></a> that the Poisson fixes <span class="math inline">\(\mathit{VMR} = 1\)</span>, and from <a href="14-AppDistributions.html#sec-appdistributions-binomial" class="quarto-xref"><span>Section C.1.3</span></a> that the binomial forces <span class="math inline">\(\mathit{VMR} &lt; 1\)</span>. A ratio of 18.44 is near neither, and no choice of parameter repairs that, because in both families the variance is decided the moment the mean is estimated. What remains is <a href="14-AppDistributions.html#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a>, the negative binomial, which admits any <span class="math inline">\(\mathit{VMR} &gt; 1\)</span> and which is the Poisson with its constant-rate assumption relaxed. That is a plausible story for a spare part: the rate at which mower decks need belts is not the same in every week.</p>
+<p><strong>Step 2, estimate.</strong> The KSL estimates the parameters of every discrete family it knows in one call. <code>PMFModeler</code> is the discrete counterpart of the <code>PDFModeler</code> of Section 2.4.2 of <span class="citation" data-cites="rossetti2026ksl">(<a href="references.html#ref-rossetti2026ksl" role="doc-biblioref">Rossetti 2026</a>)</span>, and it is deliberately narrower: there are fewer discrete families, so it estimates parameters and leaves the choosing to you.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">modeler</span> <span class="op">=</span> PMFModeler<span class="op">(</span>history<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>result <span class="kw">in</span> modeler<span class="op">.</span>estimateParameters<span class="op">(</span>modeler<span class="op">.</span>defaultEstimators<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="cf">if</span> <span class="op">(</span>result<span class="op">.</span>success<span class="op">)</span> <span class="st">"</span><span class="ss">${</span>result<span class="op">.</span>parameters<span class="ss">}</span><span class="st">"</span> <span class="cf">else</span> <span class="st">"FAILED: </span><span class="ss">${</span>result<span class="op">.</span>message<span class="ss">}</span><span class="st">"</span><span class="op">)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>RV Type = NegativeBinomial
+Double Parameters {probOfSuccess=0.05422232292974839, numSuccesses=1.9057024844439698}
+RV Type = Poisson
+Double Parameters {mean=33.24038461538462}
+FAILED: Cannot match moments when sample average &lt;= estimated variance
+RV Type = Binomial
+Double Parameters {probOfSuccess=0.29133420825260514, numTrials=114.09708737864078}</code></pre>
+<p>Read that output carefully, because the most useful line in it is the failure. The binomial estimator that matches moments <strong>refuses to return an answer</strong>, and the reason it gives is <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> in words: a binomial cannot have a variance above its mean. That is the software performing Step 1 rather than the analyst. The binomial that did return an answer did so by matching the largest observation instead of the moments, and it reports 114.1 trials, a fractional number of trials for a quantity that has no trials in it. Notice that an estimate being returned is not the same thing as a family being appropriate.</p>
+<p>The negative binomial estimate is the method of moments of <a href="14-AppDistributions.html#sec-appdistributions-4" class="quarto-xref"><span>Section C.4</span></a>, and it is worth confirming by hand. Matching <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> to the sample mean <span class="math inline">\(\bar{x}\)</span> and sample variance <span class="math inline">\(s^{2}\)</span> gives</p>
+<p><span id="eq-newsvendor-negbinfit"><span class="math display">\[
+\hat{p} = \frac{\bar{x}}{s^{2}} = \frac{33.2404}{613.0387} = 0.054222,
+\qquad
+\hat{r} = \frac{\bar{x}^{2}}{s^{2}-\bar{x}} = \frac{33.2404^{2}}{613.0387-33.2404} = 1.9057
+\tag{7.3}\]</span></span></p>
+<p>which is what the KSL reported. Notice that <span class="math inline">\(1/\hat{p} = 18.44\)</span> is the variance to mean ratio we started with, so the fitted <span class="math inline">\(\hat{p}\)</span> carries no information the summary did not already have. That is true of the method of moments generally and is worth knowing: the fit is a restatement of two summary numbers in the parameters of a family.</p>
+<p>The KSL uses the success convention of <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, so <code>probOfSuccess</code> is <span class="math inline">\(p\)</span> and the mean is <span class="math inline">\(r(1-p)/p\)</span>. That agrees with the check above. The warning in <a href="14-AppDistributions.html#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a> is not hypothetical; you should confirm the convention every time before passing a parameter to a routine.</p>
+<p><strong>Step 3, test.</strong> For a discrete model the KSL performs a chi-squared goodness of fit test, forming bins of approximately equal probability.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">fitted</span> <span class="op">=</span> NegativeBinomial<span class="op">(</span><span class="fl">0.054222</span><span class="op">,</span> <span class="fl">1.9057</span><span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">gof</span> <span class="op">=</span> DiscretePMFGoodnessOfFit<span class="op">(</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    history<span class="op">.</span>toDoubles<span class="op">(),</span> fitted<span class="op">,</span> numEstimatedParameters <span class="op">=</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    breakPoints <span class="op">=</span> PMFModeler<span class="op">.</span>makeZeroToInfinityBreakPoints<span class="op">(</span>history<span class="op">.</span>size<span class="op">,</span> fitted<span class="op">)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>gof<span class="op">.</span>chiSquaredTestResults<span class="op">())</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="tbl-newsvendor-gof" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-gof-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.5: The chi-squared goodness of fit test on the 104 weeks, for the two families <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> left in contention. Notice that the Poisson is not rejected narrowly. Its test statistic is more than twenty times the negative binomial’s.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-gof-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th style="text-align: right;"><span class="math inline">\(\chi^{2}\)</span></th>
+<th style="text-align: right;">Degrees of freedom</th>
+<th style="text-align: right;"><span class="math inline">\(p\)</span>-value</th>
+<th>At the 0.05 level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Negative binomial, <span class="math inline">\(\hat{p}=0.0542\)</span>, <span class="math inline">\(\hat{r}=1.9057\)</span></td>
+<td style="text-align: right;">23.35</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.1382</td>
+<td>do not reject</td>
+</tr>
+<tr class="even">
+<td>Poisson, <span class="math inline">\(\hat{\lambda}=33.2404\)</span></td>
+<td style="text-align: right;">571.98</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.0000</td>
+<td>reject</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-newsvendor-gof" class="quarto-xref">Table&nbsp;<span>7.5</span></a> is the confirmation, not the decision. The decision was made by the variance to mean ratio, and a test that had contradicted it would have been telling us that something is wrong with the data rather than with <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a>.</p>
+<p><a href="#fig-ch7-demand-pmf" class="quarto-xref">Figure&nbsp;<span>7.4</span></a> is the same conclusion drawn rather than tabulated. The KSL calls this a PMF comparison plot and Section 2.4.4 of <span class="citation" data-cites="rossetti2026ksl">(<a href="references.html#ref-rossetti2026ksl" role="doc-biblioref">Rossetti 2026</a>)</span> uses one at the same point in the procedure.</p>
+<div id="fig-ch7-demand-pmf" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ch7-demand-pmf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ch7/ch7-demand-pmf.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch7-demand-pmf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.4: The fitted negative binomial against the 104 weeks. The empirical mass function is spiky because it has to be: 104 observations spread over 54 distinct values put a mass of 1/104 or 2/104 on most of them. That is exactly why <a href="#tbl-newsvendor-gof" class="quarto-xref">Table&nbsp;<span>7.5</span></a> bins before it tests. What to read here is whether the black curve runs through the middle of the red forest, which it does.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-newsvendor-fitting-limits" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="sec-newsvendor-fitting-limits"><span class="header-section-number">7.3.4</span> What the Test Does Not Settle</h3>
+<p>A goodness of fit test asks whether the data are <em>inconsistent</em> with a family. Failing to reject is not proof. With 104 observations spread over twenty bins, several of the bins carry an expected count below five, which is the condition under which the chi-squared approximation is least trustworthy, and the KSL flags each of them. The test and the ratio narrow the field, and the choice among what survives is yours to defend. Where two survivors disagree enough to change the decision, <a href="#sec-newsvendor-continuous" class="quarto-xref"><span>Section 7.7</span></a> shows what to do: compute the answer under both and report the spread.</p>
+<p><strong>What this section did not do.</strong> It did not deseasonalize, because <a href="#fig-ch7-demand-observations" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> shows nothing to remove and the season is over. It did not forecast, which is a different job from fitting a distribution and is outside this book. And it did not correct for censoring, because the distributor does not record lost sales, which is exactly the limitation <a href="#sec-newsvendor-demandsales" class="quarto-xref"><span>Section 7.1.1</span></a> warned about and which no amount of care here repairs.</p>
+<p>It also did not have to deal with an item whose history is mostly zeros. The belt sold in 102 of its 104 weeks. <a href="#sec-newsvendor-intermittent" class="quarto-xref"><span>Section 7.4</span></a> takes up the items that do not.</p>
+</section>
+</section>
+<section id="sec-newsvendor-intermittent" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sec-newsvendor-intermittent"><span class="header-section-number">7.4</span> Intermittent and Slow-Moving Demand</h2>
+<p>The belt is demanded in almost every week: 2 of its 104 weeks were empty. Many items are not like that, and a history in which most periods are empty needs a different treatment.</p>
+<p>Recall from <a href="02-Chapter2.html#exm-eils" class="quarto-xref">Example&nbsp;<span>2.4</span></a> that a demand history is classified by two statistics: the average interval between demands, <span class="math inline">\(\mathit{ADI}\)</span>, and the squared coefficient of variation of the non-zero sizes, <span class="math inline">\(\mathit{CV}^{2}\)</span>. An item with <span class="math inline">\(\mathit{ADI} &gt; 1.32\)</span> is <strong>intermittent</strong>, and one that is also variable in size, <span class="math inline">\(\mathit{CV}^{2} &gt; 0.49\)</span>, is <strong>lumpy</strong>. Those two cut-offs are not conventions; <span class="citation" data-cites="syntetos2005">Syntetos et al. (<a href="references.html#ref-syntetos2005" role="doc-biblioref">2005</a>)</span> derive them as the points at which one forecasting method overtakes another, which is why they are the oddly specific numbers they are. For the belt, <span class="math inline">\(\mathit{ADI} = 104/102 = 1.02\)</span>, comfortably under the threshold, which is the check that licenses everything <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> did.</p>
+<p>Two things go wrong when an intermittent series is handed to <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> unchanged.</p>
+<p><strong>A single family has to explain two different things.</strong> The distribution of period demand for an intermittent item is a mixture of a point mass at zero and a distribution of sizes. Fitting one continuous family to it forces that family to account for both how often demand happens and how large it is, and no family in <a href="14-AppDistributions.html#sec-appdistributions-2" class="quarto-xref"><span>Section C.2</span></a> can do that well. <a href="14-AppDistributions.html#sec-appdistributions-intermittent" class="quarto-xref"><span>Section C.4.3</span></a> gives the two repairs, a zero-modified family or a compound representation.</p>
+<p><strong>The coefficient of variation goes past where the normal is usable.</strong> <a href="14-AppDistributions.html#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> gives a normal model at a coefficient of variation of 1.0 a sixth of its probability below zero. Intermittent items routinely run past 1.0, so the family that is most often reached for is the one most surely wrong. That is not a small error in a tail; it is a model asserting that demand is frequently negative.</p>
+<p>Neither repair is needed for this chapter, because <a href="#sec-newsvendor-discrete" class="quarto-xref"><span>Section 7.8</span></a> handles the slow-moving case directly with a discrete distribution and no mixture. Both matter from <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> onward, where the quantity being modeled is demand over a lead time and the zeros no longer aggregate away.</p>
+<p>One thing this book does <strong>not</strong> cover is worth naming so you know it exists, and worth naming precisely enough that you can go and read it.</p>
+<p>Forecasting an intermittent series, as opposed to fitting a distribution to it, begins with <span class="citation" data-cites="croston1972">Croston (<a href="references.html#ref-croston1972" role="doc-biblioref">1972</a>)</span>. Croston’s insight was that exponentially smoothing an intermittent series directly is wrong, because the smoothing is dragged toward zero by every empty period and the estimate is then lowest just after a demand occurs, which is precisely when the next one is least likely. His method smooths two series separately instead, the size of a demand when one happens and the interval between demands, and combines them into a demand rate.</p>
+<p><span class="citation" data-cites="syntetos2005accuracy">Syntetos and Boylan (<a href="references.html#ref-syntetos2005accuracy" role="doc-biblioref">2005</a>)</span> then showed that the obvious way of combining them is biased. The ratio of two independent smoothed estimates does not estimate the ratio of their means, so Croston’s estimator runs high, and they gave the correction that now carries their names. The same authors’ categorization scheme <span class="citation" data-cites="syntetos2005">(<a href="references.html#ref-syntetos2005" role="doc-biblioref">Syntetos et al. 2005</a>)</span> is the source of the <span class="math inline">\(\mathit{ADI}\)</span> and <span class="math inline">\(\mathit{CV}^{2}\)</span> cut-offs above, and it exists to say which of these estimators to use.</p>
+<p>Fitting asks what the distribution of demand is. Forecasting asks what next period’s demand will be. They are different questions, both are needed in practice, and this chapter asks only the first.</p>
+</section>
+<section id="sec-newsvendor-model" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="sec-newsvendor-model"><span class="header-section-number">7.5</span> The Newsvendor Model</h2>
+<p>We can now state the problem formally. It carries the name of a vendor buying newspapers for the day, and it applies to any resource committed before the need for it is known.</p>
+<ul>
+<li>Let <span class="math inline">\(X\)</span> represent demand over the period, a random variable with cumulative distribution function <span class="math inline">\(F(x) = P\{X \le x\}\)</span>.</li>
+<li>Let <span class="math inline">\(Q\)</span> represent the quantity ordered, the decision.</li>
+<li>Let <span class="math inline">\(c_{o}\)</span> represent the <strong>overage cost</strong>, the loss on each unit left at the end of the period, in dollars per unit.</li>
+<li>Let <span class="math inline">\(c_{u}\)</span> represent the <strong>underage cost</strong>, the loss on each unit of demand that could not be met, in dollars per unit.</li>
+</ul>
+<p>Both are opportunity costs measured against the decision that could have been made, and both are strictly positive. <a href="#sec-newsvendor-extensions" class="quarto-xref"><span>Section 7.9</span></a> says what it means when one of them is not.</p>
+<p>At the end of the period exactly one of two things has happened. Either <span class="math inline">\(Q &gt; X\)</span> and <span class="math inline">\(Q - X\)</span> units are left over, or <span class="math inline">\(Q &lt; X\)</span> and <span class="math inline">\(X - Q\)</span> units of demand went unmet. Using the notation <span class="math inline">\((y)^{+} = \max(y, 0)\)</span> of <a href="14-AppDistributions.html#sec-appdistributions-3" class="quarto-xref"><span>Section C.3</span></a>, both cases are covered by one expression:</p>
+<p><span id="eq-newsvendor-cost"><span class="math display">\[
+C(Q, X) = c_{o}(Q-X)^{+} + c_{u}(X-Q)^{+}
+\tag{7.4}\]</span></span></p>
+<p>Notice that exactly one of the two terms is non-zero for any realized demand. <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> is a random variable because <span class="math inline">\(X\)</span> is, and the decision is made to minimize its expectation, <span class="math inline">\(E[C(Q,X)]\)</span>.</p>
+<section id="sec-newsvendor-profit" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="sec-newsvendor-profit"><span class="header-section-number">7.5.1</span> The Same Model as a Profit</h3>
+<p>Much of the literature and all of the practice writes this as a profit rather than a cost, in terms of quantities that appear on an invoice.</p>
+<ul>
+<li>Let <span class="math inline">\(c\)</span> represent the purchase cost, <span class="math inline">\(s\)</span> the selling price, and <span class="math inline">\(u\)</span> the salvage value per unit, with <span class="math inline">\(s &gt; c &gt; u\)</span>.</li>
+</ul>
+<p>The vendor sells <span class="math inline">\(\min(X, Q)\)</span> units, salvages <span class="math inline">\((Q-X)^{+}\)</span>, and pays for <span class="math inline">\(Q\)</span>:</p>
+<p><span id="eq-newsvendor-profit"><span class="math display">\[
+G(Q, X) = s\min(X, Q) + u(Q-X)^{+} - cQ
+\tag{7.5}\]</span></span></p>
+<p>The two formulations are the same model. Matching terms,</p>
+<p><span id="eq-newsvendor-mapping"><span class="math display">\[
+c_{o} = c - u, \qquad c_{u} = s - c
+\tag{7.6}\]</span></span></p>
+<p>so the overage cost is what a unit loses between the counter and the scrap yard, and the underage cost is the margin forgone. For the belt, <span class="math inline">\(c_{o} = 50 - 12 = \$38\)</span> and <span class="math inline">\(c_{u} = 95 - 50 = \$45\)</span>, which are the numbers <a href="#sec-newsvendor-marginal" class="quarto-xref"><span>Section 7.2</span></a> used.</p>
+<p>Maximizing <a href="#eq-newsvendor-profit" class="quarto-xref">Equation&nbsp;<span>7.5</span></a> and minimizing <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> give the same <span class="math inline">\(Q\)</span>, and the reason is worth stating because it is the same argument as <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a>. The two expressions differ by <span class="math inline">\((s-c)E[X]\)</span>, which is the profit the vendor would make if every unit demanded were sold. That quantity does not depend on <span class="math inline">\(Q\)</span>. It shifts the objective without moving its optimum, and</p>
+<p><span id="eq-newsvendor-equivalence"><span class="math display">\[
+E[G(Q,X)] = (s-c)E[X] - E[C(Q,X)]
+\tag{7.7}\]</span></span></p>
+<p>Use whichever formulation the audience speaks. This chapter derives in costs, because <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> is shorter, and reports in profits, because that is what the distributor will ask for.</p>
+</section>
+</section>
+<section id="sec-newsvendor-criticalratio" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="sec-newsvendor-criticalratio"><span class="header-section-number">7.6</span> The Critical Ratio</h2>
+<p>The expected cost has a closed form, and it is written in the first order loss function of <a href="14-AppDistributions.html#sec-appdistributions-3" class="quarto-xref"><span>Section C.3</span></a>. Recall that <span class="math inline">\(G^{1}(b) = E[(X-b)^{+}]\)</span> is the expected amount by which demand exceeds <span class="math inline">\(b\)</span>.</p>
+<p>Take the expectation of <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> term by term. The second term is <span class="math inline">\(G^{1}(Q)\)</span> by definition, so the expected shortage is</p>
+<p><span id="eq-newsvendor-shortage"><span class="math display">\[
+E\left[(X-Q)^{+}\right] = G^{1}(Q)
+\tag{7.8}\]</span></span></p>
+<p>The first term needs one step. Notice the identity <span class="math inline">\((Q-X)^{+} = (X-Q)^{+} + Q - X\)</span>, which holds in both cases: when <span class="math inline">\(X &lt; Q\)</span> the right side is <span class="math inline">\(0 + Q - X\)</span>, and when <span class="math inline">\(X \ge Q\)</span> it is <span class="math inline">\(X - Q + Q - X = 0\)</span>. Taking expectations,</p>
+<p><span id="eq-newsvendor-leftover"><span class="math display">\[
+E\left[(Q-X)^{+}\right] = G^{1}(Q) + Q - E[X]
+\tag{7.9}\]</span></span></p>
+<p>which says the expected leftover is the expected shortage plus however far the order sits above the mean. Putting the two together,</p>
+<p><span id="eq-newsvendor-expectedcost"><span class="math display">\[
+E[C(Q)] = c_{o}\left(G^{1}(Q) + Q - E[X]\right) + c_{u}G^{1}(Q)
+= (c_{u}+c_{o})G^{1}(Q) + c_{o}\left(Q - E[X]\right)
+\tag{7.10}\]</span></span></p>
+<p><a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> is the whole model in one line. The first term is the cost of being short, weighted by both prices because a unit short is both a sale lost and a unit not held. The second is the cost of the position itself.</p>
+<p><strong>Differentiating.</strong> <a href="14-AppDistributions.html#sec-appdistributions-3" class="quarto-xref"><span>Section C.3</span></a> gives <span class="math inline">\(dG^{1}(Q)/dQ = -G^{0}(Q)\)</span>, where <span class="math inline">\(G^{0}(Q) = 1 - F(Q)\)</span>. Differentiating <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> term by term,</p>
+<p><span id="eq-newsvendor-derivative"><span class="math display">\[
+\frac{d}{dQ}E[C(Q)] = -(c_{u}+c_{o})G^{0}(Q) + c_{o}
+\tag{7.11}\]</span></span></p>
+<p>Setting <a href="#eq-newsvendor-derivative" class="quarto-xref">Equation&nbsp;<span>7.11</span></a> to zero gives <span class="math inline">\(G^{0}(Q) = c_{o}/(c_{u}+c_{o})\)</span>, and since <span class="math inline">\(G^{0} = 1 - F\)</span>,</p>
+<p><span id="eq-newsvendor-criticalratio"><span class="math display">\[
+F(Q^{*}) = \frac{c_{u}}{c_{u}+c_{o}}, \qquad
+Q^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right)
+\tag{7.12}\]</span></span></p>
+<p>The quantity <span class="math inline">\(c_{u}/(c_{u}+c_{o})\)</span> is the <strong>critical ratio</strong>. It is the rule <a href="#eq-newsvendor-stoprule" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> produced by hand, and <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> is why that rule was right. Notice that the optimum is a minimum: the second derivative is <span class="math inline">\((c_{u}+c_{o})f(Q)\)</span>, which is non-negative everywhere, so the expected cost is convex and the stationary point is the bottom.</p>
+<section id="sec-newsvendor-reading" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="sec-newsvendor-reading"><span class="header-section-number">7.6.1</span> Reading the Critical Ratio</h3>
+<p><a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> says something sharper than “solve for <span class="math inline">\(Q\)</span>”. The left side is <span class="math inline">\(P\{X \le Q^{*}\}\)</span>, the probability that demand falls short of the order. That is the probability of <strong>having too much</strong>. Thus, the critical ratio is not an input to the answer; it <em>is</em> the answer, expressed as a service level the costs imply.</p>
+<p>The ratio depends only on the relative size of the two costs, so it can be read as odds. For example, if being short costs three times as much as being long, then <span class="math inline">\(c_{u}/(c_{u}+c_{o}) = 3/4\)</span> and it is optimal to run a 75% chance of leftovers. At four times it is 80%, and at nine times it is 90%.</p>
+<p>Two consequences follow, and both contradict what an organization usually rewards.</p>
+<p><strong>Never having leftovers is bad.</strong> A buyer who ends every period with nothing left is not being careful. They are ordering at a critical ratio near zero, which is only correct when a lost sale costs nothing. For the belt the ratio is 0.5422, so the distributor should expect leftovers in about 54% of futures. A manager who treats scrapped belts as evidence of a mistake will push the buyer below the optimum, and the loss will never appear in any account because it is a sale that did not happen.</p>
+<p><strong>Never having unsatisfied customers is also bad.</strong> The mirror error costs just as much. At the belt’s ratio the distributor should expect to run out about 46% of the time. A service target of 99% is a claim that <span class="math inline">\(c_{u}\)</span> is ninety-nine times <span class="math inline">\(c_{o}\)</span>, and if that is not true the stock is too large.</p>
+<p>Thus, the useful question to ask of a stated service level is not whether it is high enough. It is what ratio of costs would make it optimal, and whether anyone believes those costs. <a href="04-Chapter4.html#sec-multiitem-exchange-implied" class="quarto-xref"><span>Section 4.4.3</span></a> made the same move for the economic order quantity, reading a firm’s behavior back into the parameters it implies.</p>
+</section>
+</section>
+<section id="sec-newsvendor-continuous" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="sec-newsvendor-continuous"><span class="header-section-number">7.7</span> Continuous Demand</h2>
+<p>With a continuous demand distribution, <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> is a quantile and the work is arithmetic.</p>
+<div id="exm-newsvendor-normal" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.2 (The final buy, solved)</strong></span> Take <a href="#exm-newsvendor-finalbuy" class="quarto-xref">Example&nbsp;<span>7.1</span></a> with the demand distribution of <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a>.</p>
+<p><em>Notation.</em> Let <span class="math inline">\(X\)</span> represent total demand over the fourteen remaining weeks. Let <span class="math inline">\(X_{i}\)</span> represent demand in week <span class="math inline">\(i\)</span>, negative binomial with mean 33.2404 and variance 613.0387 from the fit of <a href="#eq-newsvendor-negbinfit" class="quarto-xref">Equation&nbsp;<span>7.3</span></a>.</p>
+<p><em>The distribution of the total.</em> Weekly demands are independent, so by <a href="13-AppProbability.html#sec-appprobability-2" class="quarto-xref"><span>Section B.2</span></a> the mean and variance of a sum add:</p>
+<p><span class="math display">\[
+E[X] = 14(33.2404) = 465.37 \text{ belts}, \qquad
+\mathit{Var}[X] = 14(613.0387) = 8582.54
+\]</span></p>
+<p>so <span class="math inline">\(\sigma = \sqrt{8582.54} = 92.64\)</span> belts and the coefficient of variation is <span class="math inline">\(92.64/465.37 = 0.1991\)</span>.</p>
+<p><em>Which family.</em> <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> fitted a <strong>discrete</strong> model to weekly demand, and demand over fourteen weeks is discrete too. Treating the total as continuous is an approximation, and it is a safe one here for the reason <a href="#sec-newsvendor-discrete" class="quarto-xref"><span>Section 7.8</span></a> gives at the end: one belt is <span class="math inline">\(1/92.64\)</span>, or 1.1%, of the standard deviation of the total, so rounding cannot decide the answer. The weekly data, where one belt is 4% of the standard deviation, would not have earned the same treatment.</p>
+<p>The family to approximate with is the normal. <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> rejected the normal for <strong>weekly</strong> demand, whose coefficient of variation is 0.7449. The total over fourteen weeks has a coefficient of variation of 0.1991, and <a href="14-AppDistributions.html#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> says a normal at that coefficient puts essentially nothing below zero. The normal is safe here and was not safe there, and the reason is <a href="13-AppProbability.html#sec-appprobability-2" class="quarto-xref"><span>Section B.2</span></a>: a sum of many independent terms tends toward the normal whatever the terms look like.</p>
+<p><em>The critical ratio.</em> From <a href="#eq-newsvendor-mapping" class="quarto-xref">Equation&nbsp;<span>7.6</span></a>, <span class="math inline">\(c_{o} = \$38\)</span> and <span class="math inline">\(c_{u} = \$45\)</span>, so</p>
+<p><span class="math display">\[
+\frac{c_{u}}{c_{u}+c_{o}} = \frac{45}{83} = 0.542169
+\]</span></p>
+<p><em>The quantity.</em> Standardizing, <span class="math inline">\(Q^{*} = \mu + z\sigma\)</span> where <span class="math inline">\(z = \Phi^{-1}(0.542169) = 0.1059\)</span>. That is,</p>
+<p><span class="math display">\[
+Q^{*} = 465.37 + 0.1059(92.64) = 475.18 \text{ belts}
+\]</span></p>
+<p>so the distributor orders <strong>475 belts</strong>.</p>
+<p><em>The consequences.</em> From <a href="14-AppDistributions.html#tbl-loss-normal" class="quarto-xref">Table&nbsp;<span>C.2</span></a> the standard normal loss function at <span class="math inline">\(z = 0.1059\)</span> is <span class="math inline">\(\Phi^{1}(0.1059) = 0.3482\)</span>, so by <a href="14-AppDistributions.html#eq-loss-normal-scaling" class="quarto-xref">Equation&nbsp;<span>C.20</span></a> the expected shortage is <span class="math inline">\(92.64(0.3482) = 32.26\)</span> belts. From <a href="#eq-newsvendor-leftover" class="quarto-xref">Equation&nbsp;<span>7.9</span></a> the expected leftover is <span class="math inline">\(32.26 + 475.18 - 465.37 = 42.07\)</span> belts. The distributor expects to scrap about 42 belts and to turn away about 32 dealers.</p>
+<p><em>The cost.</em> From <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a>,</p>
+<p><span class="math display">\[
+E[C(Q^{*})] = 38(42.07) + 45(32.26) = 1598.71 + 1451.72 = \$3{,}050.43
+\]</span></p>
+<p><em>The check.</em> The other form of <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> must agree: <span class="math inline">\((45+38)(32.26) + 38(475.18 - 465.37) = 2677.62 + 372.81 = \$3{,}050.43\)</span>. The two agree, which confirms both the loss function and the quantity computed from it. That check is worth performing every time, because it catches a missing <span class="math inline">\(\sigma\)</span> in the loss function immediately.</p>
+<p><em>In business terms.</em> By <a href="#eq-newsvendor-equivalence" class="quarto-xref">Equation&nbsp;<span>7.7</span></a> the expected profit is <span class="math inline">\((95-50)(465.37) - 3050.43 = \$17{,}891.01\)</span>. The distributor commits $23,750 to buy 475 belts and expects to clear about $17,900 on them.</p>
+</div>
+<p>Three things about <a href="#exm-newsvendor-normal" class="quarto-xref">Example&nbsp;<span>7.2</span></a> are worth more than the answer.</p>
+<p><strong>The optimum is flat.</strong> Ordering the mean rounded to whole belts, 465, costs $3,068.88 against the optimum’s $3,050.43, which is 0.6% worse. The economic order quantity of <a href="03-Chapter3.html#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> is flat in the same way and for the same reason: the objective is smooth and its derivative vanishes at the optimum. Thus, the value of this calculation is not the last belt. It is knowing that 475 is right and 700 is not, and 700 costs $8,930, nearly three times the optimum.</p>
+<p><strong>The family matters less than the fit, and here that can be measured.</strong> Recall from <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> that a sum of independent negative binomials sharing <span class="math inline">\(p\)</span> is negative binomial with the same <span class="math inline">\(p\)</span> and the numbers of successes added. Thus, the fitted weekly model of <a href="#eq-newsvendor-negbinfit" class="quarto-xref">Equation&nbsp;<span>7.3</span></a> gives the fourteen-week distribution <strong>exactly</strong>, as <span class="math inline">\(\mathit{NB}(\hat{p} = 0.054222, 14\hat{r} =
+26.6798)\)</span>, with the same mean and variance used above. Apply <a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a> to it and the answer is 469 belts, because <span class="math inline">\(F(468) = 0.5392\)</span> is short of the ratio and <span class="math inline">\(F(469) = 0.5434\)</span> clears it. Now price the four candidate orders against that exact model.</p>
+<div id="tbl-newsvendor-families" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-families-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.6: What the choice of family costs, measured against the distribution the data were fitted to rather than against the other candidates. The gamma happens to land on the exact answer.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-families-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model used to choose <span class="math inline">\(Q\)</span></th>
+<th style="text-align: right;">Normal</th>
+<th style="text-align: right;">Lognormal</th>
+<th style="text-align: right;">Gamma</th>
+<th style="text-align: right;">Exact negative binomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Q\)</span>, rounded to whole belts</td>
+<td style="text-align: right;">475</td>
+<td style="text-align: right;">466</td>
+<td style="text-align: right;"><strong>469</strong></td>
+<td style="text-align: right;"><strong>469</strong></td>
+</tr>
+<tr class="even">
+<td>Expected cost under the exact model</td>
+<td style="text-align: right;">$3,061.28</td>
+<td style="text-align: right;">$3,057.19</td>
+<td style="text-align: right;"><strong>$3,055.38</strong></td>
+<td style="text-align: right;"><strong>$3,055.38</strong></td>
+</tr>
+<tr class="odd">
+<td>Penalty against the exact answer</td>
+<td style="text-align: right;">0.19%</td>
+<td style="text-align: right;">0.06%</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Read <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a> as a bound rather than as a ranking. The worst of the three continuous families costs 0.19% more than choosing correctly, on a decision worth about $3,050. That spread is small because the coefficient of variation of the total is 0.1991. It would not be small at the weekly coefficient of 0.7449, which is another reason <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> is worth doing carefully.</p>
+<p><strong>The normal’s defect is real and did not bite.</strong> A normal with this mean and standard deviation puts <span class="math inline">\(\Phi(-465.37/92.64) = \Phi(-5.02)\)</span> below zero, which is about one in four million. Notice that this is a statement about <em>this</em> aggregation and not about the normal in general. The same family applied to the weekly data would have put about 9% of its mass below zero.</p>
+</section>
+<section id="sec-newsvendor-discrete" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="sec-newsvendor-discrete"><span class="header-section-number">7.8</span> Discrete Demand</h2>
+<p>When demand is counted in small whole numbers, a continuous distribution is the wrong tool and the inverse in <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> does not exist. A discrete cumulative distribution function is a staircase, and a critical ratio almost never lands exactly on a step.</p>
+<p>The rule that replaces it follows from the same marginal argument as <a href="#eq-newsvendor-stoprule" class="quarto-xref">Equation&nbsp;<span>7.2</span></a>. Keep adding a unit while the expected gain exceeds the expected loss, which means while <span class="math inline">\(F(Q) &lt; c_{u}/(c_{u}+c_{o})\)</span>. That is,</p>
+<p><span id="eq-newsvendor-discreterule"><span class="math display">\[
+Q^{*} = \min\left\{Q : F(Q) \ge \frac{c_{u}}{c_{u}+c_{o}}\right\}
+\tag{7.13}\]</span></span></p>
+<p><a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a> is not an inverse. It is the smallest quantity whose cumulative probability <em>reaches</em> the ratio, and at that quantity <span class="math inline">\(F(Q^{*})\)</span> is usually strictly greater than the ratio. That gap is not an error. It is the staircase, and it means a discrete newsvendor generally achieves a service level a little better than the one its costs call for, because it cannot buy a fraction of a unit.</p>
+<div class="callout callout-style-simple callout-warning callout-titled" title="Evaluate a discrete loss function only at whole units">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Evaluate a discrete loss function only at whole units
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The first order loss function of a discrete distribution is defined for every real argument, but the KSL’s implementations of <code>firstOrderLossFunction</code> and <code>secondOrderLossFunction</code> are correct only when the argument is a whole number. At a fractional argument <code>Poisson</code> and <code>NegativeBinomial</code> return a value that is usually negative, <code>Binomial</code> returns the value at the whole number below, and <code>Geometric</code> returns an approximation. Version R1.6.2 is affected and none of these raises an error.</p>
+<p>That restriction costs nothing here, because <a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a> only ever asks about whole units. It matters when a quantity that came from a continuous model is priced against a discrete one, which is exactly what <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a> does: round first, then evaluate.</p>
+</div>
+</div>
+<div id="exm-newsvendor-transformer" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.3 (A one-time buy of spare transformers)</strong></span> Recall the municipal utility storeroom of <a href="04-Chapter4.html#exm-storeroom" class="quarto-xref">Example&nbsp;<span>4.5</span></a>, which carries a pad-mount transformer at $3,800. The utility is about to begin a capital project after which the specification changes, so transformers not used will be obsolete.</p>
+<p><em>What is the demand process?</em> Failures arrive independently at a low rate. Over the project window the utility expects 6 failures, and models the count as Poisson with <span class="math inline">\(\lambda = 6\)</span>.</p>
+<p><em>What costs are incurred?</em> A transformer bought and not used scraps at $900, so <span class="math inline">\(c_{o} = 3800 - 900 = \$2{,}900\)</span>. A failure with no spare on the shelf is covered by an emergency purchase at $9,500, so <span class="math inline">\(c_{u} = 9500 - 3800 = \$5{,}700\)</span>.</p>
+<p><em>The critical ratio.</em> <span class="math inline">\(5700/(5700+2900) = 5700/8600 = 0.662791\)</span>.</p>
+<p><em>The quantity.</em> Walk the Poisson distribution function until it reaches the ratio.</p>
+<div id="tbl-newsvendor-poisson" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.7: The Poisson newsvendor, walked one transformer at a time. Notice that the cost column confirms the rule rather than being used by it: the rule reads the <span class="math inline">\(F(Q)\)</span> row and stops at 7 because 0.6063 is short of 0.6628 and 0.7440 clears it.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Q\)</span></th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(F(Q)\)</span></td>
+<td style="text-align: right;">0.2851</td>
+<td style="text-align: right;">0.4457</td>
+<td style="text-align: right;">0.6063</td>
+<td style="text-align: right;"><strong>0.7440</strong></td>
+<td style="text-align: right;">0.8472</td>
+</tr>
+<tr class="even">
+<td>Expected shortage <span class="math inline">\(G^{1}(Q)\)</span></td>
+<td style="text-align: right;">2.2330</td>
+<td style="text-align: right;">1.5181</td>
+<td style="text-align: right;">0.9637</td>
+<td style="text-align: right;">0.5700</td>
+<td style="text-align: right;">0.3140</td>
+</tr>
+<tr class="odd">
+<td>Expected cost</td>
+<td style="text-align: right;">$13,404</td>
+<td style="text-align: right;">$10,155</td>
+<td style="text-align: right;">$8,288</td>
+<td style="text-align: right;"><strong>$7,802</strong></td>
+<td style="text-align: right;">$8,501</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><em>The answer.</em> <strong>Buy 7 spare transformers</strong>, at a cost of $26,600, with an expected total of $7,802 in obsolescence and emergency purchases.</p>
+<p><em>The check.</em> <a href="#tbl-newsvendor-poisson" class="quarto-xref">Table&nbsp;<span>7.7</span></a> costs each candidate directly from <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a>, using the Poisson loss function of <a href="14-AppDistributions.html#tbl-loss-discrete" class="quarto-xref">Table&nbsp;<span>C.3</span></a>. The minimum is at 7, where the rule put it.</p>
+</div>
+<p><strong>Does rounding the continuous answer work?</strong> Usually, and not always. Treating demand as normal with mean 6 and variance 6 gives <span class="math inline">\(6 + \Phi^{-1}(0.6628)\sqrt{6} = 6 + 0.4201(2.4495) = 7.029\)</span>, which rounds to 7 and agrees.</p>
+<p>Now change one number. Suppose the emergency purchase costs $8,150 rather than $9,500, so that <span class="math inline">\(c_{u} = \$4{,}350\)</span> and the critical ratio is exactly 0.6000. The exact rule reads <span class="math inline">\(F(5) = 0.4457\)</span> and <span class="math inline">\(F(6) = 0.6063\)</span>, and stops at <strong>6 transformers</strong>. The normal approximation gives <span class="math inline">\(6 + 0.2533(2.4495) = 6.621\)</span>, which rounds to <strong>7</strong>. The approximation buys one transformer too many, at $3,800, which is a real error on a real decision.</p>
+<p>The lesson is about when the approximation is safe rather than whether it is. A normal approximation to a discrete distribution is good when the mean is large enough that one unit is a small fraction of the standard deviation. At <span class="math inline">\(\lambda = 6\)</span> the standard deviation is 2.45 units, so a single transformer is 40% of it, and rounding decides the answer. At <span class="math inline">\(\lambda = 600\)</span> a single unit is 4% of the standard deviation and rounding decides nothing. Thus, use <a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a> whenever the numbers are small, which is exactly when slow-moving items are involved and exactly when each unit is expensive.</p>
+</section>
+<section id="sec-newsvendor-extensions" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="sec-newsvendor-extensions"><span class="header-section-number">7.9</span> Extensions</h2>
+<p>Four variations cover most of what a real single-period problem adds, and none of them changes <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a>. They change what goes into it.</p>
+<section id="sec-newsvendor-penalty" class="level3" data-number="7.9.1">
+<h3 data-number="7.9.1" class="anchored" data-anchor-id="sec-newsvendor-penalty"><span class="header-section-number">7.9.1</span> A Penalty Beyond the Lost Margin</h3>
+<p><a href="#eq-newsvendor-mapping" class="quarto-xref">Equation&nbsp;<span>7.6</span></a> sets <span class="math inline">\(c_{u} = s - c\)</span>, the margin forgone. That is the whole cost only when a customer turned away this time returns next time as though nothing had happened. Where a stockout costs more than the sale, add it.</p>
+<ul>
+<li>Let <span class="math inline">\(\pi\)</span> represent the stockout penalty of <a href="01-Chapter1.html#sec-costparams-shortage" class="quarto-xref"><span>Section 1.4.6</span></a>, in dollars per unit of unmet demand, so that <span class="math inline">\(c_{u} = s - c + \pi\)</span>.</li>
+</ul>
+<p>For the belt, suppose the distributor judges that a dealer refused a belt costs $40 in future business beyond the margin lost today. Then <span class="math inline">\(c_{u} = 45 + 40 = 85\)</span> and the critical ratio rises from 0.5422 to <span class="math inline">\(85/123 = 0.6911\)</span>. The quantity rises with it, from 475 belts to <span class="math inline">\(465.37 + 0.4989(92.64) = 511.58\)</span>, so <strong>512 belts</strong>.</p>
+<p>Notice the direction and the size. A penalty of $40, which is under half the selling price, moved the order by 37 belts, which is 7.8%. Recall from <a href="01-Chapter1.html#sec-costest-shortage" class="quarto-xref"><span>Section 1.5.5</span></a> that <span class="math inline">\(\pi\)</span> is the parameter no ledger contains and the one hardest to defend. The honest way to report this decision is not a single number. It is that 475 belts is right if a stockout costs only the margin and 512 if it costs $40 more, and that the organization should say which it believes.</p>
+</section>
+<section id="sec-newsvendor-initial" class="level3" data-number="7.9.2">
+<h3 data-number="7.9.2" class="anchored" data-anchor-id="sec-newsvendor-initial"><span class="header-section-number">7.9.2</span> Stock Already on Hand</h3>
+<p>Suppose the distributor already holds <span class="math inline">\(I\)</span> belts when the final order is placed. The decision is now how many to <em>add</em>, but the model is unchanged in a way worth seeing.</p>
+<p>What the model determines is the quantity that should be <strong>available</strong> for the period, which is the stock on hand plus the order. Call that the order-up-to level <span class="math inline">\(S^{*}\)</span>, and notice that <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> computes it exactly as before, because the cost of ending the period with <span class="math inline">\(S - X\)</span> units left does not care how they got there. That is,</p>
+<p><span id="eq-newsvendor-orderupto"><span class="math display">\[
+S^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right),
+\qquad Q^{*} = \left(S^{*} - I\right)^{+}
+\tag{7.14}\]</span></span></p>
+<p>For the belt, <span class="math inline">\(S^{*} = 475.18\)</span>, so with 120 belts already on hand the order is <span class="math inline">\(475.18 - 120 = 355.18\)</span>, or <strong>355 belts</strong>. With 600 already on hand the order is zero, and the distributor is over-stocked before it begins.</p>
+<p><a href="#eq-newsvendor-orderupto" class="quarto-xref">Equation&nbsp;<span>7.14</span></a> is the first appearance of a structure the rest of the book uses constantly. <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> builds its whole policy on an order-up-to level, and the <span class="math inline">\((s, S)\)</span> policy of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> is the same idea with a trigger attached. Notice that the truncation at zero matters: a newsvendor cannot sell stock back, so an excess position is simply carried.</p>
+</section>
+<section id="sec-newsvendor-improper" class="level3" data-number="7.9.3">
+<h3 data-number="7.9.3" class="anchored" data-anchor-id="sec-newsvendor-improper"><span class="header-section-number">7.9.3</span> When the Model Refuses</h3>
+<p><a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> requires <span class="math inline">\(c_{o} &gt; 0\)</span> and <span class="math inline">\(c_{u} &gt; 0\)</span>, and the two ways that fails are both informative.</p>
+<p>If <span class="math inline">\(c_{u} \le 0\)</span> there is no penalty for being short, so the critical ratio is zero or negative and the answer is to order nothing. That is correct, and it usually means the problem was stated wrongly: an item nobody loses anything by running out of is an item nobody should stock.</p>
+<p>If <span class="math inline">\(c_{o} \le 0\)</span>, which happens when the salvage value equals or exceeds the purchase cost, the critical ratio is one or more and the answer is to order without limit. That is also correct and also a sign of a mis-stated problem. A unit that can always be disposed of for at least what it cost carries no risk, so nothing stops you buying it. An unbounded answer is the model reporting that you have described a situation with no downside, and the right response is to find the cost you left out.</p>
+</section>
+<section id="sec-newsvendor-singleperiod" class="level3" data-number="7.9.4">
+<h3 data-number="7.9.4" class="anchored" data-anchor-id="sec-newsvendor-singleperiod"><span class="header-section-number">7.9.4</span> Is It Really a Single Period?</h3>
+<p>The strongest assumption in this chapter is the one in the title. Leftover stock must have no value after the period. That is exactly true for a perishable item, a newspaper or a flu vaccine, and exactly true for the final buy of <a href="#exm-newsvendor-finalbuy" class="quarto-xref">Example&nbsp;<span>7.1</span></a> because the deck is withdrawn.</p>
+<p>It is false for most inventory. A belt left over in an ordinary week is a belt available next week, worth its purchase cost less one week of holding, and that is a multi-period problem. Applying the newsvendor model there charges the whole value of the unit against a decision that costs only a week of carrying, so the order comes out far too small.</p>
+<p>Thus, the test to apply before using this chapter is a single question. <strong>What is a leftover unit worth at the end of the period?</strong> If the answer is its scrap value, this is a newsvendor problem. If the answer is nearly what you paid, it is not, and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> is where to go.</p>
+</section>
+</section>
+<section id="sec-newsvendor-simulation" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="sec-newsvendor-simulation"><span class="header-section-number">7.10</span> Estimating the Answer by Simulation</h2>
+<p>Everything so far has been a formula. This section computes the same answer by sampling, and it is the first simulation in this book.</p>
+<p>The order matters. <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> already gives the exact answer for <a href="#exm-newsvendor-normal" class="quarto-xref">Example&nbsp;<span>7.2</span></a>, so simulating it proves nothing about the belt. What it proves is that the simulation is right, and that is worth having before the simulation is pointed at a problem where no formula exists.</p>
+<p>The model is <a href="#eq-newsvendor-profit" class="quarto-xref">Equation&nbsp;<span>7.5</span></a> evaluated on sampled demand. Notice that the sampling is done from the <strong>fitted</strong> model of <a href="#eq-newsvendor-negbinfit" class="quarto-xref">Equation&nbsp;<span>7.3</span></a> and not from the normal approximation to it. The simulation can sample counts as easily as it can sample real numbers, so there is no reason to hand it the approximation, and sampling counts removes the truncation at zero a normal would have needed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">demand</span> <span class="op">=</span> NegativeBinomialRV<span class="op">(</span>probOfSuccess <span class="op">=</span> <span class="fl">0.054222</span><span class="op">,</span> numSuccess <span class="op">=</span> <span class="fl">26.6798</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">"profit at Q"</span><span class="op">)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>demand<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>repeat<span class="op">(</span><span class="dv">100_000</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> demand<span class="op">.</span>value</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">.</span>collect<span class="op">(</span>s <span class="op">*</span> minOf<span class="op">(</span>d<span class="op">,</span> q<span class="op">)</span> <span class="op">+</span> u <span class="op">*</span> maxOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> q <span class="op">-</span> d<span class="op">)</span> <span class="op">-</span> c <span class="op">*</span> q<span class="op">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span><span class="st">"%.2f +/- %.2f"</span><span class="op">.</span>format<span class="op">(</span>stat<span class="op">.</span>average<span class="op">,</span> stat<span class="op">.</span>halfWidth<span class="op">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice <code>resetStartStream</code>. Running it before each candidate makes every quantity face the <strong>same</strong> hundred thousand demands, which is what lets the rows of <a href="#tbl-newsvendor-sim" class="quarto-xref">Table&nbsp;<span>7.8</span></a> be compared with one another rather than only with the exact answer. It also makes each row reproducible on its own, which a shared advancing stream would not.</p>
+<div id="tbl-newsvendor-sim" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.8: Expected profit estimated by simulation, 100,000 replications at each quantity, every quantity facing the same demands. The closed form is <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> evaluated on the exact negative binomial of <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a>.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Q\)</span></th>
+<th style="text-align: right;">440</th>
+<th style="text-align: right;">460</th>
+<th style="text-align: right;"><strong>469</strong></th>
+<th style="text-align: right;">490</th>
+<th style="text-align: right;">510</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Estimated profit</td>
+<td style="text-align: right;">$17,737.18</td>
+<td style="text-align: right;">$17,877.57</td>
+<td style="text-align: right;"><strong>$17,893.03</strong></td>
+<td style="text-align: right;">$17,818.04</td>
+<td style="text-align: right;">$17,610.98</td>
+</tr>
+<tr class="even">
+<td>Half-width</td>
+<td style="text-align: right;">$21.02</td>
+<td style="text-align: right;">$24.68</td>
+<td style="text-align: right;">$26.31</td>
+<td style="text-align: right;">$29.95</td>
+<td style="text-align: right;">$33.15</td>
+</tr>
+<tr class="odd">
+<td>Closed form</td>
+<td style="text-align: right;">$17,732.96</td>
+<td style="text-align: right;">$17,871.00</td>
+<td style="text-align: right;"><strong>$17,886.06</strong></td>
+<td style="text-align: right;">$17,811.30</td>
+<td style="text-align: right;">$17,606.01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Read <a href="#tbl-newsvendor-sim" class="quarto-xref">Table&nbsp;<span>7.8</span></a> one column at a time. The estimate at <span class="math inline">\(Q^{*} = 469\)</span> is $17,893.03 with a half-width of $26.31, so the interval is <span class="math inline">\([\$17{,}866.72, \$17{,}919.34]\)</span>, and the exact $17,886.06 lies inside it. So does the exact figure in every other column. Five agreements are a great deal more convincing than one, and they cost nothing extra to report. That agreement is the validation, and it is the reason to do the easy case first. Notice also that the simulation puts its peak at the same candidate the formula does, which the common demands make a fair comparison rather than a lucky one.</p>
+<p><strong>Notice what the simulation has that the formula does not.</strong> Every figure in <a href="#tbl-newsvendor-sim" class="quarto-xref">Table&nbsp;<span>7.8</span></a> carries a half-width. A simulated answer is an estimate with a standard error, and reporting one without its interval is reporting a number that is not there. By <a href="13-AppProbability.html#sec-appprobability-1" class="quarto-xref"><span>Section B.1</span></a> the half-width shrinks with the square root of the replication count, so ten times the precision costs a hundred times the run.</p>
+<p><strong>And notice what it costs.</strong> The exact answer took one walk up a distribution function. The estimate took half a million samples and is still uncertain in the third significant figure. Simulation is not how you solve the newsvendor problem.</p>
+<section id="sec-newsvendor-simwhen" class="level3" data-number="7.10.1">
+<h3 data-number="7.10.1" class="anchored" data-anchor-id="sec-newsvendor-simwhen"><span class="header-section-number">7.10.1</span> When It Is Worth It</h3>
+<p>Simulation earns its place the moment any assumption behind <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> fails, and four failures are common.</p>
+<p><strong>A demand distribution with no convenient inverse.</strong> A mixture, from <a href="14-AppDistributions.html#sec-appdistributions-loss-mixtures" class="quarto-xref"><span>Section C.3.6</span></a>, has no closed-form quantile. The formula needs a search; the simulation does not care.</p>
+<p><strong>A salvage rule that is not linear.</strong> For example, suppose the scrap dealer takes the first 100 belts at $12 and the rest at $4. <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> no longer has constant <span class="math inline">\(c_{o}\)</span>, the derivation of <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> breaks, and three lines change in the simulation.</p>
+<p><strong>A constraint.</strong> A supplier minimum, a case quantity, a budget shared with another item. <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> solved constrained problems when everything was deterministic; under uncertainty the multiplier argument is harder and a search over simulated costs is often the shortest route.</p>
+<p><strong>More than one item that interact.</strong> Two products competing for one display, or a substitution rule sending refused demand for one to the other. There is no newsvendor formula for that, and there is an obvious simulation.</p>
+<p>In all four the pattern is the same. The <em>policy</em> stays simple, a single quantity chosen once. What changes is the cost function, and a cost function is easier to sample than to integrate. <a href="11-Chapter11.html" class="quarto-xref"><span>Chapter 11</span></a> returns to this properly, with the machinery for building and running models of systems that no formula reaches.</p>
+</section>
+</section>
+<section id="sec-newsvendor-building" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="sec-newsvendor-building"><span class="header-section-number">7.11</span> Building These Models in a Worksheet</h2>
+<p>The worksheets of <a href="05-Chapter5.html#sec-dls-building" class="quarto-xref"><span>Section 5.8</span></a> and <a href="06-Chapter6.html#sec-mrpdrp-building" class="quarto-xref"><span>Section 6.9</span></a> each laid out a procedure across rows. This one is different, because the decision is a single number and the work is in producing the distribution it is a quantile of.</p>
+<p><code>Chapter7Models.xlsx</code> has five working sheets, and the division between them is the argument of this chapter made visible. A sixth, <code>Notes</code>, says what the other five are for.</p>
+<p><strong><code>Data</code></strong> holds the 104-week history, its summary statistics, and a histogram. The statistics block computes the mean, the variance, the standard deviation, the coefficient of variation, and the median, and puts the median next to the mean because <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> reads them together. Nothing on this sheet assumes a distribution.</p>
+<p><strong><code>Fit</code></strong> does Steps 1 to 3 of <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a>. It computes <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a>, states what each discrete family requires of it, and answers yes or no for each, which is the step the KSL’s binomial estimator performs by refusing the data. It then fits the one family left standing by <a href="#eq-newsvendor-negbinfit" class="quarto-xref">Equation&nbsp;<span>7.3</span></a>, and checks the fit twice: <span class="math inline">\(1/\hat{p}\)</span> must return the ratio, and the fitted moments must return the moments they were fitted from. Both checks read zero, and both catch the wrong convention for <span class="math inline">\(p\)</span>.</p>
+<p><strong><code>Horizon</code></strong> is the fitted model aggregated over the fourteen weeks and walked one belt at a time. It needs no distribution function Excel does not have, because the mass function is the recursion <span class="math inline">\(g(x) = g(x-1)(x+r-1)(1-p)/x\)</span> started from <span class="math inline">\(g(0) = p^{r}\)</span>, and everything after it is a running sum. The walk stops at 700 belts, so the sheet reports the tail it did not reach rather than leaving a reader to wonder why the last cumulative probability is not one. This sheet is what <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a> measures the other three against.</p>
+<p><strong><code>Newsvendor</code></strong> is the decision. Inputs are <span class="math inline">\(s\)</span>, <span class="math inline">\(c\)</span>, <span class="math inline">\(u\)</span> and an optional penalty <span class="math inline">\(\pi\)</span>; the derived block computes <span class="math inline">\(c_{o}\)</span>, <span class="math inline">\(c_{u}\)</span> and the critical ratio by <a href="#eq-newsvendor-mapping" class="quarto-xref">Equation&nbsp;<span>7.6</span></a>; and the output block computes <span class="math inline">\(Q^{*}\)</span>, the expected shortage, the expected leftover, the expected cost and the expected profit. Both forms of <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> are computed and their difference is displayed, which is the arithmetic check of <a href="#exm-newsvendor-normal" class="quarto-xref">Example&nbsp;<span>7.2</span></a> wired into the sheet. The first order loss function is a formula and not a macro: for the normal it is <span class="math inline">\(\sigma[\phi(z) - z\Phi^{0}(z)]\)</span>, which is <code>sigma*(NORM.S.DIST(z,FALSE) - z*(1-NORM.S.DIST(z,TRUE)))</code>.</p>
+<p><strong><code>Discrete</code></strong> walks <a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a>. One row per candidate quantity, columns for <span class="math inline">\(g(Q)\)</span>, <span class="math inline">\(F(Q)\)</span>, the loss function by the recursion of <a href="14-AppDistributions.html#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a>, and the expected cost. The chosen row is highlighted by a formula rather than by hand, so a reader who changes a cost watches the highlight move.</p>
+<p>Three things the worksheet does deliberately. It carries no macros, so every number on it can be traced by clicking on the cell that produced it. It computes the expected cost at every candidate on the <code>Discrete</code> sheet even though <a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a> does not need them, because the point of <a href="#tbl-newsvendor-poisson" class="quarto-xref">Table&nbsp;<span>7.7</span></a> is that the rule and the direct calculation agree. And it rounds every quantity on the <code>Fit</code> sheet to whole belts before pricing it, for the reason <a href="#sec-newsvendor-discrete" class="quarto-xref"><span>Section 7.8</span></a> gives.</p>
+<p>What the worksheet cannot do is <a href="#sec-newsvendor-simulation" class="quarto-xref"><span>Section 7.10</span></a>, and that is the honest boundary. A spreadsheet can sample, but a sampled spreadsheet recalculates every time anything is touched and gives a different answer each time, which is the wrong tool for a number someone will be asked to defend.</p>
+</section>
+<section id="sec-newsvendor-design" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="sec-newsvendor-design"><span class="header-section-number">7.12</span> Designing the Software</h2>
+<p><a href="05-Chapter5.html#sec-dls-design" class="quarto-xref"><span>Section 5.9</span></a> and <a href="06-Chapter6.html#sec-mrpdrp-design" class="quarto-xref"><span>Section 6.10</span></a> each had an algorithm to organize. This chapter has a formula, so the design question is different and smaller: what are the pieces, and what keeps the two ways of computing the answer honest?</p>
+<section id="sec-newsvendor-design-nouns" class="level3" data-number="7.12.1">
+<h3 data-number="7.12.1" class="anchored" data-anchor-id="sec-newsvendor-design-nouns"><span class="header-section-number">7.12.1</span> Finding the Nouns</h3>
+<p>A <strong>demand model</strong> is a distribution with a quantile and a first order loss function. Notice that this is not a new class. It is <code>LossFunctionDistributionIfc</code> from <a href="14-AppDistributions.html#sec-appdistributions-loss-computing" class="quarto-xref"><span>Section C.3.7</span></a>, which the KSL already provides for every family this chapter uses, and the design’s first decision is not to reimplement it.</p>
+<p>A <strong>single-period cost structure</strong> is <span class="math inline">\(c_{o}\)</span> and <span class="math inline">\(c_{u}\)</span>, together with the mapping from <span class="math inline">\(s\)</span>, <span class="math inline">\(c\)</span>, <span class="math inline">\(u\)</span> and <span class="math inline">\(\pi\)</span> that produces them. It owns <a href="#eq-newsvendor-mapping" class="quarto-xref">Equation&nbsp;<span>7.6</span></a>, it owns the critical ratio, and it owns the refusal of <a href="#sec-newsvendor-improper" class="quarto-xref"><span>Section 7.9.3</span></a>: a cost structure with a non-positive <span class="math inline">\(c_{o}\)</span> or <span class="math inline">\(c_{u}\)</span> is rejected at construction rather than allowed to return an absurd quantity later.</p>
+<p>A <strong>solution</strong> pairs a quantity with what it implies: the expected shortage, the expected leftover, the expected cost, the expected profit. It is computed for any quantity and not only the optimal one, because <a href="#tbl-newsvendor-poisson" class="quarto-xref">Table&nbsp;<span>7.7</span></a> and <a href="#tbl-newsvendor-sim" class="quarto-xref">Table&nbsp;<span>7.8</span></a> both need a grid.</p>
+<p><em>Newsvendor</em> is the instructive rejection. It reads like the central class and the chapter is named after it. It fails because there is nothing for it to do that the cost structure and the demand model do not already do between them: the optimal quantity is one line given both, and a class whose only method is one line is a function wearing a costume.</p>
+</section>
+<section id="sec-newsvendor-design-agreement" class="level3" data-number="7.12.2">
+<h3 data-number="7.12.2" class="anchored" data-anchor-id="sec-newsvendor-design-agreement"><span class="header-section-number">7.12.2</span> The Two Routes Must Agree</h3>
+<p>The design’s real content is <a href="#sec-newsvendor-simulation" class="quarto-xref"><span>Section 7.10</span></a>. The same cost structure is evaluated two ways, exactly and by sampling, and the two must agree.</p>
+<p>That agreement is not a convenience; it is what the design is for. A solver and an estimator that share a cost function can be checked against each other, and one that does not share it cannot. The cost of a quantity is defined once, in the cost structure, and both routes call it. The exact route integrates it through the loss function; the simulation route samples demand and evaluates it directly.</p>
+<p>Notice what that buys when the exact route stops applying. Under the nonlinear salvage rule of <a href="#sec-newsvendor-simwhen" class="quarto-xref"><span>Section 7.10.1</span></a> the loss function integration is no longer valid, but the sampled evaluation still is, and it is still the same function of a realized demand that was validated against the formula when the formula held. That is the whole argument for building it this way.</p>
+</section>
+</section>
+<section id="sec-newsvendor-summary" class="level2" data-number="7.13">
+<h2 data-number="7.13" class="anchored" data-anchor-id="sec-newsvendor-summary"><span class="header-section-number">7.13</span> Summary</h2>
+<p><strong>The single-period problem is not a short multi-period problem.</strong> What distinguishes it is that leftover stock has no future value, so the cost of ordering one too many is the whole loss on the unit rather than a period of carrying. That is also the test for whether this chapter applies.</p>
+<p><strong>The ordering cost disappears.</strong> One order is placed whatever its size, so <span class="math inline">\(k\)</span> is constant across every alternative and cannot affect which is best. The trade-off that remains is overage against underage, and both are opportunity costs that appear in no ledger.</p>
+<p><strong>The answer is a quantile, and the quantile is the answer.</strong> The critical ratio <span class="math inline">\(c_{u}/(c_{u}+c_{o})\)</span> is the probability of having too much that the costs imply, and <span class="math inline">\(Q^{*} = F^{-1}\)</span> of it. Read as odds it says that if being short costs three times as much as being long, it is optimal to run a 75% chance of leftovers. Thus, never having leftovers is not careful buying, and never disappointing a customer is not good service. Each is a claim about a ratio of costs, and the useful question about a service target is what ratio would make it optimal.</p>
+<p><strong>Discrete demand needs the rule and not the inverse.</strong> A staircase distribution function rarely lands on the critical ratio, so the answer is the smallest quantity whose cumulative probability reaches it. Rounding a continuous approximation usually gives the same answer and sometimes does not, and it fails exactly where the items are slow-moving and expensive.</p>
+<p><strong>The demand distribution carries more of the answer than the formula does.</strong> Characterizing a history is cheap and settles more than a goodness of fit test does. Demand arrives in whole units, and for a count the variance to mean ratio of <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> decides the family before any of them is fitted: it is one for a Poisson and below one for a binomial, so a ratio of 18 leaves only the negative binomial standing. The test then confirms what the ratio chose. And a sales history is not a demand history, so a fitted distribution built from sales is biased low in exactly the periods that mattered.</p>
+<p><strong>Which family you pick costs less than you would guess, and it can be measured.</strong> Fitting a count model makes the aggregate exactly computable, because negative binomials sharing <span class="math inline">\(p\)</span> add. <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a> prices the normal, lognormal and gamma answers against that exact model and none of them costs more than a fifth of a percent. Thus, the argument for care in <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> is not that the family is delicate; it is that the moments are, and every family in the table was given the same two.</p>
+<p><strong>Simulation belongs after the closed form, not instead of it.</strong> The newsvendor is the one model in this book whose simulation can be checked against an exact answer, which makes it the right place to build the habit. What simulation buys is the cases the formula cannot reach: a distribution with no inverse, a salvage rule that is not linear, a constraint, or two items that interact.</p>
+<p><a href="#tbl-newsvendor-notation" class="quarto-xref">Table&nbsp;<span>7.9</span></a> collects the notation, which <a href="12-AppNotation.html" class="quarto-xref"><span>Appendix A</span></a> repeats alongside the rest of the book’s.</p>
+<div id="tbl-newsvendor-notation" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-newsvendor-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.9: Notation introduced in this chapter.
+</figcaption>
+<div aria-describedby="tbl-newsvendor-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(X\)</span></td>
+<td>Demand over the single period, a random variable</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F(x)\)</span></td>
+<td>Cumulative distribution function of demand, <span class="math inline">\(P\{X \le x\}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Q\)</span></td>
+<td>Order quantity, the decision</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Q^{*}\)</span></td>
+<td>The optimal order quantity</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(S^{*}\)</span></td>
+<td>Order-up-to level, when stock is already on hand</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(c_{o}\)</span></td>
+<td>Overage cost, the loss per unit left over</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c_{u}\)</span></td>
+<td>Underage cost, the loss per unit of unmet demand</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(c\)</span>, <span class="math inline">\(s\)</span>, <span class="math inline">\(u\)</span></td>
+<td>Purchase cost, selling price, salvage value per unit</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi\)</span></td>
+<td>Stockout penalty beyond the lost margin, per unit</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(G^{1}(Q)\)</span></td>
+<td>First order loss function, the expected shortage at <span class="math inline">\(Q\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> removes the last assumption this chapter kept. There the period does not end, stock left over is worth what it cost, and the decision is not how much to buy once but when to buy and how much each time.</p>
+</section>
+<section id="sec-newsvendor-exercises" class="level2" data-number="7.14">
+<h2 data-number="7.14" class="anchored" data-anchor-id="sec-newsvendor-exercises"><span class="header-section-number">7.14</span> Exercises</h2>
+<p>Unless an exercise says otherwise, use the conventions of <a href="01-Chapter1.html#sec-introduction-exercises" class="quarto-xref"><span>Section 1.7</span></a>. Report quantities to the nearest whole unit and state the unrounded value alongside. Where a demand history is called for, generate it with the code of <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> and the seed the exercise gives, so that your answer and the instructor’s agree.</p>
+<section id="sec-newsvendor-exr-concepts" class="level3" data-number="7.14.1">
+<h3 data-number="7.14.1" class="anchored" data-anchor-id="sec-newsvendor-exr-concepts"><span class="header-section-number">7.14.1</span> Terminology and Concepts</h3>
+<div id="exr-ch7-terms" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.1</strong></span> Define each of the following in one sentence, and say what unit it carries: overage cost, underage cost, critical ratio, order-up-to level, censored demand.</p>
+</div>
+<div id="exr-ch7-truefalse" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.2</strong></span> True or false, with one sentence of justification for each.</p>
+<ol type="a">
+<li>Increasing the salvage value raises the optimal order quantity.</li>
+<li>A buyer who never has leftover stock is managing the item well.</li>
+<li>The ordering cost <span class="math inline">\(k\)</span> does not appear in the newsvendor model because it is small.</li>
+<li>If the critical ratio is 0.5 then the optimal quantity is the mean of demand.</li>
+<li>Rounding the normal-approximation answer always gives the discrete optimum.</li>
+</ol>
+</div>
+<div id="exr-ch7-whyk" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.3</strong></span> <a href="01-Chapter1.html#tbl-problem-map" class="quarto-xref">Table&nbsp;<span>1.10</span></a> says that <span class="math inline">\(k\)</span> is irrelevant with one order. Explain why, and then describe a single-period situation in which it would <em>not</em> be irrelevant. State what would have to be true of the supplier for your situation to arise.</p>
+</div>
+<div id="exr-ch7-service" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.4</strong></span> A distribution manager states a target of 98% service for an item. Using <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a>, determine what ratio of underage to overage cost would make that target optimal. The item costs $40, sells for $60, and salvages for $25. What stockout penalty <span class="math inline">\(\pi\)</span> would be needed to justify the target, and is it credible?</p>
+</div>
+</section>
+<section id="sec-newsvendor-exr-hand" class="level3" data-number="7.14.2">
+<h3 data-number="7.14.2" class="anchored" data-anchor-id="sec-newsvendor-exr-hand"><span class="header-section-number">7.14.2</span> Working the Model by Hand</h3>
+<div id="exr-ch7-marginal" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.5</strong></span> A caterer must decide how many trays of a dish to prepare for one event. Each tray costs $18 to make and sells for $45. Unsold trays are donated and carry no salvage value. Demand is</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Trays <span class="math inline">\(x\)</span></th>
+<th style="text-align: right;">10</th>
+<th style="text-align: right;">20</th>
+<th style="text-align: right;">30</th>
+<th style="text-align: right;">40</th>
+<th style="text-align: right;">50</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P\{X = x\}\)</span></td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>Compute <span class="math inline">\(c_{o}\)</span>, <span class="math inline">\(c_{u}\)</span> and the critical ratio.</li>
+<li>Build the marginal analysis table of <a href="#tbl-newsvendor-marginal" class="quarto-xref">Table&nbsp;<span>7.2</span></a>, one step of ten trays at a time, and report where it stops.</li>
+<li>Compute the expected profit at all five candidates directly and confirm the answer of part (b).</li>
+<li>Report the expected number of trays donated and the expected number of customers turned away at the optimum.</li>
+</ol>
+</div>
+<div id="exr-ch7-discrete" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.6</strong></span> An airline holds one spare engine module at a maintenance base. Failures over the coming season are Poisson with a mean of 3. A module costs $220,000 and is worth $60,000 if the fleet is retired before it is used. A failure with no module on hand grounds an aircraft at a cost of $500,000.</p>
+<ol type="a">
+<li>Compute <span class="math inline">\(c_{o}\)</span>, <span class="math inline">\(c_{u}\)</span> and the critical ratio.</li>
+<li>Using <a href="#eq-newsvendor-discreterule" class="quarto-xref">Equation&nbsp;<span>7.13</span></a>, determine how many modules to hold. Show the <span class="math inline">\(F(Q)\)</span> column you walked.</li>
+<li>Compute the expected cost at <span class="math inline">\(Q^{*} - 1\)</span>, <span class="math inline">\(Q^{*}\)</span> and <span class="math inline">\(Q^{*} + 1\)</span> and confirm the minimum.</li>
+<li>Compute the normal-approximation answer and compare. Explain the comparison in terms of the ratio of one unit to the standard deviation.</li>
+</ol>
+</div>
+<div id="exr-ch7-loss" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.7</strong></span> For the final buy of <a href="#exm-newsvendor-normal" class="quarto-xref">Example&nbsp;<span>7.2</span></a>, compute the expected shortage and expected leftover at <span class="math inline">\(Q = 450\)</span>, <span class="math inline">\(Q = 475.18\)</span> and <span class="math inline">\(Q = 510\)</span>, using <a href="14-AppDistributions.html#tbl-loss-normal" class="quarto-xref">Table&nbsp;<span>C.2</span></a> and <a href="14-AppDistributions.html#eq-loss-normal-scaling" class="quarto-xref">Equation&nbsp;<span>C.20</span></a>. Work with the normal approximation, <span class="math inline">\(E[X] = 465.37\)</span> and <span class="math inline">\(\sigma = 92.64\)</span>.</p>
+<ol type="a">
+<li>Verify <a href="#eq-newsvendor-leftover" class="quarto-xref">Equation&nbsp;<span>7.9</span></a> at each quantity, i.e.&nbsp;that the expected leftover equals the expected shortage plus <span class="math inline">\(Q - E[X]\)</span>.</li>
+<li>Compute the expected cost at each and confirm that 475.18 is the smallest.</li>
+<li>Express the cost at 450 and at 510 as a percentage above the optimum, and compare the shape of that penalty with <a href="03-Chapter3.html#eq-eoq-penalty" class="quarto-xref">Equation&nbsp;<span>3.22</span></a>.</li>
+<li>The two quantities in part (c) sit 15 belts below and 35 belts above the optimum. Explain why the smaller departure is the more expensive one per belt, in terms of <span class="math inline">\(c_{o}\)</span> and <span class="math inline">\(c_{u}\)</span>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-newsvendor-exr-modeling" class="level3" data-number="7.14.3">
+<h3 data-number="7.14.3" class="anchored" data-anchor-id="sec-newsvendor-exr-modeling"><span class="header-section-number">7.14.3</span> Modeling Problems</h3>
+<div id="exr-ch7-fitting" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.8</strong></span> A second item’s history is in <code>data/ch7-exercise-demand.csv</code>, 104 weeks in the same two columns as the belt’s. Work <a href="#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> on it from beginning to end, and report the code alongside each answer.</p>
+<ol type="a">
+<li>Draw the three plots of <a href="#sec-newsvendor-fitting-look" class="quarto-xref"><span>Section 7.3.1</span></a> and say what each one settles. Include them with your answer.</li>
+<li>Report the summary statistics of <a href="#tbl-newsvendor-summary" class="quarto-xref">Table&nbsp;<span>7.4</span></a> for this item. Which families does <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> rule out before anything is fitted, and why can no choice of parameter rescue them?</li>
+<li>Run <code>PMFModeler</code> on the history. Report every estimate it returns, including any that fail, and say what the failures mean.</li>
+<li>Compute <span class="math inline">\(\hat{p}\)</span> and <span class="math inline">\(\hat{r}\)</span> by hand from <a href="#eq-newsvendor-negbinfit" class="quarto-xref">Equation&nbsp;<span>7.3</span></a> and confirm the KSL’s estimates. Then compare <span class="math inline">\(1/\hat{p}\)</span> with the ratio from part (b) and explain why they must agree.</li>
+<li>Test the fitted negative binomial with <code>DiscretePMFGoodnessOfFit</code> and report the statistic, the degrees of freedom and the <span class="math inline">\(p\)</span>-value. Do the same for a Poisson with the same mean, and compare the two.</li>
+<li>Suppose the item is being bought for a 20-week close-out with <span class="math inline">\(c = \$30\)</span>, <span class="math inline">\(s = \$55\)</span> and <span class="math inline">\(u = \$8\)</span>. Compute the mean and variance of 20-week demand, the critical ratio, and <span class="math inline">\(Q^{*}\)</span> under a normal approximation. Then compute <span class="math inline">\(Q^{*}\)</span> exactly from the aggregated negative binomial, as <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a> does, and report what the approximation costs.</li>
+</ol>
+</div>
+<div id="exr-ch7-penalty" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.9</strong></span> Return to <a href="#exm-newsvendor-normal" class="quarto-xref">Example&nbsp;<span>7.2</span></a>.</p>
+<ol type="a">
+<li>Plot or tabulate <span class="math inline">\(Q^{*}\)</span> against the stockout penalty <span class="math inline">\(\pi\)</span> for <span class="math inline">\(\pi = 0, 20, 40, 60, 80, 100\)</span> dollars per belt.</li>
+<li>At what <span class="math inline">\(\pi\)</span> does the optimal order reach 550 belts?</li>
+<li>The distributor is unwilling to name <span class="math inline">\(\pi\)</span> but is confident the order should not exceed 525 belts. What upper bound on <span class="math inline">\(\pi\)</span> does that imply? This is the move of <a href="04-Chapter4.html#sec-multiitem-exchange-implied" class="quarto-xref"><span>Section 4.4.3</span></a>, applied here.</li>
+<li>Your answer to part (a) should show the quantity rising steeply at first and then flattening. Explain that shape from the critical ratio rather than from the plot.</li>
+</ol>
+</div>
+<div id="exr-ch7-initial" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.10</strong></span> A hospital pharmacy must decide a final order for a drug being withdrawn from the formulary. Demand over the remaining 90 days is normal with a mean of 400 doses and a standard deviation of 70. A dose costs $22, is billed at $58, and expired doses are destroyed at a disposal cost of $3 each.</p>
+<ol type="a">
+<li>Note that the salvage value is negative. Compute <span class="math inline">\(c_{o}\)</span> and explain the sign.</li>
+<li>Compute <span class="math inline">\(S^{*}\)</span> and the order quantity if 85 doses are already on hand.</li>
+<li>Compute the order quantity if 450 doses are already on hand, and say what the pharmacy should do about the excess.</li>
+</ol>
+</div>
+<div id="exr-ch7-improper" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.11</strong></span> For each of the following, determine whether the newsvendor model applies, and if it does not, identify the cost that has been left out or mis-stated.</p>
+<ol type="a">
+<li>A retailer can return all unsold units to the supplier for a full refund.</li>
+<li>A publisher prints a commemorative program that has no value after the event and no shortage cost, because attendees who cannot get one simply do not.</li>
+<li>A grocer stocks a staple with a two-year shelf life, ordering weekly.</li>
+<li>A contractor buys a specialist part for one job; leftovers can be sold to another contractor at slightly above what was paid.</li>
+</ol>
+</div>
+</section>
+<section id="sec-newsvendor-exr-software" class="level3" data-number="7.14.4">
+<h3 data-number="7.14.4" class="anchored" data-anchor-id="sec-newsvendor-exr-software"><span class="header-section-number">7.14.4</span> Using the Software</h3>
+<div id="exr-ch7-software" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.12</strong></span> The code of <a href="#sec-newsvendor-design" class="quarto-xref"><span>Section 7.12</span></a> is in <code>code/</code>, package <code>inventory.newsvendor</code>. Report the code you wrote alongside each answer.</p>
+<ol type="a">
+<li>Reproduce <a href="#tbl-newsvendor-poisson" class="quarto-xref">Table&nbsp;<span>7.7</span></a>, computing <span class="math inline">\(F(Q)\)</span>, the first order loss function and the expected cost for <span class="math inline">\(Q = 4\)</span> through 10 from a KSL <code>Poisson</code>.</li>
+<li>Reproduce <a href="#tbl-newsvendor-families" class="quarto-xref">Table&nbsp;<span>7.6</span></a>. Take the three continuous quantities with <code>invCDF</code> on a KSL <code>Normal</code>, <code>Lognormal</code> and <code>Gamma</code>, take the fourth by walking the aggregated <code>NegativeBinomial</code>, and price all four against that same aggregated model. Round every quantity to whole belts before pricing it, and say why <a href="#sec-newsvendor-discrete" class="quarto-xref"><span>Section 7.8</span></a> requires you to.</li>
+<li>Reproduce <a href="#tbl-newsvendor-sim" class="quarto-xref">Table&nbsp;<span>7.8</span></a> and confirm that the closed form lies inside the confidence interval in every column, not only at <span class="math inline">\(Q^{*}\)</span>. Then increase the replications tenfold and report how the half-width changes; state whether it changed by the factor <a href="#sec-newsvendor-simulation" class="quarto-xref"><span>Section 7.10</span></a> predicts.</li>
+<li>Modify the simulation for the nonlinear salvage rule of <a href="#sec-newsvendor-simwhen" class="quarto-xref"><span>Section 7.10.1</span></a>: the first 100 belts scrap at $12 and the rest at $4. Search a grid of quantities and report the best. Explain why <a href="#eq-newsvendor-criticalratio" class="quarto-xref">Equation&nbsp;<span>7.12</span></a> cannot be used, naming the step of the derivation that fails.</li>
+</ol>
+</div>
+</section>
+<section id="sec-newsvendor-exr-workbook" class="level3" data-number="7.14.5">
+<h3 data-number="7.14.5" class="anchored" data-anchor-id="sec-newsvendor-exr-workbook"><span class="header-section-number">7.14.5</span> Using the Workbook</h3>
+<div id="exr-ch7-workbook" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.13</strong></span> Open <code>Chapter7Models.xlsx</code> and work entirely within it.</p>
+<ol type="a">
+<li>On the <code>Newsvendor</code> sheet, reproduce <a href="#exm-newsvendor-normal" class="quarto-xref">Example&nbsp;<span>7.2</span></a> and confirm that the difference between the two forms of <a href="#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> reads zero.</li>
+<li>Raise the salvage value from $12 to $30 and report what happens to <span class="math inline">\(c_{o}\)</span>, the critical ratio, <span class="math inline">\(Q^{*}\)</span> and the expected cost. Explain the direction.</li>
+<li>Raise the salvage value to $50 and describe what the sheet does. Relate the result to <a href="#sec-newsvendor-improper" class="quarto-xref"><span>Section 7.9.3</span></a>.</li>
+<li>The <code>Discrete</code> sheet ships with <a href="#exm-newsvendor-transformer" class="quarto-xref">Example&nbsp;<span>7.3</span></a> already entered. Confirm that the highlighted row is the one <a href="#tbl-newsvendor-poisson" class="quarto-xref">Table&nbsp;<span>7.7</span></a> gives. Then lower the emergency purchase price until the highlight moves, and report the price at which it does, to the nearest dollar.</li>
+</ol>
+</div>
+</section>
+<section id="sec-newsvendor-exr-literature" class="level3" data-number="7.14.6">
+<h3 data-number="7.14.6" class="anchored" data-anchor-id="sec-newsvendor-exr-literature"><span class="header-section-number">7.14.6</span> From the Literature</h3>
+<div id="exr-ch7-literature" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.14</strong></span> The newsvendor problem is old and its applications are not obvious. Read the treatment in <span class="citation" data-cites="porteus2008">Porteus (<a href="references.html#ref-porteus2008" role="doc-biblioref">2008</a>)</span> and answer the following.</p>
+<ol type="a">
+<li>The chapter analyzes airline overbooking as a newsvendor problem. Identify <span class="math inline">\(X\)</span>, <span class="math inline">\(Q\)</span>, <span class="math inline">\(c_{o}\)</span> and <span class="math inline">\(c_{u}\)</span> in that setting, and say which of them is the hardest to estimate.</li>
+<li>It also treats a flexible medical spending account, in which an employee chooses an annual contribution before knowing their expenses. Identify the four quantities again, and explain why the critical ratio is not the same thing as a service level here.</li>
+<li>Give one application of your own from an industry you know, stating the four quantities. Say what makes it a genuine single period rather than a short multi-period problem, using the test of <a href="#sec-newsvendor-singleperiod" class="quarto-xref"><span>Section 7.9.4</span></a>.</li>
+</ol>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-croston1972" class="csl-entry" role="listitem">
+Croston, J. D. 1972. <span>“Forecasting and Stock Control for Intermittent Demands.”</span> <em>Operational Research Quarterly</em> 23 (3): 289–303.
+</div>
+<div id="ref-porteus2008" class="csl-entry" role="listitem">
+Porteus, Evan L. 2008. <span>“The Newsvendor Problem.”</span> In <em>Building Intuition: Insights from Basic Operations Management Models and Principles</em>, edited by Dilip Chhajed and Timothy J. Lowe, vol. 115. International Series in Operations Research and Management Science. Springer.
+</div>
+<div id="ref-rossetti2026ksl" class="csl-entry" role="listitem">
+Rossetti, Manuel D. 2026. <em><span class="nocase">Simulation Modeling using the Kotlin Simulation Library (KSL)</span></em>. Self-published. <a href="https://rossetti.github.io/KSLBook/">https://rossetti.github.io/KSLBook/</a>.
+</div>
+<div id="ref-syntetos2005accuracy" class="csl-entry" role="listitem">
+Syntetos, Aris A., and John E. Boylan. 2005. <span>“The Accuracy of Intermittent Demand Estimates.”</span> <em>International Journal of Forecasting</em> 21 (2): 303–14.
+</div>
+<div id="ref-syntetos2005" class="csl-entry" role="listitem">
+Syntetos, Aris A., John E. Boylan, and J. D. Croston. 2005. <span>“On the Categorization of Demand Patterns.”</span> <em>Journal of the Operational Research Society</em> 56: 495–503.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rossetti\.github\.io\/RossettiInventoryBook\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-Chapter6.html" class="pagination-link" aria-label="Material and Distribution Requirements Planning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Material and Distribution Requirements Planning</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-Chapter8.html" class="pagination-link" aria-label="Continuous Review Systems">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
