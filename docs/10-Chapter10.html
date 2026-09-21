@@ -8,7 +8,7 @@
 
 <meta name="description" content="A textbook and course notes on the modeling and analysis of inventory systems for upper-level undergraduate and graduate students.">
 
-<title>10&nbsp; Multi-Echelon Inventory Systems – Analysis of Inventory Systems</title>
+<title>10&nbsp; Multi-Echelon Systems with Batch Ordering – Analysis of Inventory Systems</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -78,6 +78,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="css/cover.css">
 </head>
@@ -253,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-Chapter7.html">Stochastic Models</a></li><li class="breadcrumb-item"><a href="./10-Chapter10.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-Chapter7.html">Stochastic Models</a></li><li class="breadcrumb-item"><a href="./10-Chapter10.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -360,19 +389,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -440,12 +469,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-multiechelon-1" id="toc-sec-multiechelon-1" class="nav-link active" data-scroll-target="#sec-multiechelon-1"><span class="header-section-number">10.1</span> Stochastic Demand in a Multi-Echelon System</a></li>
-  <li><a href="#sec-multiechelon-2" id="toc-sec-multiechelon-2" class="nav-link" data-scroll-target="#sec-multiechelon-2"><span class="header-section-number">10.2</span> Serial Systems</a></li>
-  <li><a href="#sec-multiechelon-3" id="toc-sec-multiechelon-3" class="nav-link" data-scroll-target="#sec-multiechelon-3"><span class="header-section-number">10.3</span> Distribution Systems</a></li>
-  <li><a href="#sec-multiechelon-4" id="toc-sec-multiechelon-4" class="nav-link" data-scroll-target="#sec-multiechelon-4"><span class="header-section-number">10.4</span> The METRIC Model</a></li>
-  <li><a href="#sec-multiechelon-5" id="toc-sec-multiechelon-5" class="nav-link" data-scroll-target="#sec-multiechelon-5"><span class="header-section-number">10.5</span> The Bullwhip Effect</a></li>
-  <li><a href="#sec-multiechelon-exercises" id="toc-sec-multiechelon-exercises" class="nav-link" data-scroll-target="#sec-multiechelon-exercises"><span class="header-section-number">10.6</span> Exercises</a></li>
+  <li><a href="#sec-batchedmultiechelon-exercises" id="toc-sec-batchedmultiechelon-exercises" class="nav-link active" data-scroll-target="#sec-batchedmultiechelon-exercises"><span class="header-section-number">10.1</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -453,9 +477,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-Chapter7.html">Stochastic Models</a></li><li class="breadcrumb-item"><a href="./10-Chapter10.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-Chapter7.html">Stochastic Models</a></li><li class="breadcrumb-item"><a href="./10-Chapter10.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-multiechelon" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></h1>
+<h1 class="title"><span id="sec-batchedmultiechelon" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></h1>
 </div>
 
 
@@ -472,54 +496,25 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-simple callout-note callout-titled" title="Learning objectives">
+<div class="callout callout-style-simple callout-note callout-titled" title="Chapter in preparation">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Learning objectives
+<span class="screen-reader-only">Note</span>Chapter in preparation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>After reading this chapter you should be able to:</p>
-<ul>
-<li>explain what random demand changes about the multi-echelon problem</li>
-<li>analyze a serial system with base-stock policies at each stage</li>
-<li>analyze a one-warehouse, multiple-retailer distribution system under uncertainty</li>
-<li>apply the METRIC model to a repairable item system</li>
-<li>explain the bullwhip effect and its causes</li>
-</ul>
+<p>This chapter is being written. It generalizes <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> from one-for-one ordering to batch ordering, where a supported location replenishes in quantities of <span class="math inline">\(Q\)</span> rather than one unit at a time.</p>
 </div>
 </div>
-<p><a href="04-Chapter4.html#sec-multiitem-echelon" class="quarto-xref"><span>Section 4.6</span></a> introduced echelon inventory, echelon holding cost, and the reorder intervals that minimize cost when demand is known and constant. This chapter keeps the structures and removes that assumption. Echelon accounting carries over unchanged, which is most of the reason it was worth defining; what does not carry over is the idea that a location can be described by a reorder interval alone, since with random demand it needs stock held against the variability as well.</p>
-<section id="sec-multiechelon-1" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="sec-multiechelon-1"><span class="header-section-number">10.1</span> Stochastic Demand in a Multi-Echelon System</h2>
-<p>TODO: write this section. Recalls echelon stock and echelon holding cost from <a href="04-Chapter4.html#sec-multiitem-echelon-stock" class="quarto-xref"><span>Section 4.6.1</span></a> without redefining them, then states what random demand changes.</p>
-</section>
-<section id="sec-multiechelon-2" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="sec-multiechelon-2"><span class="header-section-number">10.2</span> Serial Systems</h2>
-<p>TODO: write this section. The base-stock counterpart of <a href="04-Chapter4.html#sec-multiitem-serial" class="quarto-xref"><span>Section 4.6.2</span></a>.</p>
-</section>
-<section id="sec-multiechelon-3" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="sec-multiechelon-3"><span class="header-section-number">10.3</span> Distribution Systems</h2>
-<p>TODO: write this section. The stochastic counterpart of <a href="04-Chapter4.html#sec-multiitem-distribution" class="quarto-xref"><span>Section 4.6.3</span></a>.</p>
-</section>
-<section id="sec-multiechelon-4" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="sec-multiechelon-4"><span class="header-section-number">10.4</span> The METRIC Model</h2>
-<p>TODO: write this section.</p>
-</section>
-<section id="sec-multiechelon-5" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="sec-multiechelon-5"><span class="header-section-number">10.5</span> The Bullwhip Effect</h2>
-<p>TODO: write this section.</p>
-</section>
-<section id="sec-multiechelon-exercises" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="sec-multiechelon-exercises"><span class="header-section-number">10.6</span> Exercises</h2>
-<div id="exr-ch10-1" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 10.1</strong></span> For a two-stage serial system with base-stock policies, show that the optimal echelon base-stock levels can be computed sequentially from the downstream stage upward.</p>
-</div>
-<div id="exr-ch10-2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 10.2</strong></span> A depot supplies three bases with a repairable item. Using the METRIC approximation, determine the stock levels at each location that minimize expected total backorders subject to a budget of 20 units.</p>
+<p><a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> solved two levels under one-for-one ordering, where every demand at a supported location triggers a request of exactly one unit. That assumption is what made the coupling tractable: the demand a location passes up is its own demand, arrival for arrival.</p>
+<p>This chapter removes it. When a location orders in batches of <span class="math inline">\(Q\)</span>, the stream it passes up is no longer its customers’ demand stream. It is lumpier, it is steadier in its timing, and characterizing it is most of the work.</p>
+<section id="sec-batchedmultiechelon-exercises" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-batchedmultiechelon-exercises"><span class="header-section-number">10.1</span> Exercises</h2>
+<div id="exr-ch10-placeholder" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 10.1 (Placeholder)</strong></span> Pending the chapter draft.</p>
 </div>
 
 
@@ -941,8 +936,8 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./09-Chapter9.html" class="pagination-link" aria-label="Periodic Review Systems">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span>
+      <a href="./09-Chapter9.html" class="pagination-link" aria-label="Multi-Echelon Inventory Systems">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -389,19 +389,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -472,7 +472,7 @@ window.Quarto = {
   <li><a href="#sec-whyinventory" id="toc-sec-whyinventory" class="nav-link active" data-scroll-target="#sec-whyinventory"><span class="header-section-number">1.1</span> Why Hold Inventory?</a>
   <ul>
   <li><a href="#sec-whyinventory-pipeline" id="toc-sec-whyinventory-pipeline" class="nav-link" data-scroll-target="#sec-whyinventory-pipeline"><span class="header-section-number">1.1.1</span> Pipeline Inventory</a></li>
-  <li><a href="#sec-whyinventory-cycle" id="toc-sec-whyinventory-cycle" class="nav-link" data-scroll-target="#sec-whyinventory-cycle"><span class="header-section-number">1.1.2</span> Cycle Inventory</a></li>
+  <li><a href="#sec-whyinventory-cycle" id="toc-sec-whyinventory-cycle" class="nav-link" data-scroll-target="#sec-whyinventory-cycle"><span class="header-section-number">1.1.2</span> Cycle Stock</a></li>
   <li><a href="#sec-whyinventory-safety" id="toc-sec-whyinventory-safety" class="nav-link" data-scroll-target="#sec-whyinventory-safety"><span class="header-section-number">1.1.3</span> Safety Inventory</a></li>
   <li><a href="#sec-whyinventory-anticipation" id="toc-sec-whyinventory-anticipation" class="nav-link" data-scroll-target="#sec-whyinventory-anticipation"><span class="header-section-number">1.1.4</span> Anticipation Inventory</a></li>
   <li><a href="#sec-whyinventory-speculative" id="toc-sec-whyinventory-speculative" class="nav-link" data-scroll-target="#sec-whyinventory-speculative"><span class="header-section-number">1.1.5</span> Speculative Inventory</a></li>
@@ -539,7 +539,8 @@ window.Quarto = {
   </ul></li>
   <li><a href="#sec-performance-problem" id="toc-sec-performance-problem" class="nav-link" data-scroll-target="#sec-performance-problem"><span class="header-section-number">1.6.3</span> The Problem the Rest of the Book Solves</a></li>
   </ul></li>
-  <li><a href="#sec-introduction-exercises" id="toc-sec-introduction-exercises" class="nav-link" data-scroll-target="#sec-introduction-exercises"><span class="header-section-number">1.7</span> Exercises</a></li>
+  <li><a href="#sec-introduction-summary" id="toc-sec-introduction-summary" class="nav-link" data-scroll-target="#sec-introduction-summary"><span class="header-section-number">1.7</span> Summary</a></li>
+  <li><a href="#sec-introduction-exercises" id="toc-sec-introduction-exercises" class="nav-link" data-scroll-target="#sec-introduction-exercises"><span class="header-section-number">1.8</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -593,17 +594,17 @@ window.Quarto = {
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-whyinventory"><span class="header-section-number">1.1</span> Why Hold Inventory?</h2>
 <p>Inventory is capital converted into a form that cannot be spent. An organization holding forty million dollars of stock has forty million dollars it cannot use for anything else, sitting in a building it must heat and insure, exposed to theft, damage, and the possibility that nobody will ever want it. Held long enough, some of it will be written off. Thus, on any ordinary accounting of costs, inventory looks like a mistake.</p>
 <p>It is not a mistake. Inventory exists to <strong>decouple</strong>, i.e.&nbsp;to break a linkage between two processes that would otherwise have to operate in lockstep. Supply and demand are separated in space, in time, in rate, and in predictability, and each separation forces stock into existence somewhere. Take the inventory away without removing the separation and the two processes must synchronize, which usually means one of them stops.</p>
-<p>Each kind of separation creates a distinct kind of inventory, with a distinct cause and therefore a distinct lever for reducing it. Confusing them is the most expensive error in inventory management. In the sections that follow we take the five kinds in turn.</p>
+<p>Each kind of separation creates a distinct kind of inventory, with a distinct cause and therefore a distinct lever for reducing it. Confusing them is an expensive error. In the sections that follow we take the five kinds in turn.</p>
 <section id="sec-whyinventory-pipeline" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="sec-whyinventory-pipeline"><span class="header-section-number">1.1.1</span> Pipeline Inventory</h3>
 <p>Supply and demand are separated in <strong>space and time</strong>. Units ordered from a supplier do not arrive at the loading dock the instant they are ordered. They spend the lead time in transit, in production, or awaiting inspection, and during that time they are owned, paid for, and unavailable. Those units are <em>pipeline</em> or <em>in-transit</em> inventory.</p>
 <p>Notice that its size is not a decision. <a href="#eq-pipeline" class="quarto-xref">Equation&nbsp;<span>1.5</span></a> gives <span class="math inline">\(\overline{\mathit{IO}} = \lambda\overline{L}\)</span>, i.e.&nbsp;the demand rate times the average lead time and nothing else. For example, an organization selling a hundred units a week from a supplier six weeks away owns six hundred units in transit at all times, whatever its reorder point. The only ways to change that number are to sell less or to source closer.</p>
 </section>
 <section id="sec-whyinventory-cycle" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="sec-whyinventory-cycle"><span class="header-section-number">1.1.2</span> Cycle Inventory</h3>
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="sec-whyinventory-cycle"><span class="header-section-number">1.1.2</span> Cycle Stock</h3>
 <p>Supply and demand are separated in <strong>rate</strong>. Consumption is more or less continuous, while replenishment arrives in discrete lots. Between one delivery and the next, the stock drawn down is inventory that exists only because the arrival was a lot and not a trickle. That is <em>cycle</em> inventory, and it averages half the lot size.</p>
 <p>It exists because replenishing is not free. Something is incurred once per order regardless of size, e.g.&nbsp;the administrative cost <span class="math inline">\(k\)</span> of <a href="#sec-costparams-k" class="quarto-xref"><span>Section 1.4.5</span></a>, a production setup, or a truck that costs the same whether half full or full. That fixed charge makes ordering in batches cheaper than ordering continuously. Cycle inventory is the price paid to avoid it.</p>
-<p>The lever is the fixed cost, not the ordering rule. Electronic ordering, blanket contracts, and setup time reduction all attack cycle inventory at its cause. Instructing the buyer to order less at a time does not, because it only moves cost from holding into ordering.</p>
+<p>The lever is the fixed cost, not the ordering rule. Electronic ordering, blanket contracts, and setup time reduction all attack cycle stock at its cause. Instructing the buyer to order less at a time does not, because it only moves cost from holding into ordering.</p>
 </section>
 <section id="sec-whyinventory-safety" class="level3" data-number="1.1.3">
 <h3 data-number="1.1.3" class="anchored" data-anchor-id="sec-whyinventory-safety"><span class="header-section-number">1.1.3</span> Safety Inventory</h3>
@@ -692,19 +693,19 @@ Table&nbsp;1.1: The kinds of inventory, distinguished by what creates them. Beca
 <img src="01-Chapter1_files/figure-html/fig-inventory-levers-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-inventory-levers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: Average inventory for a representative item, decomposed by cause, under three interventions. Cheaper ordering reduces only cycle stock; less variable demand reduces only safety stock; a shorter lead time reduces pipeline stock and safety stock at once, and so achieves the largest total reduction without any loss of service.
+Figure&nbsp;1.1: Average inventory for a representative item, decomposed by cause, under three interventions. Cheaper ordering reduces only cycle stock; less variable demand reduces only safety stock (drawn here with a normal safety factor for illustration only; see <a href="08-Chapter8.html#sec-continuousreview-service-safetystock" class="quarto-xref"><span>Section 8.7.7</span></a>); a shorter lead time reduces pipeline stock and safety stock at once, and so achieves the largest total reduction without any loss of service.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>That is why lead time wins. It is the only one of the three levers that appears in two components, directly in the pipeline and through the exposure window in the safety stock. Thus, lead time reduction is the most reliably underrated lever in inventory management.</p>
+<p>That is why lead time wins. It is the only one of the three levers that appears in two components, directly in the pipeline and through the exposure window in the safety stock. Thus, lead time reduction is the lever most often underrated in inventory management.</p>
 </section>
 <section id="sec-whyinventory-tension" class="level3" data-number="1.1.7">
 <h3 data-number="1.1.7" class="anchored" data-anchor-id="sec-whyinventory-tension"><span class="header-section-number">1.1.7</span> The Cost of Not Holding It</h3>
 <p>All of this reads as an argument that inventory is a symptom of problems elsewhere, e.g.&nbsp;long lead times, expensive setups, or unpredictable demand. That much is correct. However, the conclusion sometimes drawn from it, that the right target is therefore zero, does not follow.</p>
 <p>Inventory is not waste. It is a <strong>purchase</strong>, and what it buys is the ability to serve a demand from stock committed before anyone knew the demand would come. Thus, removing it without removing what created it converts a holding cost into a shortage cost, and shortage costs are the ones that appear on no ledger (<a href="#sec-costparams-shortage" class="quarto-xref"><span>Section 1.4.6</span></a>).</p>
-<p>The question is never whether to hold inventory. It is how much, and when to replenish, given what holding costs and what not holding costs. Every model in this book answers that pair of questions under a particular set of assumptions about demand, lead times, costs, and review. The assumptions change from chapter to chapter. The question does not.</p>
+<p>The question is never whether to hold inventory. It is how much, and when to replenish, given what holding costs and what not holding costs. Every model in this book answers that pair of questions under a particular set of assumptions about demand, lead times, costs, and review. The assumptions change from chapter to chapter. The question does not. <a href="#sec-classifying" class="quarto-xref"><span>Section 1.2</span></a> sets out the dimensions along which they change.</p>
 </section>
 </section>
 <section id="sec-classifying" class="level2" data-number="1.2">
@@ -742,12 +743,12 @@ Figure&nbsp;1.1: Average inventory for a representative item, decomposed by caus
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="sec-classifying-stationarity"><span class="header-section-number">1.2.3</span> Constant or Time-Varying Demand</h3>
 <p>Within either case, demand may proceed at a steady rate or change over the horizon.</p>
 <p>A <strong>constant</strong> rate permits a single order quantity, repeated indefinitely. That is the setting of <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a>. A <strong>time-varying</strong> rate destroys that: with demand of 10 units this month and 400 next, no single lot size is sensible, and the problem becomes choosing a schedule of order sizes and timings. <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> treats the deterministic time-varying case.</p>
-<p>The stochastic analogue separates <strong>stationary</strong> demand, whose distribution does not change over time, from <strong>non-stationary</strong> demand, whose does. Seasonality, product life cycles, and promotions all produce non-stationarity, and it is substantially harder. The policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> and <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> assume stationarity, and the usual treatment of a seasonal item is to re-solve the stationary problem periodically with updated parameters, and not to pretend the assumption holds.</p>
+<p>The stochastic analogue separates <strong>stationary</strong> demand, whose distribution does not change over time, from <strong>non-stationary</strong> demand, whose does. Seasonality, product life cycles, and promotions all produce non-stationarity, and it is substantially harder. The policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> assume stationarity, and the usual treatment of a seasonal item is to re-solve the stationary problem periodically with updated parameters, and not to pretend the assumption holds.</p>
 </section>
 <section id="sec-classifying-review" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="sec-classifying-review"><span class="header-section-number">1.2.4</span> How the System Is Reviewed</h3>
 <p><strong>Continuous review</strong> means the inventory position is known at all times and an order may be placed at any instant. The policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> trigger on the position crossing a threshold, which requires knowing the moment it crosses.</p>
-<p><strong>Periodic review</strong> means the position is observed at fixed intervals, and orders may be placed only at those moments. <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> develops the corresponding policies, in which the review interval becomes a parameter and adds its own exposure to risk: between reviews, the system cannot respond to anything.</p>
+<p><strong>Periodic review</strong> means the position is observed at fixed intervals, and orders may be placed only at those moments. <a href="08-Chapter8.html#sec-continuousreview-periodic" class="quarto-xref"><span>Section 8.13</span></a> develops the corresponding policies, in which the review interval becomes a parameter and adds its own exposure to risk: between reviews, the system cannot respond to anything.</p>
 <p>Historically this was a technology constraint, since continuous review required a perpetual inventory record that manual systems could not maintain. That constraint is largely gone, and the distinction survives for a better reason. Review is often <em>logistically</em> periodic even when it is informationally continuous: if a truck calls weekly, knowing the position continuously confers no ability to order continuously. Classify by when an order can be placed, not by when the position can be seen.</p>
 </section>
 <section id="sec-classifying-leadtime" class="level3" data-number="1.2.5">
@@ -767,7 +768,7 @@ Figure&nbsp;1.1: Average inventory for a representative item, decomposed by caus
 <h3 data-number="1.2.7" class="anchored" data-anchor-id="sec-classifying-horizon"><span class="header-section-number">1.2.7</span> The Planning Horizon</h3>
 <p>A <strong>single-period</strong> problem is decided once. Stock is committed before demand is observed, demand occurs, and whatever is left has no further use. This is the newsvendor setting of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>, and it is not the multi-period problem with the number of periods set to one. Leftover stock has no future value, so the trade-off is purely one of overage against underage.</p>
 <p>A <strong>finite-horizon</strong> problem has an end date that matters: a service part for equipment being retired, a component for a product with an announced end of life. The last order is a newsvendor problem in disguise.</p>
-<p>An <strong>infinite-horizon</strong> problem assumes the system continues indefinitely, which licenses long-run averages as the objective. It is the setting of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> and <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a>, and the assumption is usually harmless: what it requires is a horizon long relative to the replenishment cycle.</p>
+<p>An <strong>infinite-horizon</strong> problem assumes the system continues indefinitely, which licenses long-run averages as the objective. It is the setting of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a>, and the assumption is usually harmless: what it requires is a horizon long relative to the replenishment cycle.</p>
 </section>
 <section id="sec-classifying-items" class="level3" data-number="1.2.8">
 <h3 data-number="1.2.8" class="anchored" data-anchor-id="sec-classifying-items"><span class="header-section-number">1.2.8</span> One Item or Many</h3>
@@ -778,7 +779,7 @@ Figure&nbsp;1.1: Average inventory for a representative item, decomposed by caus
 <section id="sec-classifying-locations" class="level3" data-number="1.2.9">
 <h3 data-number="1.2.9" class="anchored" data-anchor-id="sec-classifying-locations"><span class="header-section-number">1.2.9</span> One Location or Several</h3>
 <p>A <strong>single stocking point</strong> faces external demand and an external supplier.</p>
-<p>A <strong>multi-echelon</strong> system has stocking points that supply each other: a central warehouse replenishing branches, a depot supplying bases. This is not several single-location problems, and treating it as such is a standard and expensive error. The demand a warehouse sees is not customer demand. It is the <em>replenishment orders</em> of the locations it serves, which are lumpier than the demand underneath them and are shaped by those locations’ own ordering policies. Stock held at one level substitutes for stock at another, so the levels cannot be optimized independently. <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> takes this up.</p>
+<p>A <strong>multi-echelon</strong> system has stocking points that supply each other: a central warehouse replenishing branches, a depot supplying bases. This is not several single-location problems, and treating it as such is a standard and expensive error. The demand a warehouse sees is not customer demand. It is the <em>replenishment orders</em> of the locations it serves, which are shaped by those locations’ own ordering policies and, when those locations order in batches, are lumpier than the demand underneath them. Stock held at one level substitutes for stock at another, so the levels cannot be optimized independently. <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> takes this up for locations that order one unit at a time.</p>
 </section>
 <section id="sec-classifying-summary" class="level3" data-number="1.2.10">
 <h3 data-number="1.2.10" class="anchored" data-anchor-id="sec-classifying-summary"><span class="header-section-number">1.2.10</span> The Dimensions Together</h3>
@@ -821,7 +822,7 @@ Table&nbsp;1.2: The dimensions along which inventory systems differ, and where e
 <tr class="even">
 <td>Review</td>
 <td>Continuous / periodic</td>
-<td><a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a>, <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+<td><a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a>, <a href="08-Chapter8.html#sec-continuousreview-periodic" class="quarto-xref"><span>Section 8.13</span></a></td>
 </tr>
 <tr class="odd">
 <td>Lead time</td>
@@ -846,7 +847,7 @@ Table&nbsp;1.2: The dimensions along which inventory systems differ, and where e
 <tr class="odd">
 <td>Locations</td>
 <td>One / multi-echelon</td>
-<td><a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+<td><a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a></td>
 </tr>
 </tbody>
 </table>
@@ -899,7 +900,7 @@ Table&nbsp;1.3: What the classification implies about which cost parameters matt
 </tr>
 <tr class="even">
 <td>Multi-location</td>
-<td>All of the above, plus <span class="math inline">\(f\)</span>, which is what penalizes stocking an item in more places.</td>
+<td>All of the above, at every location. Where whether a location stocks the item is itself in question, <span class="math inline">\(f\)</span> as well.</td>
 </tr>
 </tbody>
 </table>
@@ -925,7 +926,7 @@ Table&nbsp;1.3: What the classification implies about which cost parameters matt
 </div>
 </div>
 <p>Simplicity repays real effort, because a simpler classification yields a model whose behavior can be understood and whose parameters can be estimated. But simplicity that discards what the answer depends on is not simplification. It is an error with a smaller model attached.</p>
-<p>The criterion is testable. When it is unclear whether a distinction matters, whether lead-time variability needs representing or the occasional lost sale needs its own treatment, model it both ways and compare the recommendations. If they agree, the comparison is the justification for the simpler classification. If they disagree, the question has answered itself. This is one of the things simulation is for, and <a href="11-Chapter11.html" class="quarto-xref"><span>Chapter 11</span></a> returns to it.</p>
+<p>The criterion is testable. When it is unclear whether a distinction matters, whether lead-time variability needs representing or the occasional lost sale needs its own treatment, model it both ways and compare the recommendations. If they agree, the comparison is the justification for the simpler classification. If they disagree, the question has answered itself. This is one of the things simulation is for.</p>
 </section>
 </section>
 <section id="sec-state" class="level2" data-number="1.3">
@@ -1006,7 +1007,7 @@ Figure&nbsp;1.2: Inventory position and net inventory for a system operating an 
 \qquad
 \bar{B} \;=\; \frac{1}{T}\int_{0}^{T} B(t)\,\mathrm{d}t
 \tag{1.4}\]</span></span></p>
-<p>and likewise for <span class="math inline">\(\overline{\mathit{IO}}\)</span>, <span class="math inline">\(\overline{\mathit{IN}}\)</span>, and <span class="math inline">\(\overline{\mathit{IP}}\)</span>. Because integration is linear and <span class="math inline">\(\mathit{IN}(t) = I(t) - B(t)\)</span> at every instant, the averages inherit the same relation, <span class="math inline">\(\overline{\mathit{IN}} = \bar{I} - \bar{B}\)</span>. Under conditions discussed in <a href="11-Chapter11.html" class="quarto-xref"><span>Chapter 11</span></a>, these averages converge as <span class="math inline">\(T\)</span> grows to the system’s steady-state performance.</p>
+<p>and likewise for <span class="math inline">\(\overline{\mathit{IO}}\)</span>, <span class="math inline">\(\overline{\mathit{IN}}\)</span>, and <span class="math inline">\(\overline{\mathit{IP}}\)</span>. Because integration is linear and <span class="math inline">\(\mathit{IN}(t) = I(t) - B(t)\)</span> at every instant, the averages inherit the same relation, <span class="math inline">\(\overline{\mathit{IN}} = \bar{I} - \bar{B}\)</span>. When the system is stationary, these averages converge as <span class="math inline">\(T\)</span> grows to the system’s steady-state performance.</p>
 <p>These integrals are where the two halves of the book meet. In a deterministic model <span class="math inline">\(I(t)\)</span> is a known piecewise-linear function and the integral is the area of a triangle. For example, <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a> computes <span class="math inline">\(\bar{I} = Q/2\)</span> this way, and the familiar result is nothing more than the area of the sawtooth in <a href="#fig-inventory-trace" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> divided by its base. In a stochastic model the same integral is an expectation, computed from the distribution of the process or estimated from a simulation run. Thus, the quantity being computed does not change; only the method does.</p>
 </section>
 <section id="sec-state-little" class="level3" data-number="1.3.4">
@@ -1241,7 +1242,7 @@ Table&nbsp;1.5: Applying the marginality test to the components conventionally l
 <h3 data-number="1.4.5" class="anchored" data-anchor-id="sec-costparams-k"><span class="header-section-number">1.4.5</span> Fixed Order Cost, <span class="math inline">\(k\)</span></h3>
 <p>The cost of placing one replenishment order, in dollars per order, independent of how large the order is. It covers the administrative work a replenishment triggers: creating and approving the requisition, transmitting it, receiving and inspecting the shipment, matching the invoice, and paying it.</p>
 <p>The word <em>fixed</em> in “fixed order cost” means fixed <strong>with respect to the order quantity</strong>, not fixed with respect to the number of orders. This trips up nearly everyone once. That is, a cost that scales with the number of units ordered is not part of <span class="math inline">\(k\)</span> and belongs in <span class="math inline">\(c\)</span>, while a cost that is incurred once per order regardless of size is exactly what <span class="math inline">\(k\)</span> is.</p>
-<p><strong>Inbound freight</strong> is the usual complication. Where a replenishment order causes a shipment, the fixed portion of that shipment’s freight behaves exactly like an ordering cost and belongs in <span class="math inline">\(k\)</span>. That fixed portion is often larger than it appears: carriers charge a minimum, and for many items an order sits below the minimum across its entire realistic range, so the freight bill does not vary with order size at all. The variable portion, a rate per pound say, scales with the number of units and behaves like unit cost, with the same inertness as <span class="math inline">\(c\lambda\)</span>, because it depends on the demand rate, which the policy does not change. Where a lane is <em>scheduled</em> instead of on demand, the truck departs whether or not you ordered, and no part of its cost is caused by your order. <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> treats freight explicitly, where the choice of where to stock changes which lanes are used. In this chapter it is enough to know that the fixed component belongs in <span class="math inline">\(k\)</span> and must be counted exactly once. See <a href="#sec-costest-doublecount" class="quarto-xref"><span>Section 1.5.6</span></a>.</p>
+<p><strong>Inbound freight</strong> is the usual complication. Where a replenishment order causes a shipment, the fixed portion of that shipment’s freight behaves exactly like an ordering cost and belongs in <span class="math inline">\(k\)</span>. That fixed portion is often larger than it appears: carriers charge a minimum, and for many items an order sits below the minimum across its entire realistic range, so the freight bill does not vary with order size at all. The variable portion, a rate per pound say, scales with the number of units and behaves like unit cost, with the same inertness as <span class="math inline">\(c\lambda\)</span>, because it depends on the demand rate, which the policy does not change. Where a lane is <em>scheduled</em> instead of on demand, the truck departs whether or not you ordered, and no part of its cost is caused by your order. Where the choice of where to stock changes which lanes are used, the freight becomes part of that choice. In this chapter it is enough to know that the fixed component belongs in <span class="math inline">\(k\)</span> and must be counted exactly once. See <a href="#sec-costest-doublecount" class="quarto-xref"><span>Section 1.5.6</span></a>.</p>
 </section>
 <section id="sec-costparams-shortage" class="level3" data-number="1.4.6">
 <h3 data-number="1.4.6" class="anchored" data-anchor-id="sec-costparams-shortage"><span class="header-section-number">1.4.6</span> Stockout and Backorder Costs, <span class="math inline">\(\pi\)</span> and <span class="math inline">\(b\)</span></h3>
@@ -1274,7 +1275,7 @@ b \;=\; \text{dollars per unit backordered per unit time,}
 </section>
 <section id="sec-costparams-f" class="level3" data-number="1.4.7">
 <h3 data-number="1.4.7" class="anchored" data-anchor-id="sec-costparams-f"><span class="header-section-number">1.4.7</span> Stocking Position Cost, <span class="math inline">\(f\)</span></h3>
-<p>The cost, per unit time, of carrying an item at a location at all: the catalogue record, the bin reserved for it, the cycle counts it attracts, the planner attention it consumes. Conventionally quoted as dollars per item per location per year.</p>
+<p>The cost, per unit time, of carrying an item at a location at all: the catalog record, the bin reserved for it, the cycle counts it attracts, the planner attention it consumes. Conventionally quoted as dollars per item per location per year.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="This is not holding cost">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1289,7 +1290,7 @@ b \;=\; \text{dollars per unit backordered per unit time,}
 </div>
 </div>
 <p>This parameter does not appear in classical single-location treatments, and it is easy to dismiss as a detail. It is not. For a typical mid-value item it is frequently <em>larger</em> than the holding cost of the stock it houses, and because it multiplies nothing, it is the only term that penalizes stocking an item in more places. A model without it will forward-position marginal items that no practical organization would ever stock, because it sees no reason not to.</p>
-<p>It becomes central in <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a>, where the decision is not only how much to stock but <em>where</em>. It is introduced here because it is a cost parameter of inventory systems, and leaving it out of the definitions invites the assumption that holding cost is the only cost of carrying an item.</p>
+<p>It matters whenever the decision is not only how much to stock but <em>whether</em> an item is stocked at a location at all. The models of this book take the stocking locations as given, so <span class="math inline">\(f\)</span> does not enter their policy calculations; it is introduced here because it is a cost parameter of inventory systems, and leaving it out of the definitions invites the assumption that holding cost is the only cost of carrying an item.</p>
 </section>
 <section id="sec-costparams-accuracy" class="level3" data-number="1.4.8">
 <h3 data-number="1.4.8" class="anchored" data-anchor-id="sec-costparams-accuracy"><span class="header-section-number">1.4.8</span> How Accurate Do These Need to Be?</h3>
@@ -1357,7 +1358,7 @@ Figure&nbsp;1.3: Cost penalty from a misestimated parameter. If the ratio <span 
 <p><strong>Insurance and taxes.</strong> Read off the instruments. Insurers rate on declared inventory value, so the component is the premium attributable to inventory divided by average inventory value. Ad valorem inventory tax applies only where the jurisdiction levies it, which is often nowhere. In practice this component is well under 1%, and it does not repay extended effort.</p>
 <p><strong>Storage, where it qualifies.</strong> Only in the three marginal cases of <a href="#sec-costparams-h" class="quarto-xref"><span>Section 1.4.4</span></a>. Where it does qualify, it is the contracted rate times the positions consumed, divided by inventory value.</p>
 <div id="exm-carrying-charge" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1.2 (Building a carrying charge)</strong></span> A depot carries $70 million of inventory at cost, in a building it owns and operates at about 60% of capacity. Its published cost of capital is 5.0%. Last year it wrote off and disposed of $4.2 million of stock, and its insurance premium attributable to inventory was $180,000. Receiving and picking labour cost $3.1 million.</p>
+<p><span class="theorem-title"><strong>Example 1.2 (Building a carrying charge)</strong></span> A depot carries $70 million of inventory at cost, in a building it owns and operates at about 60% of capacity. Its published cost of capital is 5.0%. Last year it wrote off and disposed of $4.2 million of stock, and its insurance premium attributable to inventory was $180,000. Receiving and picking labor cost $3.1 million.</p>
 <p>We take the components that survive the marginality test, each as a fraction of the $70 million base:</p>
 <p><span class="math display">\[
 \text{obsolescence} = \frac{4{,}200{,}000}{70{,}000{,}000} = 6.0\%,
@@ -1813,25 +1814,106 @@ Table&nbsp;1.10: The general problem specialized. Every chapter chooses differen
 <td>All of <a href="#eq-total-cost" class="quarto-xref">Equation&nbsp;<span>1.15</span></a>, or <a href="#eq-problem-service" class="quarto-xref">Equation&nbsp;<span>1.21</span></a></td>
 </tr>
 <tr class="odd">
-<td><a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a></td>
+<td><a href="08-Chapter8.html#sec-continuousreview-periodic" class="quarto-xref"><span>Section 8.13</span></a></td>
 <td><span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span></td>
 <td>The same, with <span class="math inline">\(R\)</span> a decision</td>
 </tr>
 <tr class="even">
-<td><a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+<td><a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a></td>
 <td>Levels at every location</td>
-<td>The same, with <span class="math inline">\(f\)</span> deciding where to stock</td>
+<td>Backorders summed over the locations, under a budget on stock</td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>Read <a href="#tbl-problem-map" class="quarto-xref">Table&nbsp;<span>1.10</span></a> down its third column, not across. Notice that the holding term <span class="math inline">\(h\bar{I}\)</span> appears in every row, and that the ordering term <span class="math inline">\(k\overline{N}\)</span> appears in every row but one, the single-period problem, where there is only one order and its cost is unavoidable. What varies is which shortage term survives, and whether <span class="math inline">\(f\)</span> is a decision or a constant. Thus, the rest of the book is one objective, one set of state variables, and a different set of assumptions in each chapter about what is known and what may be decided.</p>
+<p>Read <a href="#tbl-problem-map" class="quarto-xref">Table&nbsp;<span>1.10</span></a> down its third column, not across. Notice that the holding term <span class="math inline">\(h\bar{I}\)</span> appears in every row, and that the ordering term <span class="math inline">\(k\overline{N}\)</span> appears in every row but one, the single-period problem, where there is only one order and its cost is unavoidable. What varies is which shortage term survives, and whether a stocking position cost enters at all. Thus, the rest of the book is one objective, one set of state variables, and a different set of assumptions in each chapter about what is known and what may be decided.</p>
 </section>
 </section>
-<section id="sec-introduction-exercises" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="sec-introduction-exercises"><span class="header-section-number">1.7</span> Exercises</h2>
+<section id="sec-introduction-summary" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="sec-introduction-summary"><span class="header-section-number">1.7</span> Summary</h2>
+<p><strong>Inventory exists because supply and demand are separated, and each separation is a lever.</strong> Pipeline stock covers the lead time, cycle stock covers the interval between orders, safety stock covers what demand does that the forecast did not say, and anticipation stock covers a season. Each is reduced by a different intervention, and the levers are not interchangeable.</p>
+<p><strong>A model is chosen by classifying the system, and the classification is a list of assumptions.</strong> Where demand comes from, whether it is known, how the system is reviewed, what the lead time is, and what happens to unmet demand together decide which chapter applies. Every later chapter changes one or two of those assumptions and keeps the rest.</p>
+<p><strong>Three state variables carry the whole subject.</strong> On-hand <span class="math inline">\(I(t)\)</span>, backorders <span class="math inline">\(B(t)\)</span> and on-order <span class="math inline">\(\mathit{IO}(t)\)</span> combine into the net inventory and the inventory position, and every policy in the book watches the position and not the shelf. Their time averages, and the law of <a href="#sec-state-little" class="quarto-xref"><span>Section 1.3.4</span></a> that connects a level to a rate and a wait, are what the performance measures are built from.</p>
+<p><strong>A cost belongs in the model only if it changes with the decision.</strong> The marginality test separates the holding cost, the ordering cost and the shortage costs from the period costs that are paid whatever the policy, and the stocking position cost enters only where whether to stock at all is in question. Estimating the parameters is harder than using them, and the double counts of <a href="#sec-costest-doublecount" class="quarto-xref"><span>Section 1.5.6</span></a> are the usual error.</p>
+<p><strong>Service is measured three ways, and the three disagree.</strong> The ready rate counts time, the fill rate counts demands, and the cycle service level counts replenishment cycles, so one item can report three different figures for the same policy. A stated target means nothing until it says which.</p>
+<p><strong>Every chapter minimizes the same objective under different assumptions.</strong> <a href="#eq-total-cost" class="quarto-xref">Equation&nbsp;<span>1.15</span></a> charges ordering, holding and shortage, and <a href="#tbl-problem-map" class="quarto-xref">Table&nbsp;<span>1.10</span></a> says which terms survive in each chapter and which parameters are decided. That is the plan of the book.</p>
+<p><a href="#tbl-introduction-notation" class="quarto-xref">Table&nbsp;<span>1.11</span></a> collects the notation, which <a href="12-AppNotation.html" class="quarto-xref"><span>Appendix A</span></a> repeats alongside the rest of the book’s.</p>
+<div id="tbl-introduction-notation" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-introduction-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.11: Notation introduced in this chapter.
+</figcaption>
+<div aria-describedby="tbl-introduction-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\lambda\)</span></td>
+<td>Demand rate, in units per unit time</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(L\)</span></td>
+<td>Replenishment lead time</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(I(t)\)</span>, <span class="math inline">\(B(t)\)</span>, <span class="math inline">\(\mathit{IO}(t)\)</span></td>
+<td>Units on hand, backordered and on order at time <span class="math inline">\(t\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathit{IN}(t)\)</span>, <span class="math inline">\(\mathit{IP}(t)\)</span></td>
+<td>Net inventory <span class="math inline">\(I - B\)</span>, and inventory position <span class="math inline">\(I + \mathit{IO} - B\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bar{I}\)</span>, <span class="math inline">\(\bar{B}\)</span>, <span class="math inline">\(\overline{N}\)</span></td>
+<td>Time averages of on-hand and backorders, and the average order rate</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\overline{W}\)</span>, <span class="math inline">\(\overline{T}_{s}\)</span></td>
+<td>Average wait of a demanded unit, and average time a unit spends on hand</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c\)</span>, <span class="math inline">\(i\)</span>, <span class="math inline">\(h\)</span></td>
+<td>Unit cost, carrying charge, and holding cost <span class="math inline">\(h = ic\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span></td>
+<td>Fixed order cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(b\)</span>, <span class="math inline">\(\pi\)</span></td>
+<td>Backorder cost per unit per unit time, and stockout cost per unit</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(f\)</span></td>
+<td>Stocking position cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\overline{\mathit{RR}}\)</span>, <span class="math inline">\(\overline{\mathit{FR}}\)</span>, <span class="math inline">\(\mathit{CSL}\)</span></td>
+<td>Ready rate, fill rate and cycle service level</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathit{TC}\)</span>, <span class="math inline">\(C\)</span></td>
+<td>Total cost rate, and the part of it the policy changes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-introduction-exercises" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="sec-introduction-exercises"><span class="header-section-number">1.8</span> Exercises</h2>
 <p>Unless an exercise says otherwise, use these conventions so that your answer and the instructor’s agree. Take the time unit to be one year, and convert any figure quoted per month or per day to an annual basis before using it. Report dollar amounts to the nearest cent, carrying charges and service measures as percentages to one decimal place, and all other ratios and intervals to four significant figures. Assume unmet demand is backordered unless the exercise says it is lost, and assume that arriving replenishments fill outstanding backorders before any of the units reach the shelf. Where an exercise asks which cost parameter a disputed cost belongs in, state the quantity the cost scales with, since that is what the marginality test of <a href="#sec-costparams-marginality" class="quarto-xref"><span>Section 1.4.2</span></a> turns on.</p>
 <div id="exr-ch1-1" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 1.1</strong></span> A distributor stocks a single item with steady demand and a reliable two-week lead time. Classify this system along each of the dimensions introduced in this chapter, and identify which cost parameters you would expect to dominate.</p>
@@ -1853,7 +1935,7 @@ Table&nbsp;1.10: The general problem specialized. Every chapter chooses differen
 </div>
 <div id="exr-ch1-6" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 1.6</strong></span> An item is backordered when out of stock. Demand arrives at <span class="math inline">\(\lambda = 40\)</span> units per year, and under the current policy the average number of units on backorder is <span class="math inline">\(\bar{B} = 0.8\)</span>.</p>
-<p>Determine the average time a customer waits for an item that is not filled immediately, stating the relationship you used. If management says a two-week wait is tolerable but a one-month wait is not, what does that imply about the backorder cost <span class="math inline">\(b\)</span> relative to the holding cost <span class="math inline">\(h\)</span>? Explain why a per-unit stockout cost <span class="math inline">\(\pi\)</span> could not express the same requirement.</p>
+<p>Determine the average time a demanded unit waits, counting zero for units filled at once, and state the relationship you used. If management says a two-week wait is tolerable but a one-month wait is not, what does that imply about the backorder cost <span class="math inline">\(b\)</span> relative to the holding cost <span class="math inline">\(h\)</span>? Explain why a per-unit stockout cost <span class="math inline">\(\pi\)</span> could not express the same requirement.</p>
 </div>
 <div id="exr-ch1-7" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 1.7</strong></span> A location operates an <span class="math inline">\((r, Q)\)</span> policy with <span class="math inline">\(r = 8\)</span>, <span class="math inline">\(Q = 24\)</span>, a constant demand rate of <span class="math inline">\(\lambda = 3\)</span> units per day, and a constant lead time of <span class="math inline">\(L = 4\)</span> days.</p>

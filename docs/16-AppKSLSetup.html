@@ -395,19 +395,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -548,30 +548,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="E.3" class="anchored" data-anchor-id="sec-appkslsetup-3"><span class="header-section-number">E.3</span> Running Your First Model</h2>
 <p>From a terminal, in the <code>code</code> directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The first run takes a minute while Gradle, Kotlin, and the KSL are downloaded; later runs start immediately. The default example evaluates a newsvendor order quantity by Monte Carlo simulation, using the item from the first exercise of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>, and prints expected profit across a grid of order quantities:</p>
+<p>The first run takes a minute while Gradle, Kotlin, and the KSL are downloaded; later runs start immediately. The default example evaluates a newsvendor order quantity by Monte Carlo simulation, using the final buy of the mower deck belt from <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> with its fitted normal demand, and prints expected profit across a grid of order quantities:</p>
 <pre><code>Expected profit by order quantity (10,000 replications each)
          Q     avg profit   half-width
-       240        5108.50        10.55
-       260        5421.87        14.11
-       280        5650.27        18.41
-       300        5789.95        23.41
-       320        5820.35        27.75
-       340        5811.68        31.38
-       360        5699.77        34.48
+       400       16905.21        52.62
+       420       17402.01        61.77
+       440       17708.05        72.49
+       460       17861.59        85.22
+       480       17817.87        96.08
+       500       17792.08       105.77
+       520       17514.23       115.26
+       540       17088.56       124.98
+       560       16740.80       132.01
 
-Best quantity on this grid: Q = 320, expected profit 5820.35</code></pre>
-<p>Two things are worth noticing about that output before you go further. The best quantity on the grid, 320, is close to the value the critical ratio gives analytically. That agreement is how you gain confidence that a simulation is built correctly. And the half-widths grow with the order quantity, because profit becomes more variable as more units are exposed to demand risk. A single replication would have told you neither.</p>
+Best quantity on this grid: Q = 460, expected profit 17861.59
+Compare against the critical ratio solution -- see @sec-newsvendor.</code></pre>
+<p>Notice two things about that output before you go further. The critical ratio puts the optimal buy at 475 belts, and the grid’s flat top from 440 to 500 brackets it; the best point on the grid, 460, differs from its neighbors by less than their half-widths, so the simulation cannot tell 460 from 480 at ten thousand replications and does not pretend to. That agreement with the closed form is how you gain confidence that a simulation is built correctly. And the half-widths grow with the order quantity, because profit becomes more variable as more units are exposed to demand risk. A single replication would have told you neither.</p>
 <p>To run it from IntelliJ instead, open the <code>code</code> directory as a project and use the gutter icon beside <code>fun main</code>.</p>
 </section>
 <section id="sec-appkslsetup-4" class="level2" data-number="E.4">
 <h2 data-number="E.4" class="anchored" data-anchor-id="sec-appkslsetup-4"><span class="header-section-number">E.4</span> Adding Your Own Model</h2>
-<p>TODO: write this section, covering a file in the right package, the <code>main</code> function convention, and pointing <code>application { mainClass }</code> at it.</p>
+<p>Put the file in the package of the subject it belongs to, so a model of a continuous review policy goes in <code>src/main/kotlin/inventory/continuousreview/</code> beside the chapter’s own examples. Give it a top-level <code>fun main()</code>. Kotlin compiles the top-level functions of a file named <code>MyPolicy.kt</code> into a class named <code>MyPolicyKt</code>, and that class name is what Gradle runs. To run your file from the terminal, pass the class as the <code>mainClass</code> property:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> run <span class="at">-PmainClass</span><span class="op">=</span>inventory.continuousreview.MyPolicyKt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To make it the default instead, point <code>application { mainClass }</code> in <code>build.gradle.kts</code> at it; the block already reads the property and falls back to the newsvendor example when none is given. From IntelliJ, the gutter icon beside <code>fun main</code> runs the file with no configuration at all.</p>
+<p>Keep the model’s inputs at the top of <code>main</code> as named values, as every example in the project does, so that the next reader can see what was assumed without reading the code that uses it. Thus, a model of your own is one file, one <code>main</code>, and one property on the command line.</p>
 </section>
 <section id="sec-appkslsetup-5" class="level2" data-number="E.5">
 <h2 data-number="E.5" class="anchored" data-anchor-id="sec-appkslsetup-5"><span class="header-section-number">E.5</span> The KSL Itself</h2>
 <p>The KSL is a large library, and this book uses a small part of it. For the library on its own terms, its packages, its process view, and its output analysis machinery, see <a href="https://rossetti.github.io/KSLBook/"><em>Simulation Modeling using the KSL</em></a>.</p>
 <p>The version this course pins is declared in <code>code/build.gradle.kts</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>implementation<span class="op">(</span><span class="st">"io.github.rossetti:KSLCore:R1.6.2"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>implementation<span class="op">(</span><span class="st">"io.github.rossetti:KSLCore:R1.7"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

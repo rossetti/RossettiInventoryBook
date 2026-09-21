@@ -424,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -688,6 +688,7 @@ T_4 = \frac{\hat{B}}{\lambda}
 <p><span id="eq-cycle-length"><span class="math display">\[
 T = T_1 + T_2 + T_3 + T_4 = \frac{Q}{\lambda}
 \tag{3.4}\]</span></span></p>
+<p><a href="#sec-eoq-averages" class="quarto-xref"><span>Section 3.2</span></a> turns the four segments into the two averages the cost function charges.</p>
 </section>
 </section>
 <section id="sec-eoq-averages" class="level2" data-number="3.2">
@@ -780,7 +781,7 @@ Q^{*} = \sqrt{\frac{h+b}{b}}\;
 <p>Every classical lot sizing result in this chapter is <a href="#eq-general-q" class="quarto-xref">Equation&nbsp;<span>3.10</span></a> and <a href="#eq-general-b" class="quarto-xref">Equation&nbsp;<span>3.11</span></a> with something switched off.</p>
 <p>Two structural features can be read off before we specialize. Notice first that the factor <span class="math inline">\(\sqrt{(h+b)/b}\)</span> is greater than one and increases as <span class="math inline">\(b\)</span> falls. Thus, cheaper backordering means larger orders, because the system is willing to run short for longer between replenishments. Notice second that <span class="math inline">\(\hat{B}^{*}\)</span> is proportional to <span class="math inline">\(h/(h+b)\)</span> through <span class="math inline">\(Q^{*}\)</span>. That is, it depends on the ratio of the cost of holding to the cost of holding plus the cost of owing, the same trade-off that the newsvendor’s critical ratio expresses in <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>.</p>
 <p>Neither formula is unconditionally usable, and you should see the reason now rather than discover it later. A large <span class="math inline">\(\pi\)</span> drives the second term under the inner root above the first, leaving no real root. A little below that threshold, <a href="#eq-general-b" class="quarto-xref">Equation&nbsp;<span>3.11</span></a> returns a negative <span class="math inline">\(\hat{B}^{*}\)</span>. In both cases the stationary point lies outside the feasible region, so the optimum is on the boundary <span class="math inline">\(\hat{B} = 0\)</span>, where the model reduces to <a href="#eq-epq" class="quarto-xref">Equation&nbsp;<span>3.14</span></a>.</p>
-<p>Neither case is exotic. For example, with <span class="math inline">\(\lambda = 100\)</span>, <span class="math inline">\(p = 250\)</span>, <span class="math inline">\(k = 20\)</span>, <span class="math inline">\(h = 4\)</span>, and <span class="math inline">\(b = 6\)</span>, the backorder level turns negative by <span class="math inline">\(\pi = 1\)</span> and the root disappears by <span class="math inline">\(\pi = 1.55\)</span>. A high enough price on being short means the right answer is never to be short.</p>
+<p>Neither case is exotic. For example, with <span class="math inline">\(\lambda = 100\)</span>, <span class="math inline">\(p = 250\)</span>, <span class="math inline">\(k = 20\)</span>, <span class="math inline">\(h = 4\)</span>, and <span class="math inline">\(b = 6\)</span>, the backorder level turns negative by <span class="math inline">\(\pi = 1\)</span> and the root disappears by <span class="math inline">\(\pi = 1.55\)</span>. A high enough price on being short means the right answer is never to be short. <a href="#sec-eoq-special" class="quarto-xref"><span>Section 3.5</span></a> now recovers the classical models as special cases of <a href="#eq-general-q" class="quarto-xref">Equation&nbsp;<span>3.10</span></a> and <a href="#eq-general-b" class="quarto-xref">Equation&nbsp;<span>3.11</span></a>.</p>
 </section>
 <section id="sec-eoq-special" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="sec-eoq-special"><span class="header-section-number">3.5</span> The Classical Models as Special Cases</h2>
@@ -924,7 +925,14 @@ T^{*} = \frac{Q^{*}}{\lambda} = \sqrt{\frac{2k}{h\lambda}}
 \tag{3.19}\]</span></span></p>
 <p>Choosing <span class="math inline">\(Q\)</span> and choosing <span class="math inline">\(T\)</span> are the same decision. Which one you present to an operating group depends on what they can act on. For example, a warehouse that ships on a weekly cycle finds a time far easier to use than a quantity.</p>
 <div id="exm-eoq" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.2 (The economic order quantity)</strong></span> A product is demanded at <span class="math inline">\(\lambda = 220\)</span> units per year and has a unit cost of <span class="math inline">\(c = \$1{,}200\)</span> per unit. The ordering cost is <span class="math inline">\(k = \$800\)</span> per order and the carrying charge is <span class="math inline">\(i = 0.18\)</span> per year. No shortages are allowed. We work the four parts in turn.</p>
+<p><span class="theorem-title"><strong>Example 3.2 (The economic order quantity)</strong></span> A product is demanded at <span class="math inline">\(\lambda = 220\)</span> units per year and has a unit cost of <span class="math inline">\(c = \$1{,}200\)</span> per unit. The ordering cost is <span class="math inline">\(k = \$800\)</span> per order and the carrying charge is <span class="math inline">\(i = 0.18\)</span> per year. No shortages are allowed.</p>
+<p><em>What is stocked?</em> One item, bought from an outside supplier.</p>
+<p><em>What is the demand process?</em> Constant at <span class="math inline">\(\lambda = 220\)</span> units per year, and known in advance.</p>
+<p><em>When is inventory reviewed?</em> Continuously.</p>
+<p><em>What triggers replenishment, and how much?</em> The shelf reaching zero, and the order is for <span class="math inline">\(Q\)</span> units, which is the decision.</p>
+<p><em>What happens to unmet demand?</em> None occurs; shortages are not allowed.</p>
+<p><em>What costs are incurred, and when?</em> <span class="math inline">\(k = \$800\)</span> each time an order is placed, and the carrying charge <span class="math inline">\(i = 0.18\)</span> per year on the value of the stock held.</p>
+<p>We work the four parts in turn.</p>
 <p>The holding cost, from <a href="01-Chapter1.html#eq-holding" class="quarto-xref">Equation&nbsp;<span>1.12</span></a>, is</p>
 <p><span class="math display">\[
 h = ic = (0.18)(1200) = \$216 \text{ per unit per year}
@@ -993,7 +1001,7 @@ C(Q) = \frac{k\lambda}{Q} + \frac{hQ}{2}, \qquad C^{*} = C(Q^{*}) = \sqrt{2k\lam
 <p>That is an increase of 8.3% in the relevant cost. For example, for the item of <a href="#exm-eoq" class="quarto-xref">Example&nbsp;<span>3.2</span></a>, whose relevant cost is $8,719.63, it amounts to about $727 a year against a total spend of $272,720.</p>
 <p>Ordering half the optimal quantity, <span class="math inline">\(Q/Q^{*} = 1/2\)</span>, gives <span class="math inline">\(\tfrac12(0.5 + 2) = 1.25\)</span>, a penalty of 25%. Ordering double gives the same 25%, because <a href="#eq-eoq-penalty" class="quarto-xref">Equation&nbsp;<span>3.22</span></a> is symmetric in <span class="math inline">\(Q/Q^{*}\)</span> and its reciprocal.</p>
 </div>
-<p>You should read this as saying that the EOQ is a target to round toward, not a value to honor. Being wrong by half is expensive; being wrong by a fifth is not. That tolerance is the reason it is reasonable to order in case quantities, to fit a delivery schedule, and to group items onto a shared order, all of which <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> does deliberately.</p>
+<p>You should read this as saying that the EOQ is a target to round toward, not a value to honor. Being wrong by half is expensive; being wrong by a fifth is not. That tolerance is the reason it is reasonable to order in case quantities, to fit a delivery schedule, and to group items onto a shared order, all of which <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> does.</p>
 </section>
 <section id="sec-eoq-discounts" class="level2" data-number="3.8">
 <h2 data-number="3.8" class="anchored" data-anchor-id="sec-eoq-discounts"><span class="header-section-number">3.8</span> Quantity Discounts</h2>
@@ -1248,7 +1256,7 @@ Q_3^{*} = \sqrt{\frac{2(95)(3000)}{0.3(2.95)}} = 802.5
 </section>
 <section id="sec-eoq-spreadsheets" class="level2" data-number="3.10">
 <h2 data-number="3.10" class="anchored" data-anchor-id="sec-eoq-spreadsheets"><span class="header-section-number">3.10</span> Building These Models in a Spreadsheet</h2>
-<p>Every result in this chapter is a formula in three or four inputs, so a spreadsheet is the natural place to put it. The workbook that accompanies this chapter, <code>DeterministicInventory.xlsx</code>, carries one worksheet per model, and all of them are built to the same plan. That plan is worth more than any single worksheet, because it lets someone who did not write the implementation audit it. In this section we take the plan first and then read each worksheet against it.</p>
+<p>Every result in this chapter is a formula in three or four inputs, so a spreadsheet is the natural place to put it. The workbook that accompanies this chapter, <code>Chapter3Models.xlsx</code>, carries one worksheet per model, and all of them are built to the same plan. That plan is worth more than any single worksheet, because it lets someone who did not write the implementation audit it. In this section we take the plan first and then read each worksheet against it.</p>
 <section id="sec-eoq-ss-layout" class="level3" data-number="3.10.1">
 <h3 data-number="3.10.1" class="anchored" data-anchor-id="sec-eoq-ss-layout"><span class="header-section-number">3.10.1</span> The Four-Block Layout</h3>
 <p>Each worksheet is divided into blocks, in the order given in <a href="#tbl-ss-blocks" class="quarto-xref">Table&nbsp;<span>3.4</span></a>.</p>
@@ -1729,7 +1737,7 @@ H_3 = (0.29-0.28)(1000) + 5 = 15
 <section id="sec-eoq-design" class="level2" data-number="3.11">
 <h2 data-number="3.11" class="anchored" data-anchor-id="sec-eoq-design"><span class="header-section-number">3.11</span> Designing the Software</h2>
 <p>Recall that <a href="#sec-eoq-ss-limits" class="quarto-xref"><span>Section 3.10.5</span></a> ended with three things a worksheet does not do. It evaluates and does not choose, it does not know its own assumptions, and it rounds after the fact. Those are reasons to write a program. They are not a design.</p>
-<p>A worksheet argues for itself. The blocks sit in an order you can see, and a formula is a cell you can click on. A program’s structure is a set of decisions about which classes exist and what each class is responsible for, and a reader handed the finished code sees only the result. In this section we work through those decisions for the six models of this chapter, and <a href="#sec-eoq-code" class="quarto-xref"><span>Section 3.12</span></a> then shows what to type.</p>
+<p>A worksheet argues for itself. The blocks sit in an order you can see, and a formula is a cell you can click on. A program’s structure is a set of decisions about which classes exist and what each class is responsible for, and a reader handed the finished code sees only the result. The decisions for the six models of this chapter come first, and <a href="#sec-eoq-code" class="quarto-xref"><span>Section 3.12</span></a> then shows what to type.</p>
 <p>Four decisions carry most of the design, and each one is a question that returns in any model you write. We take them in turn.</p>
 <section id="sec-eoq-design-parameters" class="level3" data-number="3.11.1">
 <h3 data-number="3.11.1" class="anchored" data-anchor-id="sec-eoq-design-parameters"><span class="header-section-number">3.11.1</span> What Changes, and What Must Not</h3>
@@ -1787,7 +1795,7 @@ Figure&nbsp;3.11: One interface, one pipeline and six models. Everything the six
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">):</span> <span class="dt">InventoryPolicyAnalysisIfc</span> <span class="op">{</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>optimize</code> and <code>evaluate</code> are <code>final</code>. That is, a model may decide what to order, and it may not decide what a cycle is, what it costs, or when to reorder. Those belong to the chapter and not to any one model, so a model that overrode them would contradict <a href="#sec-eoq-cycle" class="quarto-xref"><span>Section 3.1</span></a> instead of specializing it.</p>
 <p><a href="#tbl-special-cases" class="quarto-xref">Table&nbsp;<span>3.1</span></a> obtains the classical economic order quantity from the general model as the replenishment rate and the backorder cost both grow without bound. The obvious move is to make <code>EconomicOrderQuantity</code> a subclass of <code>GeneralBackorderModel</code>. The code does not do so.</p>
-<p>A subtype must be usable wherever its parent is, and the classical model is not. It has no backorder cost to be given, and handing it one is the case <a href="#sec-eoq-nobackorders" class="quarto-xref"><span>Section 3.5.2</span></a> warns about. What is true is a statement about numbers, that one model’s answer approaches another’s in a limit, and a statement about numbers belongs where numbers can be checked. We record it instead in tests that take the limit and watch the quantities converge. Thus, the relation between the six models is real, is verified, and is not inheritance.</p>
+<p>A subtype must be usable wherever its parent is, and the classical model is not. It has no backorder cost to be given, and handing it one is the case <a href="#sec-eoq-nobackorders" class="quarto-xref"><span>Section 3.5.2</span></a> warns about. What is true is a statement about numbers, that one model’s answer approaches another’s in a limit, and a statement about numbers belongs where numbers can be checked. Take the limit, watch the quantities converge, and the claim is settled. Thus, the relation between the six models is real, it is checkable, and it is not inheritance.</p>
 <p>You should carry that distinction past this chapter. Before making B a subclass of A, ask whether every context that accepts an A would accept a B. In the mathematics, “B is a special case of A” is a different claim.</p>
 </section>
 <section id="sec-eoq-design-sealed" class="level3" data-number="3.11.3">
@@ -1801,7 +1809,7 @@ Figure&nbsp;3.11: One interface, one pipeline and six models. Everything the six
 <img src="03-Chapter3_files/figure-html/fig-oo-sealed-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oo-sealed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.12: The four inputs that are kinds rather than numbers. Each set is closed by the mathematics of this chapter, which is what makes sealing them honest: a seventh kind of price schedule would be a change to Section 3.8 before it was a change to any code.
+Figure&nbsp;3.12: The four inputs that are kinds rather than numbers. Each set is closed by the mathematics of this chapter, which is what makes sealing them honest: a seventh kind of price schedule would be a change to <a href="#sec-eoq-discounts" class="quarto-xref"><span>Section 3.8</span></a> before it was a change to any code.
 </figcaption>
 </figure>
 </div>
@@ -1838,13 +1846,13 @@ Figure&nbsp;3.12: The four inputs that are kinds rather than numbers. Each set i
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The third reply is the interesting one. Notice that applying the order quantity to an item with a finite production rate is a deliberate approximation, which <a href="#exr-ch3-4" class="quarto-xref">Exercise&nbsp;<span>3.4</span></a> asks you to make, so the model allows it and the discarded assumption rides on the result. Asking the planned backorder model for a policy when shortages are forbidden is refused outright, since nothing is left for it to compute. A boolean would treat those two alike.</p>
 <p>Each model declares its assumptions once, and the verdict is derived from that declaration in the one place all six share. Stating an assumption in a declaration and then testing for it again by hand would write the same rule twice, in two forms free to disagree.</p>
-<p><code>QuantityChoice</code> records how the quantity was reached, and the routes differ. A closed form produced an interior optimum; or the stationary point lay outside the feasible region, so the answer sits on a boundary and carries a reason; or a candidate list was ranked and retained; or an unrounded optimum was rounded and both neighbours evaluated. <a href="#sec-eoq-discounts" class="quarto-xref"><span>Section 3.8</span></a> is where the record pays, since a discount answer that does not show its candidates cannot be checked against the worksheet that produced the same number.</p>
+<p><code>QuantityChoice</code> records how the quantity was reached, and the routes differ. A closed form produced an interior optimum; or the stationary point lay outside the feasible region, so the answer sits on a boundary and carries a reason; or a candidate list was ranked and retained; or an unrounded optimum was rounded and both neighbors evaluated. <a href="#sec-eoq-discounts" class="quarto-xref"><span>Section 3.8</span></a> is where the record pays, since a discount answer that does not show its candidates cannot be checked against the worksheet that produced the same number.</p>
 <p><a href="#sec-eoq-segments" class="quarto-xref"><span>Section 3.1.2</span></a> says the four durations account for the whole cycle, and advises checking it because the check catches most algebra errors immediately. We write the advice into the constructor.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>        checkClose<span class="op">(</span>segments<span class="op">.</span>total<span class="op">,</span> length<span class="op">,</span> <span class="st">"the segments sum to the cycle length"</span><span class="op">)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        checkClose<span class="op">(</span>maxOnHand <span class="op">+</span> maxBackorder<span class="op">,</span> policy<span class="op">.</span>orderQuantity <span class="op">*</span> survivingFraction<span class="op">,</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">"the peaks account for the surviving part of the order"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Those checks run whenever a cycle is built, and not only in a test. The averages computed from the triangle areas are checked against the closed forms beside them. An identity that the chapter states and the program never verifies is an identity nobody holds to.</p>
-<p>The same discipline applies to arguments. Every constructor validates, and so does every function that could divide by a quantity somebody passed as zero. The failure a guard prevents is usually not a crash. A rounding rule asked for an interval of two to the seventieth base periods computes two to the sixth, because the shift that raises two to a power keeps only the low six bits of the exponent. It returns a plausible small number. A guard at the point of construction refuses the exponent, and a test holds the guard in place.</p>
+<p>Those checks run whenever a cycle is built, so an identity the chapter states cannot quietly fail to hold in the program. The averages computed from the triangle areas are checked against the closed forms beside them.</p>
+<p>The same discipline applies to arguments. Every constructor validates, and so does every function that could divide by a quantity somebody passed as zero. The failure a guard prevents is usually not a crash. A rounding rule asked for an interval of two to the seventieth base periods computes two to the sixth, because the shift that raises two to a power keeps only the low six bits of the exponent. It returns a plausible small number. A guard at the point of construction refuses the exponent.</p>
 <p>We can now say what a seventh model would cost. It is one object with one <code>choosePolicy</code>, one <code>assumptions</code> declaration, and one branch that the compiler demands in <code>forParameters</code>. Nothing else in the package changes. Apply that test to any design and ask what the next requirement costs.</p>
 </section>
 </section>
@@ -2200,9 +2208,9 @@ Table&nbsp;3.11: Two candidates fall inside their own intervals, and the smaller
 <p><strong>It refuses what it cannot model.</strong> A worksheet computes whatever is typed into it. Here the assumptions of <a href="#sec-eoq-assumptions" class="quarto-xref"><span>Section 3.1.1</span></a> are checked where the value is made, and the message says what to do instead:</p>
 <pre><code>A backorder cost of zero makes shortages free rather than forbidden.
 Use ShortagePolicy.NotPermitted, which is the limit as the cost grows
-without bound. See Section 3.5.2.</code></pre>
+without bound. See @sec-eoq-nobackorders.</code></pre>
 <p>That is the callout of <a href="#sec-eoq-nobackorders" class="quarto-xref"><span>Section 3.5.2</span></a> enforced, not printed. A model asked to work outside its assumptions says so too, and it distinguishes two cases. Applying the order quantity to an item with a finite production rate is a deliberate approximation and is allowed, with the discarded assumption recorded on the result. However, asking the planned backorder model for a policy when shortages are forbidden is refused outright.</p>
-<p><strong>It rounds as part of the decision.</strong> <a href="#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> observes that no warehouse orders 40.37 of anything, and <a href="#exr-ch3-5" class="quarto-xref">Exercise&nbsp;<span>3.5</span></a> asks what a case quantity costs. Here rounding is an argument to <code>optimize</code>, which evaluates both admissible neighbours instead of rounding the answer afterwards:</p>
+<p><strong>It rounds as part of the decision.</strong> <a href="#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> observes that no warehouse orders 40.37 of anything, and <a href="#exr-ch3-5" class="quarto-xref">Exercise&nbsp;<span>3.5</span></a> asks what a case quantity costs. Here rounding is an argument to <code>optimize</code>, which evaluates both admissible neighbors instead of rounding the answer afterwards:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>EconomicOrderQuantity<span class="op">.</span>optimize<span class="op">(</span>item<span class="op">,</span> QuantityRounding<span class="op">.</span>multipleOf<span class="op">(</span><span class="fl">48.0</span><span class="op">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-code-cases" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -2304,7 +2312,7 @@ Table&nbsp;3.12: For the item of <a href="#exr-ch3-2" class="quarto-xref">Exerci
 <div id="exr-ch3-7" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 3.7</strong></span> Repeat <a href="#exr-ch3-6" class="quarto-xref">Exercise&nbsp;<span>3.6</span></a> with the same break points and prices, but under an <strong>incremental</strong> discount schedule rather than an all-units one.</p>
 <p>Following <a href="#exm-incremental" class="quarto-xref">Example&nbsp;<span>3.5</span></a>, compute <span class="math inline">\(R_j\)</span>, the effective ordering cost <span class="math inline">\(k_j\)</span>, and the candidate quantity for each level. Determine the optimal order quantity and total cost.</p>
-<p>Compare your answer with <a href="#exr-ch3-6" class="quarto-xref">Exercise&nbsp;<span>3.6</span></a> and explain, in terms of what each scheme charges, why the incremental schedule produces the smaller order.</p>
+<p>Compare your answer with <a href="#exr-ch3-6" class="quarto-xref">Exercise&nbsp;<span>3.6</span></a> and explain, in terms of what each scheme charges, why the two schedules produce different orders and which one produces the larger.</p>
 </div>
 <div id="exr-ch3-8" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 3.8</strong></span> An item has <span class="math inline">\(\lambda = 1200\)</span> units per year, an ordering cost of $100, a holding cost of $6 per unit per year, and a backorder cost of $15 per unit per year. Replenishment is instantaneous and there is no per-unit stockout charge.</p>

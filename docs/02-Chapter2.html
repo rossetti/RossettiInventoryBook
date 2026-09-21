@@ -408,19 +408,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -645,8 +645,8 @@ Table&nbsp;2.1: The recurring responsibilities of inventory management. Two of t
 </tr>
 <tr class="odd">
 <td>Stocking decisions</td>
-<td>Which items are held where?</td>
-<td><a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a></td>
+<td>How much of an item is held at each location?</td>
+<td><a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a></td>
 </tr>
 <tr class="even">
 <td>Excess and obsolete</td>
@@ -671,7 +671,7 @@ Table&nbsp;2.1: The recurring responsibilities of inventory management. Two of t
 <section id="sec-managing-problem-scope" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="sec-managing-problem-scope"><span class="header-section-number">2.1.3</span> What This Chapter Does Not Cover</h3>
 <p>Two large topics are named here and treated elsewhere, because both need machinery this chapter does not have.</p>
-<p><strong>What to stock, and where</strong>, is a decision about the network, not about an item, and it turns on the stocking position cost <span class="math inline">\(f\)</span> of <a href="01-Chapter1.html#sec-costparams-f" class="quarto-xref"><span>Section 1.4.7</span></a> together with the structure of the supply network. <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> takes it up.</p>
+<p><strong>What to stock, and where</strong>, is a decision about the network, not about an item, and it turns on the stocking position cost <span class="math inline">\(f\)</span> of <a href="01-Chapter1.html#sec-costparams-f" class="quarto-xref"><span>Section 1.4.7</span></a> together with the structure of the supply network. This book takes the stocking locations as given; <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> decides how much each of them holds.</p>
 <p><strong>How much and when</strong> is the rest of the book.</p>
 <p>What remains here is the work that has to be done before either of those questions can be answered sensibly: dividing the portfolio so that attention can be allocated, and establishing that the numbers everything else depends on deserve that reliance.</p>
 </section>
@@ -1135,7 +1135,7 @@ Table&nbsp;2.5: Three roles an attribute can play in a grouping <span class="cit
 <p><span id="eq-cv2"><span class="math display">\[
 \mathit{CV}^{2} \;=\; \left(\frac{s}{\bar{x}}\right)^{2}
 \tag{2.3}\]</span></span></p>
-<p>where <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(s\)</span> are the mean and standard deviation of the non-zero demands. Cutting each at a threshold gives the four classes of <a href="#tbl-eils" class="quarto-xref">Table&nbsp;<span>2.6</span></a>.</p>
+<p>where <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(s\)</span> are the mean and the sample standard deviation of the non-zero demands, with <span class="math inline">\(n - 1\)</span> in the denominator of <span class="math inline">\(s\)</span>, as <a href="#exm-eils" class="quarto-xref">Example&nbsp;<span>2.4</span></a> computes them. Cutting each at a threshold gives the four classes of <a href="#tbl-eils" class="quarto-xref">Table&nbsp;<span>2.6</span></a>.</p>
 <div id="tbl-eils" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eils-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1264,7 +1264,7 @@ Table&nbsp;2.7: The five histories classified.
 </div>
 <p>B-1 is the instructive one. It has demand in eight of twelve periods and very steady sizes, which reads as a well behaved item. However, <span class="math inline">\(\mathit{ADI} = 1.50\)</span> puts it just past the 1.32 cut and into the intermittent class. Thus, you should not let an item sitting that close to a boundary have its treatment decided by which side it fell on.</p>
 </div>
-<p>The classification matters because it selects the model and does not merely describe the item. The stochastic policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> and <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> assume a demand distribution that a smooth item satisfies and a lumpy one does not. The fill rate computed for a lumpy item from a normal approximation can be badly wrong.</p>
+<p>The classification matters because it selects the model and does not merely describe the item. The stochastic policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> assume a demand distribution that a smooth item satisfies and a lumpy one does not. The fill rate computed for a lumpy item from a normal approximation can be badly wrong.</p>
 <p>Two cautions apply. First, the thresholds are conventions, and the literature does not agree on when a series becomes intermittent. Proposals include at least 30% of periods with zero demand, no more than 60 to 70% of periods with demand, and a mean interval exceeding 1.25 review periods <span class="citation" data-cites="johnston1996">(<a href="references.html#ref-johnston1996" role="doc-biblioref">Johnston and Boylan 1996</a>)</span>.</p>
 <p>Second, the class depends on the period length chosen. The same transactions bucketed daily rather than monthly will show more zero periods and a longer inter-demand interval. Thus, an item can be moved between classes by changing nothing but the reporting calendar. You should never allow such a result to drive a policy.</p>
 <p>A portfolio is rarely mostly smooth. For example, in a hospital pharmacy study of roughly two thousand items, most items fell outside the smooth class <span class="citation" data-cites="varghese">(<a href="references.html#ref-varghese" role="doc-biblioref">Varghese et al. 2012</a>)</span>. That is the normal case and not a pathology, and it explains much of why fill rate estimates disappoint in practice.</p>
@@ -1272,7 +1272,7 @@ Table&nbsp;2.7: The five histories classified.
 <section id="sec-managing-grouping-clustering" class="level3" data-number="2.2.7">
 <h3 data-number="2.2.7" class="anchored" data-anchor-id="sec-managing-grouping-clustering"><span class="header-section-number">2.2.7</span> Clustering for Policy</h3>
 <p>Classification schemes assign items to a small number of predetermined classes. Clustering instead lets the data determine the groups. That is, we place items in a space whose coordinates are their operational attributes and group those that lie close together.</p>
-<p>The practical algorithm at scale is <strong>k-means</strong>, which partitions items into <span class="math inline">\(k\)</span> groups by repeatedly assigning each item to the nearest group centre and recomputing the centres. Alternatives exist, including genetic algorithms, simulated annealing, and tabu search. However, they are far slower on problems of this size, and k-means and its close relatives are essentially the only methods that have been applied to inventory populations of realistic scale <span class="citation" data-cites="abaydulla2016">(<a href="references.html#ref-abaydulla2016" role="doc-biblioref">Abaydulla 2016</a>)</span>.</p>
+<p>The practical algorithm at scale is <strong>k-means</strong>, which partitions items into <span class="math inline">\(k\)</span> groups by repeatedly assigning each item to the nearest group center and recomputing the centers. Alternatives exist, including genetic algorithms, simulated annealing, and tabu search. However, they are far slower on problems of this size, and k-means and its close relatives are essentially the only methods that have been applied to inventory populations of realistic scale <span class="citation" data-cites="abaydulla2016">(<a href="references.html#ref-abaydulla2016" role="doc-biblioref">Abaydulla 2016</a>)</span>.</p>
 <p>Three practical points.</p>
 <p><strong>Attributes must be scaled.</strong> Demand rate in thousands and unit cost in dollars are not comparable distances, so an unscaled clustering is dominated by whatever attribute happens to carry the largest numbers.</p>
 <p><strong>Choosing <span class="math inline">\(k\)</span> is a judgment.</strong> More groups reduce the penalty of a shared policy and increase the work of maintaining policies. For example, <span class="citation" data-cites="abaydulla2016">Abaydulla (<a href="references.html#ref-abaydulla2016" role="doc-biblioref">2016</a>)</span> found seven groups outperformed three on penalty cost, which is unsurprising and is exactly the trade <a href="#sec-managing-grouping-evaluating" class="quarto-xref"><span>Section 2.2.8</span></a> makes explicit.</p>
@@ -1356,7 +1356,9 @@ Table&nbsp;2.7: The five histories classified.
 \]</span></p>
 <p>and the three-group scheme costs</p>
 <p><span class="math display">\[
-\frac{16{,}835 - 16{,}570}{16{,}570} = 1.60\% \]</span> The decision is worth $590 a year against $265 a year, set against maintaining two policies, three, or six.</p>
+\frac{16{,}835 - 16{,}570}{16{,}570} = 1.60\%
+\]</span></p>
+<p>The decision is worth $590 a year against $265 a year, set against maintaining two policies, three, or six.</p>
 <p>For six items this is not a decision anybody needs to make, because anyone can maintain six policies. Scale it to forty thousand items and the same 3.56% is the price of reducing forty thousand policy calculations to two hundred, the difference between a procedure that runs and one that does not. Notice that the penalty is the same number either way. What changes is what it buys.</p>
 </div>
 </section>
@@ -1515,7 +1517,7 @@ D(t) \;=\; I_{a}(t) - I_{r}(t)
 </section>
 <section id="sec-managing-records-cost" class="level3" data-number="2.3.3">
 <h3 data-number="2.3.3" class="anchored" data-anchor-id="sec-managing-records-cost"><span class="header-section-number">2.3.3</span> What Error Actually Costs</h3>
-<p>Simulation of a two-echelon chain, a supplier feeding a distribution centre feeding a retailer, each running an <span class="math inline">\((r, Q)\)</span> policy with backordering, separates the responses available to an organization whose records are wrong <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. There are three cases, and the comparison between them is the argument for this whole section.</p>
+<p>Simulation of a two-echelon chain, a supplier feeding a distribution center feeding a retailer, each running an <span class="math inline">\((r, Q)\)</span> policy with backordering, separates the responses available to an organization whose records are wrong <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. There are three cases, and the comparison between them is the argument for this whole section.</p>
 <p><strong>Leave the policy alone.</strong> Running the parameters that were correct for accurate records, against records that are not, gives up service. For example, in the reported experiments the high error case lost roughly half its fill rate, and system backorders rose from about ten items to about three hundred and seventy.</p>
 <p><strong>Re-optimize the policy around the error.</strong> Recomputing <span class="math inline">\(r\)</span> and <span class="math inline">\(Q\)</span> to hit the same 90% fill rate target does restore the service, and pays for it in stock. The system carries substantially more inventory purely to mask the discrepancy, and backorders still rise sharply, by roughly 300% in the high error case for fast moving items.</p>
 <p>This second case is the one that explains why record inaccuracy survives for years without being raised. The customer facing measure is back at target, while the cost has moved into inventory, transportation, and handling, where nobody attributes it to record keeping <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. That is, the symptom that would have prompted an investigation has been bought off.</p>
@@ -1632,11 +1634,11 @@ D(t) \;=\; I_{a}(t) - I_{r}(t)
 <p><span class="math display">\[
 \text{accuracy} = \frac{4}{10} = 40\%
 \]</span></p>
-<p><strong>Within a 2% tolerance.</strong> The four exact records qualify, and so do A-102, B-201, and C-301 at 1.0% each. However, A-101 misses at 2.2%, C-302 at 10%, and B-202 at 100%. Therefore,</p>
+<p><strong>Within a 2% tolerance.</strong> The four exact records qualify, and so do A-102, B-201, and C-301 at 1.0% each. However, A-101 misses at 2.2%, C-302 at 10%, and B-202 at 100%. Thus,</p>
 <p><span class="math display">\[
 \text{accuracy} = \frac{7}{10} = 70\%
 \]</span></p>
-<p><strong>Weighted by value.</strong> Recorded value is <span class="math inline">\(80(120) + 150(45) + \cdots + 95(15) = \$27{,}405\)</span>, and the absolute dollar discrepancy is <span class="math inline">\(150(1) + 2(5) + 0.40(30) + 25(8) + 0.75(10) + 3(6) = \$397.50\)</span>. Therefore,</p>
+<p><strong>Weighted by value.</strong> Recorded value is <span class="math inline">\(80(120) + 150(45) + \cdots + 95(15) = \$27{,}405\)</span>, and the absolute dollar discrepancy is <span class="math inline">\(150(1) + 2(5) + 0.40(30) + 25(8) + 0.75(10) + 3(6) = \$397.50\)</span>. Thus,</p>
 <p><span class="math display">\[
 \text{accuracy} = 1 - \frac{397.50}{27{,}405} = 98.55\%
 \]</span></p>
@@ -1737,7 +1739,7 @@ Table&nbsp;2.10: Cycle counting methods. No method dominates, and large operatio
 <li>Let <span class="math inline">\(p\)</span> represent the probability that a record, once verified correct, becomes wrong in any one period, and assume it stays wrong until the next count finds it.</li>
 <li>Let <span class="math inline">\(n\)</span> represent the number of periods between counts, and <span class="math inline">\(A(n)\)</span> the average accuracy over the count cycle.</li>
 </ul>
-<p>A record counted every <span class="math inline">\(n\)</span> periods is correct for the first few periods and increasingly likely to be wrong later. Therefore,</p>
+<p>A record counted every <span class="math inline">\(n\)</span> periods is correct for the first few periods and increasingly likely to be wrong later. Thus,</p>
 <p><span id="eq-accuracy-decay"><span class="math display">\[
 A(n) \;=\; \frac{1}{n}\sum_{t=0}^{n-1}(1-p)^{t}
 \;=\; \frac{1-(1-p)^{n}}{n\,p}
@@ -1795,7 +1797,9 @@ Figure&nbsp;2.2: Average record accuracy over a count cycle, from <a href="#eq-a
 <p><span class="math display">\[
 m = \frac{(1.96)^{2}(0.92)(0.08)}{(0.02)^{2}}
   = \frac{(3.8416)(0.0736)}{0.0004}
-  = 706.9 \]</span> Therefore, 707 records must be counted. Notice that tightening the margin to one percentage point quadruples the requirement, to 2,828 records, because <span class="math inline">\(m\)</span> varies as <span class="math inline">\(1/e^{2}\)</span>. For that practical reason, accuracy is usually reported to the nearest percentage point and no finer.</p>
+  = 706.9
+\]</span></p>
+<p>Thus, 707 records must be counted. Notice that tightening the margin to one percentage point quadruples the requirement, to 2,828 records, because <span class="math inline">\(m\)</span> varies as <span class="math inline">\(1/e^{2}\)</span>. For that practical reason, accuracy is usually reported to the nearest percentage point and no finer.</p>
 </div>
 <p><strong>Ask which items counting pays for.</strong> Accuracy and the value of accuracy are different things, so the item classes that score worst on one may not be the ones worth counting. For example, simulation of a retail supply chain found cycle counting essential for <strong>low demand, high cost</strong> items, where it produced substantial savings while holding fill rates, and close to worthless for <strong>high demand, low cost</strong> items, where the savings were negligible and sometimes negative <span class="citation" data-cites="rossetti2006">(<a href="references.html#ref-rossetti2006" role="doc-biblioref">Rossetti et al. 2006</a>)</span>. For fast moving cheap items it is usually cheaper to hold more stock than to count, and where counting them is worthwhile at all, opportunity counting outperforms a schedule.</p>
 <p>Set that beside <span class="citation" data-cites="sheppard1993">Sheppard and Brown (<a href="references.html#ref-sheppard1993" role="doc-biblioref">1993</a>)</span>, who found low value high volume items had the <em>lowest</em> accuracy. Both results hold. The cheap fast items have the worst records and are the least worth correcting, because the consequence of an error on them is small and a little extra stock covers it. Thus, counting effort should follow the cost of being wrong, not the probability of being wrong.</p>
@@ -1837,7 +1841,9 @@ Figure&nbsp;2.3: A <span class="math inline">\(p\)</span> chart of weekly record
 <p>The standard error of a sampled proportion is</p>
 <p><span class="math display">\[
 s = \sqrt{\frac{\bar{p}(1-\bar{p})}{n}}
-  = \sqrt{\frac{(0.92)(0.08)}{250}} = 0.0172 \]</span> Therefore, the control limits are <span class="math inline">\(0.92 \pm 3(0.0172)\)</span>, giving a lower limit of 0.869 and an upper limit of 0.972.</p>
+  = \sqrt{\frac{(0.92)(0.08)}{250}} = 0.0172
+\]</span></p>
+<p>Thus, the control limits are <span class="math inline">\(0.92 \pm 3(0.0172)\)</span>, giving a lower limit of 0.869 and an upper limit of 0.972.</p>
 <p>This week’s count finds 214 of 250 records accurate, i.e.&nbsp;85.6%. That falls below the lower limit, so the process has changed and the cause should be investigated.</p>
 <p>Contrast a week returning 220 of 250, i.e.&nbsp;88.0%. That is four percentage points below the center line and looks alarming. However, it sits inside the limits. A sample of 250 drawn from a process running at 92% produces readings that low often enough that one of them means nothing on its own. Thus, acting on it would send a team looking for a cause that does not exist.</p>
 </div>
@@ -1849,10 +1855,10 @@ s = \sqrt{\frac{\bar{p}(1-\bar{p})}{n}}
 <section id="sec-managing-records-chain" class="level3" data-number="2.3.9">
 <h3 data-number="2.3.9" class="anchored" data-anchor-id="sec-managing-records-chain"><span class="header-section-number">2.3.9</span> Accuracy Is Not a Local Property</h3>
 <p>Everything so far treats record accuracy as something a location manages for itself. Across a supply chain it is not.</p>
-<p>A location’s replenishment orders are the demand its supplier sees. Thus, a retailer ordering against bad records sends distorted demand upstream, and the distribution centre serving it responds to orders that were triggered when they should not have been, or that failed to trigger when they should have.</p>
+<p>A location’s replenishment orders are the demand its supplier sees. Thus, a retailer ordering against bad records sends distorted demand upstream, and the distribution center serving it responds to orders that were triggered when they should not have been, or that failed to trigger when they should have.</p>
 <p>The same two-echelon experiments measured this directly. A single retailer declining to cycle count, while every other location did, cost that chain roughly 6% of fill rate, added about 2% to inventory, and raised backorders by roughly 400% <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>. That is, the cost of one partner’s records lands on partners who have no control over them.</p>
 <p>Two consequences follow. First, record accuracy belongs in the performance measures a supply chain agrees on, and not only in each location’s internal reporting. <span class="citation" data-cites="brooks1995">Brooks and Wilson (<a href="references.html#ref-brooks1995" role="doc-biblioref">1995</a>)</span> make tying inventory managers’ evaluation to record accuracy a basic tenet of a working program. Second, where locations are separate firms, the natural instrument is contractual, i.e.&nbsp;performance clauses specifying the accuracy each partner will maintain, on the same footing as delivery or quality terms <span class="citation" data-cites="rossetti2008">(<a href="references.html#ref-rossetti2008" role="doc-biblioref">Rossetti et al. 2008</a>)</span>.</p>
-<p><a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> takes up the analysis of these systems, where the assumption that each location knows its own stock is doing more work than it appears to.</p>
+<p><a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> takes up the analysis of these systems, where the assumption that each location knows its own stock is doing more work than it appears to.</p>
 </section>
 <section id="sec-managing-records-diagnosis" class="level3" data-number="2.3.10">
 <h3 data-number="2.3.10" class="anchored" data-anchor-id="sec-managing-records-diagnosis"><span class="header-section-number">2.3.10</span> Correction Is Not the Point</h3>
@@ -1876,12 +1882,13 @@ s = \sqrt{\frac{\bar{p}(1-\bar{p})}{n}}
 <p><span class="theorem-title"><strong>Example 2.10 (Keeping stock that will never be used)</strong></span> A location holds 400 units of an item that cost $28 each. Annual demand has fallen to 12 units, so the stock represents more than 33 years of supply. The carrying charge is <span class="math inline">\(i = 0.20\)</span> per year and the stocking position cost is <span class="math inline">\(f = \$30\)</span> per year. A liquidator offers $6 per unit. We compare keeping the excess against disposing of it.</p>
 <p>Suppose two years of supply is retained, i.e.&nbsp;24 units, leaving 376 units in excess. The holding cost per unit per year is <span class="math inline">\(h = ic = (0.20)(28) = \$5.60\)</span>, so keeping that excess costs</p>
 <p><span class="math display">\[
-(376)(5.60) + 30 = \$2{,}135.60 \text{ per year}
+(376)(5.60) = \$2{,}105.60 \text{ per year}
 \]</span></p>
-<p>Disposing of it returns <span class="math inline">\((376)(6.00) = \$2{,}256\)</span> now. Notice that one year of holding costs very nearly the entire salvage value, so the break-even is about 1.06 years. Since the stock represents three decades of demand, disposal dominates by a wide margin.</p>
-<p>What makes this decision hard is a number that does not appear above. The excess cost <span class="math inline">\((376)(28) = \$10{,}528\)</span> to buy, and disposing of it at $6 realizes a write-off of over $8,000 that someone must sign. That $10,528 is sunk. It is gone whether the stock is sold, held, or scrapped, and it is not a reason to keep anything. However, the write-off is visible and the $2,135 a year is not, so the common outcome is to spend the larger amount quietly rather than recognize the smaller one publicly.</p>
+<p>The stocking position cost <span class="math inline">\(f\)</span> does not appear. The 24 units are kept either way, so the item stays stocked whatever is done with the excess, and by the test of <a href="01-Chapter1.html#sec-costparams-marginality" class="quarto-xref"><span>Section 1.4.2</span></a> a cost that is incurred under both alternatives is not part of the decision.</p>
+<p>Disposing of it returns <span class="math inline">\((376)(6.00) = \$2{,}256\)</span> now. Notice that one year of holding costs very nearly the entire salvage value, so the break-even is about 1.07 years. Since the stock represents three decades of demand, disposal dominates by a wide margin.</p>
+<p>What makes this decision hard is a number that does not appear above. The excess cost <span class="math inline">\((376)(28) = \$10{,}528\)</span> to buy, and disposing of it at $6 realizes a write-off of over $8,000 that someone must sign. That $10,528 is sunk. It is gone whether the stock is sold, held, or scrapped, and it is not a reason to keep anything. However, the write-off is visible and the $2,106 a year is not, so the common outcome is to spend the larger amount quietly rather than recognize the smaller one publicly.</p>
 </div>
-<p>Notice where the pieces of this decision came from. Holding cost is <a href="01-Chapter1.html#eq-holding" class="quarto-xref">Equation&nbsp;<span>1.12</span></a>, the stocking position cost is <a href="01-Chapter1.html#sec-costparams-f" class="quarto-xref"><span>Section 1.4.7</span></a>, and obsolescence risk is already inside the carrying charge through <a href="01-Chapter1.html#exm-carrying-charge" class="quarto-xref">Example&nbsp;<span>1.2</span></a>. Excess disposition is not a separate subject. It is the same cost model applied to an item whose demand has ended.</p>
+<p>Notice where the pieces of this decision came from. Holding cost is <a href="01-Chapter1.html#eq-holding" class="quarto-xref">Equation&nbsp;<span>1.12</span></a>, the stocking position cost of <a href="01-Chapter1.html#sec-costparams-f" class="quarto-xref"><span>Section 1.4.7</span></a> was tested for marginality and left out, and obsolescence risk is already inside the carrying charge through <a href="01-Chapter1.html#exm-carrying-charge" class="quarto-xref">Example&nbsp;<span>1.2</span></a>. Excess disposition is not a separate subject. It is the same cost model applied to an item whose demand has ended.</p>
 <p><strong>Detecting it is harder than it looks</strong>, and <a href="#sec-managing-grouping-demandpattern" class="quarto-xref"><span>Section 2.2.6</span></a> explains why. The obvious rule flags items with no movement in some number of months. However, an intermittent item with <span class="math inline">\(\mathit{ADI} = 4\)</span> has demand in one month of four, so three consecutive zero months is its normal behavior, not evidence of death. Thus, a no-movement rule applied without regard to demand pattern will flag healthy slow movers as obsolete and will be slow to catch a smooth item that has genuinely stopped. You should set detection thresholds by demand class.</p>
 </section>
 <section id="sec-managing-other-reporting" class="level3" data-number="2.4.2">
@@ -1966,10 +1973,173 @@ Table&nbsp;2.11: Inventory measures and their counterweights. A measure reported
 <p>Finally, determine how many planners would be needed to review every item at least twice a year, and comment on whether that is the right response to the finding.</p>
 </div>
 <div id="exr-ch2-2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Following <a href="#exm-abc" class="quarto-xref">Example&nbsp;<span>2.2</span></a>, and given the item file in the accompanying spreadsheet, construct an ABC classification by annual dollar usage. Report the fraction of items and the fraction of annual dollar volume falling in each class, plot the cumulative curve, and defend your cut points. State what would change if the cuts were moved by five percentage points in either direction.</p>
+<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> <a href="#tbl-ch2-itemfile" class="quarto-xref">Table&nbsp;<span>2.12</span></a> gives twenty items from a distribution center’s file.</p>
+<div id="tbl-ch2-itemfile" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ch2-itemfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.12: Twenty items from a distribution center’s file. Criticality is the storeroom’s own judgment of what a stockout stops.
+</figcaption>
+<div aria-describedby="tbl-ch2-itemfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Annual usage</th>
+<th style="text-align: right;">Unit cost</th>
+<th>Criticality</th>
+<th style="text-align: right;">Lead time, weeks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AW-9930</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">$43.00</td>
+<td>low</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>BR-1035</td>
+<td style="text-align: right;">2,200</td>
+<td style="text-align: right;">$50.00</td>
+<td>low</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>CT-6650</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">$500.00</td>
+<td>high</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td>DM-3358</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">$500.00</td>
+<td>high</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td>GK-7702</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">$1,000.00</td>
+<td>low</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td>HX-4120</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">$2,000.00</td>
+<td>high</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td>JH-7794</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">$5.00</td>
+<td>low</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>KY-2143</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">$56.00</td>
+<td>low</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>LB-4477</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">$100.00</td>
+<td>low</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>MN-5518</td>
+<td style="text-align: right;">1,600</td>
+<td style="text-align: right;">$20.00</td>
+<td>low</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td>NE-5087</td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">$15.00</td>
+<td>med</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>PL-2207</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">$300.00</td>
+<td>med</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>QP-1209</td>
+<td style="text-align: right;">1,400</td>
+<td style="text-align: right;">$10.00</td>
+<td>low</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>RD-2846</td>
+<td style="text-align: right;">350</td>
+<td style="text-align: right;">$80.00</td>
+<td>med</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td>SV-8814</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">$3,000.00</td>
+<td>low</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td>TF-9163</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">$800.00</td>
+<td>high</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td>UT-4462</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">$3.00</td>
+<td>low</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>VC-8035</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">$400.00</td>
+<td>high</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td>WS-3391</td>
+<td style="text-align: right;">900</td>
+<td style="text-align: right;">$50.00</td>
+<td>med</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>ZN-6621</td>
+<td style="text-align: right;">450</td>
+<td style="text-align: right;">$20.00</td>
+<td>med</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Following <a href="#exm-abc" class="quarto-xref">Example&nbsp;<span>2.2</span></a>, construct an ABC classification by annual dollar usage. Report the fraction of items and the fraction of annual dollar volume falling in each class, sketch the cumulative curve, and defend your cut points. State what would change if the cuts were moved by five percentage points in either direction.</p>
 </div>
 <div id="exr-ch2-3" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.3</strong></span> Following <a href="#exm-multicriteria" class="quarto-xref">Example&nbsp;<span>2.3</span></a>, reclassify the same item file using at least two criteria, one of which is not dollar usage. Identify the items whose class changes, explain why each moved, and say which classification you would give to a planner.</p>
+<p><span class="theorem-title"><strong>Exercise 2.3</strong></span> Following <a href="#exm-multicriteria" class="quarto-xref">Example&nbsp;<span>2.3</span></a>, reclassify <a href="#tbl-ch2-itemfile" class="quarto-xref">Table&nbsp;<span>2.12</span></a> using at least two criteria, one of which is not dollar usage. The table carries two: the storeroom’s criticality judgment and the supplier’s lead time. Identify the items whose class changes, explain why each moved, and say which classification you would give to a planner.</p>
 </div>
 <div id="exr-ch2-4" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 2.4</strong></span> Four items have the following demand histories over twelve months.</p>
@@ -2076,7 +2246,8 @@ Table&nbsp;2.11: Inventory measures and their counterweights. A measure reported
 <p>Using <a href="#eq-accuracy-decay" class="quarto-xref">Equation&nbsp;<span>2.8</span></a>, determine the longest count interval that holds average record accuracy at 98% for each, as in <a href="#exm-count-frequency" class="quarto-xref">Example&nbsp;<span>2.7</span></a>. Express each answer as counts per year. Then determine the total annual counting workload for a population of 400 items split evenly among the three error rates, and compare it with the workload under a conventional schedule of four counts a year for A items, two for B, and one for C, assuming the population splits 20/30/50 across those classes.</p>
 </div>
 <div id="exr-ch2-8" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.8</strong></span> Design a cycle counting schedule for the item population of <a href="#exr-ch2-2" class="quarto-xref">Exercise&nbsp;<span>2.2</span></a>, given a counting team able to perform 60 counts per week. State the count frequency for each class, show that the schedule fits the available capacity, and justify the frequencies in terms of what a count is for.</p>
+<p><span class="theorem-title"><strong>Exercise 2.8</strong></span> Take the twenty items of <a href="#tbl-ch2-itemfile" class="quarto-xref">Table&nbsp;<span>2.12</span></a> as a representative sample of a population of 1,200 items in the same class proportions, and a counting team able to perform 60 counts per week over 52 weeks.</p>
+<p>State a count frequency for each class, show that the schedule fits the available capacity, and report the slack. Justify the frequencies in terms of what a count is for, and say what you would do with the slack.</p>
 </div>
 <div id="exr-ch2-9" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 2.9</strong></span> A location holds 900 units of a component that cost $14.50 each. The product it supported was discontinued eighteen months ago, and demand over the past year was 30 units, all from a single customer still running the old equipment. The carrying charge is 0.22 per year and the stocking position cost is $25 per year. A broker offers $2.75 per unit for the entire quantity.</p>

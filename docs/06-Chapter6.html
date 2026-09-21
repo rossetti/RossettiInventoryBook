@@ -424,19 +424,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -530,7 +530,7 @@ window.Quarto = {
   <li><a href="#sec-mrpdrp-drp" id="toc-sec-mrpdrp-drp" class="nav-link" data-scroll-target="#sec-mrpdrp-drp"><span class="header-section-number">6.6</span> Distribution Requirements Planning</a>
   <ul>
   <li><a href="#sec-mrpdrp-same" id="toc-sec-mrpdrp-same" class="nav-link" data-scroll-target="#sec-mrpdrp-same"><span class="header-section-number">6.6.1</span> It Is the Same Calculation</a></li>
-  <li><a href="#sec-mrpdrp-bullwhip" id="toc-sec-mrpdrp-bullwhip" class="nav-link" data-scroll-target="#sec-mrpdrp-bullwhip"><span class="header-section-number">6.6.2</span> What the Regions Do to the Centre</a></li>
+  <li><a href="#sec-mrpdrp-bullwhip" id="toc-sec-mrpdrp-bullwhip" class="nav-link" data-scroll-target="#sec-mrpdrp-bullwhip"><span class="header-section-number">6.6.2</span> What the Regions Do to the Center</a></li>
   </ul></li>
   <li><a href="#sec-mrpdrp-nervousness" id="toc-sec-mrpdrp-nervousness" class="nav-link" data-scroll-target="#sec-mrpdrp-nervousness"><span class="header-section-number">6.7</span> Nervousness</a></li>
   <li><a href="#sec-mrpdrp-assumptions" id="toc-sec-mrpdrp-assumptions" class="nav-link" data-scroll-target="#sec-mrpdrp-assumptions"><span class="header-section-number">6.8</span> What Requirements Planning Assumes</a></li>
@@ -627,7 +627,7 @@ window.Quarto = {
 <section id="sec-mrpdrp-place" class="level3" data-number="6.1.2">
 <h3 data-number="6.1.2" class="anchored" data-anchor-id="sec-mrpdrp-place"><span class="header-section-number">6.1.2</span> Where This Chapter Sits</h3>
 <p><a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> planned one item, and this chapter plans an item for every node of a product structure. What it hands each of them is the requirements schedule of <a href="05-Chapter5.html#sec-dls-schedule" class="quarto-xref"><span>Section 5.1.1</span></a>, and what it does with the answer is pass it down to the level below. The lot sizing of <a href="05-Chapter5.html#sec-dls-heuristics" class="quarto-xref"><span>Section 5.5</span></a> is used here unchanged and is not restated.</p>
-<p>The stochastic chapters that follow remove the assumption that any of this is known. 2 collects what requirements planning takes for granted, and it is the bridge to them.</p>
+<p>The stochastic chapters that follow remove the assumption that any of this is known. <a href="#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a> collects what requirements planning takes for granted, and it is the bridge to them.</p>
 </section>
 </section>
 <section id="sec-mrpdrp-bom" class="level2" data-number="6.2">
@@ -712,10 +712,10 @@ Table&nbsp;6.1: Low-level codes for the deck assembly structure.
 <p>Before any record, we need the arithmetic that connects two levels. Let item <span class="math inline">\(i\)</span> be a parent of item <span class="math inline">\(j\)</span>, and <span class="math inline">\(q_{ij}\)</span> of <span class="math inline">\(j\)</span> go into one <span class="math inline">\(i\)</span>, then the requirement <span class="math inline">\(j\)</span> inherits in period <span class="math inline">\(t\)</span> is <span id="eq-mrp-explosion"><span class="math display">\[
 G_{jt} = \sum_{i \in \text{parents}(j)} q_{ij} \, \mathit{Rel}_{it} ,
 \tag{6.1}\]</span></span> where <span class="math inline">\(\mathit{Rel}_{it}\)</span> is the quantity of <span class="math inline">\(i\)</span> that the plan <em>releases</em> in period <span class="math inline">\(t\)</span>.</p>
-<p>Releases, and not receipts. A parent needs its components in hand when it starts building, and the release is when it starts. Using the receipt row would ask for the components on the day the parent is finished, a whole lead time too late. This is the single most common error in a hand-worked explosion.</p>
+<p>That is, releases and not receipts. A parent needs its components in hand when it starts building, and the release is when it starts. Using the receipt row would ask for the components on the day the parent is finished, a whole lead time too late. This is the single most common error in a hand-worked explosion.</p>
 <p>For the bearing, <a href="#eq-mrp-explosion" class="quarto-xref">Equation&nbsp;<span>6.1</span></a> has two terms, because it has two parents: <span class="math display">\[
 G_{\mathit{BR},t} = 1 \cdot \mathit{Rel}_{\mathit{DA},t} + 2 \cdot \mathit{Rel}_{S,t} .
-\]</span> The two arrive in different periods, because the two paths through the structure have different lead times.</p>
+\]</span> The two arrive in different periods, because the two paths through the structure have different lead times. <a href="#sec-mrpdrp-record" class="quarto-xref"><span>Section 6.3</span></a> builds the record that turns a requirement into a release.</p>
 </section>
 </section>
 <section id="sec-mrpdrp-record" class="level2" data-number="6.3">
@@ -736,7 +736,7 @@ I_t = I_{t-1} + \mathit{SR}_t + \mathit{POR}_t - G_t .
 \tag{6.4}\]</span></span> This row is the record’s output. That is, it is what <a href="#eq-mrp-explosion" class="quarto-xref">Equation&nbsp;<span>6.1</span></a> reads at the next level down, and it is the only row that says anything the planner will act on.</p>
 <section id="sec-mrpdrp-netting" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-mrpdrp-netting"><span class="header-section-number">6.3.1</span> The Maximum Is the Whole Idea</h3>
-<p><a href="#eq-mrp-net" class="quarto-xref">Equation&nbsp;<span>6.3</span></a> has a <span class="math inline">\(\max\)</span> in it, and a reader meeting the record for the first time usually leaves it out. Let’s see what happens.</p>
+<p><a href="#eq-mrp-net" class="quarto-xref">Equation&nbsp;<span>6.3</span></a> has a <span class="math inline">\(\max\)</span> in it, and a reader meeting the record for the first time usually leaves it out. See what happens.</p>
 <div id="exm-mrp-netting" class="theorem example">
 <p><span class="theorem-title"><strong>Example 6.1 (A record without netting)</strong></span> Let’s take the deck assembly’s master schedule and carry the on-hand balance forward without netting anything, so that <a href="#eq-mrp-balance" class="quarto-xref">Equation&nbsp;<span>6.2</span></a> runs with <span class="math inline">\(\mathit{POR}_t = 0\)</span> throughout.</p>
 <div id="tbl-mrp-unnetted" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -821,7 +821,7 @@ Table&nbsp;6.2: The deck assembly with nothing netted. Every negative entry is a
 <section id="sec-mrpdrp-safety" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-mrpdrp-safety"><span class="header-section-number">6.3.2</span> Safety Stock and Allocations</h3>
 <p>We meet two modifications to <a href="#eq-mrp-net" class="quarto-xref">Equation&nbsp;<span>6.3</span></a> constantly, and neither needs new machinery.</p>
-<p><em>Safety stock</em> is the <span class="math inline">\(\mathit{SS}\)</span> term. It raises every net requirement by the same amount, which has the effect of holding <span class="math inline">\(\mathit{SS}\)</span> units permanently and planning around what is left. Whether it belongs in a system whose entire premise is that demand is known is a real question, and the field has never fully settled it. 2 returns to it.</p>
+<p><em>Safety stock</em> is the <span class="math inline">\(\mathit{SS}\)</span> term. It raises every net requirement by the same amount, which has the effect of holding <span class="math inline">\(\mathit{SS}\)</span> units permanently and planning around what is left. Whether it belongs in a system whose entire premise is that demand is known is a real question, and the field has never fully settled it. <a href="#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a> returns to it.</p>
 <p><em>Allocated stock</em> is inventory that is physically present but already promised to something else. It is handled by reducing <span class="math inline">\(I_0\)</span>, the opening balance, in order to keep the stock that is promised elsewhere out of the calculation. Nothing else changes.</p>
 </section>
 <section id="sec-mrpdrp-horizon" class="level3" data-number="6.3.3">
@@ -892,7 +892,13 @@ Algorithm&nbsp;6.1: The explosion. The sort is what makes the sum over parents s
 </figure>
 </div>
 <div id="exm-mrp-explosion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.2 (The deck assembly, all five items)</strong></span> We plan every item lot-for-lot, with nothing on hand and nothing on order. The master schedule carries the twelve-month pattern in months 6 through 17.</p>
+<p><span class="theorem-title"><strong>Example 6.2 (The deck assembly, all five items)</strong></span> <em>What is stocked?</em> Five items of one product structure: the deck assembly and what goes into it.</p>
+<p><em>What is the demand process?</em> Known, and computed rather than forecast: the master schedule for the deck assembly, and for every other item the releases of the items above it.</p>
+<p><em>When is inventory reviewed?</em> Once a month, over a common horizon.</p>
+<p><em>What triggers replenishment, and how much?</em> A net requirement in a month, and lot-for-lot orders exactly that amount.</p>
+<p><em>What happens to unmet demand?</em> None occurs; a requirement that cannot be met inside the horizon is a past-due release, which <a href="#sec-mrpdrp-horizon" class="quarto-xref"><span>Section 6.3.3</span></a> treats.</p>
+<p><em>What costs are incurred, and when?</em> None enter this example; <a href="#sec-mrpdrp-lotsizing" class="quarto-xref"><span>Section 6.5</span></a> prices the plan.</p>
+<p>We plan every item lot-for-lot, with nothing on hand and nothing on order. The master schedule carries the twelve-month pattern in months 6 through 17.</p>
 <p>The deck assembly nets to its own schedule, and <a href="#tbl-mrp-da" class="quarto-xref">Table&nbsp;<span>6.4</span></a> reads its releases off as that schedule pulled back one month.</p>
 <div id="tbl-mrp-da" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1193,7 +1199,7 @@ Table&nbsp;6.6: The bearing’s gross requirements, which two levels feed.
 </section>
 <section id="sec-mrpdrp-lotsizing" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="sec-mrpdrp-lotsizing"><span class="header-section-number">6.5</span> What Lot Sizing Does to the Level Below</h2>
-<p><a href="#exm-mrp-explosion" class="quarto-xref">Example&nbsp;<span>6.2</span></a> ordered lot-for-lot at every level. Thus, it is the plan an MRP system produces when nobody has told it otherwise. Every rule of <a href="05-Chapter5.html#sec-dls-heuristics" class="quarto-xref"><span>Section 5.5</span></a> can be used instead, applied to the net requirement row of whichever record it is planning. None of them is restated here. What this section is about is something <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> could not see, because <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> had only one item.</p>
+<p><a href="#exm-mrp-explosion" class="quarto-xref">Example&nbsp;<span>6.2</span></a> ordered lot-for-lot at every level. Thus, it is the plan an MRP system produces when nobody has told it otherwise. Recall from <a href="05-Chapter5.html#sec-dls-heuristics" class="quarto-xref"><span>Section 5.5</span></a> that every rule there can be used instead, applied to the net requirement row of whichever record it is planning. None of them is restated here. What this section is about is something <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> could not see, because <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> had only one item.</p>
 <p>A parent’s lot sizing rule does not only decide what the parent costs. By <a href="#eq-mrp-explosion" class="quarto-xref">Equation&nbsp;<span>6.1</span></a> it decides <em>when and in what sizes the components are asked for</em>, and so it decides what their problem looks like before they have made any choice at all.</p>
 <section id="sec-mrpdrp-experiment" class="level3" data-number="6.5.1">
 <h3 data-number="6.5.1" class="anchored" data-anchor-id="sec-mrpdrp-experiment"><span class="header-section-number">6.5.1</span> One Rule Changes, and Everything Moves</h3>
@@ -1292,19 +1298,19 @@ Table&nbsp;6.7: What the end item’s rule does to the whole structure. The vari
 </section>
 <section id="sec-mrpdrp-vcwarning" class="level3" data-number="6.5.2">
 <h3 data-number="6.5.2" class="anchored" data-anchor-id="sec-mrpdrp-vcwarning"><span class="header-section-number">6.5.2</span> What the Variability Coefficient Does Not Tell You</h3>
-<p>You will be tempted to read the <span class="math inline">\(VC\)</span> column as a cost. It is not one. Part-period balancing produces much the lumpiest pattern in <a href="#tbl-mrp-lumpiness" class="quarto-xref">Table&nbsp;<span>6.7</span></a> and is not the most expensive plan; Wagner-Whitin produces nearly the smoothest and is the second most expensive. Notice that the order count explains the cost below and the variability coefficient does not.</p>
+<p>You will be tempted to read the <span class="math inline">\(VC\)</span> column as a cost, and it is not one. Part-period balancing produces much the lumpiest pattern in <a href="#tbl-mrp-lumpiness" class="quarto-xref">Table&nbsp;<span>6.7</span></a> and is not the most expensive plan; Wagner-Whitin produces nearly the smoothest and is the second most expensive. Notice that the order count explains the cost below and the variability coefficient does not.</p>
 <p>The variability coefficient is still the right thing to look at when you are asking whether a component’s own planner needs the methods of <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a>. <a href="05-Chapter5.html#sec-dls-vc" class="quarto-xref"><span>Section 5.6.1</span></a> set the threshold at 0.2, and every row of <a href="#tbl-mrp-lumpiness" class="quarto-xref">Table&nbsp;<span>6.7</span></a> clears it comfortably. That is the point made in <a href="#sec-mrpdrp-whynot" class="quarto-xref"><span>Section 6.1.1</span></a>, now with a number attached: dependent demand does not merely happen to be variable, it is made variable, by a decision taken one level up.</p>
 </section>
 <section id="sec-mrpdrp-practice" class="level3" data-number="6.5.3">
 <h3 data-number="6.5.3" class="anchored" data-anchor-id="sec-mrpdrp-practice"><span class="header-section-number">6.5.3</span> What Is Actually Done</h3>
 <p>Most installed systems run lot-for-lot below the top level or two, and reading <a href="#tbl-mrp-lumpiness" class="quarto-xref">Table&nbsp;<span>6.7</span></a> it is easy to see that as laziness. It is not, quite.</p>
 <p>Lot-for-lot at a component is the rule that leaves the level beneath it alone, and in a structure several levels deep that matters more at each level down. Thus, it also produces the smallest projected balances, and that is what a planner wants when the requirements above are going to be revised anyway, and <a href="#sec-mrpdrp-nervousness" class="quarto-xref"><span>Section 6.7</span></a> is about how often that happens. And it needs no cost parameters, which matters because a bill of material with ten thousand items has ten thousand order costs that nobody has ever measured.</p>
-<p>The defensible position is that batching pays where the setup is large and genuinely known, usually the end item and the major subassemblies, and that below that the information needed to do it well does not exist.</p>
+<p>The defensible position is that batching pays where the setup is large and genuinely known, usually the end item and the major subassemblies, and that below that the information needed to do it well does not exist. <a href="#sec-mrpdrp-drp" class="quarto-xref"><span>Section 6.6</span></a> turns the same explosion on its side, to a network of regions feeding a center.</p>
 </section>
 </section>
 <section id="sec-mrpdrp-drp" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="sec-mrpdrp-drp"><span class="header-section-number">6.6</span> Distribution Requirements Planning</h2>
-<p>The same arithmetic plans a distribution network. Let’s be precise about how little has to change.</p>
+<p>The same arithmetic plans a distribution network, and notice how little has to change.</p>
 <p><a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a>’s distributor does not build anything. It holds belts at three regional warehouses, each serving its own dealers, and replenishes all three from a central warehouse. <a href="#fig-mrp-network" class="quarto-xref">Figure&nbsp;<span>6.2</span></a> illustrates the network.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1327,15 +1333,15 @@ Figure&nbsp;6.2: The distributor’s network. Three regions sell to dealers and 
 G_{\mathit{CW},t} = \sum_{r \in \text{regions}} 1 \cdot \mathit{Rel}_{rt} .
 \]</span> That is <a href="#eq-mrp-explosion" class="quarto-xref">Equation&nbsp;<span>6.1</span></a> with every <span class="math inline">\(q_{ij} = 1\)</span>. Transit time plays the part of lead time, the regions are the level-0 items, the warehouse is their component, and <a href="#alg-mrp-explosion" class="quarto-xref">Algorithm&nbsp;<span>6.1</span></a> runs unchanged. That is, nothing in the algorithm has to know which kind of graph it is walking. The software of <a href="#sec-mrpdrp-design" class="quarto-xref"><span>Section 6.10</span></a> uses one class for both, and <a href="#sec-mrpdrp-design-network" class="quarto-xref"><span>Section 6.10.6</span></a> explains why that is not a trick.</p>
 <p>Two differences are real and neither is arithmetic.</p>
-<p>A bill of material has a quantity per and a distribution network does not, or rather has one everywhere. A parent needs two spindle assemblies per deck; a region needs one belt per belt.</p>
-<p>And the direction of the relationship reads backwards. In a bill of material the parent is what the child goes into. In a network the parent is the <em>customer</em> and the child is the <em>supplier</em>. The arrow points the way the requirement travels, upstream in both cases, and that is why the same code carries them.</p>
+<p>A bill of material has a quantity per and a distribution network does not, or rather has one everywhere. For example, a parent needs two spindle assemblies per deck, and a region needs one belt per belt.</p>
+<p>The direction of the relationship also reads backwards. In a bill of material the parent is what the child goes into. In a network the parent is the <em>customer</em> and the child is the <em>supplier</em>. The arrow points the way the requirement travels, upstream in both cases, and that is why the same code carries them.</p>
 <div id="exm-mrp-drp" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.3 (The three regions and the centre)</strong></span> The three regions sell 1,840 belts between them over the twelve months, split 830 to the north, 640 to the south and 370 to the west. Transit is one month to the north and west and two to the south, and the central warehouse’s own supplier takes two months. The cumulative lead time is therefore four months, so the horizon leads the first sale by four.</p>
-<p>Every location orders lot-for-lot. In <a href="#tbl-mrp-drp" class="quarto-xref">Table&nbsp;<span>6.8</span></a> the regions’ releases are their own sales pulled back by their transit times, and the centre’s gross requirements are the sum of the three.</p>
+<p><span class="theorem-title"><strong>Example 6.3 (The three regions and the center)</strong></span> The three regions sell 1,840 belts between them over the twelve months, split 830 to the north, 640 to the south and 370 to the west. Transit is one month to the north and west and two to the south, and the central warehouse’s own supplier takes two months. The cumulative lead time is therefore four months, so the horizon leads the first sale by four.</p>
+<p>Every location orders lot-for-lot. In <a href="#tbl-mrp-drp" class="quarto-xref">Table&nbsp;<span>6.8</span></a> the regions’ releases are their own sales pulled back by their transit times, and the center’s gross requirements are the sum of the three.</p>
 <div id="tbl-mrp-drp" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mrp-drp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;6.8: The roll-up. The centre’s row is the three above it added down the column.
+Table&nbsp;6.8: The roll-up. The center’s row is the three above it added down the column.
 </figcaption>
 <div aria-describedby="tbl-mrp-drp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1423,7 +1429,7 @@ Table&nbsp;6.8: The roll-up. The centre’s row is the three above it added down
 <td style="text-align: right;">50</td>
 </tr>
 <tr class="even">
-<td><strong>Centre’s gross requirements</strong></td>
+<td><strong>Center’s gross requirements</strong></td>
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">50</td>
 <td style="text-align: right;">80</td>
@@ -1443,60 +1449,60 @@ Table&nbsp;6.8: The roll-up. The centre’s row is the three above it added down
 </div>
 </figure>
 </div>
-<p>Notice that the south is a month out of step with the other two, because its transit time is longer. The centre’s requirement in period 3 is the south’s alone.</p>
+<p>Notice that the south is a month out of step with the other two, because its transit time is longer. The center’s requirement in period 3 is the south’s alone.</p>
 </div>
 </section>
 <section id="sec-mrpdrp-bullwhip" class="level3" data-number="6.6.2">
-<h3 data-number="6.6.2" class="anchored" data-anchor-id="sec-mrpdrp-bullwhip"><span class="header-section-number">6.6.2</span> What the Regions Do to the Centre</h3>
-<p><a href="#sec-mrpdrp-lotsizing" class="quarto-xref"><span>Section 6.5</span></a>’s result has a counterpart here, and it is the more famous of the two. We change the rule the regions use and watch what the centre sees.</p>
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="sec-mrpdrp-bullwhip"><span class="header-section-number">6.6.2</span> What the Regions Do to the Center</h3>
+<p><a href="#sec-mrpdrp-lotsizing" class="quarto-xref"><span>Section 6.5</span></a>’s result has a counterpart here, and it is the more famous of the two. We change the rule the regions use and watch what the center sees.</p>
 <div id="tbl-mrp-bullwhip" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mrp-bullwhip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;6.9: What the regions’ own rule does to the demand the centre sees. The regions sell a pattern whose variability coefficient is 0.6191.
+Table&nbsp;6.9: What the regions’ own rule does to the demand the center sees. The regions sell a pattern whose variability coefficient is 0.6191; the center’s coefficient is measured over periods 3 through 15, the periods in which it has a requirement under lot-for-lot, and a rule that empties one of those periods is charged the zero.
 </figcaption>
 <div aria-describedby="tbl-mrp-bullwhip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Rule at every region</th>
-<th style="text-align: right;"><span class="math inline">\(VC\)</span> at the centre</th>
+<th style="text-align: right;"><span class="math inline">\(VC\)</span> at the center</th>
 <th style="text-align: right;">Regions</th>
-<th style="text-align: right;">Centre</th>
+<th style="text-align: right;">Center</th>
 <th style="text-align: right;">Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Lot-for-lot</td>
-<td style="text-align: right;">0.6013</td>
+<td style="text-align: right;">0.6334</td>
 <td style="text-align: right;">$6,600</td>
 <td style="text-align: right;">$5,200</td>
 <td style="text-align: right;">$11,800</td>
 </tr>
 <tr class="even">
 <td>Part-period balancing</td>
-<td style="text-align: right;">1.1588</td>
+<td style="text-align: right;">0.8692</td>
 <td style="text-align: right;">$3,860</td>
 <td style="text-align: right;">$3,200</td>
 <td style="text-align: right;">$7,060</td>
 </tr>
 <tr class="odd">
 <td>Wagner-Whitin</td>
-<td style="text-align: right;">1.4234</td>
+<td style="text-align: right;">1.1403</td>
 <td style="text-align: right;">$3,830</td>
 <td style="text-align: right;">$3,200</td>
 <td style="text-align: right;">$7,030</td>
 </tr>
 <tr class="even">
 <td>Silver-Meal</td>
-<td style="text-align: right;">1.5706</td>
+<td style="text-align: right;">1.3715</td>
 <td style="text-align: right;">$3,980</td>
 <td style="text-align: right;">$3,600</td>
 <td style="text-align: right;">$7,580</td>
 </tr>
 <tr class="odd">
 <td>Periodic order quantity</td>
-<td style="text-align: right;">1.9584</td>
+<td style="text-align: right;">1.5896</td>
 <td style="text-align: right;">$4,310</td>
 <td style="text-align: right;">$3,200</td>
 <td style="text-align: right;">$7,510</td>
@@ -1506,34 +1512,34 @@ Table&nbsp;6.9: What the regions’ own rule does to the demand the centre sees.
 </div>
 </figure>
 </div>
-<p>The demand the centre faces is between two and three times as variable as the demand the regions actually sell, and the regions’ customers did nothing to cause it. This is the <em>bullwhip effect</em>, and <a href="#tbl-mrp-bullwhip" class="quarto-xref">Table&nbsp;<span>6.9</span></a> is its mechanism in one table: batching at one stage is amplification at the next.</p>
+<p>Under every batching rule the demand the center faces is between 1.4 and 2.6 times as variable as the demand the regions actually sell, and the regions’ customers did nothing to cause it. This is the <em>bullwhip effect</em>, and <a href="#tbl-mrp-bullwhip" class="quarto-xref">Table&nbsp;<span>6.9</span></a> is its mechanism in one table: batching at one stage is amplification at the next.</p>
 <p>Notice two things before we let the conclusion run away.</p>
-<p>Under lot-for-lot the centre sees <span class="math inline">\(VC = 0.6013\)</span>, slightly <em>less</em> variable than the 0.6191 the regions sell. Three locations ordering on different transit times are slightly out of step with one another, and the staggering smooths what the centre sees. Amplification is caused by batching and not by the network.</p>
-<p>And every batching row in <a href="#tbl-mrp-bullwhip" class="quarto-xref">Table&nbsp;<span>6.9</span></a> is cheaper than lot-for-lot, at the regions and at the centre both. In a world where demand is known, amplification costs nothing: the centre can see the lumpy pattern coming and plan for it, as it just did. The bullwhip effect is expensive when demand is uncertain, because then the centre cannot tell an amplified pattern from a change in the market and must hold stock against both. <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> takes that up, and it is the reason this chapter can report the amplification without reporting a cost for it.</p>
+<p>Under lot-for-lot the center sees <span class="math inline">\(VC = 0.6334\)</span>, within three percent of the 0.6191 the regions sell. Three locations ordering on different transit times spread the same 1,840 belts over thirteen periods instead of twelve, with two small periods at the front, and that spreading is the whole of the difference. Amplification is caused by batching and not by the network.</p>
+<p>Every batching row in <a href="#tbl-mrp-bullwhip" class="quarto-xref">Table&nbsp;<span>6.9</span></a> is also cheaper than lot-for-lot, at the regions and at the center both. In a world where demand is known, amplification costs nothing: the center can see the lumpy pattern coming and plan for it, as it just did. The bullwhip effect is expensive when demand is uncertain, because then the center cannot tell an amplified pattern from a change in the market and must hold stock against both. Pricing that needs a model of demand uncertainty, which this chapter does not have, and it is the reason this chapter can report the amplification without reporting a cost for it.</p>
 </section>
 </section>
 <section id="sec-mrpdrp-nervousness" class="level2" data-number="6.7">
 <h2 data-number="6.7" class="anchored" data-anchor-id="sec-mrpdrp-nervousness"><span class="header-section-number">6.7</span> Nervousness</h2>
-<p><a href="05-Chapter5.html#sec-dls-nervousness" class="quarto-xref"><span>Section 5.7.3</span></a> met nervousness with one item: the horizon rolls, the plan is recomputed, and the new plan disagrees with the old about orders not yet placed. In a product structure the disagreement propagates, and the propagation is the problem.</p>
+<p>Recall from <a href="05-Chapter5.html#sec-dls-nervousness" class="quarto-xref"><span>Section 5.7.3</span></a> what nervousness is with one item: the horizon rolls, the plan is recomputed, and the new plan disagrees with the old about orders not yet placed. In a product structure the disagreement propagates, and the propagation is the problem.</p>
 <p>For example, a change to the master schedule in a distant period changes the deck assembly’s releases. Those are the belt’s requirements, so the belt replans. The belt’s releases move, and with a two-month lead time they move into periods nearer than the change that caused them. Two levels down, a revision to a requirement eleven months out can move an order that was going to be placed next week.</p>
 <p>Three things make it worse than the single-item case of <a href="05-Chapter5.html#sec-dls-nervousness" class="quarto-xref"><span>Section 5.7.3</span></a>.</p>
 <p><strong>Lot sizing amplifies it.</strong> A batching rule has thresholds, and a small change in requirements moves a plan across one. <a href="05-Chapter5.html#sec-dls-nervousness" class="quarto-xref"><span>Section 5.7.3</span></a> measured the first-period commitment for two rules and found that Silver-Meal held steady while Wagner-Whitin did not. Here that instability is multiplied by every level beneath.</p>
 <p><strong>Lead times concentrate it.</strong> A change far out in the schedule arrives at the bottom of the structure much sooner, because each level’s lead time pulls it earlier.</p>
 <p><strong>Low-level codes spread it.</strong> An item with several parents is replanned when any of them moves.</p>
 <p>We have the devices of <a href="05-Chapter5.html#sec-dls-nervousness" class="quarto-xref"><span>Section 5.7.3</span></a>, with one addition. A <em>firm planned order</em> is a planned order the system is forbidden to move. It is the freeze fence applied to a single order instead of to a span of periods, and it is how a planner overrides the calculation without turning it off. A <em>time fence</em> does the same for a span. A <em>change penalty</em> is rare here for the reason <a href="05-Chapter5.html#sec-dls-nervousness" class="quarto-xref"><span>Section 5.7.3</span></a> gave, and rarer still because it would have to be defined for every item at every level.</p>
-<p>Safety <em>lead time</em> is the device this chapter adds. Instead of holding extra stock, the item is planned to arrive a period early. It buffers against a late delivery in a way that safety stock does not, and it costs a period of carrying on everything instead of a permanent balance on one item. Which you should use depends on whether the uncertainty is in the quantity or in the timing, and requirements planning gives you no way to tell.</p>
+<p>Safety <em>lead time</em> is the device this chapter adds. Instead of holding extra stock, the item is planned to arrive a period early. It buffers against a late delivery in a way that safety stock does not, and it costs a period of carrying on everything instead of a permanent balance on one item. Which you should use depends on whether the uncertainty is in the quantity or in the timing, and requirements planning gives you no way to tell. <a href="#sec-mrpdrp-building" class="quarto-xref"><span>Section 6.9</span></a> builds the records of this chapter in a worksheet, where the effect of each device can be tried on the belt.</p>
 </section>
 <section id="sec-mrpdrp-assumptions" class="level2" data-number="6.8">
 <h2 data-number="6.8" class="anchored" data-anchor-id="sec-mrpdrp-assumptions"><span class="header-section-number">6.8</span> What Requirements Planning Assumes</h2>
 <p>The arithmetic of this chapter is exact, and every assumption we made to get it is questionable. We collect them here, and they are the bridge to the rest of the book.</p>
 <ol type="1">
-<li><strong>Capacity is infinite.</strong> Nothing in <a href="#alg-mrp-explosion" class="quarto-xref">Algorithm&nbsp;<span>6.1</span></a> asks whether the shop can build 1,980 bearings in period 8. Thus, a plan that cannot be executed is not a plan, and capacity requirements planning takes the releases and compares them with what the work centres can do. When it finds a conflict the master schedule is changed and the explosion is run again. That loop, with capacity and the financial side attached, is what manufacturing resource planning means. It is outside this book, which takes up inventory and not scheduling.</li>
+<li><strong>Capacity is infinite.</strong> Nothing in <a href="#alg-mrp-explosion" class="quarto-xref">Algorithm&nbsp;<span>6.1</span></a> asks whether the shop can build 1,980 bearings in period 8. Thus, a plan that cannot be executed is not a plan, and capacity requirements planning takes the releases and compares them with what the work centers can do. When it finds a conflict the master schedule is changed and the explosion is run again. That loop, with capacity and the financial side attached, is what manufacturing resource planning means. It is outside this book, which takes up inventory and not scheduling.</li>
 <li><strong>Lead times are fixed and known.</strong> They are treated as properties of an item. In a real shop a lead time is mostly queueing, so it depends on how loaded the shop is, which depends on the lot sizes, which are what the plan is choosing. Planning with a fixed lead time and then releasing work that makes the true lead time longer is a well-documented way to make a plan worse by following it.</li>
 <li><strong>Requirements are known.</strong> The master production schedule is a forecast for the end items, and everything below it inherits that forecast’s error with the amplification of <a href="#sec-mrpdrp-lotsizing" class="quarto-xref"><span>Section 6.5</span></a> applied.</li>
 <li><strong>The records are right.</strong> <a href="02-Chapter2.html#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a> showed what record accuracy actually is in the field. An explosion nets against on-hand balances. Thus, an error in one balance becomes a wrong order for every item beneath it. Requirements planning is less tolerant of bad records than an order-point system, because it computes rather than reacts.</li>
 <li><strong>Everything is deterministic.</strong> No demand distribution appears anywhere in this chapter, and the only concession to uncertainty is a safety stock that <a href="#sec-mrpdrp-safety" class="quarto-xref"><span>Section 6.3.2</span></a> could not justify from inside the model.</li>
 </ol>
-<p>Assumption 5 is the one the rest of this book removes. <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> begins with a single period and a random demand, and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> through <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> build the machinery that assumption 3 and assumption 5 need.</p>
+<p>Assumption 5 is the one the rest of this book removes. <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> begins with a single period and a random demand, and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> through <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> build the machinery that assumption 3 and assumption 5 need.</p>
 </section>
 <section id="sec-mrpdrp-building" class="level2" data-number="6.9">
 <h2 data-number="6.9" class="anchored" data-anchor-id="sec-mrpdrp-building"><span class="header-section-number">6.9</span> Building These Models in a Worksheet</h2>
@@ -1597,7 +1603,7 @@ Figure&nbsp;6.6: The <code>Lumpiness</code> sheet. Seven rules, twelve months, a
 </section>
 <section id="sec-mrpdrp-build-drp" class="level3" data-number="6.9.4">
 <h3 data-number="6.9.4" class="anchored" data-anchor-id="sec-mrpdrp-build-drp"><span class="header-section-number">6.9.4</span> The Network</h3>
-<p><code>DRP</code> is the <code>Explosion</code> sheet with three level-0 locations instead of one and every quantity per equal to one. It is a separate sheet instead of a note on the first, because seeing the two side by side is what makes <a href="#sec-mrpdrp-same" class="quarto-xref"><span>Section 6.6.1</span></a> believable. <a href="#fig-ws-mrp-drp" class="quarto-xref">Figure&nbsp;<span>6.7</span></a> and <a href="#fig-ws-mrp-drp-centre" class="quarto-xref">Figure&nbsp;<span>6.8</span></a> are that sheet.</p>
+<p><code>DRP</code> is the <code>Explosion</code> sheet with three level-0 locations instead of one and every quantity per equal to one. It is a separate sheet instead of a note on the first, because seeing the two side by side is what makes <a href="#sec-mrpdrp-same" class="quarto-xref"><span>Section 6.6.1</span></a> believable. <a href="#fig-ws-mrp-drp" class="quarto-xref">Figure&nbsp;<span>6.7</span></a> and <a href="#fig-ws-mrp-drp-center" class="quarto-xref">Figure&nbsp;<span>6.8</span></a> are that sheet.</p>
 <div id="fig-ws-mrp-drp" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ws-mrp-drp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1608,13 +1614,13 @@ Figure&nbsp;6.7: The two nearer regions of the <code>DRP</code> sheet. Each is p
 </figcaption>
 </figure>
 </div>
-<div id="fig-ws-mrp-drp-centre" class="quarto-float quarto-figure quarto-figure-left anchored">
+<div id="fig-ws-mrp-drp-center" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ws-mrp-drp-centre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="fig-ws-mrp-drp-center-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/ch6/DRPRows25to43.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-mrp-drp-centre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.8: The western region and the centre. The centre’s gross requirement row is the three regions’ release rows added down the column, and nothing else. Notice period 3, where the centre needs ten belts: the southern region alone is asking, because the other two are a month behind it.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-mrp-drp-center-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.8: The western region and the center. The center’s gross requirement row is the three regions’ release rows added down the column, and nothing else. Notice period 3, where the center needs ten belts: the southern region alone is asking, because the other two are a month behind it.
 </figcaption>
 </figure>
 </div>
@@ -1642,7 +1648,7 @@ Figure&nbsp;6.8: The western region and the centre. The centre’s gross require
 <p>An <strong>MRP record</strong> is one item’s six rows over a horizon.</p>
 <p>A <strong>requirements plan</strong> is every item’s record, and the order they were computed in.</p>
 <p>A <strong>receipt policy</strong> is how much to have arrive, given what must arrive.</p>
-<p><em>Level</em> is the instructive rejection. It reads like a class and the chapter uses the word constantly. It fails because a level has no behaviour: it is an integer attached to an item, and the only thing anyone does with it is sort by it.</p>
+<p><em>Level</em> is the instructive rejection. It reads like a class and the chapter uses the word constantly. It fails because a level has no behavior: it is an integer attached to an item, and the only thing anyone does with it is sort by it.</p>
 <p><a href="#fig-mrp-domain" class="quarto-xref">Figure&nbsp;<span>6.9</span></a> illustrates the five and how they stand to one another. Notice that the bill of material holds the low-level codes and the planned item does not.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1665,9 +1671,9 @@ Figure&nbsp;6.9: The concepts of this chapter before any thought about implement
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * The net requirements of this item, as a Chapter 5 requirements schedule.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * This is the join between the two chapters and it is worth naming. Section 5.1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * This is the join between the two chapters. @sec-dls-problem</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * took a requirements schedule as given. Chapter 6 computes one, for every item</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * at every level, and hands it back to Section 5.5 unchanged.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * at every level, and hands it back to @sec-dls-heuristics unchanged.</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">scheduleFor</span><span class="op">(</span><span class="va">netRequirements</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">Double</span>&gt;<span class="op">):</span> <span class="dt">RequirementsSchedule</span> <span class="op">=</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    RequirementsSchedule<span class="op">.</span>constantCosts<span class="op">(</span></span>
@@ -1716,7 +1722,7 @@ Figure&nbsp;6.10: The receipt policies. Lot-for-lot and the fixed order quantity
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Order [quantity], or the period's net requirement when that is larger.</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * Section 5.2.3 excluded this rule, because a quantity unrelated to the</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * @sec-dls-threeplans excluded this rule, because a quantity unrelated to the</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * requirements cannot finish the horizon empty. Inside an MRP record it is</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * admissible, and widely used, precisely because the record is not required to</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * finish empty: what is left over is on hand at the start of the next planning</span></span>
@@ -1740,7 +1746,7 @@ Figure&nbsp;6.10: The receipt policies. Lot-for-lot and the fixed order quantity
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    locations<span class="op">,</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    regions<span class="op">.</span>map <span class="op">{</span> BillOfMaterial<span class="op">.</span>Usage<span class="op">(</span>parent <span class="op">=</span> it<span class="op">,</span> child <span class="op">=</span> <span class="st">"CW"</span><span class="op">,</span> quantity <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span> <span class="op">},</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That is the whole of the network’s definition. <code>RequirementsPlan</code> then assigns low-level codes, which puts the regions at 0 and the centre at 1, plans them in that order, and computes the centre’s gross requirements as the sum over its parents. <a href="#fig-mrp-sequence" class="quarto-xref">Figure&nbsp;<span>6.11</span></a> traces one item through that, and nothing in the trace would change if the graph were a network instead of a structure.</p>
+<p>That is the whole of the network’s definition. <code>RequirementsPlan</code> then assigns low-level codes, which puts the regions at 0 and the center at 1, plans them in that order, and computes the center’s gross requirements as the sum over its parents. <a href="#fig-mrp-sequence" class="quarto-xref">Figure&nbsp;<span>6.11</span></a> traces one item through that, and nothing in the trace would change if the graph were a network instead of a structure.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-mrp-sequence" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -1755,7 +1761,7 @@ Figure&nbsp;6.11: Planning one component. The plan asks the bill of material for
 </div>
 </div>
 </div>
-<p>The temptation is a <code>DistributionNetwork</code> class with <code>regions</code> and <code>centre</code> on it, reading more naturally at the call site. It would duplicate the low-level coding, the planning order and the explosion, and it would then be possible for the two to disagree about a network that is also a structure, and that is a real thing: a warehouse supplying both dealers and an assembly plant.</p>
+<p>The temptation is a <code>DistributionNetwork</code> class with <code>regions</code> and <code>center</code> on it, reading more naturally at the call site. It would duplicate the low-level coding, the planning order and the explosion, and it would then be possible for the two to disagree about a network that is also a structure, and that is a real thing: a warehouse supplying both dealers and an assembly plant.</p>
 <p><a href="04-Chapter4.html#sec-multiitem-distribution" class="quarto-xref"><span>Section 4.6.3</span></a> <em>does</em> have a <code>DistributionNetwork</code>, and it is not this one. It solves a different problem, the power-of-two reorder intervals of <a href="04-Chapter4.html#sec-multiitem-serial" class="quarto-xref"><span>Section 4.6.2</span></a>, and it holds no time-phased anything. Two classes with the same name in one book is a fair criticism; two classes for two problems is not.</p>
 </section>
 <section id="sec-mrpdrp-design-usage" class="level3" data-number="6.10.7">
@@ -1831,7 +1837,7 @@ Figure&nbsp;6.11: Planning one component. The plan asks the bill of material for
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>network<span class="op">.</span>planningOrder<span class="op">())</span>               <span class="co">// [N, S, W, CW]</span></span>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>drp<span class="op">.</span>recordFor<span class="op">(</span><span class="st">"CW"</span><span class="op">).</span>grossRequirements<span class="op">.</span>map <span class="op">{</span> it<span class="op">.</span>toInt<span class="op">()</span> <span class="op">})</span></span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">// [0, 0, 10, 50, 80, 180, 360, 360, 210, 80, 30, 20, 120, 190, 150, 0]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The last row is the centre’s gross requirement row in <a href="#fig-ws-mrp-drp-centre" class="quarto-xref">Figure&nbsp;<span>6.8</span></a>. Notice the lead-in is four here and five above, because <a href="#sec-mrpdrp-drp" class="quarto-xref"><span>Section 6.6</span></a> has a shallower graph. Notice also what is absent: no class in this package is told that the graph is a network, and the only thing that says so is the word <code>region</code> in a label.</p>
+<p>The last row is the center’s gross requirement row in <a href="#fig-ws-mrp-drp-center" class="quarto-xref">Figure&nbsp;<span>6.8</span></a>. Notice the lead-in is four here and five above, because <a href="#sec-mrpdrp-drp" class="quarto-xref"><span>Section 6.6</span></a> has a shallower graph. Notice also what is absent: no class in this package is told that the graph is a network, and the only thing that says so is the word <code>region</code> in a label.</p>
 <p>That is the whole of the interface. <a href="#sec-mrpdrp-summary" class="quarto-xref"><span>Section 6.11</span></a> collects what the chapter argued with it.</p>
 </section>
 </section>
@@ -1841,7 +1847,7 @@ Figure&nbsp;6.11: Planning one component. The plan asks the bill of material for
 <p>Two ideas make the calculation run over a whole structure. A low-level code says when an item may be planned, and that is after every parent of it. And a component’s gross requirements are its parents’ planned order <em>releases</em> times the quantity per, and that is <a href="#eq-mrp-explosion" class="quarto-xref">Equation&nbsp;<span>6.1</span></a>.</p>
 <p>The horizon has to lead the first requirement by the cumulative lead time down the deepest path, or the plan reports orders it has no time to place.</p>
 <p><a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a>’s rules run inside a record unchanged, and using them raises a question <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> could not ask. A parent’s rule decides what its components are asked for, so it decides their problem. The cost below a level rises with how often the level above orders, and the rule that is cheapest at a level is not the rule that is cheapest for the product. On the deck assembly that error costs 7.59%.</p>
-<p>A distribution network is the same calculation with every quantity per equal to one, and it has the same result: batching at one stage amplifies what the next stage sees, by a factor of two to three here. That amplification costs nothing while demand is known. Thus, it belongs to <a href="10-Chapter10.html" class="quarto-xref"><span>Chapter 10</span></a> and not to this chapter.</p>
+<p>A distribution network is the same calculation with every quantity per equal to one, and it has the same result: batching at one stage amplifies what the next stage sees, by a factor of two to three here. That amplification costs nothing while demand is known. Thus, it belongs to <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> and not to this chapter.</p>
 <p>Everything here assumes infinite capacity, fixed lead times, accurate records and known demand. The last of those is what the rest of the book removes.</p>
 <p><a href="#tbl-mrp-notation" class="quarto-xref">Table&nbsp;<span>6.10</span></a> collects the notation, which <a href="12-AppNotation.html" class="quarto-xref"><span>Appendix A</span></a> repeats alongside the rest of the book’s.</p>
 <div id="tbl-mrp-notation" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -2001,9 +2007,9 @@ Table&nbsp;6.10: Notation introduced in this chapter.
 <p><span class="theorem-title"><strong>Exercise 6.9</strong></span> Take the three regions of <a href="#exm-mrp-drp" class="quarto-xref">Example&nbsp;<span>6.3</span></a>.</p>
 <ol type="a">
 <li>Verify that the three regional demands sum to the 1,840 belts of <a href="05-Chapter5.html#tbl-dls-belt" class="quarto-xref">Table&nbsp;<span>5.1</span></a>.</li>
-<li>Reproduce the centre’s gross requirements in periods 3 through 8.</li>
-<li>The southern region’s transit time is two months and the others’ are one. Change the south to one month and recompute the centre’s gross requirements. Does the total change? Does the variability coefficient?</li>
-<li><a href="#tbl-mrp-bullwhip" class="quarto-xref">Table&nbsp;<span>6.9</span></a> reports that every batching rule at the regions is cheaper than lot-for-lot, at the regions and at the centre both. Explain why, and then say what would have to be true about the world for the amplification to cost something.</li>
+<li>Reproduce the center’s gross requirements in periods 3 through 8.</li>
+<li>The southern region’s transit time is two months and the others’ are one. Change the south to one month and recompute the center’s gross requirements. Does the total change? Does the variability coefficient?</li>
+<li><a href="#tbl-mrp-bullwhip" class="quarto-xref">Table&nbsp;<span>6.9</span></a> reports that every batching rule at the regions is cheaper than lot-for-lot, at the regions and at the center both. Explain why, and then say what would have to be true about the world for the amplification to cost something.</li>
 </ol>
 </div>
 <div id="exr-ch6-safety" class="theorem exercise">
@@ -2026,7 +2032,7 @@ Table&nbsp;6.10: Notation introduced in this chapter.
 <li>Report the new gross requirements for the bearing and explain the change.</li>
 </ol></li>
 <li>On the <code>Lumpiness</code> sheet, type a plan of your own into the last row: any pattern that sums to 1,840 and covers the schedule. Can you find one with a lower variability coefficient than lot-for-lot’s 0.6191? Explain your answer.</li>
-<li>On the <code>DRP</code> sheet, give all three regions the same transit time. What happens to the centre’s variability coefficient, and what does that tell you about 1?</li>
+<li>On the <code>DRP</code> sheet, give all three regions the same transit time. What happens to the center’s variability coefficient, and what does that tell you about <a href="#sec-mrpdrp-bullwhip" class="quarto-xref"><span>Section 6.6.2</span></a>?</li>
 </ol>
 </div>
 </section>
@@ -2039,10 +2045,7 @@ Table&nbsp;6.10: Notation introduced in this chapter.
 <li>Reproduce <a href="#tbl-mrp-lumpiness" class="quarto-xref">Table&nbsp;<span>6.7</span></a>. Give the deck assembly <code>PlanTheHorizon(rule)</code>, leave every component on <code>LotForLotPolicy</code>, and loop over the seven rules, reporting <code>orderCount</code> and <code>relevantCost</code> at the deck assembly, the same total over every other item, and the variability coefficient of the deck assembly’s receipts over the twelve scheduled months. Which rule makes the deck assembly’s receipts lumpiest, and is it the rule that costs the most?</li>
 <li>Bearings are bought in boxes of 500. Implement a <code>ReceiptPolicy</code> whose receipt in each period is the smallest multiple of the box size that covers what is still short, where what is still short is that period’s net requirement less anything left over from earlier receipts. Give it to the bearing, leave everything else on lot-for-lot, and report the bearing’s receipts, <code>orderCount</code>, <code>setupCost</code>, <code>carryingCost</code>, and the last entry of <code>projectedOnHand</code>. Is the plan cheaper? Which assumption of <a href="05-Chapter5.html#sec-dls-assumptions" class="quarto-xref"><span>Section 5.1.2</span></a> does that last entry break, and why is breaking it admissible inside a record?</li>
 <li><a href="#sec-mrpdrp-experiment" class="quarto-xref"><span>Section 6.5.1</span></a> holds every component on lot-for-lot. Put every component on <code>PlanTheHorizon(WagnerWhitin)</code> instead and run the comparison of part (b) again. Report the table. Does the cost below the deck assembly still rise with the deck assembly’s order count? Does choosing the rule on the deck assembly alone still pick the wrong one, and what does the error cost now?</li>
-<li>The distributor opens an eastern region whose transit time is three months and whose sales are those of the northern region, at the same costs as the other regions. Add it to the network of <a href="#sec-mrpdrp-drp" class="quarto-xref"><span>Section 6.6</span></a>, report the centre’s gross requirements, and compare the variability coefficient of what the centre sees against the 0.6013 of
-<ol class="example" type="1">
-<li>Explain the direction it moved.</li>
-</ol></li>
+<li>The distributor opens an eastern region whose transit time is three months and whose sales are those of the northern region, at the same costs as the other regions. Add it to the network of <a href="#sec-mrpdrp-drp" class="quarto-xref"><span>Section 6.6</span></a>, report the center’s gross requirements, and compare the variability coefficient of what the center sees against the 0.6334 of <a href="#sec-mrpdrp-bullwhip" class="quarto-xref"><span>Section 6.6.2</span></a>. Explain the direction it moved.</li>
 </ol>
 </div>
 </section>
@@ -2051,12 +2054,9 @@ Table&nbsp;6.10: Notation introduced in this chapter.
 <div id="exr-ch6-literature" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.13</strong></span> Requirements planning was promoted in the 1970s as a replacement for order-point systems, and the claims made for it were larger than what it delivered.</p>
 <ol type="a">
-<li>Using 2, give two assumptions whose failure would account for a disappointing implementation.</li>
+<li>Using <a href="#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a>, give two assumptions whose failure would account for a disappointing implementation.</li>
 <li><a href="02-Chapter2.html#sec-managing-records" class="quarto-xref"><span>Section 2.3</span></a> reports what inventory record accuracy actually is in practice. Explain why an order-point system tolerates a bad record better than a requirements planning system does.</li>
-<li>Find one account of an MRP implementation in the literature and report what its authors say went wrong. Classify their explanation against the five assumptions of
-<ol start="2" class="example" type="1">
-<li></li>
-</ol></li>
+<li>Find one account of an MRP implementation in the literature and report what its authors say went wrong. Classify their explanation against the five assumptions of <a href="#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a>.</li>
 </ol>
 </div>
 

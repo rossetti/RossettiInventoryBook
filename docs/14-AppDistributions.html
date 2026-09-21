@@ -443,19 +443,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -544,8 +544,10 @@ window.Quarto = {
   <li><a href="#sec-appdistributions-loss-continuous" id="toc-sec-appdistributions-loss-continuous" class="nav-link" data-scroll-target="#sec-appdistributions-loss-continuous"><span class="header-section-number">C.3.3</span> Continuous Random Variables</a></li>
   <li><a href="#sec-appdistributions-loss-normal" id="toc-sec-appdistributions-loss-normal" class="nav-link" data-scroll-target="#sec-appdistributions-loss-normal"><span class="header-section-number">C.3.4</span> The Standard Normal Case</a></li>
   <li><a href="#sec-appdistributions-loss-tables" id="toc-sec-appdistributions-loss-tables" class="nav-link" data-scroll-target="#sec-appdistributions-loss-tables"><span class="header-section-number">C.3.5</span> Loss Functions for Common Distributions</a></li>
-  <li><a href="#sec-appdistributions-loss-mixtures" id="toc-sec-appdistributions-loss-mixtures" class="nav-link" data-scroll-target="#sec-appdistributions-loss-mixtures"><span class="header-section-number">C.3.6</span> Mixtures</a></li>
-  <li><a href="#sec-appdistributions-loss-computing" id="toc-sec-appdistributions-loss-computing" class="nav-link" data-scroll-target="#sec-appdistributions-loss-computing"><span class="header-section-number">C.3.7</span> Computing Them</a></li>
+  <li><a href="#sec-appdistributions-loss-third" id="toc-sec-appdistributions-loss-third" class="nav-link" data-scroll-target="#sec-appdistributions-loss-third"><span class="header-section-number">C.3.6</span> The Third Order Loss Function</a></li>
+  <li><a href="#sec-appdistributions-loss-third-forms" id="toc-sec-appdistributions-loss-third-forms" class="nav-link" data-scroll-target="#sec-appdistributions-loss-third-forms"><span class="header-section-number">C.3.7</span> Closed Forms for the Third Order</a></li>
+  <li><a href="#sec-appdistributions-loss-mixtures" id="toc-sec-appdistributions-loss-mixtures" class="nav-link" data-scroll-target="#sec-appdistributions-loss-mixtures"><span class="header-section-number">C.3.8</span> Mixtures</a></li>
+  <li><a href="#sec-appdistributions-loss-computing" id="toc-sec-appdistributions-loss-computing" class="nav-link" data-scroll-target="#sec-appdistributions-loss-computing"><span class="header-section-number">C.3.9</span> Computing Them</a></li>
   </ul></li>
   <li><a href="#sec-appdistributions-4" id="toc-sec-appdistributions-4" class="nav-link" data-scroll-target="#sec-appdistributions-4"><span class="header-section-number">C.4</span> Choosing a Demand Distribution</a>
   <ul>
@@ -593,6 +595,7 @@ window.Quarto = {
 <ul>
 <li>identify the distributions used to model demand and lead time</li>
 <li>compute the loss functions that appear in inventory cost expressions</li>
+<li>explain why a variance of a shortage needs a loss function one order higher</li>
 </ul>
 </div>
 </div>
@@ -663,7 +666,7 @@ g(x) = \frac{x^{\alpha-1}e^{-x/\beta}}{\beta^{\alpha}\Gamma(\alpha)}, \quad x \g
 \qquad E[X] = \alpha\beta, \qquad \mathit{Var}[X] = \alpha\beta^{2}
 \tag{C.7}\]</span></span></p>
 <p>with shape <span class="math inline">\(\alpha &gt; 0\)</span> and scale <span class="math inline">\(\beta &gt; 0\)</span>. Then <span class="math inline">\(c_{X} = 1/\sqrt{\alpha}\)</span>, so the shape parameter alone sets the variability and the scale sets the size. The gamma is the flexible workhorse of this appendix: it covers every <span class="math inline">\(c_{X} &gt; 0\)</span>, it lives on the non-negative half line where demand lives, and it reduces to the exponential at <span class="math inline">\(\alpha = 1\)</span>.</p>
-<p>The <strong>Erlang</strong> is the gamma with integer <span class="math inline">\(\alpha\)</span>, which is the sum of <span class="math inline">\(\alpha\)</span> independent exponentials. That buys a closed form for the distribution function and nothing else, and <a href="#tbl-loss-continuous" class="quarto-xref">Table&nbsp;<span>C.4</span></a> shows the loss functions are the gamma’s unchanged. Its importance here is structural rather than computational: because an Erlang is a sum of exponentials, mixtures of Erlangs can be built to match any mean and variance, which is the procedure of <a href="#sec-appdistributions-matching" class="quarto-xref"><span>Section C.4.2</span></a>.</p>
+<p>The <strong>Erlang</strong> is the gamma with integer <span class="math inline">\(\alpha\)</span>, which is the sum of <span class="math inline">\(\alpha\)</span> independent exponentials. That buys a closed form for the distribution function and nothing else, and <a href="#tbl-loss-continuous-first" class="quarto-xref">Table&nbsp;<span>C.5</span></a> shows the loss functions are the gamma’s unchanged. Its importance here is structural rather than computational: because an Erlang is a sum of exponentials, mixtures of Erlangs can be built to match any mean and variance, which is the procedure of <a href="#sec-appdistributions-matching" class="quarto-xref"><span>Section C.4.2</span></a>.</p>
 <p>Notice what <a href="#eq-gamma" class="quarto-xref">Equation&nbsp;<span>C.7</span></a> does <em>not</em> have. There is no closed form for <span class="math inline">\(G(x)\)</span>, so a quantile requires a numerical routine. That is rarely an obstacle, and it is not an argument for the normal.</p>
 </section>
 <section id="sec-appdistributions-normal" class="level3" data-number="C.2.3">
@@ -721,7 +724,7 @@ Table&nbsp;C.1: The probability a normal model puts below zero, as a function of
 \qquad
 \mu = \ln(E[X]) - \frac{\sigma^{2}}{2}
 \tag{C.8}\]</span></span></p>
-<p>and <a href="#tbl-loss-continuous" class="quarto-xref">Table&nbsp;<span>C.4</span></a> is written in terms of <span class="math inline">\(E[X]\)</span> and <span class="math inline">\(\mathit{Var}[X]\)</span> for that reason. Notice that <span class="math inline">\(\sigma^{2}\)</span> depends on the data only through <span class="math inline">\(c_{X}\)</span>, so the shape of a lognormal is set by the coefficient of variation exactly as the gamma’s is by <span class="math inline">\(\alpha\)</span>.</p>
+<p>and the lognormal rows of <a href="#tbl-loss-continuous-first" class="quarto-xref">Table&nbsp;<span>C.5</span></a> and <a href="#tbl-loss-continuous-second" class="quarto-xref">Table&nbsp;<span>C.6</span></a> are written in terms of <span class="math inline">\(E[X]\)</span> and <span class="math inline">\(\mathit{Var}[X]\)</span> for that reason. Notice that <span class="math inline">\(\sigma^{2}\)</span> depends on the data only through <span class="math inline">\(c_{X}\)</span>, so the shape of a lognormal is set by the coefficient of variation exactly as the gamma’s is by <span class="math inline">\(\alpha\)</span>.</p>
 <p><strong>Choosing between the gamma and the lognormal</strong> is usually not worth a long argument. Both live on the positive half line, both take any <span class="math inline">\(c_{X}\)</span>, and on demand data they rarely separate by enough to change a policy. The lognormal has the heavier right tail, so it gives the larger answer at a high service level, and that difference grows with <span class="math inline">\(c_{X}\)</span>. Where the two disagree enough to matter, the disagreement is the finding, and <a href="#sec-appdistributions-4" class="quarto-xref"><span>Section C.4</span></a> says what to do about it.</p>
 </section>
 </section>
@@ -729,7 +732,7 @@ Table&nbsp;C.1: The probability a normal model puts below zero, as a function of
 <h2 data-number="C.3" class="anchored" data-anchor-id="sec-appdistributions-3"><span class="header-section-number">C.3</span> Loss Functions</h2>
 <p>Two quantities appear in almost every stochastic inventory cost expression in this book, and neither is an ordinary expectation. How much demand goes unmet when <span class="math inline">\(b\)</span> units are on hand, and how much stock is left over when <span class="math inline">\(b\)</span> units were provided. Both are expectations of a <em>truncated</em> difference, and the functions that give them are called <strong>loss functions</strong>.</p>
 <p>Let <span class="math inline">\(X\)</span> represent a random variable, usually a demand over some interval. Let <span class="math inline">\(b\)</span> represent a stock level the demand is compared against. The notation <span class="math inline">\((X-b)^{+} = \max(X-b, 0)\)</span> is used throughout, so <span class="math inline">\((X-b)^{+}\)</span> is the amount by which demand exceeds <span class="math inline">\(b\)</span>, and zero when it does not.</p>
-<p>Four functions are needed. Let <span class="math inline">\(G(b) = P\{X \le b\}\)</span> represent the cumulative distribution function of <span class="math inline">\(X\)</span>. Then</p>
+<p>Four functions carry almost all of the work, and a fifth is needed once, in <a href="#sec-appdistributions-loss-third" class="quarto-xref"><span>Section C.3.6</span></a>. Let <span class="math inline">\(G(b) = P\{X \le b\}\)</span> represent the cumulative distribution function of <span class="math inline">\(X\)</span>. Then</p>
 <p><span id="eq-loss-first"><span class="math display">\[
 G^{0}(b) = 1 - G(b), \qquad
 G^{1}(b) = E\left[(X-b)^{+}\right]
@@ -742,7 +745,7 @@ G^{2}(b) = \begin{cases}
 \end{cases}
 \tag{C.10}\]</span></span></p>
 <p><strong>Read <span class="math inline">\(G^{0}\)</span> carefully in the discrete case.</strong> Because <span class="math inline">\(G(b) = P\{X \le b\}\)</span>, the complement is <span class="math inline">\(G^{0}(b) = P\{X &gt; b\}\)</span>, which is <span class="math inline">\(P\{X \ge b+1\}\)</span> and not <span class="math inline">\(P\{X \ge b\}\)</span>. Every formula in this section depends on that convention, and using <span class="math inline">\(P\{X \ge b\}\)</span> instead produces answers that are correct only where the two happen to coincide. You should check which convention a source uses before taking a formula from it.</p>
-<p>Why the second order function exists at all is worth a sentence, since the first is the one with the obvious meaning. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> needs the expected backorder level of a policy that orders <span class="math inline">\(Q\)</span> at a time, and that level is a <em>difference</em> of second order loss functions evaluated at <span class="math inline">\(r\)</span> and <span class="math inline">\(r+Q\)</span>. <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> needs only the first.</p>
+<p>The first order function is the one with the obvious meaning, and the second order function has a use of its own. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> needs the expected backorder level of a policy that orders <span class="math inline">\(Q\)</span> at a time, and that level is a <em>difference</em> of second order loss functions evaluated at <span class="math inline">\(r\)</span> and <span class="math inline">\(r+Q\)</span>. <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> needs only the first. The <em>variance</em> of that backorder level needs one order higher again, which is what <a href="#sec-appdistributions-loss-third" class="quarto-xref"><span>Section C.3.6</span></a> supplies.</p>
 <section id="sec-appdistributions-loss-discrete" class="level3" data-number="C.3.1">
 <h3 data-number="C.3.1" class="anchored" data-anchor-id="sec-appdistributions-loss-discrete"><span class="header-section-number">C.3.1</span> Discrete Random Variables</h3>
 <p>Let <span class="math inline">\(g(x) = P\{X = x\}\)</span> represent the probability mass function. Writing the expectation as a sum over the range gives</p>
@@ -786,7 +789,7 @@ G^{1}(b) = \int_{b}^{\infty}(x-b)g(x)\,dx = \int_{b}^{\infty}G^{0}(x)\,dx,
 G^{2}(b) = \tfrac{1}{2}\int_{b}^{\infty}(x-b)^{2}g(x)\,dx = \int_{b}^{\infty}G^{1}(x)\,dx
 \tag{C.16}\]</span></span></p>
 <p>For a non-negative <span class="math inline">\(X\)</span> and <span class="math inline">\(b \le 0\)</span> the truncation again never binds, so <span class="math inline">\(G^{1}(b) = E[X] - b\)</span> and <span class="math inline">\(G^{2}(b) = \tfrac{1}{2}\left(E[X^{2}] - 2bE[X] + b^{2}\right)\)</span>. Thus, <span class="math inline">\(G^{1}(0) = E[X]\)</span> and <span class="math inline">\(G^{2}(0) = \tfrac{1}{2}E[X^{2}]\)</span>.</p>
-<p>The closed forms in <a href="#tbl-loss-continuous" class="quarto-xref">Table&nbsp;<span>C.4</span></a> are all obtained the same way, through the <strong>partial expectation functions</strong>. Let</p>
+<p>The closed forms for the continuous families are all obtained the same way, through the <strong>partial expectation functions</strong>. Let</p>
 <p><span id="eq-partial-expectation"><span class="math display">\[
 H^{1}(b) = \int_{b}^{\infty}x\,g(x)\,dx, \qquad
 H^{2}(b) = \int_{b}^{\infty}x^{2}g(x)\,dx
@@ -796,7 +799,7 @@ H^{2}(b) = \int_{b}^{\infty}x^{2}g(x)\,dx
 G^{1}(b) = H^{1}(b) - bG^{0}(b), \qquad
 G^{2}(b) = \tfrac{1}{2}\left(H^{2}(b) - 2bH^{1}(b) + b^{2}G^{0}(b)\right)
 \tag{C.18}\]</span></span></p>
-<p>That is, a loss function for a new distribution follows from its partial expectations, and those are often the easier integrals. The lognormal entry of <a href="#tbl-loss-continuous" class="quarto-xref">Table&nbsp;<span>C.4</span></a> is derived exactly this way.</p>
+<p>That is, a loss function for a new distribution follows from its partial expectations, and those are often the easier integrals. The lognormal entries of <a href="#tbl-loss-continuous-first" class="quarto-xref">Table&nbsp;<span>C.5</span></a> and <a href="#tbl-loss-continuous-second" class="quarto-xref">Table&nbsp;<span>C.6</span></a> are derived exactly this way.</p>
 </section>
 <section id="sec-appdistributions-loss-normal" class="level3" data-number="C.3.4">
 <h3 data-number="C.3.4" class="anchored" data-anchor-id="sec-appdistributions-loss-normal"><span class="header-section-number">C.3.4</span> The Standard Normal Case</h3>
@@ -816,10 +819,18 @@ G^{2}(x) = \sigma^{2}\Phi^{2}(z)
 <div id="tbl-loss-normal" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;C.2: The standard normal density, complementary distribution function, and first and second order loss functions. Notice that <span class="math inline">\(\Phi^{1}\)</span> is strictly decreasing and stays positive, which is what makes the expected shortage fall as the stock level rises without ever reaching zero.
+Table&nbsp;C.2: The standard normal density, complementary distribution function, and loss functions of the first three orders. Notice that <span class="math inline">\(\Phi^{1}\)</span> is strictly decreasing and stays positive, which is what makes the expected shortage fall as the stock level rises without ever reaching zero. The third order column is defined in <a href="#sec-appdistributions-loss-third" class="quarto-xref"><span>Section C.3.6</span></a> and is placed here so the normal quantities stay in one place.
 </figcaption>
 <div aria-describedby="tbl-loss-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
 <thead>
 <tr class="header">
 <th><span class="math inline">\(z\)</span></th>
@@ -827,6 +838,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <th style="text-align: right;"><span class="math inline">\(\Phi^{0}(z)\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(\Phi^{1}(z)\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(\Phi^{2}(z)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\Phi^{3}(z)\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -836,6 +848,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.9772</td>
 <td style="text-align: right;">2.0085</td>
 <td style="text-align: right;">2.4971</td>
+<td style="text-align: right;">2.3342</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(-1.00\)</span></td>
@@ -843,6 +856,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.8413</td>
 <td style="text-align: right;">1.0833</td>
 <td style="text-align: right;">0.9623</td>
+<td style="text-align: right;">0.6819</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(0.00\)</span></td>
@@ -850,6 +864,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.5000</td>
 <td style="text-align: right;">0.3989</td>
 <td style="text-align: right;">0.2500</td>
+<td style="text-align: right;">0.1330</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(0.50\)</span></td>
@@ -857,6 +872,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.3085</td>
 <td style="text-align: right;">0.1978</td>
 <td style="text-align: right;">0.1048</td>
+<td style="text-align: right;">0.0485</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(1.00\)</span></td>
@@ -864,6 +880,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.1587</td>
 <td style="text-align: right;">0.0833</td>
 <td style="text-align: right;">0.0377</td>
+<td style="text-align: right;">0.0152</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(1.28\)</span></td>
@@ -871,6 +888,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.1003</td>
 <td style="text-align: right;">0.0475</td>
 <td style="text-align: right;">0.0197</td>
+<td style="text-align: right;">0.0074</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(1.50\)</span></td>
@@ -878,6 +896,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.0668</td>
 <td style="text-align: right;">0.0293</td>
 <td style="text-align: right;">0.0114</td>
+<td style="text-align: right;">0.0041</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(1.645\)</span></td>
@@ -885,6 +904,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.0500</td>
 <td style="text-align: right;">0.0209</td>
 <td style="text-align: right;">0.0078</td>
+<td style="text-align: right;">0.0027</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(2.00\)</span></td>
@@ -892,6 +912,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.0228</td>
 <td style="text-align: right;">0.0085</td>
 <td style="text-align: right;">0.0029</td>
+<td style="text-align: right;">0.0009</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(2.33\)</span></td>
@@ -899,6 +920,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.0099</td>
 <td style="text-align: right;">0.0034</td>
 <td style="text-align: right;">0.0010</td>
+<td style="text-align: right;">0.0003</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(3.00\)</span></td>
@@ -906,6 +928,7 @@ Table&nbsp;C.2: The standard normal density, complementary distribution function
 <td style="text-align: right;">0.0013</td>
 <td style="text-align: right;">0.0004</td>
 <td style="text-align: right;">0.0001</td>
+<td style="text-align: right;">0.0000</td>
 </tr>
 </tbody>
 </table>
@@ -923,131 +946,299 @@ H^{1}(62) = \mu\Phi^{0}(z) + \sigma\phi(z)
 </section>
 <section id="sec-appdistributions-loss-tables" class="level3" data-number="C.3.5">
 <h3 data-number="C.3.5" class="anchored" data-anchor-id="sec-appdistributions-loss-tables"><span class="header-section-number">C.3.5</span> Loss Functions for Common Distributions</h3>
-<p><a href="#tbl-loss-discrete" class="quarto-xref">Table&nbsp;<span>C.3</span></a> and <a href="#tbl-loss-continuous" class="quarto-xref">Table&nbsp;<span>C.4</span></a> collect the closed forms. In both tables <span class="math inline">\(g\)</span> is the mass or density function and <span class="math inline">\(G^{0}\)</span> is the complementary distribution function, so that each loss function is expressed in terms of quantities the distribution already provides.</p>
-<div id="tbl-loss-discrete" class="quarto-float quarto-figure quarto-figure-left anchored">
+<p>The closed forms are collected below, one table per order so that each formula has the width of the page to itself. Throughout, <span class="math inline">\(g\)</span> is the mass or density function and <span class="math inline">\(G^{0}\)</span> is the complementary distribution function, so every loss function is expressed in terms of quantities the distribution already provides. The parameters and moments are not repeated here; they are in <a href="#sec-appdistributions-1" class="quarto-xref"><span>Section C.1</span></a> and <a href="#sec-appdistributions-2" class="quarto-xref"><span>Section C.2</span></a> with the family that owns them.</p>
+<div id="tbl-loss-discrete-first" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;C.3: First and second order loss functions for the discrete distributions used in this book. Notice that the Poisson and negative binomial forms have the same shape, a multiple of <span class="math inline">\(G^{0}\)</span> plus a multiple of <span class="math inline">\(g\)</span>, which is what the downward recursion of <a href="#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> produces in closed form.
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-discrete-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;C.3: First order loss functions for the discrete distributions, with <span class="math inline">\(\beta = (1-p)/p\)</span> as in <a href="#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>. The binomial support is finite, so its sums terminate and <a href="#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> computes every order in one pass.
 </figcaption>
-<div aria-describedby="tbl-loss-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-loss-discrete-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Distribution</th>
-<th>Parameters and moments</th>
-<th>Loss functions</th>
+<th><span class="math inline">\(G^{1}(x)\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Poisson</td>
-<td><span class="math inline">\(g(x) = \dfrac{\lambda^{x}e^{-\lambda}}{x!}\)</span>, <span class="math inline">\(x = 0, 1, 2, \ldots\)</span> <br> <span class="math inline">\(E[X] = \mathit{Var}[X] = \lambda\)</span></td>
-<td><span class="math inline">\(G^{1}(x) = -(x-\lambda)G^{0}(x) + \lambda g(x)\)</span> <br><br> <span class="math inline">\(G^{2}(x) = \tfrac{1}{2}\left\{\left[(x-\lambda)^{2}+x\right]G^{0}(x) - \lambda(x-\lambda)g(x)\right\}\)</span></td>
+<td>Poisson, mean <span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(-(x-\lambda)G^{0}(x) + \lambda g(x)\)</span></td>
 </tr>
 <tr class="even">
-<td>Geometric, the number of failures before the first success</td>
-<td><span class="math inline">\(g(x) = (1-p)^{x}p\)</span>, <span class="math inline">\(x = 0, 1, 2, \ldots\)</span> <br> <span class="math inline">\(G(x) = 1 - (1-p)^{x+1}\)</span> <br> <span class="math inline">\(E[X] = \beta\)</span>, <span class="math inline">\(\mathit{Var}[X] = \beta/p\)</span>, with <span class="math inline">\(\beta = (1-p)/p\)</span></td>
-<td><span class="math inline">\(G^{1}(x) = \beta(1-p)^{x}\)</span> <br><br> <span class="math inline">\(G^{2}(x) = \beta^{2}(1-p)^{x}\)</span></td>
+<td>Geometric</td>
+<td><span class="math inline">\(\beta(1-p)^{x}\)</span></td>
 </tr>
 <tr class="odd">
-<td>Negative binomial, the number of failures before the <span class="math inline">\(r\)</span>th success</td>
-<td><span class="math inline">\(g(x) = \dbinom{x+r-1}{r-1}p^{r}(1-p)^{x}\)</span>, <span class="math inline">\(x = 0, 1, 2, \ldots\)</span> <br> <span class="math inline">\(E[X] = r\beta\)</span>, <span class="math inline">\(\mathit{Var}[X] = r\beta/p\)</span>, with <span class="math inline">\(\beta = (1-p)/p\)</span></td>
-<td><span class="math inline">\(G^{1}(x) = -(x-r\beta)G^{0}(x) + (x+r)\beta g(x)\)</span> <br><br> <span class="math inline">\(G^{2}(x) = \tfrac{1}{2}\left\{\left[r(r+1)\beta^{2} - 2r\beta x + x(x+1)\right]G^{0}(x) + \left[(r+1)\beta - x\right](x+r)\beta g(x)\right\}\)</span></td>
+<td>Negative binomial, size <span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(-(x-r\beta)G^{0}(x) + (x+r)\beta g(x)\)</span></td>
 </tr>
 <tr class="even">
 <td>Binomial</td>
-<td><span class="math inline">\(g(x) = \dbinom{n}{x}p^{x}(1-p)^{n-x}\)</span>, <span class="math inline">\(x = 0, 1, \ldots, n\)</span> <br> <span class="math inline">\(E[X] = np\)</span>, <span class="math inline">\(\mathit{Var}[X] = np(1-p)\)</span></td>
-<td>No simpler form than <a href="#eq-loss-discrete-first" class="quarto-xref">Equation&nbsp;<span>C.11</span></a>. The support is finite, so the sums terminate and <a href="#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> computes both in one pass</td>
+<td>No simpler form than <a href="#eq-loss-discrete-first" class="quarto-xref">Equation&nbsp;<span>C.11</span></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<div id="tbl-loss-continuous" class="quarto-float quarto-figure quarto-figure-left anchored">
+<div id="tbl-loss-discrete-second" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-continuous-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;C.4: First and second order loss functions for the continuous distributions used in this book. The lognormal row is parameterized by the mean and variance of <span class="math inline">\(X\)</span> itself rather than by those of <span class="math inline">\(\ln X\)</span>, because that is what a fitted demand distribution reports.
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-discrete-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;C.4: Second order loss functions for the discrete distributions. Notice that the Poisson and negative binomial forms have the same shape at both orders, a multiple of <span class="math inline">\(G^{0}\)</span> plus a multiple of <span class="math inline">\(g\)</span>, which is what the downward recursion of <a href="#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> produces in closed form.
 </figcaption>
-<div aria-describedby="tbl-loss-continuous-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-loss-discrete-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Distribution</th>
-<th>Parameters and moments</th>
-<th>Loss functions</th>
+<th><span class="math inline">\(G^{2}(x)\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Exponential</td>
-<td>rate <span class="math inline">\(\lambda\)</span>, <span class="math inline">\(x \ge 0\)</span> <br> <span class="math inline">\(G^{0}(x) = e^{-\lambda x}\)</span> <br> <span class="math inline">\(E[X] = 1/\lambda\)</span>, <span class="math inline">\(\mathit{Var}[X] = 1/\lambda^{2}\)</span></td>
-<td><span class="math inline">\(G^{1}(x) = \dfrac{1}{\lambda}e^{-\lambda x}\)</span> <br><br> <span class="math inline">\(G^{2}(x) = \dfrac{1}{\lambda^{2}}e^{-\lambda x}\)</span></td>
+<td>Poisson, mean <span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{2}\left\{\left[(x-\lambda)^{2}+x\right]G^{0}(x) - \lambda(x-\lambda)g(x)\right\}\)</span></td>
 </tr>
 <tr class="even">
-<td>Gamma</td>
-<td>shape <span class="math inline">\(\alpha &gt; 0\)</span>, scale <span class="math inline">\(\beta &gt; 0\)</span> <br> <span class="math inline">\(g(x) = \dfrac{x^{\alpha-1}e^{-x/\beta}}{\beta^{\alpha}\Gamma(\alpha)}\)</span> <br> <span class="math inline">\(G(x)\)</span> has no closed form <br> <span class="math inline">\(E[X] = \alpha\beta\)</span>, <span class="math inline">\(\mathit{Var}[X] = \alpha\beta^{2}\)</span></td>
-<td><span class="math inline">\(G^{1}(x) = \beta\left[\left(\alpha - \tfrac{x}{\beta}\right)G^{0}(x) + xg(x)\right]\)</span> <br><br> <span class="math inline">\(G^{2}(x) = \tfrac{1}{2}\beta^{2}\left\{\left[\left(\alpha - \tfrac{x}{\beta}\right)^{2} + \alpha\right]G^{0}(x) + \left(\alpha - \tfrac{x}{\beta} + 1\right)xg(x)\right\}\)</span></td>
+<td>Geometric</td>
+<td><span class="math inline">\(\beta^{2}(1-p)^{x}\)</span></td>
 </tr>
 <tr class="odd">
-<td>Erlang</td>
-<td>the gamma with integer <span class="math inline">\(\alpha\)</span> <br> <span class="math inline">\(G(x) = 1 - \sum_{j=0}^{\alpha-1}\dfrac{(x/\beta)^{j}e^{-x/\beta}}{j!}\)</span></td>
-<td>The gamma forms above, unchanged. The integer shape buys a closed form for <span class="math inline">\(G(x)\)</span> and nothing else</td>
+<td>Negative binomial, size <span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{2}\left\{\left[r(r+1)\beta^{2} - 2r\beta x + x(x+1)\right]G^{0}(x) + \left[(r+1)\beta - x\right](x+r)\beta g(x)\right\}\)</span></td>
 </tr>
 <tr class="even">
-<td>Normal</td>
-<td><span class="math inline">\(X \sim N(\mu, \sigma^{2})\)</span>, <span class="math inline">\(z = (x-\mu)/\sigma\)</span></td>
-<td><a href="#eq-loss-standard-normal" class="quarto-xref">Equation&nbsp;<span>C.19</span></a> and <a href="#eq-loss-normal-scaling" class="quarto-xref">Equation&nbsp;<span>C.20</span></a></td>
-</tr>
-<tr class="odd">
-<td>Lognormal, parameterized by its own mean and variance</td>
-<td><span class="math inline">\(\sigma^{2} = \ln\left(\dfrac{\mathit{Var}[X]}{(E[X])^{2}} + 1\right)\)</span> <br> <span class="math inline">\(\mu = \ln(E[X]) - \sigma^{2}/2\)</span> <br> <span class="math inline">\(z = (\ln x - \mu)/\sigma\)</span></td>
-<td><span class="math inline">\(G^{0}(x) = \Phi^{0}(z)\)</span> <br><br> <span class="math inline">\(G^{1}(x) = E[X]\,\Phi(\sigma - z) - x\Phi^{0}(z)\)</span> <br><br> <span class="math inline">\(G^{2}(x) = \tfrac{1}{2}\left[\left(\mathit{Var}[X] + (E[X])^{2}\right)\Phi(2\sigma - z) - 2xE[X]\,\Phi(\sigma - z) + x^{2}\Phi^{0}(z)\right]\)</span></td>
+<td>Binomial</td>
+<td>No simpler form than <a href="#eq-loss-discrete-second" class="quarto-xref">Equation&nbsp;<span>C.12</span></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>Two entries deserve a word. The lognormal expressions are <a href="#eq-loss-from-partial" class="quarto-xref">Equation&nbsp;<span>C.18</span></a> applied to the partial expectations <span class="math inline">\(H^{1}(x) = E[X]\Phi(\sigma - z)\)</span> and <span class="math inline">\(H^{2}(x) = \left(\mathit{Var}[X] + (E[X])^{2}\right)\Phi(2\sigma - z)\)</span>. It is easy to quote one of those partial expectations as though it were the loss function itself, and the resulting figure is too large by roughly a factor of three at stock levels near the mean. Notice also that the gamma has no closed form for <span class="math inline">\(G(x)\)</span> while its loss functions <em>are</em> closed once <span class="math inline">\(G^{0}\)</span> is available numerically, which is the usual situation: a loss function is rarely harder to obtain than the distribution function it is built from.</p>
+<div id="tbl-loss-continuous-first" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-continuous-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;C.5: First order loss functions for the continuous distributions. The Erlang is the gamma with an integer shape, which buys a closed form for <span class="math inline">\(G(x)\)</span> and changes nothing here. The lognormal row uses the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> of <span class="math inline">\(\ln X\)</span> given by <a href="#eq-lognormal-parameters" class="quarto-xref">Equation&nbsp;<span>C.8</span></a>, and <span class="math inline">\(E[X]\)</span> is the mean of <span class="math inline">\(X\)</span> itself.
+</figcaption>
+<div aria-describedby="tbl-loss-continuous-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th><span class="math inline">\(G^{1}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exponential, rate <span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{\lambda}e^{-\lambda x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Gamma, shape <span class="math inline">\(\alpha\)</span> and scale <span class="math inline">\(\beta\)</span></td>
+<td><span class="math inline">\(\beta\left[\left(\alpha - \tfrac{x}{\beta}\right)G^{0}(x) + xg(x)\right]\)</span></td>
+</tr>
+<tr class="odd">
+<td>Erlang</td>
+<td>The gamma form, unchanged</td>
+</tr>
+<tr class="even">
+<td>Normal</td>
+<td><span class="math inline">\(\sigma\Phi^{1}(z)\)</span>, with <span class="math inline">\(z = (x-\mu)/\sigma\)</span> and <span class="math inline">\(\Phi^{1}\)</span> from <a href="#eq-loss-standard-normal" class="quarto-xref">Equation&nbsp;<span>C.19</span></a></td>
+</tr>
+<tr class="odd">
+<td>Lognormal</td>
+<td><span class="math inline">\(E[X]\,\Phi(\sigma - z) - x\Phi^{0}(z)\)</span>, with <span class="math inline">\(z = (\ln x - \mu)/\sigma\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-loss-continuous-second" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-continuous-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;C.6: Second order loss functions for the continuous distributions. Notice that the gamma has no closed form for <span class="math inline">\(G(x)\)</span> while its loss functions <em>are</em> closed once <span class="math inline">\(G^{0}\)</span> is available numerically. That is the usual situation: a loss function is rarely harder to obtain than the distribution function it is built from.
+</figcaption>
+<div aria-describedby="tbl-loss-continuous-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th><span class="math inline">\(G^{2}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exponential, rate <span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(\dfrac{1}{\lambda^{2}}e^{-\lambda x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Gamma, shape <span class="math inline">\(\alpha\)</span> and scale <span class="math inline">\(\beta\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{2}\beta^{2}\left\{\left[\left(\alpha - \tfrac{x}{\beta}\right)^{2} + \alpha\right]G^{0}(x) + \left(\alpha - \tfrac{x}{\beta} + 1\right)xg(x)\right\}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Erlang</td>
+<td>The gamma form, unchanged</td>
+</tr>
+<tr class="even">
+<td>Normal</td>
+<td><span class="math inline">\(\sigma^{2}\Phi^{2}(z)\)</span>, with <span class="math inline">\(\Phi^{2}\)</span> from <a href="#eq-loss-standard-normal" class="quarto-xref">Equation&nbsp;<span>C.19</span></a></td>
+</tr>
+<tr class="odd">
+<td>Lognormal</td>
+<td><span class="math inline">\(\tfrac{1}{2}\left[\left(\mathit{Var}[X] + (E[X])^{2}\right)\Phi(2\sigma - z) - 2xE[X]\,\Phi(\sigma - z) + x^{2}\Phi^{0}(z)\right]\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The lognormal rows deserve a word, because they are the ones most often misquoted. They are <a href="#eq-loss-from-partial" class="quarto-xref">Equation&nbsp;<span>C.18</span></a> applied to the partial expectations <span class="math inline">\(H^{1}(x) = E[X]\Phi(\sigma - z)\)</span> and <span class="math inline">\(H^{2}(x) = \left(\mathit{Var}[X] + (E[X])^{2}\right)\Phi(2\sigma - z)\)</span>. It is easy to quote one of those partial expectations as though it were the loss function itself, and the resulting figure is too large by roughly a factor of three at stock levels near the mean.</p>
 </section>
-<section id="sec-appdistributions-loss-mixtures" class="level3" data-number="C.3.6">
-<h3 data-number="C.3.6" class="anchored" data-anchor-id="sec-appdistributions-loss-mixtures"><span class="header-section-number">C.3.6</span> Mixtures</h3>
+<section id="sec-appdistributions-loss-third" class="level3" data-number="C.3.6">
+<h3 data-number="C.3.6" class="anchored" data-anchor-id="sec-appdistributions-loss-third"><span class="header-section-number">C.3.6</span> The Third Order Loss Function</h3>
+<p>Everything above computes an <strong>average</strong>. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> also needs the variability of a shortage, and that is where a third function enters.</p>
+<p>Start with what the first two already give. For a <strong>fixed</strong> stock level <span class="math inline">\(b\)</span>, the shortage <span class="math inline">\((X-b)^{+}\)</span> is a random variable whose mean is <span class="math inline">\(G^{1}(b)\)</span>, and its second moment follows directly from <a href="#eq-loss-second" class="quarto-xref">Equation&nbsp;<span>C.10</span></a>:</p>
+<p><span id="eq-shortage-second-moment"><span class="math display">\[
+E\left[\left((X-b)^{+}\right)^{2}\right] = \begin{cases}
+2G^{2}(b) + G^{1}(b) &amp; X \text{ discrete} \\[4pt]
+2G^{2}(b) &amp; X \text{ continuous}
+\end{cases}
+\tag{C.21}\]</span></span></p>
+<p>so <span class="math inline">\(\mathit{Var}\left[(X-b)^{+}\right]\)</span> needs nothing beyond <span class="math inline">\(G^{2}\)</span>. Notice the extra <span class="math inline">\(G^{1}\)</span> in the discrete case. It is there because <span class="math inline">\((X-b)^{+}(X-b-1)^{+} = \left((X-b)^{+}\right)^{2} - (X-b)^{+}\)</span> when <span class="math inline">\(X\)</span> and <span class="math inline">\(b\)</span> are whole numbers, which is the same convention difference <a href="#eq-loss-second" class="quarto-xref">Equation&nbsp;<span>C.10</span></a> records.</p>
+<p><strong>The stock level is not always fixed, and that is what forces a third order function.</strong> In the policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> the quantity the demand is compared against is itself random, and the shortage has to be averaged over its distribution. Averaging <span class="math inline">\(G^{1}\)</span> over a range produces a difference of <span class="math inline">\(G^{2}\)</span>, by the tail relations of <a href="#eq-loss-discrete-second" class="quarto-xref">Equation&nbsp;<span>C.12</span></a> and <a href="#eq-loss-continuous" class="quarto-xref">Equation&nbsp;<span>C.16</span></a>. Averaging <a href="#eq-shortage-second-moment" class="quarto-xref">Equation&nbsp;<span>C.21</span></a> over the same range produces a difference of the function one order higher again, and that function is not yet defined.</p>
+<p>Thus, define the loss function of order <span class="math inline">\(n\)</span> by extending <a href="#eq-loss-second" class="quarto-xref">Equation&nbsp;<span>C.10</span></a> in the obvious way:</p>
+<p><span id="eq-loss-order-n"><span class="math display">\[
+G^{n}(b) = \begin{cases}
+\dfrac{1}{n!}E\left[(X-b)^{+}(X-b-1)^{+}\cdots(X-b-n+1)^{+}\right] &amp; X \text{ discrete} \\[8pt]
+\dfrac{1}{n!}E\left[\left((X-b)^{+}\right)^{n}\right] &amp; X \text{ continuous}
+\end{cases}
+\tag{C.22}\]</span></span></p>
+<p>and in both cases each order is the tail accumulation of the one below it:</p>
+<p><span id="eq-loss-order-n-tail"><span class="math display">\[
+G^{n}(b) = \sum_{x &gt; b}G^{n-1}(x) \qquad\text{or}\qquad
+G^{n}(b) = \int_{b}^{\infty}G^{n-1}(x)\,dx
+\tag{C.23}\]</span></span></p>
+<p>The book needs <span class="math inline">\(n = 3\)</span> and no higher. Setting <span class="math inline">\(n = 3\)</span> in <a href="#eq-loss-order-n" class="quarto-xref">Equation&nbsp;<span>C.22</span></a> gives the <strong>third order loss function</strong>, and <a href="#eq-loss-order-n-tail" class="quarto-xref">Equation&nbsp;<span>C.23</span></a> gives the identity that makes it useful:</p>
+<p><span id="eq-loss-third-difference"><span class="math display">\[
+\sum_{j = b+1}^{c} G^{2}(j) = G^{3}(b) - G^{3}(c)
+\tag{C.24}\]</span></span></p>
+<p>That is, a sum of second order loss functions across a range of stock levels collapses to a difference of third order loss functions at its endpoints, in exactly the way a sum of first order functions collapses to a difference of second order ones. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> reports the mean backorder level with the second identity and its variance with <a href="#eq-loss-third-difference" class="quarto-xref">Equation&nbsp;<span>C.24</span></a>.</p>
+</section>
+<section id="sec-appdistributions-loss-third-forms" class="level3" data-number="C.3.7">
+<h3 data-number="C.3.7" class="anchored" data-anchor-id="sec-appdistributions-loss-third-forms"><span class="header-section-number">C.3.7</span> Closed Forms for the Third Order</h3>
+<p><a href="#tbl-loss-third" class="quarto-xref">Table&nbsp;<span>C.7</span></a> gives <span class="math inline">\(G^{3}\)</span> for the families whose lower orders appear in <a href="#tbl-loss-discrete-second" class="quarto-xref">Table&nbsp;<span>C.4</span></a> and <a href="#tbl-loss-continuous-second" class="quarto-xref">Table&nbsp;<span>C.6</span></a>. The standard normal values are in the last column of <a href="#tbl-loss-normal" class="quarto-xref">Table&nbsp;<span>C.2</span></a>.</p>
+<div id="tbl-loss-third" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loss-third-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;C.7: Third order loss functions. In the gamma row <span class="math inline">\(\alpha^{(k)} = \alpha(\alpha+1)\cdots(\alpha+k-1)\)</span> and <span class="math inline">\(G^{0}_{\alpha+k}\)</span> is the complementary distribution function of a gamma with the shape raised by <span class="math inline">\(k\)</span> and the same scale. Notice that the exponential row is the gamma row at <span class="math inline">\(\alpha = 1\)</span>, and that the geometric and exponential both simply gain another factor of the mean.
+</figcaption>
+<div aria-describedby="tbl-loss-third-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th><span class="math inline">\(G^{3}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Geometric</td>
+<td><span class="math inline">\(\beta^{3}(1-p)^{x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Poisson, negative binomial</td>
+<td>Computed by the recursion of <a href="#eq-loss-third-recursion" class="quarto-xref">Equation&nbsp;<span>C.26</span></a></td>
+</tr>
+<tr class="odd">
+<td>Exponential</td>
+<td><span class="math inline">\(\dfrac{1}{\lambda^{3}}e^{-\lambda x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Gamma, shape <span class="math inline">\(\alpha\)</span> and scale <span class="math inline">\(\beta\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{6}\left[\alpha^{(3)}\beta^{3}G^{0}_{\alpha+3}(x) - 3x\,\alpha^{(2)}\beta^{2}G^{0}_{\alpha+2}(x) + 3x^{2}\alpha\beta\,G^{0}_{\alpha+1}(x) - x^{3}G^{0}_{\alpha}(x)\right]\)</span></td>
+</tr>
+<tr class="odd">
+<td>Normal</td>
+<td><span class="math inline">\(\sigma^{3}\Phi^{3}(z)\)</span>, with <span class="math inline">\(\Phi^{3}(z) = \tfrac{1}{6}\left[(z^{2}+2)\phi(z) - z(z^{2}+3)\Phi^{0}(z)\right]\)</span></td>
+</tr>
+<tr class="even">
+<td>Lognormal</td>
+<td><span class="math inline">\(\tfrac{1}{6}\left[H^{3}(x) - 3xH^{2}(x) + 3x^{2}H^{1}(x) - x^{3}G^{0}(x)\right]\)</span>, with <span class="math inline">\(H^{3}(x) = E[X^{3}]\,\Phi(3\sigma - z)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Two of those rows generalize a pattern already visible. The geometric has <span class="math inline">\(G^{1} = \beta(1-p)^{x}\)</span> and <span class="math inline">\(G^{2} = \beta^{2}(1-p)^{x}\)</span>, and the exponential has <span class="math inline">\(1/\lambda\)</span> and <span class="math inline">\(1/\lambda^{2}\)</span> against the same exponential factor, so in both families each order contributes one more factor of the mean and nothing else. Thus, for those two distributions <span class="math inline">\(G^{n}\)</span> is known at every order without any further work.</p>
+<p>The gamma and lognormal rows are <a href="#eq-loss-from-partial" class="quarto-xref">Equation&nbsp;<span>C.18</span></a> carried one order up. Expanding <span class="math inline">\((u-x)^{3}\)</span> inside the integral of <a href="#eq-loss-order-n" class="quarto-xref">Equation&nbsp;<span>C.22</span></a> and collecting terms gives</p>
+<p><span id="eq-loss-third-from-partial"><span class="math display">\[
+G^{3}(x) = \tfrac{1}{6}\left[H^{3}(x) - 3xH^{2}(x) + 3x^{2}H^{1}(x) - x^{3}G^{0}(x)\right],
+\qquad H^{3}(x) = \int_{x}^{\infty}u^{3}g(u)\,du
+\tag{C.25}\]</span></span></p>
+<p>so a third order loss function for any continuous family follows from its third partial expectation. For the gamma, <span class="math inline">\(u\,g_{\alpha,\beta}(u) = \alpha\beta\,g_{\alpha+1,\beta}(u)\)</span> applied three times gives <span class="math inline">\(H^{3}(x) = \alpha^{(3)}\beta^{3}G^{0}_{\alpha+3}(x)\)</span>, which is the gamma row.</p>
+<p>For the discrete families the practice of <a href="#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> extends unchanged. Notice that <span class="math inline">\(G^{3}(0) = \tfrac{1}{6}E[X(X-1)(X-2)]\)</span>, the <strong>third binomial moment</strong>, so for <span class="math inline">\(b \ge 0\)</span></p>
+<p><span id="eq-loss-third-recursion"><span class="math display">\[
+G^{3}(b) = \tfrac{1}{6}E[X(X-1)(X-2)] - \sum_{0 &lt; x \le b}G^{2}(x)
+\tag{C.26}\]</span></span></p>
+<p>and the same accumulating loop that produces <span class="math inline">\(G^{0}\)</span>, <span class="math inline">\(G^{1}\)</span> and <span class="math inline">\(G^{2}\)</span> produces <span class="math inline">\(G^{3}\)</span> at no extra cost in evaluations of the mass function. The third binomial moment is <span class="math inline">\(\lambda^{3}/6\)</span> for the Poisson and <span class="math inline">\(r(r+1)(r+2)\beta^{3}/6\)</span> for the negative binomial.</p>
+<p><strong>For example</strong>, take demand over a lead time as <span class="math inline">\(N(50, 12^{2})\)</span> units and a stock level of 62 units, the case worked in <a href="#sec-appdistributions-loss-normal" class="quarto-xref"><span>Section C.3.4</span></a>. Then <span class="math inline">\(z = 1.00\)</span> and from <a href="#tbl-loss-normal" class="quarto-xref">Table&nbsp;<span>C.2</span></a>, <span class="math inline">\(\Phi^{3}(1.00) = 0.0152\)</span>, so</p>
+<p><span class="math display">\[
+G^{3}(62) = \sigma^{3}\Phi^{3}(z) = 12^{3}(0.0152) = 1728(0.0152) = 26.27 \text{ units}^{3}
+\]</span></p>
+<p>Carried to full precision that is 26.29 units cubed, and the difference is again the four decimal places <a href="#tbl-loss-normal" class="quarto-xref">Table&nbsp;<span>C.2</span></a> is printed to.</p>
+<p>Notice the units. <span class="math inline">\(G^{1}\)</span> is in units, <span class="math inline">\(G^{2}\)</span> in units squared and <span class="math inline">\(G^{3}\)</span> in units cubed, and the scaling by <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(\sigma^{2}\)</span> and <span class="math inline">\(\sigma^{3}\)</span> is what produces them. That check catches a missing power of <span class="math inline">\(\sigma\)</span> in the same way <a href="#sec-appdistributions-loss-normal" class="quarto-xref"><span>Section C.3.4</span></a> catches a missing <span class="math inline">\(\sigma\)</span>.</p>
+</section>
+<section id="sec-appdistributions-loss-mixtures" class="level3" data-number="C.3.8">
+<h3 data-number="C.3.8" class="anchored" data-anchor-id="sec-appdistributions-loss-mixtures"><span class="header-section-number">C.3.8</span> Mixtures</h3>
 <p><a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> describes demand that is intermittent, and a mixture is one way to represent it. Let <span class="math inline">\(X\)</span> be distributed as a mixture of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> with weights <span class="math inline">\(p_{1}\)</span> and <span class="math inline">\(p_{2} = 1-p_{1}\)</span>, so that</p>
 <p><span id="eq-mixture"><span class="math display">\[
 g_{X}(x) = p_{1}g_{X_{1}}(x) + p_{2}g_{X_{2}}(x), \qquad
 G_{X}(x) = p_{1}G_{X_{1}}(x) + p_{2}G_{X_{2}}(x)
-\tag{C.21}\]</span></span></p>
+\tag{C.27}\]</span></span></p>
 <p>Because the loss functions are expectations and the expectation operator is linear, they mix the same way:</p>
 <p><span id="eq-mixture-loss"><span class="math display">\[
 G_{X}^{1}(x) = p_{1}G_{X_{1}}^{1}(x) + p_{2}G_{X_{2}}^{1}(x), \qquad
 G_{X}^{2}(x) = p_{1}G_{X_{1}}^{2}(x) + p_{2}G_{X_{2}}^{2}(x)
-\tag{C.22}\]</span></span></p>
+\tag{C.28}\]</span></span></p>
 <p>and so do the raw moments, <span class="math inline">\(E[X^{n}] = p_{1}E[X_{1}^{n}] + p_{2}E[X_{2}^{n}]\)</span>. The variance does not, and the extra term is the reason mixtures are useful for intermittent demand:</p>
 <p><span id="eq-mixture-variance"><span class="math display">\[
 \mathit{Var}[X] = p_{1}\mathit{Var}[X_{1}] + p_{2}\mathit{Var}[X_{2}]
 + p_{1}p_{2}\left(E[X_{1}] - E[X_{2}]\right)^{2}
-\tag{C.23}\]</span></span></p>
+\tag{C.29}\]</span></span></p>
 <p>Notice that last term. Two components with identical variances still produce a mixture more variable than either, and the excess grows with the square of the distance between their means. Thus, a mixture can reach a variability the component families cannot, which is exactly what an intermittent demand series demands of a model.</p>
 <p>What a mixture does not inherit is an inverse. There is no closed form for <span class="math inline">\(G_{X}^{-1}(\cdot)\)</span>, which the newsvendor solution of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> needs. However, the quantile is bracketed by the component quantiles. For any <span class="math inline">\(p \in [0,1]\)</span>, with <span class="math inline">\(x_{1} = G_{X_{1}}^{-1}(p)\)</span> and <span class="math inline">\(x_{2} = G_{X_{2}}^{-1}(p)\)</span>,</p>
 <p><span id="eq-mixture-quantile"><span class="math display">\[
 \min\{x_{1}, x_{2}\} \le G_{X}^{-1}(p) \le \max\{x_{1}, x_{2}\}
-\tag{C.24}\]</span></span></p>
+\tag{C.30}\]</span></span></p>
 <p>Thus, the search has a starting interval that is free. For a discrete mixture, step up from <span class="math inline">\(\min\{x_{1}, x_{2}\}\)</span>; for a continuous one, use the bracket as the initial interval of a bisection search. Either way the bracket is what turns an unbounded search into a bounded one.</p>
 </section>
-<section id="sec-appdistributions-loss-computing" class="level3" data-number="C.3.7">
-<h3 data-number="C.3.7" class="anchored" data-anchor-id="sec-appdistributions-loss-computing"><span class="header-section-number">C.3.7</span> Computing Them</h3>
-<p>The KSL implements these functions directly, so nothing in <a href="#tbl-loss-discrete" class="quarto-xref">Table&nbsp;<span>C.3</span></a> or <a href="#tbl-loss-continuous" class="quarto-xref">Table&nbsp;<span>C.4</span></a> has to be coded by hand. A distribution that provides them implements <code>LossFunctionDistributionIfc</code>, which adds two methods:</p>
+<section id="sec-appdistributions-loss-computing" class="level3" data-number="C.3.9">
+<h3 data-number="C.3.9" class="anchored" data-anchor-id="sec-appdistributions-loss-computing"><span class="header-section-number">C.3.9</span> Computing Them</h3>
+<p>The KSL implements these functions directly, so none of the closed forms in <a href="#sec-appdistributions-loss-tables" class="quarto-xref"><span>Section C.3.5</span></a> has to be coded by hand. A distribution that provides them implements <code>LossFunctionDistributionIfc</code>, which adds two methods:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">firstOrderLossFunction</span><span class="op">(</span><span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">secondOrderLossFunction</span><span class="op">(</span><span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Nine distributions implement it, and they are the ones tabulated above: <code>Poisson</code>, <code>Geometric</code>, <code>NegativeBinomial</code>, <code>Binomial</code> and <code>DEmpiricalCDF</code> for the discrete case, and <code>Exponential</code>, <code>Gamma</code>, <code>Normal</code> and <code>Lognormal</code> for the continuous case. <code>ShiftedLossFunctionDistribution</code> wraps any of them when the support has to be moved off the origin.</p>
@@ -1060,7 +1251,7 @@ G_{X}^{2}(x) = p_{1}G_{X_{1}}^{2}(x) + p_{2}G_{X_{2}}^{2}(x)
 <p><strong>Check any implementation before trusting it</strong>, including this one. Two identities make that cheap, and both come from earlier in this section. For a non-negative random variable,</p>
 <p><span id="eq-loss-checks"><span class="math display">\[
 G^{1}(0) = E[X], \qquad G^{2}(b) \ge 0  ext{ for every } b
-\tag{C.25}\]</span></span></p>
+\tag{C.31}\]</span></span></p>
 <p>The first is <a href="#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> and its continuous counterpart read at <span class="math inline">\(b = 0\)</span>. The second holds because <span class="math inline">\(G^{2}\)</span> is the expectation of a product of two non-negative quantities. Thus, an implementation whose <span class="math inline">\(G^{1}(0)\)</span> differs from the distribution’s own mean has its parameters crossed somewhere, and one that returns a negative <span class="math inline">\(G^{2}\)</span> is wrong outright. That check is worth performing every time a loss function is used from a new source, because it is one line and it catches the two errors that actually happen: a rate used where a mean belongs, and a truncation applied at the wrong end.</p>
 </section>
 </section>
@@ -1091,14 +1282,14 @@ G^{1}(0) = E[X], \qquad G^{2}(b) \ge 0  ext{ for every } b
 <p><span id="eq-ltd-example"><span class="math display">\[
 E[D(L)] = 10(5) = 50 \text{ units}, \qquad
 \mathit{Var}[D(L)] = 10(16) + 25(5)^{2} = 785
-\tag{C.26}\]</span></span></p>
+\tag{C.32}\]</span></span></p>
 <p>so <span class="math inline">\(c^{2} = 785/2500 = 0.3140\)</span> and <span class="math inline">\(\mathit{VMR} = 15.70\)</span> units. Notice that the lead time variance enters multiplied by the <em>square</em> of the demand rate, which is why an unreliable supplier dominates a variable demand in almost every real instance.</p>
 <p><strong>The gamma match is the default.</strong> The gamma can match any mean and variance, and inverting <a href="#eq-gamma" class="quarto-xref">Equation&nbsp;<span>C.7</span></a> gives the parameters directly:</p>
 <p><span id="eq-gamma-match"><span class="math display">\[
 \hat{\beta} = \frac{\hat{\sigma}^{2}}{\hat{\mu}}, \qquad
 \hat{\alpha} = \frac{\hat{\mu}^{2}}{\hat{\sigma}^{2}}
-\tag{C.27}\]</span></span></p>
-<p>On <a href="#eq-ltd-example" class="quarto-xref">Equation&nbsp;<span>C.26</span></a> that gives <span class="math inline">\(\hat{\beta} = 785/50 = 15.70\)</span> and <span class="math inline">\(\hat{\alpha} = 2500/785 = 3.1847\)</span>. The check is immediate: <span class="math inline">\(\alpha\beta = 50.0000\)</span> and <span class="math inline">\(\alpha\beta^{2} = 785.0000\)</span>. That check is worth performing every time, because a matching procedure that does not reproduce its own targets is the most common failure in this material.</p>
+\tag{C.33}\]</span></span></p>
+<p>On <a href="#eq-ltd-example" class="quarto-xref">Equation&nbsp;<span>C.32</span></a> that gives <span class="math inline">\(\hat{\beta} = 785/50 = 15.70\)</span> and <span class="math inline">\(\hat{\alpha} = 2500/785 = 3.1847\)</span>. The check is immediate: <span class="math inline">\(\alpha\beta = 50.0000\)</span> and <span class="math inline">\(\alpha\beta^{2} = 785.0000\)</span>. That check is worth performing every time, because a matching procedure that does not reproduce its own targets is the most common failure in this material.</p>
 <p><strong>A mixture of two Erlangs is the alternative</strong>, and it is the one to use when the distribution must be discrete in spirit or when a phase-type representation is wanted. <a href="#alg-erlang-mixture" class="quarto-xref">Algorithm&nbsp;<span>C.1</span></a> returns <span class="math inline">\(\mathrm{Erlang}(k_{1}, \lambda_{1}, k_{2}, \lambda_{2}, p_{1}, p_{2})\)</span> matching <span class="math inline">\(E[X]\)</span> and <span class="math inline">\(\mathit{Var}[X]\)</span>.</p>
 <div id="alg-erlang-mixture" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-alg figure">
@@ -1129,17 +1320,17 @@ Algorithm&nbsp;C.1: The Erlang mixture procedure. Two branches, because below a 
 </div>
 </figure>
 </div>
-<p>On <a href="#eq-ltd-example" class="quarto-xref">Equation&nbsp;<span>C.26</span></a>, <span class="math inline">\(c^{2} = 0.3140\)</span> falls in the first branch, giving <span class="math inline">\(k_{1} = 3\)</span>, <span class="math inline">\(k_{2} = 4\)</span>, <span class="math inline">\(p_{1} = 0.5893\)</span> and a common rate of <span class="math inline">\(\lambda = 0.06821\)</span> per unit. The mixture’s mean is 50.0000 and its variance 785.0000, matching to six figures.</p>
+<p>On <a href="#eq-ltd-example" class="quarto-xref">Equation&nbsp;<span>C.32</span></a>, <span class="math inline">\(c^{2} = 0.3140\)</span> falls in the first branch, giving <span class="math inline">\(k_{1} = 3\)</span>, <span class="math inline">\(k_{2} = 4\)</span>, <span class="math inline">\(p_{1} = 0.5893\)</span> and a common rate of <span class="math inline">\(\lambda = 0.06821\)</span> per unit. The mixture’s mean is 50.0000 and its variance 785.0000, matching to six figures.</p>
 <p>One implementation note. When <span class="math inline">\(c^{2}\)</span> is exactly <span class="math inline">\(1/k\)</span> for an integer <span class="math inline">\(k\)</span>, the quantity under the square root in the first branch is exactly zero, and floating point arithmetic can make it very slightly negative. Thus, clamp it at zero rather than letting the square root fail.</p>
 <p><strong>Adan’s rule selects a family</strong> rather than assuming one, and it is the procedure to use when the quantity being represented is known to be discrete. Let</p>
 <p><span id="eq-adan-a"><span class="math display">\[
 a = c^{2} - \frac{1}{\mu} = \frac{\mathit{VMR} - 1}{\mu}
-\tag{C.28}\]</span></span></p>
-<p>Notice that <span class="math inline">\(a\)</span> is a rescaled statement about how the variance compares with the mean, so <span class="math inline">\(a = 0\)</span> is exactly the Poisson case. <a href="#tbl-adan" class="quarto-xref">Table&nbsp;<span>C.5</span></a> gives the rule, in the form of <span class="citation" data-cites="adan1995">Adan et al. (<a href="references.html#ref-adan1995" role="doc-biblioref">1995</a>)</span> as extended by <span class="citation" data-cites="rossettiunlu2011">Rossetti and Ünlü (<a href="references.html#ref-rossettiunlu2011" role="doc-biblioref">2011</a>)</span> to cover <span class="math inline">\(a &lt; -1\)</span>, where no discrete family can match.</p>
+\tag{C.34}\]</span></span></p>
+<p>Notice that <span class="math inline">\(a\)</span> is a rescaled statement about how the variance compares with the mean, so <span class="math inline">\(a = 0\)</span> is exactly the Poisson case. <a href="#tbl-adan" class="quarto-xref">Table&nbsp;<span>C.8</span></a> gives the rule, in the form of <span class="citation" data-cites="adan1995">Adan et al. (<a href="references.html#ref-adan1995" role="doc-biblioref">1995</a>)</span> as extended by <span class="citation" data-cites="rossettiunlu2011">Rossetti and Ünlü (<a href="references.html#ref-rossettiunlu2011" role="doc-biblioref">2011</a>)</span> to cover <span class="math inline">\(a &lt; -1\)</span>, where no discrete family can match.</p>
 <div id="tbl-adan" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-adan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;C.5: Adan’s rule. Notice that the five cases partition the whole range of <span class="math inline">\(a\)</span>, so the rule always returns something, and that the ordering is by increasing variability: bounded support, then equidispersion, then two degrees of overdispersion.
+Table&nbsp;C.8: Adan’s rule. Notice that the five cases partition the whole range of <span class="math inline">\(a\)</span>, so the rule always returns something, and that the ordering is by increasing variability: bounded support, then equidispersion, then two degrees of overdispersion.
 </figcaption>
 <div aria-describedby="tbl-adan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1156,7 +1347,7 @@ Table&nbsp;C.5: Adan’s rule. Notice that the five cases partition the whole ra
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(a &lt; -1\)</span></td>
-<td>Gamma, by <a href="#eq-gamma-match" class="quarto-xref">Equation&nbsp;<span>C.27</span></a></td>
+<td>Gamma, by <a href="#eq-gamma-match" class="quarto-xref">Equation&nbsp;<span>C.33</span></a></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(-1 \le a &lt; 0\)</span></td>
@@ -1185,21 +1376,21 @@ Table&nbsp;C.5: Adan’s rule. Notice that the five cases partition the whole ra
 n = \left\lfloor \frac{-1}{a} \right\rfloor, \qquad
 q = \frac{1 + a(n+1) + \sqrt{-an(n+1) - n}}{1+a}, \qquad
 p = \frac{\mu}{n+1-q}
-\tag{C.29}\]</span></span></p>
+\tag{C.35}\]</span></span></p>
 <p><strong>Mixed negative binomial</strong>, for <span class="math inline">\(0 &lt; a &lt; 1\)</span>:</p>
 <p><span id="eq-adan-mixnb"><span class="math display">\[
 r = \left\lfloor \frac{1}{a} \right\rfloor, \qquad
 q = \frac{a(r+1) - \sqrt{(r+1)(1-ar)}}{1+a}, \qquad
 p = \frac{\mu}{r+1-q+\mu}
-\tag{C.30}\]</span></span></p>
+\tag{C.36}\]</span></span></p>
 <p><strong>Mixed geometric</strong>, for <span class="math inline">\(a \ge 1\)</span>:</p>
 <p><span id="eq-adan-mixgeom"><span class="math display">\[
 q = \frac{1}{1 + a + \sqrt{a^{2}-1}}, \qquad
 p_{1} = \frac{\mu}{2q + \mu}, \qquad
 p_{2} = \frac{\mu}{2(1-q) + \mu}
-\tag{C.31}\]</span></span></p>
-<p><strong>In <a href="#eq-adan-mixnb" class="quarto-xref">Equation&nbsp;<span>C.30</span></a> and <a href="#eq-adan-mixgeom" class="quarto-xref">Equation&nbsp;<span>C.31</span></a>, <span class="math inline">\(p\)</span> is the probability of a failure</strong>, so that <span class="math inline">\(\mathrm{NB}(r,p)\)</span> has mean <span class="math inline">\(rp/(1-p)\)</span> and <span class="math inline">\(\mathrm{Geom}(p)\)</span> has mean <span class="math inline">\(p/(1-p)\)</span>. That is the opposite of the convention in <a href="#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, and it is the single most likely thing to go wrong when these are implemented. The check of <a href="#eq-gamma-match" class="quarto-xref">Equation&nbsp;<span>C.27</span></a> applies here too and catches it at once: compute the mixture’s mean and variance from its components and compare them with the targets.</p>
-<p>On <a href="#eq-ltd-example" class="quarto-xref">Equation&nbsp;<span>C.26</span></a>, <span class="math inline">\(a = 0.3140 - 1/50 = 0.2940\)</span>, which falls in the mixed negative binomial branch. Then <span class="math inline">\(r = \lfloor 1/0.2940 \rfloor = 3\)</span>, <span class="math inline">\(q = 0.37788\)</span> and <span class="math inline">\(p = 0.93245\)</span>, and the resulting mixture has mean 50.0000 and variance 785.0000.</p>
+\tag{C.37}\]</span></span></p>
+<p><strong>In <a href="#eq-adan-mixnb" class="quarto-xref">Equation&nbsp;<span>C.36</span></a> and <a href="#eq-adan-mixgeom" class="quarto-xref">Equation&nbsp;<span>C.37</span></a>, <span class="math inline">\(p\)</span> is the probability of a failure</strong>, so that <span class="math inline">\(\mathrm{NB}(r,p)\)</span> has mean <span class="math inline">\(rp/(1-p)\)</span> and <span class="math inline">\(\mathrm{Geom}(p)\)</span> has mean <span class="math inline">\(p/(1-p)\)</span>. That is the opposite of the convention in <a href="#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, and it is the single most likely thing to go wrong when these are implemented. The check of <a href="#eq-gamma-match" class="quarto-xref">Equation&nbsp;<span>C.33</span></a> applies here too and catches it at once: compute the mixture’s mean and variance from its components and compare them with the targets.</p>
+<p>On <a href="#eq-ltd-example" class="quarto-xref">Equation&nbsp;<span>C.32</span></a>, <span class="math inline">\(a = 0.3140 - 1/50 = 0.2940\)</span>, which falls in the mixed negative binomial branch. Then <span class="math inline">\(r = \lfloor 1/0.2940 \rfloor = 3\)</span>, <span class="math inline">\(q = 0.37788\)</span> and <span class="math inline">\(p = 0.93245\)</span>, and the resulting mixture has mean 50.0000 and variance 785.0000.</p>
 <p>Notice that all three routes reproduce the same two moments and disagree about everything else. That is the honest summary of moment matching: two numbers do not determine a distribution, and the choice of family is an assumption that the procedure hides rather than removes. Where the answer matters, compute it under two of them and report the spread.</p>
 </section>
 <section id="sec-appdistributions-intermittent" class="level3" data-number="C.4.3">

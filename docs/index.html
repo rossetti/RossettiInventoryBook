@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Manuel D. Rossetti">
-<meta name="dcterms.date" content="2026-09-16">
+<meta name="dcterms.date" content="2026-09-21">
 <meta name="description" content="A textbook and course notes on the modeling and analysis of inventory systems for upper-level undergraduate and graduate students.">
 
 <title>Analysis of Inventory Systems</title>
@@ -361,19 +361,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Continuous and Periodic Review Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Periodic Review Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Inventory Systems</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi-Echelon Systems with Batch Ordering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -447,6 +447,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#how-this-book-is-organized" id="toc-how-this-book-is-organized" class="nav-link" data-scroll-target="#how-this-book-is-organized">How this book is organized</a></li>
   <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
   <li><a href="#a-note-on-notation" id="toc-a-note-on-notation" class="nav-link" data-scroll-target="#a-note-on-notation">A note on notation</a></li>
+  <li><a href="#sec-license" id="toc-sec-license" class="nav-link" data-scroll-target="#sec-license">License</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -479,7 +480,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 16, 2026</p>
+      <p class="date">September 21, 2026</p>
     </div>
   </div>
   
@@ -501,32 +502,35 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><em>How much should we order, and when should we order it?</em></p>
 </blockquote>
-<p>Every model developed here is an answer to that question under a particular set of assumptions about demand, lead times, cost structure, and the review process. The emphasis is on understanding <strong>which assumptions produce which policy</strong>, and on being honest about what happens when the assumptions fail. Analytical models are developed first; simulation is then used to study systems that resist closed-form analysis and to check the robustness of the analytical results.</p>
+<p>Every model developed here is an answer to that question under a particular set of assumptions about demand, lead times, cost structure, and the review process. The emphasis is on understanding <strong>which assumptions produce which policy</strong>, and on being honest about what happens when the assumptions fail. Analytical models are developed first; simulation is then used to study systems that resist closed-form analysis and to check how far the analytical results survive their assumptions.</p>
 </section>
 <section id="how-this-book-is-organized" class="level2">
 <h2 class="anchored" data-anchor-id="how-this-book-is-organized">How this book is organized</h2>
 <p>The development moves from deterministic to stochastic, and from single-location to multi-echelon systems:</p>
 <ul>
-<li><strong>Foundations</strong>: the structure of inventory systems, the costs and service measures used to evaluate them, and the demand models that drive them.</li>
-<li><strong>Deterministic models</strong>: lot sizing when demand is known, both for constant and for time-varying demand.</li>
-<li><strong>Stochastic models</strong>: single-period decisions, then continuous- and periodic-review policies for repeated ordering under uncertainty.</li>
-<li><strong>Systems</strong>: multiple items competing for shared resources, and multiple stocking locations arranged in echelons.</li>
-<li><strong>Simulation</strong>: modeling inventory systems computationally when analysis reaches its limits.</li>
+<li><strong>Foundations</strong>: the structure of inventory systems, the costs and service measures used to evaluate them, and the management of items and records.</li>
+<li><strong>Deterministic models</strong>: lot sizing when demand is known, for one item and for many, for constant demand and for time-varying requirements, and requirements planning across a product structure.</li>
+<li><strong>Stochastic models</strong>: single-period decisions, continuous- and periodic-review policies for repeated ordering under uncertainty, and repairable items circulating between two echelons.</li>
 </ul>
-<p>Each chapter closes with exercises. Some are analytical, some require computation, and some ask you to build and study a simulation model.</p>
+<p>Each chapter closes with exercises. Some are analytical, some require computation in a worksheet or in Kotlin, and one asks you to check a closed form by Monte Carlo simulation.</p>
 </section>
 <section id="software" class="level2">
 <h2 class="anchored" data-anchor-id="software">Software</h2>
 <p>Two tools carry the computational work in this book, and each is used where it is the right instrument.</p>
 <p><strong>Spreadsheets</strong> handle the numerical models. Most of what this book asks you to compute, such as a lot sizing schedule, an MRP record, or a policy’s expected cost, is naturally tabular and time-phased, and a spreadsheet shows the whole calculation at once in a way that a printed formula cannot. Worked spreadsheets accompany the chapters, and several exercises ask you to extend one. You are expected to be comfortable building and auditing a spreadsheet model.</p>
-<p><strong>Kotlin and the <a href="https://github.com/rossetti/KSL">Kotlin Simulation Library (KSL)</a></strong> handle the simulation work, where a system’s behavior has to be generated rather than solved for. <a href="16-AppKSLSetup.html" class="quarto-xref"><span>Appendix E — Kotlin and KSL Setup</span></a> covers installing the tools and running your first model, and <a href="11-Chapter11.html" class="quarto-xref"><span>11&nbsp; Simulating Inventory Systems</span></a> develops the modeling itself. The KSL is developed and documented separately; see <a href="https://rossetti.github.io/KSLBook/"><em>Simulation Modeling using the KSL</em></a> for a full treatment of the library.</p>
+<p><strong>Kotlin and the <a href="https://github.com/rossetti/KSL">Kotlin Simulation Library (KSL)</a></strong> handle the simulation work, where a system’s behavior has to be generated rather than solved for. <a href="16-AppKSLSetup.html" class="quarto-xref"><span>Appendix E — Kotlin and KSL Setup</span></a> covers installing the tools and running your first model. The KSL is developed and documented separately; see <a href="https://rossetti.github.io/KSLBook/"><em>Simulation Modeling using the KSL</em></a> for a full treatment of the library.</p>
 <p>Some figures and tables in the text are generated programmatically so that they stay consistent with the numbers around them. That tooling is an authoring convenience and is not shown, taught, or required of you.</p>
 </section>
 <section id="a-note-on-notation" class="level2">
 <h2 class="anchored" data-anchor-id="a-note-on-notation">A note on notation</h2>
 <p>Inventory theory has an unfortunate amount of notational variation across the literature. This book fixes a single notation and uses it consistently; where a symbol differs from the common usage in a widely cited source, the difference is noted so that you can move between this text and the literature without confusion.</p>
-<!-- TODO: settle the copyright/licensing statement for this material before the
-     site is published to students. -->
+</section>
+<section id="sec-license" class="level2">
+<h2 class="anchored" data-anchor-id="sec-license">License</h2>
+<p>The online version of this book is licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. The Kotlin code that accompanies it, in the <code>code</code> project beside the book, is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License, version 3</a>, the same license as the KSL itself. To cite this book:</p>
+<blockquote class="blockquote">
+<p>Rossetti, M.D.&nbsp;(2026). <em>Analysis of Inventory Systems</em>, On-line and Open Text Edition. Retrieved from <a href="https://rossetti.github.io/RossettiInventoryBook/" class="uri">https://rossetti.github.io/RossettiInventoryBook/</a>, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.</p>
+</blockquote>
 
 
 </section>
