@@ -475,11 +475,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-appkslsetup-1" id="toc-sec-appkslsetup-1" class="nav-link active" data-scroll-target="#sec-appkslsetup-1"><span class="header-section-number">E.1</span> What You Need</a></li>
-  <li><a href="#sec-appkslsetup-2" id="toc-sec-appkslsetup-2" class="nav-link" data-scroll-target="#sec-appkslsetup-2"><span class="header-section-number">E.2</span> The Course Code Project</a></li>
-  <li><a href="#sec-appkslsetup-3" id="toc-sec-appkslsetup-3" class="nav-link" data-scroll-target="#sec-appkslsetup-3"><span class="header-section-number">E.3</span> Running Your First Model</a></li>
-  <li><a href="#sec-appkslsetup-4" id="toc-sec-appkslsetup-4" class="nav-link" data-scroll-target="#sec-appkslsetup-4"><span class="header-section-number">E.4</span> Adding Your Own Model</a></li>
-  <li><a href="#sec-appkslsetup-5" id="toc-sec-appkslsetup-5" class="nav-link" data-scroll-target="#sec-appkslsetup-5"><span class="header-section-number">E.5</span> The KSL Itself</a></li>
+  <li><a href="#sec-appkslsetup-tools" id="toc-sec-appkslsetup-tools" class="nav-link active" data-scroll-target="#sec-appkslsetup-tools"><span class="header-section-number">E.1</span> What You Need</a></li>
+  <li><a href="#sec-appkslsetup-getting" id="toc-sec-appkslsetup-getting" class="nav-link" data-scroll-target="#sec-appkslsetup-getting"><span class="header-section-number">E.2</span> Getting the Course Code Project</a></li>
+  <li><a href="#sec-appkslsetup-layout" id="toc-sec-appkslsetup-layout" class="nav-link" data-scroll-target="#sec-appkslsetup-layout"><span class="header-section-number">E.3</span> What Is in It</a></li>
+  <li><a href="#sec-appkslsetup-firstrun" id="toc-sec-appkslsetup-firstrun" class="nav-link" data-scroll-target="#sec-appkslsetup-firstrun"><span class="header-section-number">E.4</span> Running Your First Model</a></li>
+  <li><a href="#sec-appkslsetup-yourown" id="toc-sec-appkslsetup-yourown" class="nav-link" data-scroll-target="#sec-appkslsetup-yourown"><span class="header-section-number">E.5</span> Adding Your Own Model</a></li>
+  <li><a href="#sec-appkslsetup-ksl" id="toc-sec-appkslsetup-ksl" class="nav-link" data-scroll-target="#sec-appkslsetup-ksl"><span class="header-section-number">E.6</span> The KSL Itself</a></li>
   </ul>
 </nav>
     </div>
@@ -524,8 +525,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
-<section id="sec-appkslsetup-1" class="level2" data-number="E.1">
-<h2 data-number="E.1" class="anchored" data-anchor-id="sec-appkslsetup-1"><span class="header-section-number">E.1</span> What You Need</h2>
+<section id="sec-appkslsetup-tools" class="level2" data-number="E.1">
+<h2 data-number="E.1" class="anchored" data-anchor-id="sec-appkslsetup-tools"><span class="header-section-number">E.1</span> What You Need</h2>
 <p>Two things, and nothing else:</p>
 <ul>
 <li><strong>A JDK, version 21 or later.</strong> <a href="https://adoptium.net/">Temurin</a> is a good default. Verify the installation with <code>java -version</code> at a terminal.</li>
@@ -533,21 +534,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>You do not need to install Kotlin, Gradle, or the KSL separately. The course code project carries a Gradle wrapper that downloads the correct versions of Gradle and Kotlin on first use, and Gradle downloads the KSL from Maven Central.</p>
 </section>
-<section id="sec-appkslsetup-2" class="level2" data-number="E.2">
-<h2 data-number="E.2" class="anchored" data-anchor-id="sec-appkslsetup-2"><span class="header-section-number">E.2</span> The Course Code Project</h2>
-<p>The Kotlin examples live in a Gradle project whose structure mirrors the book:</p>
-<pre><code>code/
-  build.gradle.kts       build configuration; the KSL dependency lives here
-  settings.gradle.kts
-  gradlew, gradle/       the Gradle wrapper
-  src/main/kotlin/inventory/
-    &lt;topic&gt;/             one package per subject</code></pre>
-<p>A package is named for its subject, so <code>inventory.dynamiclotsizing</code> holds the code of <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> and <code>inventory.newsvendor</code> holds the code of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>. Chapter numbers move when a book is revised and subjects do not, which is the same reason the section labels you see in cross-references are semantic rather than numbered.</p>
+<section id="sec-appkslsetup-getting" class="level2" data-number="E.2">
+<h2 data-number="E.2" class="anchored" data-anchor-id="sec-appkslsetup-getting"><span class="header-section-number">E.2</span> Getting the Course Code Project</h2>
+<p>The Kotlin examples live in their own repository, separate from the book:</p>
+<p><a href="https://github.com/rossetti/RossettiInventoryBookCode" class="uri">https://github.com/rossetti/RossettiInventoryBookCode</a></p>
+<p>Clone it if you have Git. An updated example then costs you one command rather than a second download:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/rossetti/RossettiInventoryBookCode.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> RossettiInventoryBookCode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you do not have Git, use the <strong>Code</strong> button on that page and choose <strong>Download ZIP</strong>, then unpack it. Either way you end up with one directory, and that directory is the Gradle project. Open it in IntelliJ with <strong>File</strong>, then <strong>Open</strong>, and select the directory itself rather than a file inside it. IntelliJ recognizes the Gradle build and configures the rest on its own.</p>
+<p>When a chapter says that its code is in <code>code/</code>, it means this project. The book uses the short name because the directory you unpack it under is yours to name.</p>
 </section>
-<section id="sec-appkslsetup-3" class="level2" data-number="E.3">
-<h2 data-number="E.3" class="anchored" data-anchor-id="sec-appkslsetup-3"><span class="header-section-number">E.3</span> Running Your First Model</h2>
-<p>From a terminal, in the <code>code</code> directory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-appkslsetup-layout" class="level2" data-number="E.3">
+<h2 data-number="E.3" class="anchored" data-anchor-id="sec-appkslsetup-layout"><span class="header-section-number">E.3</span> What Is in It</h2>
+<p>The project’s structure mirrors the book:</p>
+<pre><code>build.gradle.kts       build configuration; the KSL dependency lives here
+settings.gradle.kts
+gradlew, gradle/       the Gradle wrapper
+src/main/kotlin/inventory/
+  &lt;topic&gt;/             one package per subject
+src/test/kotlin/       the checks that pin what the book prints
+data/                  the demand histories used for fitting</code></pre>
+<p>A package is named for its subject, so <code>inventory.dynamiclotsizing</code> holds the code of <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> and <code>inventory.newsvendor</code> holds the code of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>. Chapter numbers move when a book is revised and subjects do not, which is the same reason the section labels you see in cross-references are semantic rather than numbered.</p>
+<p>Notice the test directory. Every number this book prints from a program is asserted there, so <code>./gradlew test</code> is a check that the copy you have agrees with the copy the book was written against. Run it once after you clone. If it passes, any later failure is yours and not the book’s, which is worth knowing before you start changing things.</p>
+</section>
+<section id="sec-appkslsetup-firstrun" class="level2" data-number="E.4">
+<h2 data-number="E.4" class="anchored" data-anchor-id="sec-appkslsetup-firstrun"><span class="header-section-number">E.4</span> Running Your First Model</h2>
+<p>From a terminal, in the project directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The first run takes a minute while Gradle, Kotlin, and the KSL are downloaded; later runs start immediately. The default example evaluates a newsvendor order quantity by Monte Carlo simulation, using the final buy of the mower deck belt from <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> with its fitted normal demand, and prints expected profit across a grid of order quantities:</p>
 <pre><code>Expected profit by order quantity (10,000 replications each)
          Q     avg profit   half-width
@@ -564,20 +577,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Best quantity on this grid: Q = 460, expected profit 17861.59
 Compare against the critical ratio solution -- see @sec-newsvendor.</code></pre>
 <p>Notice two things about that output before you go further. The critical ratio puts the optimal buy at 475 belts, and the grid’s flat top from 440 to 500 brackets it; the best point on the grid, 460, differs from its neighbors by less than their half-widths, so the simulation cannot tell 460 from 480 at ten thousand replications and does not pretend to. That agreement with the closed form is how you gain confidence that a simulation is built correctly. And the half-widths grow with the order quantity, because profit becomes more variable as more units are exposed to demand risk. A single replication would have told you neither.</p>
-<p>To run it from IntelliJ instead, open the <code>code</code> directory as a project and use the gutter icon beside <code>fun main</code>.</p>
+<p>To run it from IntelliJ instead, open the project directory as described in <a href="#sec-appkslsetup-getting" class="quarto-xref"><span>Section E.2</span></a> and use the gutter icon beside <code>fun main</code>.</p>
 </section>
-<section id="sec-appkslsetup-4" class="level2" data-number="E.4">
-<h2 data-number="E.4" class="anchored" data-anchor-id="sec-appkslsetup-4"><span class="header-section-number">E.4</span> Adding Your Own Model</h2>
+<section id="sec-appkslsetup-yourown" class="level2" data-number="E.5">
+<h2 data-number="E.5" class="anchored" data-anchor-id="sec-appkslsetup-yourown"><span class="header-section-number">E.5</span> Adding Your Own Model</h2>
 <p>Put the file in the package of the subject it belongs to, so a model of a continuous review policy goes in <code>src/main/kotlin/inventory/continuousreview/</code> beside the chapter’s own examples. Give it a top-level <code>fun main()</code>. Kotlin compiles the top-level functions of a file named <code>MyPolicy.kt</code> into a class named <code>MyPolicyKt</code>, and that class name is what Gradle runs. To run your file from the terminal, pass the class as the <code>mainClass</code> property:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> run <span class="at">-PmainClass</span><span class="op">=</span>inventory.continuousreview.MyPolicyKt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> run <span class="at">-PmainClass</span><span class="op">=</span>inventory.continuousreview.MyPolicyKt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To make it the default instead, point <code>application { mainClass }</code> in <code>build.gradle.kts</code> at it; the block already reads the property and falls back to the newsvendor example when none is given. From IntelliJ, the gutter icon beside <code>fun main</code> runs the file with no configuration at all.</p>
 <p>Keep the model’s inputs at the top of <code>main</code> as named values, as every example in the project does, so that the next reader can see what was assumed without reading the code that uses it. Thus, a model of your own is one file, one <code>main</code>, and one property on the command line.</p>
 </section>
-<section id="sec-appkslsetup-5" class="level2" data-number="E.5">
-<h2 data-number="E.5" class="anchored" data-anchor-id="sec-appkslsetup-5"><span class="header-section-number">E.5</span> The KSL Itself</h2>
+<section id="sec-appkslsetup-ksl" class="level2" data-number="E.6">
+<h2 data-number="E.6" class="anchored" data-anchor-id="sec-appkslsetup-ksl"><span class="header-section-number">E.6</span> The KSL Itself</h2>
 <p>The KSL is a large library, and this book uses a small part of it. For the library on its own terms, its packages, its process view, and its output analysis machinery, see <a href="https://rossetti.github.io/KSLBook/"><em>Simulation Modeling using the KSL</em></a>.</p>
-<p>The version this course pins is declared in <code>code/build.gradle.kts</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>implementation<span class="op">(</span><span class="st">"io.github.rossetti:KSLCore:R1.7"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The version this course pins is declared in the project’s <code>build.gradle.kts</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>implementation<span class="op">(</span><span class="st">"io.github.rossetti:KSLCore:R1.7"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

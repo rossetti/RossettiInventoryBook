@@ -1814,8 +1814,8 @@
     ]
   },
   {
-    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-1",
-    "href": "16-AppKSLSetup.html#sec-appkslsetup-1",
+    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-tools",
+    "href": "16-AppKSLSetup.html#sec-appkslsetup-tools",
     "title": "Appendix E — Kotlin and KSL Setup",
     "section": "",
     "text": "A JDK, version 21 or later. Temurin is a good default. Verify the installation with java -version at a terminal.\nIntelliJ IDEA, Community Edition. It has Kotlin support built in and understands Gradle projects without configuration.",
@@ -1825,44 +1825,55 @@
     ]
   },
   {
-    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-2",
-    "href": "16-AppKSLSetup.html#sec-appkslsetup-2",
+    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-getting",
+    "href": "16-AppKSLSetup.html#sec-appkslsetup-getting",
     "title": "Appendix E — Kotlin and KSL Setup",
-    "section": "E.2 The Course Code Project",
-    "text": "E.2 The Course Code Project\nThe Kotlin examples live in a Gradle project whose structure mirrors the book:\ncode/\n  build.gradle.kts       build configuration; the KSL dependency lives here\n  settings.gradle.kts\n  gradlew, gradle/       the Gradle wrapper\n  src/main/kotlin/inventory/\n    &lt;topic&gt;/             one package per subject\nA package is named for its subject, so inventory.dynamiclotsizing holds the code of Chapter 5 and inventory.newsvendor holds the code of Chapter 7. Chapter numbers move when a book is revised and subjects do not, which is the same reason the section labels you see in cross-references are semantic rather than numbered.",
+    "section": "E.2 Getting the Course Code Project",
+    "text": "E.2 Getting the Course Code Project\nThe Kotlin examples live in their own repository, separate from the book:\nhttps://github.com/rossetti/RossettiInventoryBookCode\nClone it if you have Git. An updated example then costs you one command rather than a second download:\ngit clone https://github.com/rossetti/RossettiInventoryBookCode.git\ncd RossettiInventoryBookCode\nIf you do not have Git, use the Code button on that page and choose Download ZIP, then unpack it. Either way you end up with one directory, and that directory is the Gradle project. Open it in IntelliJ with File, then Open, and select the directory itself rather than a file inside it. IntelliJ recognizes the Gradle build and configures the rest on its own.\nWhen a chapter says that its code is in code/, it means this project. The book uses the short name because the directory you unpack it under is yours to name.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>E</span>  <span class='chapter-title'>Kotlin and KSL Setup</span>"
     ]
   },
   {
-    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-3",
-    "href": "16-AppKSLSetup.html#sec-appkslsetup-3",
+    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-layout",
+    "href": "16-AppKSLSetup.html#sec-appkslsetup-layout",
     "title": "Appendix E — Kotlin and KSL Setup",
-    "section": "E.3 Running Your First Model",
-    "text": "E.3 Running Your First Model\nFrom a terminal, in the code directory:\n./gradlew run\nThe first run takes a minute while Gradle, Kotlin, and the KSL are downloaded; later runs start immediately. The default example evaluates a newsvendor order quantity by Monte Carlo simulation, using the final buy of the mower deck belt from Chapter 7 with its fitted normal demand, and prints expected profit across a grid of order quantities:\nExpected profit by order quantity (10,000 replications each)\n         Q     avg profit   half-width\n       400       16905.21        52.62\n       420       17402.01        61.77\n       440       17708.05        72.49\n       460       17861.59        85.22\n       480       17817.87        96.08\n       500       17792.08       105.77\n       520       17514.23       115.26\n       540       17088.56       124.98\n       560       16740.80       132.01\n\nBest quantity on this grid: Q = 460, expected profit 17861.59\nCompare against the critical ratio solution -- see @sec-newsvendor.\nNotice two things about that output before you go further. The critical ratio puts the optimal buy at 475 belts, and the grid’s flat top from 440 to 500 brackets it; the best point on the grid, 460, differs from its neighbors by less than their half-widths, so the simulation cannot tell 460 from 480 at ten thousand replications and does not pretend to. That agreement with the closed form is how you gain confidence that a simulation is built correctly. And the half-widths grow with the order quantity, because profit becomes more variable as more units are exposed to demand risk. A single replication would have told you neither.\nTo run it from IntelliJ instead, open the code directory as a project and use the gutter icon beside fun main.",
+    "section": "E.3 What Is in It",
+    "text": "E.3 What Is in It\nThe project’s structure mirrors the book:\nbuild.gradle.kts       build configuration; the KSL dependency lives here\nsettings.gradle.kts\ngradlew, gradle/       the Gradle wrapper\nsrc/main/kotlin/inventory/\n  &lt;topic&gt;/             one package per subject\nsrc/test/kotlin/       the checks that pin what the book prints\ndata/                  the demand histories used for fitting\nA package is named for its subject, so inventory.dynamiclotsizing holds the code of Chapter 5 and inventory.newsvendor holds the code of Chapter 7. Chapter numbers move when a book is revised and subjects do not, which is the same reason the section labels you see in cross-references are semantic rather than numbered.\nNotice the test directory. Every number this book prints from a program is asserted there, so ./gradlew test is a check that the copy you have agrees with the copy the book was written against. Run it once after you clone. If it passes, any later failure is yours and not the book’s, which is worth knowing before you start changing things.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>E</span>  <span class='chapter-title'>Kotlin and KSL Setup</span>"
     ]
   },
   {
-    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-4",
-    "href": "16-AppKSLSetup.html#sec-appkslsetup-4",
+    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-firstrun",
+    "href": "16-AppKSLSetup.html#sec-appkslsetup-firstrun",
     "title": "Appendix E — Kotlin and KSL Setup",
-    "section": "E.4 Adding Your Own Model",
-    "text": "E.4 Adding Your Own Model\nPut the file in the package of the subject it belongs to, so a model of a continuous review policy goes in src/main/kotlin/inventory/continuousreview/ beside the chapter’s own examples. Give it a top-level fun main(). Kotlin compiles the top-level functions of a file named MyPolicy.kt into a class named MyPolicyKt, and that class name is what Gradle runs. To run your file from the terminal, pass the class as the mainClass property:\n./gradlew run -PmainClass=inventory.continuousreview.MyPolicyKt\nTo make it the default instead, point application { mainClass } in build.gradle.kts at it; the block already reads the property and falls back to the newsvendor example when none is given. From IntelliJ, the gutter icon beside fun main runs the file with no configuration at all.\nKeep the model’s inputs at the top of main as named values, as every example in the project does, so that the next reader can see what was assumed without reading the code that uses it. Thus, a model of your own is one file, one main, and one property on the command line.",
+    "section": "E.4 Running Your First Model",
+    "text": "E.4 Running Your First Model\nFrom a terminal, in the project directory:\n./gradlew run\nThe first run takes a minute while Gradle, Kotlin, and the KSL are downloaded; later runs start immediately. The default example evaluates a newsvendor order quantity by Monte Carlo simulation, using the final buy of the mower deck belt from Chapter 7 with its fitted normal demand, and prints expected profit across a grid of order quantities:\nExpected profit by order quantity (10,000 replications each)\n         Q     avg profit   half-width\n       400       16905.21        52.62\n       420       17402.01        61.77\n       440       17708.05        72.49\n       460       17861.59        85.22\n       480       17817.87        96.08\n       500       17792.08       105.77\n       520       17514.23       115.26\n       540       17088.56       124.98\n       560       16740.80       132.01\n\nBest quantity on this grid: Q = 460, expected profit 17861.59\nCompare against the critical ratio solution -- see @sec-newsvendor.\nNotice two things about that output before you go further. The critical ratio puts the optimal buy at 475 belts, and the grid’s flat top from 440 to 500 brackets it; the best point on the grid, 460, differs from its neighbors by less than their half-widths, so the simulation cannot tell 460 from 480 at ten thousand replications and does not pretend to. That agreement with the closed form is how you gain confidence that a simulation is built correctly. And the half-widths grow with the order quantity, because profit becomes more variable as more units are exposed to demand risk. A single replication would have told you neither.\nTo run it from IntelliJ instead, open the project directory as described in Section E.2 and use the gutter icon beside fun main.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>E</span>  <span class='chapter-title'>Kotlin and KSL Setup</span>"
     ]
   },
   {
-    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-5",
-    "href": "16-AppKSLSetup.html#sec-appkslsetup-5",
+    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-yourown",
+    "href": "16-AppKSLSetup.html#sec-appkslsetup-yourown",
     "title": "Appendix E — Kotlin and KSL Setup",
-    "section": "E.5 The KSL Itself",
-    "text": "E.5 The KSL Itself\nThe KSL is a large library, and this book uses a small part of it. For the library on its own terms, its packages, its process view, and its output analysis machinery, see Simulation Modeling using the KSL.\nThe version this course pins is declared in code/build.gradle.kts:\nimplementation(\"io.github.rossetti:KSLCore:R1.7\")",
+    "section": "E.5 Adding Your Own Model",
+    "text": "E.5 Adding Your Own Model\nPut the file in the package of the subject it belongs to, so a model of a continuous review policy goes in src/main/kotlin/inventory/continuousreview/ beside the chapter’s own examples. Give it a top-level fun main(). Kotlin compiles the top-level functions of a file named MyPolicy.kt into a class named MyPolicyKt, and that class name is what Gradle runs. To run your file from the terminal, pass the class as the mainClass property:\n./gradlew run -PmainClass=inventory.continuousreview.MyPolicyKt\nTo make it the default instead, point application { mainClass } in build.gradle.kts at it; the block already reads the property and falls back to the newsvendor example when none is given. From IntelliJ, the gutter icon beside fun main runs the file with no configuration at all.\nKeep the model’s inputs at the top of main as named values, as every example in the project does, so that the next reader can see what was assumed without reading the code that uses it. Thus, a model of your own is one file, one main, and one property on the command line.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>E</span>  <span class='chapter-title'>Kotlin and KSL Setup</span>"
+    ]
+  },
+  {
+    "objectID": "16-AppKSLSetup.html#sec-appkslsetup-ksl",
+    "href": "16-AppKSLSetup.html#sec-appkslsetup-ksl",
+    "title": "Appendix E — Kotlin and KSL Setup",
+    "section": "E.6 The KSL Itself",
+    "text": "E.6 The KSL Itself\nThe KSL is a large library, and this book uses a small part of it. For the library on its own terms, its packages, its process view, and its output analysis machinery, see Simulation Modeling using the KSL.\nThe version this course pins is declared in the project’s build.gradle.kts:\nimplementation(\"io.github.rossetti:KSLCore:R1.7\")",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>E</span>  <span class='chapter-title'>Kotlin and KSL Setup</span>"
