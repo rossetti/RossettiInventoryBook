@@ -937,20 +937,28 @@ T^{*} = \frac{Q^{*}}{\lambda} = \sqrt{\frac{2k}{h\lambda}}
 <p><span class="math display">\[
 h = ic = (0.18)(1200) = \$216 \text{ per unit per year}
 \]</span></p>
-<p><strong>a) The optimal order quantity.</strong> From <a href="#eq-eoq" class="quarto-xref">Equation&nbsp;<span>3.17</span></a>,</p>
+<ol type="a">
+<li>The optimal order quantity. From <a href="#eq-eoq" class="quarto-xref">Equation&nbsp;<span>3.17</span></a>,</li>
+</ol>
 <p><span class="math display">\[
 Q^{*} = \sqrt{\frac{2(800)(220)}{216}} = \sqrt{\frac{352{,}000}{216}} = 40.37 \text{ units}
 \]</span></p>
-<p><strong>b) The optimal time between orders.</strong> From <a href="#eq-eoq-cycle" class="quarto-xref">Equation&nbsp;<span>3.19</span></a>,</p>
+<ol start="2" type="a">
+<li>The optimal time between orders. From <a href="#eq-eoq-cycle" class="quarto-xref">Equation&nbsp;<span>3.19</span></a>,</li>
+</ol>
 <p><span class="math display">\[
 T^{*} = \frac{40.37}{220} = 0.1835 \text{ year} = 66.98 \text{ days}
 \]</span></p>
-<p><strong>c) The optimal total cost.</strong> From <a href="#eq-eoq-tc-star" class="quarto-xref">Equation&nbsp;<span>3.18</span></a>,</p>
+<ol start="3" type="a">
+<li>The optimal total cost. From <a href="#eq-eoq-tc-star" class="quarto-xref">Equation&nbsp;<span>3.18</span></a>,</li>
+</ol>
 <p><span class="math display">\[
 \mathit{TC}^{*} = \sqrt{2(800)(220)(216)} + (1200)(220) = 8{,}719.63 + 264{,}000 = \$272{,}719.63
 \]</span></p>
 <p>Notice the proportions. The purchase cost is 97% of the total and is untouched by the decision. The $8,719.63 is the entire quantity the lot sizing decision can influence, and half of it is ordering cost and half is holding cost. That equal split is the check of <a href="#sec-eoq-classic" class="quarto-xref"><span>Section 3.5.4</span></a>, and you should perform it every time, because unequal halves mean <span class="math inline">\(Q\)</span> is not optimal.</p>
-<p><strong>d) The reorder point for a 7 day lead time.</strong> Seven days is well under the 66.98 day cycle. Thus, <a href="#sec-eoq-leadtime" class="quarto-xref"><span>Section 3.6</span></a> gives <span class="math inline">\(r = \lambda L\)</span>:</p>
+<ol start="4" type="a">
+<li>The reorder point for a 7 day lead time. Seven days is well under the 66.98 day cycle. Thus, <a href="#sec-eoq-leadtime" class="quarto-xref"><span>Section 3.6</span></a> gives <span class="math inline">\(r = \lambda L\)</span>:</li>
+</ol>
 <p><span class="math display">\[
 r = 220\left(\frac{7}{365}\right) = 4.22 \text{ units}
 \]</span></p>
@@ -1094,15 +1102,15 @@ Table&nbsp;3.2: The three cases for all-units discounting. The third is why ever
 </ol>
 <div id="exm-allunits" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.4 (An all-units discount)</strong></span> An item has <span class="math inline">\(\lambda = 8000\)</span> units per year, <span class="math inline">\(k = \$30\)</span> per order, and a carrying charge of <span class="math inline">\(i = 0.30\)</span> per year. The supplier prices it at $10 per unit for orders below 500 and $9 per unit for orders of 500 or more. This is the item drawn in <a href="#fig-allunits" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>, and we now work its four steps.</p>
-<p><strong>Step 1, the candidate quantities.</strong> With <span class="math inline">\(h_j = ic_j\)</span>,</p>
+<p><em>Step 1, the candidate quantities.</em> With <span class="math inline">\(h_j = ic_j\)</span>,</p>
 <p><span class="math display">\[
 Q_1^{*} = \sqrt{\frac{2(30)(8000)}{10(0.3)}} = \sqrt{160{,}000} = 400
 \qquad
 Q_2^{*} = \sqrt{\frac{2(30)(8000)}{9(0.3)}} = \sqrt{177{,}778} = 422
 \]</span></p>
-<p><strong>Step 2, feasibility.</strong> The quantity <span class="math inline">\(Q_1^{*} = 400\)</span> lies in <span class="math inline">\([0, 500)\)</span>, so it is feasible at the $10 price. However, <span class="math inline">\(Q_2^{*} = 422\)</span> does not lie in <span class="math inline">\([500,\infty)\)</span>, so 422 units cannot be bought at $9. That candidate is discarded.</p>
-<p><strong>Step 3, the break point.</strong> Since the $9 curve is still decreasing at 500, the best available quantity at that price is the break point itself. 500 joins the candidate list.</p>
-<p><strong>Step 4, evaluate.</strong></p>
+<p><em>Step 2, feasibility.</em> The quantity <span class="math inline">\(Q_1^{*} = 400\)</span> lies in <span class="math inline">\([0, 500)\)</span>, so it is feasible at the $10 price. However, <span class="math inline">\(Q_2^{*} = 422\)</span> does not lie in <span class="math inline">\([500,\infty)\)</span>, so 422 units cannot be bought at $9. That candidate is discarded.</p>
+<p><em>Step 3, the break point.</em> Since the $9 curve is still decreasing at 500, the best available quantity at that price is the break point itself. 500 joins the candidate list.</p>
+<p><em>Step 4, evaluate.</em></p>
 <p><span class="math display">\[
 \mathit{TC}(400) = 8000(10) + \frac{30(8000)}{400} + \frac{(0.3)(10)(400)}{2}
 = 80{,}000 + 600 + 600 = \$81{,}200
@@ -1142,7 +1150,7 @@ C(Q) = R_j + c_j\left(Q - q_j\right)
 <p><span id="eq-incremental-kj"><span class="math display">\[
 k_j = R_j - c_j q_j + k, \qquad h_j = ic_j
 \tag{3.27}\]</span></span></p>
-<p>This is the point of the manipulation. Notice that the <span class="math inline">\(Q\)</span>-dependent part of <a href="#eq-incremental-tc" class="quarto-xref">Equation&nbsp;<span>3.26</span></a> has exactly the form of <a href="#eq-eoq-tc" class="quarto-xref">Equation&nbsp;<span>3.16</span></a>, with an <strong>effective</strong> ordering cost <span class="math inline">\(k_j\)</span> in place of <span class="math inline">\(k\)</span>. Thus, the ordinary square root formula applies level by level:</p>
+<p>This is the point of the manipulation. Notice that the <span class="math inline">\(Q\)</span>-dependent part of <a href="#eq-incremental-tc" class="quarto-xref">Equation&nbsp;<span>3.26</span></a> has the form of <a href="#eq-eoq-tc" class="quarto-xref">Equation&nbsp;<span>3.16</span></a>, with an <strong>effective</strong> ordering cost <span class="math inline">\(k_j\)</span> in place of <span class="math inline">\(k\)</span>. Thus, the ordinary square root formula applies level by level:</p>
 <p><span id="eq-incremental-q"><span class="math display">\[
 Q_j^{*} = \sqrt{\frac{2k_j\lambda}{h_j}}
 \tag{3.28}\]</span></span></p>
@@ -1190,7 +1198,7 @@ R_1 = 0, \qquad
 R_2 = 3.00(500 - 0) = 1500, \qquad
 R_3 = 1500 + 2.97(1500-500) = 4470
 \]</span></p>
-<p><strong>The effective ordering costs.</strong> From <a href="#eq-incremental-kj" class="quarto-xref">Equation&nbsp;<span>3.27</span></a>,</p>
+<p>The effective ordering costs. From <a href="#eq-incremental-kj" class="quarto-xref">Equation&nbsp;<span>3.27</span></a>,</p>
 <p><span class="math display">\[
 k_1 = 0 - 3.00(0) + 50 = 50, \quad
 k_2 = 1500 - 2.97(500) + 50 = 65, \quad
@@ -1227,7 +1235,7 @@ Q_3^{*} = \sqrt{\frac{2(95)(3000)}{0.3(2.95)}} = 802.5
 <p><span class="math display">\[
 \mathit{TO} = \frac{\lambda}{\bar{I}}
 \]</span></p>
-<p><strong>Fraction of time out of stock.</strong> The system is short over <span class="math inline">\(T_4\)</span> and <span class="math inline">\(T_1\)</span>. Thus, from the stockout indicator of <a href="01-Chapter1.html#eq-stockout-indicator" class="quarto-xref">Equation&nbsp;<span>1.9</span></a>,</p>
+<p>Fraction of time out of stock. The system is short over <span class="math inline">\(T_4\)</span> and <span class="math inline">\(T_1\)</span>. Thus, from the stockout indicator of <a href="01-Chapter1.html#eq-stockout-indicator" class="quarto-xref">Equation&nbsp;<span>1.9</span></a>,</p>
 <p><span id="eq-cycle-so"><span class="math display">\[
 \overline{\mathit{SO}} = \frac{T_1 + T_4}{T}
 = \frac{\dfrac{\hat{B}}{p-\lambda} + \dfrac{\hat{B}}{\lambda}}{\dfrac{Q}{\lambda}}
@@ -1408,7 +1416,7 @@ T^{*} = \frac{154.92}{100} = 1.5492 \text{ months}
 \]</span></p>
 <p>The two cost components agree to five figures. That is the balance check of <a href="#sec-eoq-classic" class="quarto-xref"><span>Section 3.5.4</span></a>, performed by the sheet itself and not by the reader.</p>
 <p><strong>The evaluator.</strong> No one orders 154.92 units. Typing the <code>ROUNDUP</code> value 155 into the evaluator returns a relative cost error of <span class="math inline">\(1.4 \times 10^{-7}\)</span>, effectively nothing. Typing 150 or 160 returns <span class="math inline">\(0.052\%\)</span> in either case, about a penny a month on a relevant cost of $25.82. Typing 200 returns <span class="math inline">\(3.3\%\)</span>. The three sensitivity rows turn <a href="#eq-eoq-penalty" class="quarto-xref">Equation&nbsp;<span>3.22</span></a> into an experiment instead of an algebraic exercise.</p>
-<p><strong>Why the units column matters.</strong> Suppose the annual charge of 0.25 had been entered directly against a monthly demand rate. Then <span class="math inline">\(h\)</span> would have been twelve times too large, and <span class="math inline">\(Q^{*}\)</span> would have come out as 44.7 units, an error of a factor of <span class="math inline">\(\sqrt{12}\)</span>. Nothing in the arithmetic would have signaled it. The units label beside the cell is the only guard, so you should never omit it.</p>
+<p>Why the units column matters. Suppose the annual charge of 0.25 had been entered directly against a monthly demand rate. Then <span class="math inline">\(h\)</span> would have been twelve times too large, and <span class="math inline">\(Q^{*}\)</span> would have come out as 44.7 units, an error of a factor of <span class="math inline">\(\sqrt{12}\)</span>. Nothing in the arithmetic would have signaled it. The units label beside the cell is the only guard, so you should never omit it.</p>
 </div>
 </section>
 <section id="sec-eoq-ss-reorder" class="level3" data-number="3.10.2">
@@ -1566,7 +1574,7 @@ Figure&nbsp;3.8: The all-units worksheet. The schedule occupies columns E throug
 </figure>
 </div>
 <p>Notice one detail of the schedule table. The first lower limit is entered as 1 and not 0, because a zero would leave the <code>VLOOKUP</code> without a match and would make the <span class="math inline">\(\lambda/Q\)</span> terms infinite. The model of <a href="#sec-eoq-discounts" class="quarto-xref"><span>Section 3.8</span></a> sets <span class="math inline">\(q_1 = 0\)</span>. Nothing depends on the difference, because an order of size zero is never a candidate.</p>
-<p>The worksheet offers a second route to the same answer. You can name the total cost cell as an objective, the order quantity cell as the variable, and minimize with a solver. It is the less reliable route, for a reason the model has already established. <a href="#eq-allunits-tc" class="quarto-xref">Equation&nbsp;<span>3.23</span></a> is discontinuous, dropping to a lower curve at each break point, and that a gradient method assumes it is not. Started inside one interval, such a method finds that interval’s minimum and stops, exactly the third case of <a href="#tbl-allunits-cases" class="quarto-xref">Table&nbsp;<span>3.2</span></a>. Thus, the columns enumerate the candidates and cannot miss one, while a solver searches and can.</p>
+<p>The worksheet offers a second route to the same answer. You can name the total cost cell as an objective, the order quantity cell as the variable, and minimize with a solver. It is the less reliable route, for a reason the model has already established. <a href="#eq-allunits-tc" class="quarto-xref">Equation&nbsp;<span>3.23</span></a> is discontinuous, dropping to a lower curve at each break point, and that a gradient method assumes it is not. Started inside one interval, such a method finds that interval’s minimum and stops, the third case of <a href="#tbl-allunits-cases" class="quarto-xref">Table&nbsp;<span>3.2</span></a>. Thus, the columns enumerate the candidates and cannot miss one, while a solver searches and can.</p>
 <div id="exm-ss-allunits" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.10 (Reading the all-units worksheet)</strong></span> The worksheet has <span class="math inline">\(\lambda = 600\)</span> units per time, <span class="math inline">\(k = \$8\)</span> per order, and <span class="math inline">\(i = 0.20\)</span>, together with the three level schedule below. The computed columns of <a href="#fig-ws-allunits" class="quarto-xref">Figure&nbsp;<span>3.8</span></a> fill in as shown.</p>
 <table class="caption-top table">
@@ -1721,7 +1729,7 @@ H_3 = (0.29-0.28)(1000) + 5 = 15
 <div class="callout-body-container callout-body">
 <p>Either surviving candidate can be typed into the evaluator block, and both return a plausible number. That is, 400 returns $204.00 and 518.62 returns $204.58, because the block prices whatever quantity it is given.</p>
 <p>Because the incremental worksheet carries no candidate columns, a solver run against the total cost cell is the only automated route on it, and that route is unsafe here, for a reason you should understand. The incremental cost function is continuous, so it has none of the jumps that defeat a solver in the all-units case. However, it is kinked at every break point, and each interval carries its own minimum. Both 400 and 518.62 are local minima. A gradient method started near either one reports that one and stops, so only enumeration distinguishes them.</p>
-<p>The margin here is 58 cents per unit time against $204, i.e.&nbsp;about a quarter of a percent, exactly the sort of difference that survives unnoticed. The check that catches it costs nothing. Level 2 is not the only feasible level, so its candidate cannot be accepted without evaluating level 1 as well.</p>
+<p>The margin here is 58 cents per unit time against $204, i.e.&nbsp;about a quarter of a percent, the sort of difference that survives unnoticed. The check that catches it costs nothing. Level 2 is not the only feasible level, so its candidate cannot be accepted without evaluating level 1 as well.</p>
 </div>
 </div>
 </div>
@@ -1729,9 +1737,9 @@ H_3 = (0.29-0.28)(1000) + 5 = 15
 <section id="sec-eoq-ss-limits" class="level3" data-number="3.10.5">
 <h3 data-number="3.10.5" class="anchored" data-anchor-id="sec-eoq-ss-limits"><span class="header-section-number">3.10.5</span> What the Worksheets Do Not Do</h3>
 <p>Three limits need stating plainly, because each of them is a place where a correct spreadsheet still gives a wrong answer.</p>
-<p><strong>They evaluate, they do not choose.</strong> Every worksheet prices an entered quantity faithfully. Only the all-units sheet enumerates alternatives, and only because someone laid the enumeration out in columns. A solver can be pointed at any of them. However, the two discount models are precisely where a solver is least trustworthy, the case <a href="#exm-ss-incremental" class="quarto-xref">Example&nbsp;<span>3.11</span></a> makes.</p>
-<p><strong>They do not know their own assumptions.</strong> The production worksheet guards <span class="math inline">\(p &gt; \lambda\)</span> and nothing else. Nothing checks that demand is actually constant, that the lead time is actually known, or that backorders are actually permitted. Recall that those judgments belong to <a href="01-Chapter1.html#sec-classifying-uncertainty" class="quarto-xref"><span>Section 1.2.2</span></a>, and you make them before the workbook is opened.</p>
-<p><strong>They round after the fact.</strong> The <code>ROUNDUP</code> column reports the integer that would be ordered, but the cost figures are computed at the unrounded quantity. For the classic EOQ item that gap is <span class="math inline">\(1.4 \times 10^{-7}\)</span> of the relevant cost and can be ignored. For an item ordered in cases of 48, as in <a href="#exr-ch3-5" class="quarto-xref">Exercise&nbsp;<span>3.5</span></a>, it cannot. Thus, the evaluator block exists precisely so that the rounded quantity can be entered and priced.</p>
+<p>They evaluate, they do not choose. Every worksheet prices an entered quantity faithfully. Only the all-units sheet enumerates alternatives, and only because someone laid the enumeration out in columns. A solver can be pointed at any of them. However, the two discount models are precisely where a solver is least trustworthy, the case <a href="#exm-ss-incremental" class="quarto-xref">Example&nbsp;<span>3.11</span></a> makes.</p>
+<p>They do not know their own assumptions. The production worksheet guards <span class="math inline">\(p &gt; \lambda\)</span> and nothing else. Nothing checks that demand is actually constant, that the lead time is actually known, or that backorders are actually permitted. Recall that those judgments belong to <a href="01-Chapter1.html#sec-classifying-uncertainty" class="quarto-xref"><span>Section 1.2.2</span></a>, and you make them before the workbook is opened.</p>
+<p>They round after the fact. The <code>ROUNDUP</code> column reports the integer that would be ordered, but the cost figures are computed at the unrounded quantity. For the classic EOQ item that gap is <span class="math inline">\(1.4 \times 10^{-7}\)</span> of the relevant cost and can be ignored. For an item ordered in cases of 48, as in <a href="#exr-ch3-5" class="quarto-xref">Exercise&nbsp;<span>3.5</span></a>, it cannot. Thus, the evaluator block exists precisely so that the rounded quantity can be entered and priced.</p>
 </section>
 </section>
 <section id="sec-eoq-design" class="level2" data-number="3.11">
@@ -1935,9 +1943,9 @@ Table&nbsp;3.7: What each part of a worksheet is called in code.
 <h3 data-number="3.12.1" class="anchored" data-anchor-id="sec-eoq-code-blocks"><span class="header-section-number">3.12.1</span> The Four Blocks as Objects</h3>
 <p>The four-block layout of <a href="#sec-eoq-ss-layout" class="quarto-xref"><span>Section 3.10.1</span></a> survives the translation, with each block becoming something the language already has.</p>
 <p><strong>Inputs become an object.</strong> <code>CostParameters</code> holds what the Inputs block holds, and it takes the time unit as an argument instead of as a label in an adjacent cell. Notice the difference that makes. The worksheet’s units column is a discipline the reader has to follow, while here it is a constructor argument. Thus, an annual carrying charge cannot be dropped silently beside a monthly demand rate.</p>
-<p><strong>Intermediate calculations become derived properties.</strong> They are computed on demand from the inputs and cannot go stale, the behavior a spreadsheet formula already has.</p>
-<p><strong>The two output blocks become two operations.</strong> <code>evaluate</code> prices a quantity that is handed to it, and <code>optimize</code> finds the best one. That is exactly the split <a href="#sec-eoq-ss-layout" class="quarto-xref"><span>Section 3.10.1</span></a> describes, and it is why the sensitivity rows have something to join.</p>
-<p><strong>The joining rows become a method.</strong> <code>penaltyAgainst</code> compares two results and returns the ratio, the difference, and the relative error of <a href="#eq-eoq-penalty" class="quarto-xref">Equation&nbsp;<span>3.22</span></a>.</p>
+<p>Intermediate calculations become derived properties. They are computed on demand from the inputs and cannot go stale, the behavior a spreadsheet formula already has.</p>
+<p>The two output blocks become two operations. <code>evaluate</code> prices a quantity that is handed to it, and <code>optimize</code> finds the best one. That is the split <a href="#sec-eoq-ss-layout" class="quarto-xref"><span>Section 3.10.1</span></a> describes, and it is why the sensitivity rows have something to join.</p>
+<p>The joining rows become a method. <code>penaltyAgainst</code> compares two results and returns the ratio, the difference, and the relative error of <a href="#eq-eoq-penalty" class="quarto-xref">Equation&nbsp;<span>3.22</span></a>.</p>
 <div id="exm-code-eoq" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.12 (The classic EOQ sheet in code)</strong></span> Recall the item of <a href="#exm-ss-eoq" class="quarto-xref">Example&nbsp;<span>3.7</span></a>, with <span class="math inline">\(\lambda = 100\)</span> units per month, <span class="math inline">\(c = \$8\)</span> per unit, an annual carrying charge of 25% entered as a monthly rate, <span class="math inline">\(k = \$20\)</span> per order, and <span class="math inline">\(L = 0.25\)</span> month. We build it once and ask it for the optimum.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">sheet</span> <span class="op">=</span> CostParameters<span class="op">(</span></span>
@@ -1963,7 +1971,7 @@ Table&nbsp;3.7: What each part of a worksheet is called in code.
   Purchase cost         800.00 per month
   Total cost            825.82 per month</code></pre>
 <p>Every figure is the sheet’s. Notice that the rounded companions in parentheses are the <code>ROUNDUP</code> column of <a href="#fig-ws-eoq" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>, and that the ordering and holding costs again agree at $12.91, the balance check of <a href="#sec-eoq-classic" class="quarto-xref"><span>Section 3.5.4</span></a>.</p>
-<p><strong>The evaluator, and the three rows below it.</strong> Handing a quantity to <code>evaluate</code> and comparing it against the optimum reproduces the sheet’s ratio, difference, and relative error:</p>
+<p>The evaluator, and the three rows below it. Handing a quantity to <code>evaluate</code> and comparing it against the optimum reproduces the sheet’s ratio, difference, and relative error:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">chosen</span> <span class="op">=</span> EconomicOrderQuantity<span class="op">.</span>evaluate<span class="op">(</span>sheet<span class="op">,</span> orderQuantity <span class="op">=</span> <span class="fl">155.0</span><span class="op">)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>chosen<span class="op">.</span>penaltyAgainst<span class="op">(</span>best<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-code-penalty" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -2151,7 +2159,7 @@ Table&nbsp;3.10: The candidate list the result carries, the worksheet’s comput
 </div>
 </figure>
 </div>
-<p><strong>Order 500 at $198.10.</strong> Notice that the candidates are ranked on the <em>total</em> cost and not on the relevant cost of <a href="01-Chapter1.html#eq-relevant-cost" class="quarto-xref">Equation&nbsp;<span>1.16</span></a>. Recall that <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a> sets the purchase term aside because it is identical under every policy. <a href="#sec-eoq-discounts" class="quarto-xref"><span>Section 3.8</span></a> is where that premise stops holding, because once the price depends on the quantity the purchase term is exactly what the decision moves. For example, ranking these three candidates on ordering and holding alone chooses 400, wrong by $5.90 a year.</p>
+<p><strong>Order 500 at $198.10.</strong> Notice that the candidates are ranked on the <em>total</em> cost and not on the relevant cost of <a href="01-Chapter1.html#eq-relevant-cost" class="quarto-xref">Equation&nbsp;<span>1.16</span></a>. Recall that <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a> sets the purchase term aside because it is identical under every policy. <a href="#sec-eoq-discounts" class="quarto-xref"><span>Section 3.8</span></a> is where that premise stops holding, because once the price depends on the quantity the purchase term is what the decision moves. For example, ranking these three candidates on ordering and holding alone chooses 400, wrong by $5.90 a year.</p>
 </div>
 <div id="exm-code-incremental" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.16 (The incremental sheet in code)</strong></span> We keep the same inputs under an incremental schedule. The worksheet’s recursive <code>Fixed Cost</code> column is the schedule’s own calculation:</p>
@@ -2205,12 +2213,12 @@ Table&nbsp;3.11: Two candidates fall inside their own intervals, and the smaller
 <h3 data-number="3.12.5" class="anchored" data-anchor-id="sec-eoq-code-limits"><span class="header-section-number">3.12.5</span> Doing the Three Things a Worksheet Does Not</h3>
 <p><a href="#sec-eoq-ss-limits" class="quarto-xref"><span>Section 3.10.5</span></a> ends with three things the worksheets do not do. They are the three things the code is for, and we take them in the same order.</p>
 <p><strong>It chooses.</strong> A worksheet evaluates the quantity it is given. <code>optimize</code> instead returns the best one and carries the candidates it rejected, so the answer arrives with its reasoning attached. <a href="#exm-code-incremental" class="quarto-xref">Example&nbsp;<span>3.16</span></a> is the case where that matters.</p>
-<p><strong>It refuses what it cannot model.</strong> A worksheet computes whatever is typed into it. Here the assumptions of <a href="#sec-eoq-assumptions" class="quarto-xref"><span>Section 3.1.1</span></a> are checked where the value is made, and the message says what to do instead:</p>
+<p>It refuses what it cannot model. A worksheet computes whatever is typed into it. Here the assumptions of <a href="#sec-eoq-assumptions" class="quarto-xref"><span>Section 3.1.1</span></a> are checked where the value is made, and the message says what to do instead:</p>
 <pre><code>A backorder cost of zero makes shortages free rather than forbidden.
 Use ShortagePolicy.NotPermitted, which is the limit as the cost grows
 without bound. See @sec-eoq-nobackorders.</code></pre>
-<p>That is the callout of <a href="#sec-eoq-nobackorders" class="quarto-xref"><span>Section 3.5.2</span></a> enforced, not printed. A model asked to work outside its assumptions says so too, and it distinguishes two cases. Applying the order quantity to an item with a finite production rate is a deliberate approximation and is allowed, with the discarded assumption recorded on the result. However, asking the planned backorder model for a policy when shortages are forbidden is refused outright.</p>
-<p><strong>It rounds as part of the decision.</strong> <a href="#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> observes that no warehouse orders 40.37 of anything, and <a href="#exr-ch3-5" class="quarto-xref">Exercise&nbsp;<span>3.5</span></a> asks what a case quantity costs. Here rounding is an argument to <code>optimize</code>, which evaluates both admissible neighbors instead of rounding the answer afterwards:</p>
+<p>That is the callout of <a href="#sec-eoq-nobackorders" class="quarto-xref"><span>Section 3.5.2</span></a> enforced rather than printed. A model asked to work outside its assumptions says so too, and it distinguishes two cases. Applying the order quantity to an item with a finite production rate is a deliberate approximation and is allowed, with the discarded assumption recorded on the result. However, asking the planned backorder model for a policy when shortages are forbidden is refused outright.</p>
+<p>It rounds as part of the decision. <a href="#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> observes that no warehouse orders 40.37 of anything, and <a href="#exr-ch3-5" class="quarto-xref">Exercise&nbsp;<span>3.5</span></a> asks what a case quantity costs. Here rounding is an argument to <code>optimize</code>, which evaluates both admissible neighbors instead of rounding the answer afterwards:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>EconomicOrderQuantity<span class="op">.</span>optimize<span class="op">(</span>item<span class="op">,</span> QuantityRounding<span class="op">.</span>multipleOf<span class="op">(</span><span class="fl">48.0</span><span class="op">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-code-cases" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -2253,7 +2261,7 @@ Table&nbsp;3.12: For the item of <a href="#exr-ch3-2" class="quarto-xref">Exerci
 <p><strong>Forbidding a shortage is a limit, not a price of zero.</strong> A zero backorder cost makes shortages free, not forbidden, and it sends the order quantity to infinity. The no-shortage models are instead the limit as <span class="math inline">\(b\)</span> grows without bound. That is the distinction <a href="#sec-eoq-nobackorders" class="quarto-xref"><span>Section 3.5.2</span></a> is careful about, and it is the one that most often goes wrong.</p>
 <p><strong>Cost balances at the optimum, and the total is flat around it.</strong> Ordering and holding cost are equal at <span class="math inline">\(Q^{*}\)</span>, the fastest arithmetic check available. The penalty for departing from the optimum depends only on the ratio <span class="math inline">\(Q/Q^{*}\)</span> and on nothing else about the item. Thus, being wrong by a fifth costs almost nothing and being wrong by half costs 25%. That tolerance is the reason it is reasonable to order in case quantities and to fit a delivery schedule, and it is what <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> exploits when it forces items to share a cycle.</p>
 <p><strong>Timing is a separate decision from quantity, and it reads the position.</strong> The reorder point covers only the demand not already covered by orders outstanding. It is therefore not monotone in the lead time, and <a href="#eq-reorder-general" class="quarto-xref">Equation&nbsp;<span>3.21</span></a> is written in terms of inventory position and not stock on hand.</p>
-<p><strong>A price schedule changes the problem in kind.</strong> While the unit cost is constant the purchase term is inert and can be set aside. Once the supplier prices in tiers it is exactly what the decision moves. Thus, the cost rate is no longer smooth, and the answer is selected from a candidate list instead of obtained by differentiating. <a href="#sec-eoq-allunits" class="quarto-xref"><span>Section 3.8.1</span></a> and <a href="#sec-eoq-incremental" class="quarto-xref"><span>Section 3.8.2</span></a> differ in whether the break points are themselves candidates, and that difference follows from whether the cost function jumps.</p>
+<p><strong>A price schedule changes the problem in kind.</strong> While the unit cost is constant the purchase term is inert and can be set aside. Once the supplier prices in tiers it is what the decision moves. Thus, the cost rate is no longer smooth, and the answer is selected from a candidate list instead of obtained by differentiating. <a href="#sec-eoq-allunits" class="quarto-xref"><span>Section 3.8.1</span></a> and <a href="#sec-eoq-incremental" class="quarto-xref"><span>Section 3.8.2</span></a> differ in whether the break points are themselves candidates, and that difference follows from whether the cost function jumps.</p>
 <p>Everything in this chapter rests on demand being known and constant. In the next chapter we keep that assumption and remove a different one, that items can be decided independently, the subject of <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a>. <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> then keeps independence and lets demand vary over time. From <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> onward demand stops being known at all, and the quantities this chapter computed exactly become quantities that must be estimated.</p>
 </section>
 <section id="sec-eoq-exercises" class="level2" data-number="3.14">
