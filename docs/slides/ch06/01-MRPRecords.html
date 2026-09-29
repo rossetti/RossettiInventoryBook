@@ -4347,7 +4347,7 @@ I_t = I_{t-1} + \mathit{SR}_t + \mathit{POR}_t - G_t
 </section>
 <section id="the-maximum-is-the-whole-idea" class="slide level2">
 <h2>The Maximum Is the Whole Idea</h2>
-<p>A reader meeting the record for the first time usually <strong>leaves the <span class="math inline">\(\max\)</span> out</strong>. Let us see what happens.</p>
+<p>A reader meeting the record for the first time usually <strong>leaves out the net requirement row</strong>, and the <span class="math inline">\(\max\)</span> with it. Let us see what happens.</p>
 <div class="fragment">
 <p>Carry the balance forward with <span class="math inline">\(\mathit{POR}_t = 0\)</span> throughout:</p>
 <table class="caption-top">
@@ -4405,7 +4405,7 @@ I_t = I_{t-1} + \mathit{SR}_t + \mathit{POR}_t - G_t
 </div>
 <div class="callout-content">
 <p>Netting turns each of those shortages into an <strong>order</strong>.</p>
-<p>The <span class="math inline">\(\max\)</span> is what stops the shortage <strong>propagating into the next period</strong> instead of being planned for.</p>
+<p>The <span class="math inline">\(\max\)</span> has a narrower job: it stops a <strong>surplus</strong> being treated as a requirement.</p>
 </div>
 </div>
 </div>
@@ -4414,9 +4414,31 @@ I_t = I_{t-1} + \mathit{SR}_t + \mathit{POR}_t - G_t
 <p>With nothing on hand and nothing on order, <span class="math inline">\(\mathit{NR}_t = G_t\)</span> in every period, lot-for-lot sets <span class="math inline">\(\mathit{POR}_t = \mathit{NR}_t\)</span>, and <span class="math inline">\(I_t\)</span> stays at zero throughout.</p>
 </div>
 </section>
+<section id="what-the-max-itself-does" class="slide level2">
+<h2>What the <span class="math inline">\(\max\)</span> Itself Does</h2>
+<p>Suppose the deck assembly starts with <strong>60</strong> on hand.</p>
+<div class="fragment">
+<p>Period 6 needs 40. Inside the <span class="math inline">\(\max\)</span>: <span class="math inline">\(40 - 60 = -20\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Without the <span class="math inline">\(\max\)</span>, lot-for-lot plans a receipt of <strong><span class="math inline">\(-20\)</span></strong>: it cancels stock that period 7 is going to use.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>With it, the net requirement is <strong>0</strong>, the 20 units stay in projected on hand, and period 7’s net requirement falls from 60 to <strong>40</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="two-modifications-no-new-machinery" class="slide level2">
 <h2>Two Modifications, No New Machinery</h2>
-<p><strong>Safety stock</strong> is the <span class="math inline">\(\mathit{SS}\)</span> term. It raises every net requirement by the same amount, which holds <span class="math inline">\(\mathit{SS}\)</span> units permanently and plans around what is left.</p>
+<p><strong>Safety stock</strong> is the <span class="math inline">\(\mathit{SS}\)</span> term. It enters every period’s netting, but in effect it raises only the <strong>first</strong> net requirement by <span class="math inline">\(\mathit{SS}\)</span>; after that the plan holds <span class="math inline">\(\mathit{SS}\)</span> units permanently and plans around what is left.</p>
 <div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
