@@ -1128,7 +1128,10 @@ E[Y] = 2.0, \qquad E[Y^{2}] = 5.2
 <h2>What Lumpiness Changes</h2>
 <p>The variance-to-mean ratio <strong>rises</strong>, so the family changes.</p>
 <div class="fragment">
-<p>The fill rate and the ready rate <strong>come apart</strong>: PASTA no longer makes them equal, because a lot of four can be partly filled.</p>
+<p>The fill rate and the ready rate <strong>come apart</strong>. Lots still arrive as a Poisson process, so the ready rate is the share of <strong>lots</strong> that find stock; a lot of four can be partly filled, so the share of <strong>units</strong> filled is lower.</p>
+</div>
+<div class="fragment">
+<p>For the cutout at <span class="math inline">\((25, 75)\)</span>: ready rate 0.9060, unit fill rate 0.8978.</p>
 </div>
 <div class="fragment">
 <div class="callout callout-important callout-style-simple">
@@ -1137,8 +1140,8 @@ E[Y] = 2.0, \qquad E[Y^{2}] = 5.2
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>It does <strong>not</strong> change a single formula in the exact evaluation, because those formulas never asked how the demand arrived.</p>
-<p>They only ever asked for the distribution of <span class="math inline">\(D(L)\)</span>.</p>
+<p>It does <strong>not</strong> change the formulas for <span class="math inline">\(\bar{B}\)</span>, <span class="math inline">\(\bar{I}\)</span> or the ready rate, because those never asked how the demand arrived.</p>
+<p>They only ever asked for the distribution of <span class="math inline">\(D(L)\)</span>. The fill rate is the one measure that also needs the lot size.</p>
 </div>
 </div>
 </div>

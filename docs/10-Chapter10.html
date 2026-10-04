@@ -2260,9 +2260,10 @@ P(W \le w) = \sum_k p_k\, P(W \le w \mid L_0 = \ell_k) .
 <h3 data-number="10.12.1" class="anchored" data-anchor-id="sec-batchedmultiechelon-algorithm-cost"><span class="header-section-number">10.12.1</span> What Each Location Minimizes</h3>
 <p>Each location minimizes chapter 8’s cost, <span id="eq-location-cost"><span class="math display">\[
 C_i(r_i, Q_i) = \frac{k_i \lambda_i}{Q_i} + h\,\bar{I}_i(r_i, Q_i) + b_i\,\bar{B}_i(r_i, Q_i),
-\tag{10.14}\]</span></span> with the storeroom’s <span class="math inline">\(b_j\)</span> the shortage cost of its crews. <strong>The hub has no shortage cost of its own</strong>, as <a href="#sec-batchedmultiechelon-setting" class="quarto-xref"><span>Section 10.2</span></a> said, yet <a href="#eq-location-cost" class="quarto-xref">Equation&nbsp;<span>10.14</span></a> needs one. Recall from <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> that a service constraint and a penalty are the same thing seen from two sides. Thus the hub’s <span class="math inline">\(b_0\)</span> is set from a fill rate target <span class="math inline">\(\gamma_0\)</span> for the hub, through the critical ratio of <a href="08-Chapter8.html#eq-basestock-optimal" class="quarto-xref">Equation&nbsp;<span>8.15</span></a>: <span id="eq-hub-backorder-cost"><span class="math display">\[
+\tag{10.14}\]</span></span> with the storeroom’s <span class="math inline">\(b_j\)</span> the shortage cost of its crews. <strong>The hub has no shortage cost of its own</strong>, as <a href="#sec-batchedmultiechelon-setting" class="quarto-xref"><span>Section 10.2</span></a> said, yet <a href="#eq-location-cost" class="quarto-xref">Equation&nbsp;<span>10.14</span></a> needs one. Recall from <a href="04-Chapter4.html" class="quarto-xref"><span>Chapter 4</span></a> that a service constraint and a penalty are the same thing seen from two sides. Thus the hub’s <span class="math inline">\(b_0\)</span> is set from a <strong>ready rate target</strong> <span class="math inline">\(\gamma_0\)</span> for the hub, by <a href="08-Chapter8.html#eq-implied-backorder" class="quarto-xref">Equation&nbsp;<span>8.33</span></a>, which is the critical ratio of <a href="08-Chapter8.html#eq-basestock-optimal" class="quarto-xref">Equation&nbsp;<span>8.15</span></a> read backward: <span id="eq-hub-backorder-cost"><span class="math display">\[
 \frac{b_0}{b_0 + h} = \gamma_0 \quad\Longleftrightarrow\quad b_0 = \frac{\gamma_0\, h}{1 - \gamma_0} .
 \tag{10.15}\]</span></span> This chapter uses <span class="math inline">\(\gamma_0 = 0.8\)</span>, so <span class="math inline">\(b_0 = 4h = \$2.2115\)</span> per unit per week. It is a stated input, and <a href="#sec-batchedmultiechelon-validate" class="quarto-xref"><span>Section 10.13</span></a> prices it.</p>
+<p>Notice what the target is and what it is not. It is the ready rate a base-stock hub facing single-unit Poisson demand would run at with this <span class="math inline">\(b_0\)</span>. That is, it is a device for pricing <span class="math inline">\(b_0\)</span>, not a service level the hub is held to: the ready rate the hub actually reaches is whatever its <span class="math inline">\((r_0, Q_0)\)</span> delivers. Nor is it a fill rate. The hub’s customers include storeroom orders of <span class="math inline">\(Q_j\)</span> units, and recall from <a href="08-Chapter8.html#sec-continuousreview-lumpy-fillrate" class="quarto-xref"><span>Section 8.11.4</span></a> that demand arriving in lots is filled at a lower rate than the ready rate.</p>
 </section>
 <section id="sec-batchedmultiechelon-algorithm-steps" class="level3" data-number="10.12.2">
 <h3 data-number="10.12.2" class="anchored" data-anchor-id="sec-batchedmultiechelon-algorithm-steps"><span class="header-section-number">10.12.2</span> The Iteration</h3>
@@ -2762,7 +2763,7 @@ Table&nbsp;10.6: The chapter’s notation.
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\gamma_0\)</span>, <span class="math inline">\(b_0\)</span></td>
-<td>the hub’s fill rate target and the backorder cost it implies</td>
+<td>the hub’s ready rate target and the backorder cost it implies</td>
 </tr>
 </tbody>
 </table>
@@ -2915,7 +2916,7 @@ C = \frac{1}{Q_w Q_j}\sum_{i=R_w+1}^{R_w+Q_w}\ \sum_{k=r_j+1}^{r_j+Q_j} C(iQ_j, 
 </ol>
 </div>
 <div id="exr-ch10-two-routes" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 10.10</strong></span> Take the hub and storeroom of <a href="#exr-ch10-shortcut" class="quarto-xref">Exercise&nbsp;<span>10.8</span></a>, but let the other demand be four units a week. Both locations pay $82.50 an order, the storeroom’s customers are owed at $287.50 a year per unit, and the hub’s backorder cost is set from a fill rate target of 0.8. Let both batches be chosen.</p>
+<p><span class="theorem-title"><strong>Exercise 10.10</strong></span> Take the hub and storeroom of <a href="#exr-ch10-shortcut" class="quarto-xref">Exercise&nbsp;<span>10.8</span></a>, but let the other demand be four units a week. Both locations pay $82.50 an order, the storeroom’s customers are owed at $287.50 a year per unit, and the hub’s backorder cost is set from a ready rate target of 0.8 by <a href="#eq-hub-backorder-cost" class="quarto-xref">Equation&nbsp;<span>10.15</span></a>. Let both batches be chosen.</p>
 <ol type="a">
 <li>Run the two-level iteration by the moment route and by the exact route. Give each fixed point and the number of passes.</li>
 <li>Price both fixed points with <code>TwoLevelIteration.exactSystemCost</code>, charging the hub’s other customers $287.50 a year per unit owed. Which route’s answer is cheaper, and by how much?</li>

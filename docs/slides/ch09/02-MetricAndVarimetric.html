@@ -1574,17 +1574,38 @@ r = \frac{\mu_j}{\beta}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>So: <strong>test it before fitting</strong>, and fall back to a Poisson when the test fails. Do not assume what the literature declines to.</p>
+<p>So: <strong>test it before fitting</strong>. A Poisson at a ratio of one, a gamma below it. Do not assume what the literature declines to.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="in-practice-a-band" class="slide level2 smaller">
-<h2>In Practice, a Band</h2>
-<p>The fit divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean.</p>
+<section id="near-one-is-not-one" class="slide level2 smaller">
+<h2>Near One Is Not One</h2>
+<p>The fit divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean. The original code therefore used a Poisson for any ratio between 0.9 and 1.1.</p>
 <div class="fragment">
-<p>A ratio of 1.001 gives a number of successes in the <strong>thousands</strong> and a negative binomial that is a Poisson in everything but arithmetic.</p>
+<p>At <span class="math inline">\(S_0 = 24\)</span> the ratio is only 1.0641, and at <span class="math inline">\(S_j = 4\)</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Poisson (METRIC)</th>
+<th style="text-align: right;">Negative binomial</th>
+<th style="text-align: right;">Simulated, 30 <span class="math inline">\(\times\)</span> 1,000 years</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0964</td>
+<td style="text-align: right;">0.1095</td>
+<td style="text-align: right;">0.1101 <span class="math inline">\(\pm\)</span> 0.0007</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-style-simple">
@@ -1593,8 +1614,8 @@ r = \frac{\mu_j}{\beta}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>So the software fits a negative binomial only when <span class="math inline">\(\sigma_j^{2}/\mu_j &gt; 1.1\)</span>, takes a Poisson inside the band, and a gamma below it.</p>
-<p>A storeroom can be Poisson at two quite different depot levels: one so generous it never delays anybody, one so bare that its delay swamps everything else.</p>
+<p>So the software fits a negative binomial <strong>whenever</strong> <span class="math inline">\(\sigma_j^{2}/\mu_j &gt; 1\)</span>, a Poisson only at one, and a gamma below it.</p>
+<p>A band also makes backorders <strong>jump</strong> at its edge, and an allocation search buys to the jump.</p>
 </div>
 </div>
 </div>

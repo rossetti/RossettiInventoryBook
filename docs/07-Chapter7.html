@@ -832,7 +832,7 @@ Table&nbsp;7.3: Expected profit at each candidate quantity, computed from <a hre
 2,67
 3,31</code></pre>
 <p>Read them the way <a href="14-AppDistributions.html#sec-appdistributions-4" class="quarto-xref"><span>Section C.4</span></a> assumes they arrive, as a file whose contents you did not choose:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> DataFrame<span class="op">.</span>readCSV<span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> DataFrame<span class="op">.</span>readCsv<span class="op">(</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    File<span class="op">(</span><span class="st">"data/ch7-weekly-demand.csv"</span><span class="op">),</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    colTypes <span class="op">=</span> mapOf<span class="op">(</span><span class="st">"week"</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">,</span> <span class="st">"demand"</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">)</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>

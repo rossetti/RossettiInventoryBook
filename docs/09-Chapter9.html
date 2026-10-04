@@ -1940,8 +1940,9 @@ r = \frac{\mu_j}{\beta}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>In practice the test is not <span class="math inline">\(\sigma_j^2 &gt; \mu_j\)</span> but a band around one.</strong> <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a> divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean, so a ratio of 1.001 produces a number of successes in the thousands and a negative binomial that is a Poisson in everything but arithmetic. The software of <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a> therefore fits the negative binomial only when <span class="math inline">\(\sigma_j^2/\mu_j &gt; 1.1\)</span>, takes a Poisson inside the band, and takes a gamma below it. Notice that the last branch exists because nothing rules out an under-dispersed pipeline, as the warning below records.</p>
-<p>Thus a storeroom can be described by a Poisson at two quite different points: a depot so generous that it never delays anybody, and a depot so bare that its delay swamps everything else. The negative binomial earns its place in between.</p>
+<p><strong>A ratio near one is still fitted with a negative binomial.</strong> <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a> divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean, so a ratio of 1.001 produces a number of successes in the thousands. The VARI-METRIC code that the software of <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a> was ported from therefore used a Poisson for any ratio between 0.9 and 1.1, on the grounds that the negative binomial is a Poisson in everything but arithmetic there. That holds at 1.001. It fails well before 1.1.</p>
+<p>The ratio comes close to one at two quite different points: a depot so generous that it never delays anybody, and a depot so bare that its delay swamps everything else. For example, take <a href="#exm-delay-transformer" class="quarto-xref">Example&nbsp;<span>9.3</span></a> at <span class="math inline">\(S_0 = 24\)</span>, where the ratio is 1.0641. A Poisson gives <span class="math inline">\(\bar{B}_j = 0.0964\)</span> at <span class="math inline">\(S_j = 4\)</span>, which is METRIC’s figure in <a href="#tbl-delay-transformer" class="quarto-xref">Table&nbsp;<span>9.3</span></a>, and the negative binomial gives 0.1095, fourteen percent more. A discrete-event simulation of the system, 30 replications of 1,000 years, gives <span class="math inline">\(0.1101 \pm 0.0007\)</span>. Thus a variance only six percent above the mean still matters, because a storeroom’s stock level sits out in the tail, where the two distributions differ most.</p>
+<p>A band does a second kind of damage. Backorders jump where the ratio crosses its edge, and the allocation search of <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> finds the jump and buys to it. The software therefore fits the negative binomial whenever the ratio exceeds one, uses a Poisson only when the ratio is one to within rounding, and fits a gamma below one, a case that, as the warning below records, nobody has ruled out. Near one the negative binomial already agrees with the Poisson, so nothing is lost by fitting it there.</p>
 </div>
 </div>
 </div>
@@ -1952,7 +1953,7 @@ r = \frac{\mu_j}{\beta}
 </div>
 <div class="callout-body-container">
 <p><strong>One step here rests on evidence rather than proof, and the authors say so.</strong> The fit needs <span class="math inline">\(\sigma_j^2 &gt; \mu_j\)</span>, or <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a> returns nonsense. <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> reports that “extensive calculations by us (and Graves) indicate that if <span class="math inline">\(x\)</span>, the number of units in resupply/repair, is Poisson, then the function <span class="math inline">\(\mathit{Var}[B(s)]/E[B(s)]\)</span> is unimodal and greater than one, except for <span class="math inline">\(s = 0\)</span>”, and then states plainly: “neither Graves or we have been able to supply a proof.”</p>
-<p>Thus the method is known to work and is not known to be safe. In practice you should test the ratio before fitting rather than assume it: inside the band the Poisson of <a href="#sec-multiechelon-metric" class="quarto-xref"><span>Section 9.7</span></a> is the fit, and below the band, which the authors’ own statement says happens at <span class="math inline">\(s = 0\)</span>, a gamma carries the two moments.</p>
+<p>Thus the method is known to work and is not known to be safe. In practice you should test the ratio before fitting rather than assume it: at one, which the authors’ own statement says happens at <span class="math inline">\(s = 0\)</span>, the Poisson of <a href="#sec-multiechelon-metric" class="quarto-xref"><span>Section 9.7</span></a> is the fit, and below one a gamma carries the two moments.</p>
 </div>
 </div>
 </div>
@@ -1986,10 +1987,10 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
         sigma2_j &lt;- base + f_j*(1 - f_j)*Bbar_0 + f_j^2*VarB_0
 
         c &lt;- sigma2_j / mu_j
-        if c &gt;= 1.1:
+        if c &gt; 1:
             fit negative binomial to (mu_j, sigma2_j)
-        else if c &gt; 0.9:
-            use Poisson with mean mu_j             // the band around one
+        else if c = 1:
+            use Poisson with mean mu_j             // to within rounding
         else:
             fit gamma to (mu_j, sigma2_j)          // under-dispersed
         Bbar_j &lt;- G1(S_j), on that distribution
@@ -2078,7 +2079,7 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 <div id="tbl-allocation-transformer" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-allocation-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.4: The best two-echelon split of a given number of transformers, computed with <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>. The two bold reductions are larger than the reduction above them, so the totals <strong>above</strong> them, 13 and 20, are the ones lying off the convex curve.
+Table&nbsp;9.4: The best two-echelon split of a given number of transformers, computed with <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>. The two bold reductions are larger than the reduction above them, so the totals <strong>above</strong> them, 12 and 20, are the ones lying off the convex curve.
 </figcaption>
 <div aria-describedby="tbl-allocation-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2115,24 +2116,24 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 </tr>
 <tr class="odd">
 <td style="text-align: right;">12</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">16.6266</td>
-<td style="text-align: right;">0.9888</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16.6303</td>
+<td style="text-align: right;">0.9850</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">9</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">15.6433</td>
-<td style="text-align: right;">0.9833</td>
+<td style="text-align: right;"><strong>0.9870</strong></td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">14</td>
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">14.6587</td>
-<td style="text-align: right;"><strong>0.9846</strong></td>
+<td style="text-align: right;">0.9846</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">15</td>
@@ -2188,9 +2189,9 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 </div>
 </figure>
 </div>
-<p>Read the Reduction column looking for an increase. The thirteenth transformer removes 0.9833 backorders and the fourteenth removes 0.9846, which is more. The same thing happens at the twentieth and twenty-first. A procedure that buys by comparing one-step improvements will undervalue this item at exactly those two points, and will spend money on something else instead.</p>
-<p>Precision about which point is the bad one matters, because it is easy to name the wrong row. The reduction rising at total 14 means that total <strong>13</strong> lies above the straight line joining 12 and 14, so 13 is the plan that is never worth buying. Check it: <span class="math inline">\((16.6266 + 14.6587)/2 = 15.6427\)</span>, which is below the 15.6433 the table reports at 13.</p>
-<p>The fix is to refuse to stop there. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span>: the non-convex points “are easily dealt with by excluding them as potential solutions”, and “by dropping the interior points, the marginal analysis will jump to the next convex point at the correct time, buying at least two more units of stock of the item because of the eliminated interior point or points.” Applied to <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, totals of 13 and 20 are struck out, so the procedure moves from 12 units straight to 14 and from 19 straight to 21, buying two at a time and quoting the average of the two reductions as its delta value. This step is called <strong>convexification</strong>.</p>
+<p>Read the Reduction column looking for an increase. The twelfth transformer removes 0.9850 backorders and the thirteenth removes 0.9870, which is more. The same thing happens at the twentieth and twenty-first. A procedure that buys by comparing one-step improvements will undervalue this item at exactly those two points, and will spend money on something else instead.</p>
+<p>Precision about which point is the bad one matters, because it is easy to name the wrong row. The reduction rising at total 13 means that total <strong>12</strong> lies above the straight line joining 11 and 13, so 12 is the plan that is never worth buying. Check it: <span class="math inline">\((17.6154 + 15.6433)/2 = 16.6294\)</span>, which is below the 16.6303 the table reports at 12.</p>
+<p>The fix is to refuse to stop there. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span>: the non-convex points “are easily dealt with by excluding them as potential solutions”, and “by dropping the interior points, the marginal analysis will jump to the next convex point at the correct time, buying at least two more units of stock of the item because of the eliminated interior point or points.” Applied to <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, totals of 12 and 20 are struck out, so the procedure moves from 11 units straight to 13 and from 19 straight to 21, buying two at a time and quoting the average of the two reductions as its delta value. This step is called <strong>convexification</strong>.</p>
 </section>
 <section id="sec-multiechelon-allocation-flushout" class="level3" data-number="9.9.4">
 <h3 data-number="9.9.4" class="anchored" data-anchor-id="sec-multiechelon-allocation-flushout"><span class="header-section-number">9.9.4</span> Flushout</h3>
@@ -2201,8 +2202,8 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 <th>Units bought</th>
 <th style="text-align: right;">10</th>
 <th style="text-align: right;">11</th>
-<th style="text-align: right;"><strong>12</strong></th>
-<th style="text-align: right;">13</th>
+<th style="text-align: right;">12</th>
+<th style="text-align: right;"><strong>13</strong></th>
 <th style="text-align: right;">…</th>
 <th style="text-align: right;">19</th>
 <th style="text-align: right;"><strong>20</strong></th>
@@ -2214,8 +2215,8 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 <td>Best <span class="math inline">\(S_0\)</span></td>
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;"><strong>8</strong></td>
-<td style="text-align: right;">9</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;"><strong>9</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;">15</td>
 <td style="text-align: right;"><strong>12</strong></td>
@@ -2223,7 +2224,7 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 </tr>
 </tbody>
 </table>
-<p>The optimal depot stock falls as the total rises. For example, going from eleven transformers to twelve, the depot’s holding drops from eleven to eight, and four units appear at the storerooms. The utility bought one more transformer and the right answer was to move three of the ones it already had out of the depot. It happens again at twenty, where the depot gives up three more.</p>
+<p>The optimal depot stock falls as the total rises. For example, going from twelve transformers to thirteen, the depot’s holding drops from twelve to nine, and four units appear at the storerooms. The utility bought one more transformer and the right answer was to move three of the ones it already had out of the depot. It happens again at twenty, where the depot gives up three more.</p>
 <p><span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> names this: “after three units of stock have been allocated optimally to depot and more stock is available for allocation, it becomes optimal to take some of that depot stock and flush it out to the bases.” He calls the phenomenon <strong>flushout</strong>, and notes that it is most common when the bases are alike, which is why the four storerooms here were made identical.</p>
 <p>The reason can be worked out rather than accepted. Depot stock is <strong>pooled</strong>, and <a href="#sec-multiechelon-positioning-tradeoff" class="quarto-xref"><span>Section 9.1.2</span></a> said pooled stock is efficient. Recall from <a href="#eq-depot-wait" class="quarto-xref">Equation&nbsp;<span>9.13</span></a> that a unit at the depot buys <span class="math inline">\(G^{0}(S_0)/\lambda_0\)</span> off the delay, and the delay is divided among four storerooms, so each gets a quarter of it. A unit at a storeroom is not pooled and helps only that storeroom, but it helps immediately and it is on the right shelf. While the depot is nearly empty the pooling dominates, because the delay it removes is enormous. Once the depot is comfortable the delay it still has left to remove is small, and a unit does more good sitting where a crew can reach it.</p>
 <p>Thus, <strong>the model answers the stock positioning question of <a href="#sec-multiechelon-positioning" class="quarto-xref"><span>Section 9.1</span></a>, and answers it as a function of the budget.</strong> Not “should this item be forward stocked?” but “forward stocked at what level of total investment?”, which is a better question and is the one a utility can act on. Notice also that the answer is not monotone, so it cannot be read off a rule of thumb of the kind <a href="#sec-multiechelon-positioning-tradeoff" class="quarto-xref"><span>Section 9.1.2</span></a> warned about.</p>
@@ -2235,7 +2236,7 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 <div id="tbl-allocation-merge" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-allocation-merge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a href="#alg-allocate" class="quarto-xref">Algorithm&nbsp;<span>9.3</span></a> reports them. The delta column never rises, which is what convexification bought. Steps 13 and 19 buy two transformers at once, jumping the struck-out totals of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>.
+Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a href="#alg-allocate" class="quarto-xref">Algorithm&nbsp;<span>9.3</span></a> reports them. The delta column never rises, which is what convexification bought. Steps 12 and 19 buy two transformers at once, jumping the struck-out totals of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>.
 </figcaption>
 <div aria-describedby="tbl-allocation-merge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2267,11 +2268,11 @@ Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a h
 <td style="text-align: right;">11.7041</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">13</td>
+<td style="text-align: right;">12</td>
 <td>transformer, two</td>
-<td style="text-align: right;">0.2589</td>
-<td style="text-align: right;">$53,200</td>
-<td style="text-align: right;">14.6587</td>
+<td style="text-align: right;">0.2595</td>
+<td style="text-align: right;">$49,400</td>
+<td style="text-align: right;">15.6433</td>
 <td style="text-align: right;">11.7041</td>
 </tr>
 <tr class="odd">
@@ -2351,7 +2352,7 @@ Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a h
 </div>
 </figure>
 </div>
-<p>Read the delta column down. It never rises, which is the whole point of convexification: without it, steps 13 and 19 would have quoted understated deltas and the regulator would have been bought too early.</p>
+<p>Read the delta column down. It never rises, which is the whole point of convexification: without it, steps 12 and 19 would have quoted understated deltas and the regulator would have been bought too early.</p>
 <p>Read the first twenty-eight steps, too. Not one regulator is purchased until $114,000 has gone into transformers. That is arithmetic, not a judgment about regulators. The transformer removes about a quarter of a backorder per thousand dollars at the start and the regulator about a tenth, because the transformer fails nearly four times as often and costs less than half as much per unit. Notice that a planner reasoning by unit price alone would have bought regulators first, on the grounds that they are the expensive item and therefore the important one.</p>
 </section>
 <section id="sec-multiechelon-allocation-procedure" class="level3" data-number="9.9.6">
@@ -2513,7 +2514,7 @@ Figure&nbsp;9.7: The <code>Allocate</code> sheet. Each row is a total number of 
 </figcaption>
 </figure>
 </div>
-<p>Flushout is on the sheet, in the best <span class="math inline">\(S_0\)</span> column, as <a href="#sec-multiechelon-allocation-flushout" class="quarto-xref"><span>Section 9.9.4</span></a> described it.</p>
+<p>Flushout is on the sheet, in the best <span class="math inline">\(S_0\)</span> column, as <a href="#sec-multiechelon-allocation-flushout" class="quarto-xref"><span>Section 9.9.4</span></a> described it. Notice that it arrives one unit earlier than in <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, at a total of 12 rather than 13. The sheet runs METRIC, and METRIC understates the backorders at a storeroom that holds stock, so it makes forward stock look slightly better than it is.</p>
 <p>The last three columns are the reduction, a flag, and the delta value. The flag is the one piece of <a href="#sec-multiechelon-allocation-convexity" class="quarto-xref"><span>Section 9.9.3</span></a> a worksheet can do for you:</p>
 <pre><code>M9:   =IF(OR(L9="",L10=""),"",IF(L10&gt;L9,"drop",""))</code></pre>
 <p>Notice which row the flag lands on. A total lies off the convex curve when the reduction on the row <em>below</em> it is the larger, so the formula looks forward, not back. Writing it the other way round marks the row after the offending plan, which reads plausibly and strikes out the wrong one. That is the non-convexity of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a> showing up as a word in a column. The sheet marks them; striking them out and merging across items is left to you, because a worksheet cannot sort a list it is also computing.</p>
@@ -2780,14 +2781,14 @@ E[B^{2}(s)] = 2\,G^{2}(s) + G^{1}(s)
 </section>
 <section id="sec-multiechelon-design-fit" class="level3" data-number="9.11.6">
 <h3 data-number="9.11.6" class="anchored" data-anchor-id="sec-multiechelon-design-fit"><span class="header-section-number">9.11.6</span> Choosing a Family</h3>
-<p><a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a> divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean. A ratio of 1.001 therefore produces a number of successes in the thousands and a fit that is a Poisson in everything but arithmetic.</p>
-<p>The fit keys off the variance to mean ratio with a band around one:</p>
+<p><a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a> divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean. The original code answered that with a band, a Poisson for any ratio between 0.9 and 1.1, and <a href="#sec-multiechelon-varimetric-fit" class="quarto-xref"><span>Section 9.8.4</span></a> showed what the band costs. The port keys off the variance to mean ratio with no band:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> variance <span class="op">/</span> mean</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> <span class="cf">when</span> <span class="op">{</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        c <span class="op">&gt;=</span> <span class="fl">1.1</span> <span class="op">-&gt;</span> negativeBinomialOn<span class="op">(</span>mean<span class="op">,</span> variance<span class="op">)</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    c <span class="op">&gt;</span> <span class="fl">0.9</span>  <span class="op">-&gt;</span> Poisson<span class="op">(</span>mean<span class="op">)</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>     <span class="op">-&gt;</span> <span class="op">{</span> <span class="kw">val</span> <span class="va">scale</span> <span class="op">=</span> variance <span class="op">/</span> mean<span class="op">;</span> Gamma<span class="op">(</span>mean <span class="op">/</span> scale<span class="op">,</span> scale<span class="op">)</span> <span class="op">}</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    c <span class="op">&gt;</span> <span class="fl">1.0</span> <span class="op">+</span> RATIO_TOLERANCE  <span class="op">-&gt;</span> negativeBinomialOn<span class="op">(</span>mean<span class="op">,</span> variance<span class="op">)</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    c <span class="op">&gt;=</span> <span class="fl">1.0</span> <span class="op">-</span> RATIO_TOLERANCE <span class="op">-&gt;</span> Poisson<span class="op">(</span>mean<span class="op">)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="op">-&gt;</span> <span class="op">{</span> <span class="kw">val</span> <span class="va">scale</span> <span class="op">=</span> variance <span class="op">/</span> mean<span class="op">;</span> Gamma<span class="op">(</span>mean <span class="op">/</span> scale<span class="op">,</span> scale<span class="op">)</span> <span class="op">}</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that <code>RATIO_TOLERANCE</code> is <span class="math inline">\(10^{-9}\)</span>, which is rounding and not a model. At an empty depot the two moments of <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a> agree exactly, but the variance is reached by subtracting numbers in the hundreds, so it lands a few units in the last place away from the mean. The tolerance keeps that case a Poisson. Anything further from one is fitted as what it is.</p>
 <p>The third branch is there for a reason. <a href="#sec-multiechelon-varimetric" class="quarto-xref"><span>Section 9.8</span></a> records that neither Graves nor Sherbrooke could prove the variance always exceeds the mean, so a program that assumed it would be asserting what the literature declines to.</p>
 </section>
 <section id="sec-multiechelon-design-onemodel" class="level3" data-number="9.11.7">
@@ -3156,7 +3157,7 @@ Table&nbsp;9.6: Notation introduced in this chapter.
 <ol type="a">
 <li>With <code>Depot!B16</code> at 16, record <span class="math inline">\(\mu_j\)</span>, <span class="math inline">\(\sigma_j^{2}\)</span> and their ratio from cells <code>B22</code>, <code>B23</code> and <code>B24</code>.</li>
 <li>Walk <code>Depot!B16</code> from 0 to 26 in steps of 2 and record the ratio at each. Plot it against the depot stock level.</li>
-<li><a href="#sec-multiechelon-varimetric-fit" class="quarto-xref"><span>Section 9.8.4</span></a> says the software fits a negative binomial only when that ratio exceeds 1.1. Over which depot stock levels would it use one, and which family does it use outside that range?</li>
+<li><a href="#sec-multiechelon-varimetric-fit" class="quarto-xref"><span>Section 9.8.4</span></a> describes code that used a Poisson whenever this ratio lay between 0.9 and 1.1. At which of your depot stock levels would that rule have used a Poisson? Then set <code>Depot!B16</code> to 24, read the storeroom’s backorders under METRIC and VARI-METRIC from <code>B33</code> and <code>B34</code>, and use <code>B35</code> to say how much larger the second is, in percent.</li>
 <li>The curve you plotted rises and then falls. Explain both ends: why the ratio is near one when the depot is nearly empty, and why it is near one again when the depot is generous.</li>
 </ol>
 </div>
