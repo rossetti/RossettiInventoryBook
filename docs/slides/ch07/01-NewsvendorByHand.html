@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Manuel D. Rossetti, PhD P.E.">
-  <title>One Order, One Chance: The Newsvendor</title>
+  <title>One Order, One Chance: the Newsvendor by Hand</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -987,7 +987,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" data-background-color="#274060" class="quarto-title-block center">
-  <h1 class="title">One Order, One Chance: The Newsvendor</h1>
+  <h1 class="title">One Order, One Chance: the Newsvendor by Hand</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1001,192 +1001,129 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>The one assumption we are finally removing</li>
-<li>Why a single period is <strong>not</strong> a multi-period problem with <span class="math inline">\(n = 1\)</span></li>
-<li><strong>Demand is not sales</strong>, and why that error is invisible</li>
-<li>Marginal analysis on a whiteboard, no calculus</li>
-<li>The <strong>critical ratio</strong>, derived</li>
-<li>Why it is the answer rather than an input to it</li>
+<li>The last order for the mower deck belt, and what makes one order different</li>
+<li>Demand is not sales</li>
+<li>The decision worked by hand, one hundred belts at a time</li>
+<li>The newsvendor model in its cost and profit forms, and why they agree</li>
+<li>The critical ratio derived, and read as a statement about service</li>
 </ul>
 </section>
-<section id="every-model-so-far-knew-its-demand" class="slide level2">
-<h2>Every Model So Far Knew Its Demand</h2>
-<p>The EOQ and the constrained multi-item problem took a <strong>constant rate</strong>.</p>
-<div class="fragment">
-<p>Dynamic lot sizing let the rate <strong>vary by period</strong> and still knew it.</p>
-</div>
-<div class="fragment">
-<p>Requirements planning <strong>computed</strong> it from a production plan.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>From here on demand is a <strong>random variable</strong>, and the decision is made <strong>before it is observed</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>We begin with the simplest such problem: the decision is made <strong>once</strong>.</p>
-</div>
-</section>
-<section id="the-last-order-for-the-belt" class="slide level2">
-<h2>The Last Order for the Belt</h2>
-<p>A distributor has stocked a mower deck belt for years. The deck it fits is now <strong>out of production</strong>.</p>
-<div class="fragment">
-<p>What remains is steady replacement demand from owners of machines already in the field. The supplier is discontinuing the belt and has offered <strong>one last order</strong>.</p>
-</div>
-<div class="fragment">
+<section id="the-last-order-for-the-mower-deck-belt" class="slide level2">
+<h2>The Last Order for the Mower Deck Belt</h2>
+<p>Every model so far knew its demand. This chapter removes that: demand is a random variable, and the decision is made before it is observed, <strong>once</strong>.</p>
+<p>The deck the belt fits is out of production; replacement demand runs about fourteen more weeks, and the supplier offers one last order.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td><em>What is stocked?</em></td>
-<td>One item, the belt.</td>
+<td>One item, the belt</td>
 </tr>
 <tr class="even">
-<td><em>Demand process?</em></td>
-<td>Weekly, random, no longer seasonal. About <strong>fourteen weeks</strong> remain.</td>
+<td><em>What is the demand process?</em></td>
+<td>Random weekly demand, no longer seasonal, for about fourteen weeks</td>
 </tr>
 <tr class="odd">
-<td><em>When reviewed?</em></td>
-<td><strong>Once.</strong> One decision, no second chance.</td>
+<td><em>When is inventory reviewed?</em></td>
+<td>Once: one decision, no second chance</td>
 </tr>
 <tr class="even">
-<td><em>What triggers replenishment?</em></td>
-<td>Nothing. The distributor names a quantity now.</td>
+<td><em>What triggers replenishment, and how much?</em></td>
+<td>Nothing; the distributor names a quantity now</td>
 </tr>
 <tr class="odd">
-<td><em>Unmet demand?</em></td>
-<td><strong>Lost.</strong> The dealer gets it elsewhere.</td>
+<td><em>What happens to unmet demand?</em></td>
+<td>Lost: a dealer buys elsewhere</td>
 </tr>
 <tr class="even">
-<td><em>Costs?</em></td>
-<td>Belt costs <strong>$50</strong>, sells for <strong>$95</strong>, scraps at <strong>$12</strong>.</td>
+<td><em>What costs are incurred, and when?</em></td>
+<td>The belt costs $50 and sells for $95; leftovers go to a scrap dealer at $12</td>
 </tr>
 </tbody>
 </table>
-</div>
+<aside class="notes">
+<p>The distributor is the one from the dynamic lot sizing chapter; the seasonal pattern of that chapter is over, and what remains is steady replacement demand from machines already in the field. Assumption 5 of the requirements planning chapter, known demand, is the one we drop.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="three-things-make-this-different" class="slide level2">
 <h2>Three Things Make This Different</h2>
-<p><strong>There is no ordering cost in the model.</strong></p>
-<div class="fragment">
-<p>Exactly one order is placed <strong>whatever its size</strong>, so <span class="math inline">\(k\)</span> is the same under every decision.</p>
-</div>
-<div class="fragment">
-<p>A constant added to every alternative cannot change which alternative is least.</p>
-</div>
-<div class="fragment">
+<p><strong>No ordering cost.</strong> Exactly one order is placed whatever its size, so <span class="math inline">\(k\)</span> is the same under every decision. A constant added to every alternative cannot change which is least. Thus <span class="math inline">\(k\)</span> drops out, and with it the question chapters 3 to 6 were about.</p>
+<p><strong>Leftover stock has no future value.</strong> A single-period problem is not a multi-period problem with one period. Here the cost of too many is the whole loss on the unit, $50 paid against $12 recovered, not a period’s holding charge.</p>
+<p><strong>Both errors are priced, and neither is free.</strong> Order too many and lose <span class="math inline">\(50 - 12 = \$38\)</span> a belt. Order too few and lose the <span class="math inline">\(95 - 50 = \$45\)</span> margin.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>So <span class="math inline">\(k\)</span> drops out, and with it the <strong>entire question</strong> every deterministic model so far has been about.</p>
+<p>Both are <strong>opportunity costs</strong>, measured against the decision that could have been made. Neither appears in any ledger.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>That is why the trade-off is overage against underage, not holding against ordering. The cost-parameters chapter’s section on marginality is why neither cost shows up in an account.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="leftover-stock-has-no-future-value" class="slide level2">
-<h2>Leftover Stock Has No Future Value</h2>
-<p>A single-period problem is <strong>not</strong> a multi-period problem with the number of periods set to one.</p>
-<div class="fragment">
-<p>In a multi-period problem a unit left at the end is available at the start of the next, so having too many costs <strong>one period of holding</strong>.</p>
-</div>
-<div class="fragment">
-<p>Here it is the <strong>whole loss on the unit</strong>: $50 paid against $12 recovered.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Which is why the trade-off is <strong>overage against underage</strong>, rather than holding against ordering.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="both-errors-are-priced-and-neither-is-free" class="slide level2">
-<h2>Both Errors Are Priced, and Neither Is Free</h2>
-<p>Order <strong>too many</strong>: the distributor loses <strong>$38 a belt</strong>.</p>
-<div class="fragment">
-<p>Order <strong>too few</strong>: it loses the <strong>$45 margin</strong> on each belt it could have sold.</p>
-</div>
-<div class="fragment">
-<p>Both are <strong>opportunity costs</strong>, measured against the decision that could have been made.</p>
-</div>
-<div class="fragment">
+<section id="demand-is-not-sales" class="slide level2">
+<h2>Demand Is Not Sales</h2>
+<p>Let <strong>demand</strong> represent what customers would have bought, and <strong>sales</strong> what they did buy. They differ whenever the shelf was empty.</p>
+<p>A week that sold 40 because 40 were on the shelf and a week that sold 40 because 40 were wanted look identical in a sales record. That is, <strong>sales are demand censored</strong> at whatever was available.</p>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>And <strong>neither appears in any ledger</strong>.</p>
+<p>A history of sales understates both the average and the spread, and most in the weeks the item mattered, because those are the weeks it ran out. Where no record of unfilled demand exists, every quantity computed from the fitted distribution is too small. Say so when you report the answer.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Recall from the records chapter that a stock record is only as good as the transactions behind it. This is the same point about a different record: to model demand, you must record the demand you could not fill, and most organizations do not.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="demand-is-not-sales" class="slide level2">
-<h2>Demand Is Not Sales</h2>
-<p>One distinction before any data are used. It is the commonest error in this material, and it is <strong>invisible in the answer</strong>.</p>
-<div class="fragment">
-<ul>
-<li><strong>Demand</strong> is what customers would have bought.</li>
-<li><strong>Sales</strong> is what they did buy.</li>
-</ul>
-</div>
-<div class="fragment">
-<p>The two differ whenever the shelf was empty.</p>
-</div>
-<div class="fragment">
-<p>A week that sold 40 belts <strong>because 40 were on the shelf</strong>, and a week that sold 40 <strong>because 40 were wanted</strong>, look identical in a sales record.</p>
-</div>
-</section>
-<section id="what-censoring-does-to-you" class="slide level2">
-<h2>What Censoring Does to You</h2>
-<p>Sales are demand <strong>censored</strong> at whatever was available.</p>
-<div class="fragment">
-<p>So a history of sales understates both the <strong>average</strong> and the <strong>spread</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>And it understates them most in <strong>exactly the weeks when the item mattered</strong>, because those are the weeks it ran out.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>An organization that wants to model demand has to <strong>record the demand it could not fill</strong>, and most do not.</p>
-</div>
-<div class="fragment">
-<p>Where that record does not exist, every quantity computed from the fit is <strong>too small</strong>. Say so when you report the answer.</p>
-</div>
-</section>
-<section id="now-make-the-decision-with-arithmetic" class="slide level2">
-<h2>Now Make the Decision, With Arithmetic</h2>
-<p>No calculus. No fitted distribution. A planner at a whiteboard.</p>
-<div class="fragment">
-<p>Asked for a judgment, the distributor offers five outcomes for <strong>total remaining demand</strong>:</p>
+<section id="a-sketch-and-a-smaller-question" class="slide level2">
+<h2>A Sketch, and a Smaller Question</h2>
+<p>Asked for a judgment, the distributor offers five outcomes for total remaining demand:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1217,211 +1154,211 @@ Manuel D. Rossetti, PhD P.E.
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>The mean is <strong>485 belts</strong>.</p>
-</div>
-<div class="fragment">
-<p>The sketch is coarse <strong>on purpose</strong>: what follows needs the <strong>shape</strong> of demand, not its detail.</p>
-</div>
-</section>
-<section id="ask-a-smaller-question" class="slide level2">
-<h2>Ask a Smaller Question</h2>
-<p>Rather than evaluate every candidate, ask:</p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Given that we have decided on some quantity, <strong>is one more hundred belts worth buying?</strong></p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>It <strong>pays off</strong> when demand exceeds what we already have: probability <span class="math inline">\(P\{X \ge Q+100\}\)</span>, each belt earning the $45 margin.</p>
-</div>
-<div class="fragment">
-<p>It <strong>costs</strong> when demand stops at or below what we have: probability <span class="math inline">\(P\{X \le Q\}\)</span>, each unsold belt losing $38.</p>
-</div>
-<div class="fragment">
+<p>The mean is 485 belts. Rather than evaluate every candidate, ask a smaller question: <strong>having decided on <span class="math inline">\(Q\)</span>, is one more hundred belts worth buying?</strong></p>
+<p>It pays $45 a belt when demand reaches <span class="math inline">\(Q + 100\)</span>, and loses $38 a belt when demand stops at or below <span class="math inline">\(Q\)</span>:</p>
 <p><span class="math display">\[
 45 \times 100 \times P\{X \ge Q+100\} \;&gt;\; 38 \times 100 \times P\{X \le Q\}
 \]</span></p>
-</div>
+<aside class="notes">
+<p>The sketch is coarse on purpose: the argument needs the shape of demand and not its detail. The method is worth more than the answer, because it produces the rule that the rest of the chapter derives formally.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="step-1-from-300-to-400" class="slide level2">
-<h2>Step 1, From 300 to 400</h2>
-<p>Demand reaches 400 or more with probability <strong>0.85</strong>.</p>
-<div class="fragment">
-<p>Gain: <span class="math inline">\(45(100)(0.85) = \$3{,}825\)</span>.</p>
-</div>
-<div class="fragment">
-<p>Demand stops at 300 with probability <strong>0.15</strong>.</p>
-</div>
-<div class="fragment">
-<p>Loss: <span class="math inline">\(38(100)(0.15) = \$570\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The step is worth <strong>+$3,255</strong>. Take it.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="step-2-from-400-to-500" class="slide level2">
-<h2>Step 2, From 400 to 500</h2>
-<p>Demand reaches 500 or more with probability <strong>0.60</strong>.</p>
-<div class="fragment">
-<p>Gain: <span class="math inline">\(45(100)(0.60) = \$2{,}700\)</span>.</p>
-</div>
-<div class="fragment">
-<p>Demand stops at 400 or below with probability <strong>0.40</strong>.</p>
-</div>
-<div class="fragment">
-<p>Loss: <span class="math inline">\(38(100)(0.40) = \$1{,}520\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The step is worth <strong>+$1,180</strong>. Take it.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="step-3-from-500-to-600" class="slide level2">
-<h2>Step 3, From 500 to 600</h2>
-<p>Demand reaches 600 or more with probability <strong>0.30</strong>. Gain: <strong>$1,350</strong>.</p>
-<div class="fragment">
-<p>Demand stops at 500 or below with probability <strong>0.70</strong>. Loss: <strong>$2,660</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The step <strong>loses $1,310</strong>. Stop.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-whole-analysis" class="slide level2">
-<h2>The Whole Analysis</h2>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
+<section id="one-hundred-belts-at-a-time" class="slide level2">
+<h2>One Hundred Belts at a Time</h2>
+<table style="font-size:0.9em; margin-top:0.2em; max-height:none;">
 <thead>
-<tr class="header">
-<th style="text-align: right;">From</th>
-<th style="text-align: right;">To</th>
-<th style="text-align: right;"><span class="math inline">\(P\{X \ge \text{to}\}\)</span></th>
-<th style="text-align: right;">Gain</th>
-<th style="text-align: right;"><span class="math inline">\(P\{X \le \text{from}\}\)</span></th>
-<th style="text-align: right;">Loss</th>
-<th style="text-align: right;">Net</th>
+<tr>
+<th>
+From
+</th>
+<th>
+To
+</th>
+<th>
+<span class="math inline">\(P\{X \ge \text{to}\}\)</span>
+</th>
+<th>
+Gain
+</th>
+<th>
+<span class="math inline">\(P\{X \le \text{from}\}\)</span>
+</th>
+<th>
+Loss
+</th>
+<th>
+Net
+</th>
+<th style="text-align:left">
+Decision
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">400</td>
-<td style="text-align: right;">0.85</td>
-<td style="text-align: right;">$3,825</td>
-<td style="text-align: right;">0.15</td>
-<td style="text-align: right;">$570</td>
-<td style="text-align: right;"><strong>+$3,255</strong></td>
+<tr class="fragment">
+<td>
+300
+</td>
+<td>
+400
+</td>
+<td>
+0.85
+</td>
+<td>
+$3,825
+</td>
+<td>
+0.15
+</td>
+<td>
+$570
+</td>
+<td>
+<b>+$3,255</b>
+</td>
+<td style="text-align:left">
+Take it
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">400</td>
-<td style="text-align: right;">500</td>
-<td style="text-align: right;">0.60</td>
-<td style="text-align: right;">$2,700</td>
-<td style="text-align: right;">0.40</td>
-<td style="text-align: right;">$1,520</td>
-<td style="text-align: right;"><strong>+$1,180</strong></td>
+<tr class="fragment">
+<td>
+400
+</td>
+<td>
+500
+</td>
+<td>
+0.60
+</td>
+<td>
+$2,700
+</td>
+<td>
+0.40
+</td>
+<td>
+$1,520
+</td>
+<td>
+<b>+$1,180</b>
+</td>
+<td style="text-align:left">
+Take it
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">500</td>
-<td style="text-align: right;">600</td>
-<td style="text-align: right;">0.30</td>
-<td style="text-align: right;">$1,350</td>
-<td style="text-align: right;">0.70</td>
-<td style="text-align: right;">$2,660</td>
-<td style="text-align: right;">-$1,310</td>
+<tr class="fragment">
+<td>
+500
+</td>
+<td>
+600
+</td>
+<td>
+0.30
+</td>
+<td>
+$1,350
+</td>
+<td>
+0.70
+</td>
+<td>
+$2,660
+</td>
+<td>
+<span class="math inline">\(-\$1{,}310\)</span>
+</td>
+<td style="text-align:left">
+<b>Stop</b>
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">600</td>
-<td style="text-align: right;">700</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">$450</td>
-<td style="text-align: right;">0.90</td>
-<td style="text-align: right;">$3,420</td>
-<td style="text-align: right;">-$2,970</td>
+<tr class="fragment">
+<td>
+600
+</td>
+<td>
+700
+</td>
+<td>
+0.10
+</td>
+<td>
+$450
+</td>
+<td>
+0.90
+</td>
+<td>
+$3,420
+</td>
+<td>
+<span class="math inline">\(-\$2{,}970\)</span>
+</td>
+<td style="text-align:left">
+Still negative
+</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p><strong>Order 500 belts.</strong></p>
+<p><strong>Order 500 belts.</strong> Notice that 500 is <strong>more</strong> than the mean of 485. The distributor should plan to be left with belts more often than it plans to run out, because running out costs more per belt than scrapping does.</p>
 </div>
-<div class="fragment">
-<p>Notice that 500 is <strong>more</strong> than the mean of 485.</p>
-</div>
-<div class="fragment">
-<p>The distributor should plan to be left with belts <strong>more often than it plans to run out</strong>, because running out costs more per belt than scrapping does.</p>
-</div>
+<aside class="notes">
+<p>Narrate each row. Step 1: demand reaches 400 or more with probability 0.85, so 45 x 100 x 0.85 = 3,825; it stops at 300 with probability 0.15, so 38 x 100 x 0.15 = 570; net 3,255, take it. Step 2: 0.60 and 0.40, net 1,180, take it. Step 3: 0.30 and 0.70, the step loses 1,310: stop. The fourth row shows the net never turns positive again. The closing paragraph appears with the last click and counts as part of the ledger.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="why-the-sign-changes-only-once" class="slide level2">
 <h2>Why the Sign Changes Only Once</h2>
-<p>That is not luck. Rearrange the marginal test: the step is worth taking while</p>
+<p>The outcomes are a hundred belts apart, so demand at least <span class="math inline">\(Q + 100\)</span> is demand above <span class="math inline">\(Q\)</span>:</p>
 <p><span class="math display">\[
-P\{X \le Q\} &lt; \frac{45}{45+38} = \frac{c_{u}}{c_{u}+c_{o}} = 0.5422
+\begin{aligned}
+45\,P\{X \ge Q+100\} &amp;&gt; 38\,P\{X \le Q\}
+  &amp;&amp;\text{divide the step test by 100}\\
+45\left(1 - P\{X \le Q\}\right) &amp;&gt; 38\,P\{X \le Q\}
+  &amp;&amp;P\{X \ge Q+100\} = 1 - P\{X \le Q\}\\
+P\{X \le Q\} &amp;&lt; \frac{45}{45 + 38} = \frac{c_u}{c_u + c_o} = 0.5422
+  &amp;&amp;\text{collect } P\{X \le Q\}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>The left side is a <strong>cumulative distribution function</strong>, which never decreases.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>So once the test fails, it fails for <strong>every larger quantity</strong>.</p>
-<p>Stopping at the first negative step is <strong>correct</strong>, not merely convenient.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The rule: order the smallest quantity whose cumulative probability reaches 0.5422. <span class="math inline">\(F(400) = 0.40\)</span> is short; <span class="math inline">\(F(500) = 0.70\)</span> clears it.</p>
-</div>
+<p>The left side is a cumulative distribution function, which never decreases. Once the test fails it fails for every larger quantity, so <strong>order the smallest quantity whose cumulative probability reaches 0.5422</strong>: <span class="math inline">\(F(400) = 0.40\)</span> falls short, <span class="math inline">\(F(500) = 0.70\)</span> clears it.</p>
+<p>That ratio is the answer to the whole chapter.</p>
+<aside class="notes">
+<p>Here c_u = 45 is the underage cost, the margin forgone, and c_o = 38 the overage cost, the loss on a scrapped belt. They are named formally in a few slides.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-check" class="slide level2">
-<h2>The Check</h2>
-<p>Costing all five candidates <strong>directly</strong> should agree, and it does.</p>
+<section id="the-check-cost-all-five" class="slide level2">
+<h2>The Check: Cost All Five</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 13%">
@@ -1452,315 +1389,193 @@ P\{X \le Q\} &lt; \frac{45}{45+38} = \frac{c_{u}}{c_{u}+c_{o}} = 0.5422
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>Three routes, one answer.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Worth performing the <strong>first time</strong> you use marginal analysis on a new problem.</p>
-<p>The marginal argument is only valid when expected profit has a <strong>single peak</strong>, and the direct calculation is what confirms it.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="what-the-hand-method-cost-and-what-it-cannot-do" class="slide level2">
-<h2>What the Hand Method Cost, and What It Cannot Do</h2>
-<p>Five outcomes, four steps, no distribution and no calculus.</p>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>What it <strong>cannot</strong> do is say anything between 400 and 500 belts.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>And the real decision is a number of <strong>belts</strong>, not a number of <strong>hundreds</strong>.</p>
-</div>
-<div class="fragment">
-<p>For that we need a distribution. First, let us state the model properly.</p>
-</div>
+<p>The direct calculation peaks at 500, where the marginal table stopped and the cumulative rule pointed. <strong>Three routes, one answer.</strong></p>
+<p>That check is worth performing the first time you use marginal analysis on a new problem: the marginal argument is valid only when expected profit has a single peak, and the direct calculation is what confirms it.</p>
+<p><strong>What the hand method cost:</strong> five outcomes, four steps, no distribution and no calculus. <strong>What it cannot do:</strong> say anything between 400 and 500. The real decision is a number of belts, and for that we need a distribution.</p>
+<aside class="notes">
+<p>Each entry weights the profit of selling min(x, Q) at 95, scrapping the rest at 12, and paying 50 for Q, by the sketch’s probabilities. For example at Q = 500: demand 300 gives 95(300) + 12(200) - 50(500) = 5,900, and so on across the five outcomes.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="the-newsvendor-model" class="slide level2">
 <h2>The Newsvendor Model</h2>
-<p>It carries the name of a vendor buying newspapers for the day, and it applies to <strong>any resource committed before the need for it is known</strong>.</p>
-<div class="fragment">
-<ul>
-<li>Let <span class="math inline">\(X\)</span> represent demand over the period, with <span class="math inline">\(F(x) = P\{X \le x\}\)</span>.</li>
-<li>Let <span class="math inline">\(Q\)</span> represent the quantity ordered, the <strong>decision</strong>.</li>
-<li>Let <span class="math inline">\(c_{o}\)</span> represent the <strong>overage cost</strong>, the loss on each unit left over.</li>
-<li>Let <span class="math inline">\(c_{u}\)</span> represent the <strong>underage cost</strong>, the loss on each unit of demand not met.</li>
-</ul>
-</div>
-<div class="fragment">
-<p>Both are opportunity costs, and both are <strong>strictly positive</strong>.</p>
-</div>
-</section>
-<section id="one-expression-for-both-cases" class="slide level2">
-<h2>One Expression for Both Cases</h2>
-<p>At the end of the period exactly one of two things has happened: <span class="math inline">\(Q - X\)</span> units are left, or <span class="math inline">\(X - Q\)</span> units of demand went unmet.</p>
-<div class="fragment">
-<p>With <span class="math inline">\((y)^{+} = \max(y, 0)\)</span>:</p>
+<p>Let <span class="math inline">\(X\)</span> represent demand over the period, with <span class="math inline">\(F(x) = P\{X \le x\}\)</span>; let <span class="math inline">\(Q\)</span> represent the quantity ordered. Let <span class="math inline">\(c_o\)</span> represent the <strong>overage cost</strong>, the loss on each unit left over, and <span class="math inline">\(c_u\)</span> the <strong>underage cost</strong>, the loss on each unit of demand unmet, both in dollars per unit and strictly positive.</p>
+<p>At the end of the period exactly one thing has happened: <span class="math inline">\(Q &gt; X\)</span> and <span class="math inline">\(Q - X\)</span> units are left over, or <span class="math inline">\(Q &lt; X\)</span> and <span class="math inline">\(X - Q\)</span> units of demand went unmet. With <span class="math inline">\((y)^{+} = \max(y, 0)\)</span>,</p>
 <p><span class="math display">\[
-C(Q, X) = c_{o}(Q-X)^{+} + c_{u}(X-Q)^{+}
+C(Q, X) = c_o(Q - X)^{+} + c_u(X - Q)^{+}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>Exactly one of the two terms is non-zero for any realized demand.</p>
-</div>
-<div class="fragment">
-<p>It is a <strong>random variable</strong>, because <span class="math inline">\(X\)</span> is, and the decision minimizes <span class="math inline">\(E[C(Q,X)]\)</span>.</p>
-</div>
+<p>Exactly one term is nonzero for any realized demand. <span class="math inline">\(C\)</span> is a random variable, and we choose <span class="math inline">\(Q\)</span> to minimize its expectation.</p>
+<aside class="notes">
+<p>The name is a vendor buying newspapers for the day; it applies to any resource committed before the need for it is known. Both costs are measured against the decision that could have been made. The extensions next session say what it means when one of them is not positive.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="the-same-model-as-a-profit" class="slide level2">
 <h2>The Same Model, as a Profit</h2>
-<p>Practice writes this in quantities that appear on an <strong>invoice</strong>.</p>
-<div class="fragment">
-<p>Let <span class="math inline">\(c\)</span> be the purchase cost, <span class="math inline">\(s\)</span> the selling price, <span class="math inline">\(u\)</span> the salvage value, with <span class="math inline">\(s &gt; c &gt; u\)</span>. The vendor sells <span class="math inline">\(\min(X,Q)\)</span>, salvages <span class="math inline">\((Q-X)^{+}\)</span>, and pays for <span class="math inline">\(Q\)</span>:</p>
+<p>Let <span class="math inline">\(c\)</span>, <span class="math inline">\(s\)</span> and <span class="math inline">\(u\)</span> represent the purchase cost, selling price and salvage value per unit, <span class="math inline">\(s &gt; c &gt; u\)</span>. The vendor sells <span class="math inline">\(\min(X, Q)\)</span>, salvages <span class="math inline">\((Q - X)^{+}\)</span> and pays for <span class="math inline">\(Q\)</span>: <span class="math inline">\(G(Q, X) = s\min(X, Q) + u(Q - X)^{+} - cQ\)</span>.</p>
 <p><span class="math display">\[
-G(Q, X) = s\min(X, Q) + u(Q-X)^{+} - cQ
+\begin{aligned}
+G &amp;= s\big[X - (X-Q)^{+}\big] + u(Q-X)^{+} - c\big[X + (Q-X)^{+} - (X-Q)^{+}\big]
+  &amp;&amp;\text{rewrite } \min(X,Q) \text{ and } Q\\
+&amp;= (s-c)X - (s-c)(X-Q)^{+} - (c-u)(Q-X)^{+}
+  &amp;&amp;\text{collect terms}\\
+&amp;= (s-c)X - C(Q, X), \qquad c_o = c - u, \quad c_u = s - c
+  &amp;&amp;\text{match to the cost}
+\end{aligned}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>Matching terms,</p>
-<p><span class="math display">\[
-c_{o} = c - u, \qquad c_{u} = s - c
-\]</span></p>
-</div>
-<div class="fragment">
-<p>Overage is what a unit loses <strong>between the counter and the scrap yard</strong>. Underage is the <strong>margin forgone</strong>. For the belt: $38 and $45.</p>
-</div>
-</section>
-<section id="why-the-two-agree" class="slide level2">
-<h2>Why the Two Agree</h2>
-<p>They differ by <span class="math inline">\((s-c)E[X]\)</span>, the profit if every unit demanded were sold.</p>
-<div class="fragment">
-<p>That quantity <strong>does not depend on <span class="math inline">\(Q\)</span></strong>. It shifts the objective without moving its optimum:</p>
-<p><span class="math display">\[
-E[G(Q,X)] = (s-c)E[X] - E[C(Q,X)]
-\]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Use whichever formulation the audience speaks.</p>
-<p>Derive in <strong>costs</strong>, because the expression is shorter. Report in <strong>profits</strong>, because that is what the distributor will ask for.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Taking expectations, <span class="math inline">\(E[G] = (s-c)E[X] - E[C]\)</span>. The difference does not depend on <span class="math inline">\(Q\)</span>, so <strong>both forms give the same <span class="math inline">\(Q\)</span></strong>. For the belt, <span class="math inline">\(c_o = 50 - 12 = \$38\)</span> and <span class="math inline">\(c_u = 95 - 50 = \$45\)</span>.</p>
+<aside class="notes">
+<p>The two rewritings: units sold are X less the shortage, and the order is X plus the leftover less the shortage. The overage cost is what a unit loses between the counter and the scrap yard; the underage cost is the margin forgone. Derive in costs, because the expression is shorter, and report in profits, because that is what the distributor will ask for.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="taking-the-expectation" class="slide level2">
 <h2>Taking the Expectation</h2>
-<p>Recall the first order loss function <span class="math inline">\(G^{1}(b) = E[(X-b)^{+}]\)</span>, the expected amount by which demand <strong>exceeds</strong> <span class="math inline">\(b\)</span>.</p>
-<div class="fragment">
-<p>The shortage term is <span class="math inline">\(G^{1}(Q)\)</span> by definition.</p>
-</div>
-<div class="fragment">
-<p>The leftover term needs one step. Notice the identity</p>
+<p>Recall the first order loss function, <span class="math inline">\(G^{1}(b) = E[(X - b)^{+}]\)</span>, the expected amount by which demand exceeds <span class="math inline">\(b\)</span>.</p>
 <p><span class="math display">\[
-(Q-X)^{+} = (X-Q)^{+} + Q - X
+\begin{aligned}
+E\big[(X-Q)^{+}\big] &amp;= G^{1}(Q)
+  &amp;&amp;\text{expected shortage, by definition}\\
+(Q-X)^{+} &amp;= (X-Q)^{+} + Q - X
+  &amp;&amp;\text{true when } X &lt; Q \text{ and when } X \ge Q\\
+E\big[(Q-X)^{+}\big] &amp;= G^{1}(Q) + Q - E[X]
+  &amp;&amp;\text{expected leftover}\\
+E[C(Q)] &amp;= c_o\big(G^{1}(Q) + Q - E[X]\big) + c_u\,G^{1}(Q)
+  &amp;&amp;\text{substitute both}\\
+&amp;= (c_u + c_o)\,G^{1}(Q) + c_o\big(Q - E[X]\big)
+  &amp;&amp;\text{collect } G^{1}(Q)
+\end{aligned}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>When <span class="math inline">\(X &lt; Q\)</span> the right side is <span class="math inline">\(0 + Q - X\)</span>. When <span class="math inline">\(X \ge Q\)</span> it is <span class="math inline">\(X - Q + Q - X = 0\)</span>.</p>
-</div>
-</section>
-<section id="the-whole-model-in-one-line" class="slide level2">
-<h2>The Whole Model in One Line</h2>
-<p>Taking expectations of that identity,</p>
-<p><span class="math display">\[
-E\left[(Q-X)^{+}\right] = G^{1}(Q) + Q - E[X]
-\]</span></p>
-<div class="fragment">
-<p>The expected <strong>leftover</strong> is the expected <strong>shortage</strong> plus however far the order sits above the mean. Putting the two together,</p>
-<p><span class="math display">\[
-E[C(Q)] = (c_{u}+c_{o})G^{1}(Q) + c_{o}\left(Q - E[X]\right)
-\]</span></p>
-</div>
-<div class="fragment">
-<p>The first term is the cost of being <strong>short</strong>, weighted by <strong>both</strong> prices, because a unit short is both a sale lost and a unit not held.</p>
-</div>
-<div class="fragment">
-<p>The second is the cost of the <strong>position itself</strong>.</p>
-</div>
+<p><strong>The whole model in one line.</strong> The first term is the cost of being short, weighted by both prices; the second is the cost of the position itself.</p>
+<aside class="notes">
+<p>Check the identity on the second line in both cases: when X &lt; Q the right side is 0 + Q - X; when X &gt;= Q it is X - Q + Q - X = 0. A unit short carries both prices because it is both a sale lost and a unit not held.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="differentiating" class="slide level2">
 <h2>Differentiating</h2>
-<p>Using <span class="math inline">\(dG^{1}(Q)/dQ = -G^{0}(Q)\)</span>, where <span class="math inline">\(G^{0}(Q) = 1 - F(Q)\)</span>:</p>
+<p>Recall that <span class="math inline">\(dG^{1}(Q)/dQ = -G^{0}(Q)\)</span>, where <span class="math inline">\(G^{0}(Q) = 1 - F(Q)\)</span>.</p>
 <p><span class="math display">\[
-\frac{d}{dQ}E[C(Q)] = -(c_{u}+c_{o})G^{0}(Q) + c_{o}
+\begin{aligned}
+\frac{d}{dQ}E[C(Q)] &amp;= -(c_u + c_o)\,G^{0}(Q) + c_o = 0
+  &amp;&amp;\text{differentiate term by term}\\
+G^{0}(Q) &amp;= \frac{c_o}{c_u + c_o}
+  &amp;&amp;\text{solve}\\
+F(Q^{*}) &amp;= \frac{c_u}{c_u + c_o}, \qquad Q^{*} = F^{-1}\!\left(\frac{c_u}{c_u + c_o}\right)
+  &amp;&amp;G^{0} = 1 - F
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>Setting it to zero gives <span class="math inline">\(G^{0}(Q) = c_{o}/(c_{u}+c_{o})\)</span>, and since <span class="math inline">\(G^{0} = 1-F\)</span>:</p>
-<p><span class="math display">\[
-F(Q^{*}) = \frac{c_{u}}{c_{u}+c_{o}}, \qquad
-Q^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right)
-\]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>It is a <strong>minimum</strong>: the second derivative is <span class="math inline">\((c_{u}+c_{o})f(Q)\)</span>, non-negative everywhere, so the expected cost is <strong>convex</strong> and the stationary point is the bottom.</p>
-</div>
-</div>
-</div>
-</div>
+<p>The quantity <span class="math inline">\(c_u/(c_u + c_o)\)</span> is the <strong>critical ratio</strong>: the rule the whiteboard produced, and this is why that rule was right.</p>
+<p><em>The check that it is a minimum.</em> The second derivative is <span class="math inline">\((c_u + c_o)f(Q) \ge 0\)</span> everywhere, so the expected cost is convex and the stationary point is the bottom.</p>
+<aside class="notes">
+<p>For the belt the critical ratio is 45/83 = 0.5422, the number from the marginal table. Next session gives F a real shape, fitted to the belt’s demand history.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="that-is-the-whiteboard-rule" class="slide level2">
-<h2>That Is the Whiteboard Rule</h2>
-<p><span class="math inline">\(c_{u}/(c_{u}+c_{o})\)</span> is the <strong>critical ratio</strong>.</p>
-<div class="fragment">
-<p>It is exactly the rule the marginal analysis produced by hand.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>And the derivation is <strong>why that rule was right</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="reading-it" class="slide level2">
-<h2>Reading It</h2>
-<p>The left side is <span class="math inline">\(P\{X \le Q^{*}\}\)</span>: the probability that demand falls <strong>short</strong> of the order.</p>
-<div class="fragment">
-<p>That is the probability of <strong>having too much</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>So the critical ratio is not an input to the answer.</p>
-<p><strong>It is the answer</strong>, expressed as a service level the costs imply.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="it-reads-as-odds" class="slide level2">
-<h2>It Reads as Odds</h2>
-<p>The ratio depends only on the <strong>relative</strong> size of the two costs.</p>
+<section id="reading-the-critical-ratio" class="slide level2">
+<h2>Reading the Critical Ratio</h2>
+<p><span class="math inline">\(F(Q^{*}) = P\{X \le Q^{*}\}\)</span> is the probability that demand falls short of the order: <strong>the probability of having too much.</strong> The critical ratio is not an input to the answer; it <em>is</em> the answer, as a service level the costs imply.</p>
+<p>It depends only on the relative size of the two costs, so it reads as <strong>odds</strong>:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Being short costs</th>
-<th style="text-align: right;">3 times as much</th>
-<th style="text-align: right;">4 times</th>
-<th style="text-align: right;">9 times</th>
+<th><span class="math inline">\(c_u\)</span> against <span class="math inline">\(c_o\)</span></th>
+<th style="text-align: right;">3 to 1</th>
+<th style="text-align: right;">4 to 1</th>
+<th style="text-align: right;">9 to 1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Optimal chance of leftovers</td>
-<td style="text-align: right;">75%</td>
-<td style="text-align: right;">80%</td>
-<td style="text-align: right;">90%</td>
+<td>Critical ratio</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.90</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>Two consequences follow, and <strong>both contradict what an organization usually rewards</strong>.</p>
-</div>
-</section>
-<section id="never-having-leftovers-is-bad" class="slide level2">
-<h2>Never Having Leftovers Is Bad</h2>
-<p>A buyer who ends every period with nothing left is <strong>not being careful</strong>.</p>
-<div class="fragment">
-<p>They are ordering at a critical ratio near <strong>zero</strong>, which is only correct when a lost sale costs <strong>nothing</strong>.</p>
-</div>
-<div class="fragment">
-<p>For the belt the ratio is 0.5422, so the distributor should expect leftovers in about <strong>54%</strong> of futures.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A manager who treats scrapped belts as evidence of a mistake will push the buyer <strong>below</strong> the optimum.</p>
-<p>And the loss will <strong>never appear in any account</strong>, because it is a sale that did not happen.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="never-having-unsatisfied-customers-is-also-bad" class="slide level2">
-<h2>Never Having Unsatisfied Customers Is Also Bad</h2>
-<p>The mirror error costs just as much.</p>
-<div class="fragment">
-<p>At the belt’s ratio the distributor should expect to <strong>run out about 46% of the time</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A service target of <strong>99%</strong> is a claim that <span class="math inline">\(c_{u}\)</span> is <strong>ninety-nine times</strong> <span class="math inline">\(c_{o}\)</span>.</p>
-<p>If that is not true, the stock is too large.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>So the useful question to ask of a stated service level is <strong>not</strong> whether it is high enough. It is <strong>what ratio of costs would make it optimal</strong>, and whether anyone believes those costs.</p>
-</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Never having leftovers is bad.</strong> It means ordering at a ratio near zero, correct only when a lost sale costs nothing. For the belt, expect leftovers in about 54% of futures.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Never having unsatisfied customers is also bad.</strong> At the belt’s ratio, expect to run out about 46% of the time. A 99% service target claims <span class="math inline">\(c_u\)</span> is ninety-nine times <span class="math inline">\(c_o\)</span>.</p>
+</div></div>
+<aside class="notes">
+<p>Both consequences contradict what an organization usually rewards. A manager who treats scrapped belts as evidence of a mistake will push the buyer below the optimum, and the loss never appears in any account, because it is a sale that did not happen. The useful question of a stated service level is not whether it is high enough, but what ratio of costs would make it optimal, and whether anyone believes those costs: the exchange-curve move from chapter 4.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-we-did-today" class="slide level2">
 <h2>What We Did Today</h2>
-<p><strong>Demand is now random</strong>, and the decision precedes the observation.</p>
-<div class="fragment">
-<p><strong>A single period is not a multi-period problem with <span class="math inline">\(n = 1\)</span>.</strong> The ordering cost drops out and leftover stock loses its whole value.</p>
-</div>
-<div class="fragment">
-<p><strong>Sales are censored demand</strong>, and a fit to sales is biased low exactly where it matters.</p>
-</div>
-<div class="fragment">
-<p><strong>Marginal analysis gives the rule on a whiteboard</strong>, and the derivative confirms it.</p>
-</div>
-<div class="fragment">
-<p><strong>The critical ratio is a service level the costs imply</strong>, not a target you choose.</p>
-</div>
+<p><strong>One order, one chance.</strong> <span class="math inline">\(k\)</span> drops out, leftovers have no future, and both errors are opportunity costs: $38 over, $45 under.</p>
+<p><strong>Sales are censored demand,</strong> and a sales history makes every answer too small.</p>
+<p><strong>By hand, the next hundred belts are worth buying while <span class="math inline">\(F(Q) &lt; 0.5422\)</span>.</strong> Order 500, more than the mean, confirmed by costing all five.</p>
+<p><strong>The cost and profit forms differ by <span class="math inline">\((s-c)E[X]\)</span>,</strong> which does not depend on <span class="math inline">\(Q\)</span>.</p>
+<p><strong><span class="math inline">\(F(Q^{*}) = c_u/(c_u + c_o)\)</span></strong>, the critical ratio: the probability of having too much that the costs make optimal.</p>
 </section>
 <section id="for-next-time" class="slide level2">
 <h2>For Next Time</h2>
-<p><strong>Read before next session:</strong> <em>Getting a Demand Distribution</em>, <em>Intermittent and Slow-Moving Demand</em>, and <em>Continuous Demand</em>.</p>
-<p>Next session turns the ratio into a number of belts:</p>
+<p><strong>Read before next session:</strong> <em>Getting a Demand Distribution</em>, <em>Intermittent and Slow-Moving Demand</em> and <em>Continuous Demand</em>.</p>
+<p>Today’s material was <em>One Order, One Chance</em>, <em>Working the Decision by Hand</em>, <em>The Newsvendor Model</em> and <em>The Critical Ratio</em>.</p>
+<p>Next session:</p>
 <ul>
-<li>Fitting a distribution to 104 weeks, and what the <strong>variance to mean ratio</strong> decides before any test runs</li>
-<li>Why a goodness of fit test <strong>confirms</strong> the choice rather than making it</li>
-<li>What to do when a history is mostly <strong>zeros</strong></li>
-<li>Why the <strong>normal was wrong weekly</strong> and safe over fourteen weeks</li>
-<li>Why the optimum is <strong>flat</strong>, and what the choice of family costs</li>
+<li>The belt’s weekly demand history: look, summarize, then fit</li>
+<li>Why a variance to mean ratio picks the family, and what a goodness-of-fit test does not settle</li>
+<li>The final buy solved with a fitted distribution, and what the choice of family costs</li>
 </ul>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -1768,7 +1583,7 @@ Q^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right)
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>We have the rule. What we do not yet have is a distribution to apply it to, and that turns out to carry more of the answer than the rule does.</p>
+<p>Bring the critical ratio, 0.5422. Next session finds the belt it points to.</p>
 </div>
 </div>
 </div>

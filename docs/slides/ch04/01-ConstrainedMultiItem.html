@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Manuel D. Rossetti, PhD P.E.">
-  <title>When Items Compete for a Scarce Resource</title>
+  <title>Multi-Item Lot Sizing Under a Shared Constraint</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -987,7 +987,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" data-background-color="#274060" class="quarto-title-block center">
-  <h1 class="title">When Items Compete for a Scarce Resource</h1>
+  <h1 class="title">Multi-Item Lot Sizing Under a Shared Constraint</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1001,218 +1001,224 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>Three ways items stop being independent</li>
-<li>Checking whether the constraint binds, which is free</li>
-<li>Moving a constraint into the objective</li>
-<li>What the multiplier <strong>means</strong>, in dollars</li>
-<li>Why a budget <strong>rescales</strong> and floor space <strong>reallocates</strong></li>
+<li>When items stop being independent: a shared resource, a shared setup, a supply chain</li>
+<li>The constrained problem, and the check that comes first</li>
+<li>The Lagrange multiplier, derived, and found by bisection</li>
+<li>Three items under a budget: the answer, the check, and what the limit costs</li>
+<li>The same items under a limit on replenishments</li>
+<li>Three readings of the multiplier</li>
 </ul>
 </section>
-<section id="everything-so-far-decided-one-item" class="slide level2">
-<h2>Everything So Far Decided One Item</h2>
-<p>The general cycle kept every assumption that made an item easy, and the easiest of them all was that <strong>each item could be decided on its own</strong>.</p>
-<div class="fragment">
-<p>Take that away and items couple. There are three ways, and they need <strong>three different kinds of mathematics</strong>.</p>
-</div>
-<div class="fragment">
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Coupling</th>
-<th>What is shared</th>
-<th>How it is solved</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Shared <strong>resource</strong></td>
-<td>A budget, a floor, a dock</td>
-<td>Move the constraint into the objective</td>
-</tr>
-<tr class="even">
-<td>Shared <strong>setup</strong></td>
-<td>One order, one truck</td>
-<td>Impose structure on the schedule</td>
-</tr>
-<tr class="odd">
-<td><strong>Echelon</strong> structure</td>
-<td>One stock replenishes another</td>
-<td>Fix the accounting first</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="fragment">
-<p>Today: the first.</p>
-</div>
+<section id="when-items-stop-being-independent" class="slide level2">
+<h2>When Items Stop Being Independent</h2>
+<p>The economic order quantity decided one item from its own data. An item can be decided alone only if nothing it consumes is consumed by something else.</p>
+<p><strong>A shared resource</strong> couples items through a <strong>constraint</strong>. The cost functions stay separate; one inequality ties them together. Four are common:</p>
+<ol type="1">
+<li>average total inventory investment, at most a budget</li>
+<li>average number of replenishments per unit time, at most a limit</li>
+<li>maximum space used, at most what is available</li>
+<li>maximum allowed backorder delay, at most a limit</li>
+</ol>
+<p><strong>A shared setup</strong> couples items through a <strong>cost</strong>: several items on one truck or one machine setup pay part of the ordering cost once.</p>
+<p>A third coupling, stock that exists to replenish other stock, closes the chapter.</p>
+<aside class="notes">
+<p>The techniques for the first two have almost nothing in common, so they occupy separate sessions. Throughout, demand is known and constant and every item follows the classical model. What changes is only that the items are decided together. The fourth constraint belongs with models that permit shortages and is not treated in this chapter.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="writing-the-problem-down" class="slide level2">
 <h2>Writing the Problem Down</h2>
-<ul>
-<li><span class="math inline">\(n\)</span> items, indexed <span class="math inline">\(j\)</span></li>
-<li><span class="math inline">\(\lambda_j\)</span>, <span class="math inline">\(c_j\)</span>, <span class="math inline">\(k_j\)</span>, <span class="math inline">\(h_j = ic_j\)</span> as before</li>
-<li><span class="math inline">\(Q_j\)</span>, what we are choosing</li>
-</ul>
+<p>Let <span class="math inline">\(n\)</span> represent the number of items, indexed by <span class="math inline">\(j\)</span>; <span class="math inline">\(\lambda_j\)</span> the demand rate; <span class="math inline">\(c_j\)</span> the unit cost; <span class="math inline">\(k_j\)</span> the ordering cost; <span class="math inline">\(h_j = ic_j\)</span> the holding rate; and <span class="math inline">\(Q_j\)</span> the order quantity. Let <span class="math inline">\(a_j\)</span> represent what one unit of item <span class="math inline">\(j\)</span> consumes of the resource, and <span class="math inline">\(A\)</span> how much there is.</p>
 <p><span class="math display">\[
-\min\ C = \sum_{j=1}^{n}\left[\frac{k_j\lambda_j}{Q_j} + \frac{h_j Q_j}{2}\right]
+\begin{aligned}
+\min\ C &amp;= \sum_{j=1}^{n}\left[\frac{k_j\lambda_j}{Q_j} + \frac{h_j Q_j}{2}\right]
+  &amp;&amp;\text{the sum of the relevant costs}\\
+\sum_{j} a_j Q_j &amp;\le A
+  &amp;&amp;\text{a linear limit: space or budget}\\
+\text{space}: a_j &amp;= v_j
+  &amp;&amp;\text{$Q_j$ units on the floor after a receipt}\\
+\text{budget}: \sum_j c_j\frac{Q_j}{2} \le A &amp;\;\Rightarrow\; a_j = \frac{c_j}{2}
+  &amp;&amp;\text{average on hand is $Q_j/2$, valued at $c_j$}\\
+\sum_{j} \frac{\lambda_j}{Q_j} &amp;\le A
+  &amp;&amp;\text{replenishments: not linear}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>Subject to a limit on something shared:</p>
-<p><span class="math display">\[
-\sum_{j=1}^{n} a_j Q_j \le A
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(a_j\)</span> is what one unit of item <span class="math inline">\(j\)</span> consumes of the scarce resource.</p>
-</div>
+<p>Space and budget are the same constraint with different coefficients, so one derivation covers both. The replenishment limit is different: consumption <strong>falls</strong> as the quantities rise.</p>
+<aside class="notes">
+<p>Let v_j represent the floor space one unit occupies. The replenishment limit is taken up after the linear case is settled.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="two-constraints-one-derivation" class="slide level2">
-<h2>Two Constraints, One Derivation</h2>
-<p><strong>Space.</strong> <span class="math inline">\(a_j\)</span> is the floor space one unit occupies and <span class="math inline">\(A\)</span> is the space available, because immediately after a replenishment there are <span class="math inline">\(Q_j\)</span> units on the floor.</p>
-<div class="fragment">
-<p><strong>Budget on average investment.</strong> The average on-hand level is <span class="math inline">\(Q_j/2\)</span> and its value is <span class="math inline">\(c_jQ_j/2\)</span>, so</p>
-<p><span class="math display">\[
-a_j = \frac{c_j}{2}
-\]</span></p>
-</div>
-<div class="fragment">
-<p>Same form, different coefficients. <strong>One derivation covers both.</strong></p>
-</div>
-</section>
-<section id="one-constraint-that-is-different" class="slide level2">
-<h2>One Constraint That Is Different</h2>
-<p>A limit on <strong>replenishments</strong> is not linear:</p>
-<p><span class="math display">\[
-\sum_{j=1}^{n} \frac{\lambda_j}{Q_j} \le A
-\]</span></p>
-<div class="fragment">
-<p>Consumption <strong>falls</strong> here as the quantities rise, instead of growing with them.</p>
-</div>
-<div class="fragment">
-<p>Different problem. We take it up once the linear case is settled, and the answer turns out to be pleasantly similar.</p>
-</div>
-</section>
-<section id="step-zero-which-is-free" class="slide level2">
-<h2>Step Zero, Which Is Free</h2>
-<p>The objective is <strong>separable</strong>: a sum of terms, each involving one item’s quantity. Each term is convex, and a sum of convex functions is convex.</p>
-<div class="fragment">
-<p>So in the absence of the constraint, each item is just an EOQ.</p>
-</div>
-<div class="fragment">
+<section id="first-check-whether-the-constraint-binds" class="slide level2">
+<h2>First Check Whether the Constraint Binds</h2>
+<p>The objective is <strong>separable</strong>, a sum of terms each in one item’s quantity, and each term is convex. Without the constraint each item takes its own <span class="math inline">\(Q_j^{*} = \sqrt{2k_j\lambda_j/h_j}\)</span>. That gives three steps, and the first is free:</p>
 <ol type="1">
-<li>Solve the unconstrained problem, item by item</li>
-<li><strong>If <span class="math inline">\(\sum_j a_j Q_j^{*} \le A\)</span>, stop.</strong> The constraint is inactive and the unconstrained answer is the answer</li>
-<li>Otherwise solve with the constraint imposed as an <strong>equality</strong></li>
+<li>Solve the unconstrained problem, item by item.</li>
+<li>If <span class="math inline">\(\sum_j a_j Q_j^{*} \le A\)</span>, the constraint is <strong>inactive</strong> and the unconstrained answer is the answer. Otherwise it is <strong>active</strong>.</li>
+<li>Solve with the constraint imposed as an <strong>equality</strong>.</li>
 </ol>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Step 2 is easy to skip and expensive to skip. A constraint that does not bind changes nothing, and all the machinery that follows is needed <strong>only when the resource runs out</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="why-we-may-use-equality" class="slide level2">
-<h2>Why We May Use Equality</h2>
-<p>The objective is convex.</p>
-<div class="fragment">
-<p>If the unconstrained optimum <strong>violates</strong> the limit, then the constrained optimum sits on the <strong>boundary</strong> of the feasible region.</p>
-</div>
-<div class="fragment">
-<p>On that boundary the inequality holds with equality.</p>
-</div>
-<div class="fragment">
-<p>So the problem we actually solve is an <strong>equality-constrained</strong> one, which is what makes Lagrange multipliers apply.</p>
-</div>
-</section>
-<section id="moving-the-constraint-into-the-objective" class="slide level2">
-<h2>Moving the Constraint Into the Objective</h2>
-<p>Attach a single scalar <span class="math inline">\(\theta\)</span> to the constraint, whatever the number of items:</p>
-<p><span class="math display">\[
-L(\vec{Q}, \theta) =
-\sum_{j}\left[\frac{k_j\lambda_j}{Q_j} + \frac{h_j Q_j}{2}\right]
-+ \theta\left[\sum_{j} a_j Q_j - A\right]
-\]</span></p>
-<div class="fragment">
-<p>The bracketed term is <strong>zero</strong> whenever the constraint holds as an equality.</p>
-</div>
-<div class="fragment">
-<p>So at any feasible point on the boundary, <span class="math inline">\(L\)</span> and <span class="math inline">\(C\)</span> <strong>agree</strong>, and minimizing <span class="math inline">\(L\)</span> is a legitimate substitute for minimizing <span class="math inline">\(C\)</span>.</p>
-</div>
-</section>
-<section id="setting-the-derivatives-to-zero" class="slide level2">
-<h2>Setting the Derivatives to Zero</h2>
-<p><span class="math display">\[
-\frac{\partial L}{\partial Q_j}
-= -\frac{k_j\lambda_j}{Q_j^{2}} + \frac{h_j}{2} + \theta a_j = 0
-\]</span></p>
-<div class="fragment">
-<p>Solving for each quantity:</p>
-<p><span class="math display">\[
-Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + 2\theta a_j}}
-\]</span></p>
-</div>
-<div class="fragment">
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>That is the ordinary EOQ with <span class="math inline">\(h_j\)</span> replaced by <span class="math inline">\(h_j + 2\theta a_j\)</span>.</p>
-<p><strong>The multiplier acts as a surcharge on holding</strong>, charged in proportion to how much of the scarce resource a unit consumes.</p>
+<p>Step 2 is easy to skip and expensive to skip. You should perform this check first, every time: a constraint that does not bind changes nothing.</p>
 </div>
 </div>
 </div>
-</div>
+<p>Step 3 may use equality because the objective is convex: if the unconstrained optimum violates the limit, the constrained optimum sits on the boundary, where the inequality holds with equality.</p>
+<aside class="notes">
+<p>The machinery of the next slides is needed only when the resource runs out.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="moving-the-constraint-into-the-objective" class="slide level2">
+<h2>Moving the Constraint into the Objective</h2>
+<p>Let <span class="math inline">\(\theta\)</span> represent the <strong>Lagrange multiplier</strong>, one scalar for the constraint, whatever the number of items:</p>
+<p><span class="math display">\[
+\begin{aligned}
+L(\vec{Q}, \theta) &amp;= \sum_{j}\left[\frac{k_j\lambda_j}{Q_j} + \frac{h_j Q_j}{2}\right]
++ \theta\left[\sum_{j} a_j Q_j - A\right]
+  &amp;&amp;\text{the bracket is zero on the boundary}\\
+\frac{\partial L}{\partial Q_j} &amp;= -\frac{k_j\lambda_j}{Q_j^{2}} + \frac{h_j}{2} + \theta a_j = 0
+  &amp;&amp;j = 1, \ldots, n\\
+\frac{\partial L}{\partial \theta} &amp;= \sum_{j} a_j Q_j - A = 0
+  &amp;&amp;\text{the constraint itself}\\
+\frac{k_j\lambda_j}{Q_j^{2}} &amp;= \frac{h_j + 2\theta a_j}{2}
+  &amp;&amp;\text{rearrange each item&#39;s equation}\\
+Q_j(\theta) &amp;= \sqrt{\frac{2k_j\lambda_j}{h_j + 2\theta a_j}}
+  &amp;&amp;\text{solve for } Q_j
+\end{aligned}
+\]</span></p>
+<p>Notice that this is the economic order quantity with <span class="math inline">\(h_j\)</span> replaced by <span class="math inline">\(h_j + 2\theta a_j\)</span>. <strong>The multiplier is a surcharge on holding</strong>, in proportion to how much of the scarce resource a unit consumes.</p>
+<aside class="notes">
+<p>At any point on the boundary L and C agree, so minimizing L is a legitimate substitute. An item that occupies a lot of space or ties up a lot of capital pays more surcharge, and its quantity falls further.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="finding-the-multiplier" class="slide level2">
 <h2>Finding the Multiplier</h2>
-<p>Substitute back into the constraint and you have <strong>one equation in one unknown</strong>:</p>
+<p>Substituting <span class="math inline">\(Q_j(\theta)\)</span> into the constraint leaves one equation in one unknown. Let <span class="math inline">\(R(\theta)\)</span> represent the <strong>resource function</strong>, what the quantities consume at multiplier <span class="math inline">\(\theta\)</span> less what is available:</p>
 <p><span class="math display">\[
-R(\theta) = \sum_{j} a_j\sqrt{\frac{2k_j\lambda_j}{h_j + 2\theta a_j}} - A
+R(\theta) = \sum_{j} a_j\sqrt{\frac{2k_j\lambda_j}{h_j + 2\theta a_j}} - A .
 \]</span></p>
-<div class="fragment">
-<p>Every term <strong>decreases</strong> as <span class="math inline">\(\theta\)</span> increases, so <span class="math inline">\(R\)</span> is strictly decreasing.</p>
-</div>
-<div class="fragment">
-<p>At <span class="math inline">\(\theta = 0\)</span> it is <strong>positive</strong>, because that is precisely the case where the unconstrained quantities violate the limit. It tends to <span class="math inline">\(-A\)</span> as <span class="math inline">\(\theta\)</span> grows.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-style-simple">
+<p><strong>Every term decreases as <span class="math inline">\(\theta\)</span> increases</strong>, so <span class="math inline">\(R\)</span> is strictly decreasing. At <span class="math inline">\(\theta = 0\)</span> it is positive, because that is the case where the unconstrained quantities violate the limit, and it tends to <span class="math inline">\(-A\)</span> as <span class="math inline">\(\theta\)</span> grows.</p>
+<div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>So there is <strong>exactly one root</strong> <span class="math inline">\(\theta^{*} &gt; 0\)</span>, and bisection finds it.</p>
+<p>Thus, there is exactly one root <span class="math inline">\(\theta^{*} &gt; 0\)</span>, and any root-finding method will find it. <strong>Bisection</strong> is enough: bracket the root, halve the interval, keep the half where <span class="math inline">\(R\)</span> changes sign, repeat.</p>
+</div>
+</div>
+</div>
 <p>The whole procedure is a one-dimensional search wrapped around a formula.</p>
-</div>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>The single root is what makes the search dependable. A spreadsheet’s Goal Seek is safe here for that reason, and the worksheet deck returns to it.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="three-items-one-capital-account" class="slide level2">
 <h2>Three Items, One Capital Account</h2>
-<p>Each costs $50 to order; carrying charge 30% per year.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>What is stocked?</em></td>
+<td>Three items, each from its own supplier</td>
+</tr>
+<tr class="even">
+<td><em>What is the demand process?</em></td>
+<td>Constant and known</td>
+</tr>
+<tr class="odd">
+<td><em>When is inventory reviewed?</em></td>
+<td>Continuously, item by item</td>
+</tr>
+<tr class="even">
+<td><em>What triggers replenishment, and how much?</em></td>
+<td>An item’s shelf reaching zero; its <span class="math inline">\(Q_j\)</span>, the three decisions</td>
+</tr>
+<tr class="odd">
+<td><em>What happens to unmet demand?</em></td>
+<td>None occurs; shortages are not allowed</td>
+</tr>
+<tr class="even">
+<td><em>What costs are incurred, and when?</em></td>
+<td>$50 per order; 30% a year on value held; at most $10,000 of average investment</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Item</th>
 <th style="text-align: right;"><span class="math inline">\(\lambda_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(c_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(h_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(h_j = 0.30\,c_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(Q_j^{*}\)</span> unconstrained</th>
 </tr>
 </thead>
@@ -1240,44 +1246,286 @@ R(\theta) = \sum_{j} a_j\sqrt{\frac{2k_j\lambda_j}{h_j + 2\theta a_j}} - A
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>Relevant cost <strong>$7,319.26</strong> a year, and average investment</p>
-<p><span class="math display">\[
-20\frac{447.21}{2} + 10\frac{912.87}{2} + 15\frac{421.64}{2} = \$12{,}198.77
-\]</span></p>
-</div>
+<aside class="notes">
+<p>Item 1 for example: the square root of 2 times 50 times 12,000 over 6, which is the square root of 200,000, or 447.21. The unconstrained relevant cost is $7,319.26 a year.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="does-it-bind" class="slide level2">
-<h2>Does It Bind?</h2>
-<p>Management will fund <strong>$10,000</strong>.</p>
-<div class="fragment">
+<section id="steps-1-and-2-does-it-bind" class="slide level2">
+<h2>Steps 1 and 2: Does It Bind?</h2>
 <p><span class="math display">\[
-\$12{,}198.77 &gt; \$10{,}000
+\begin{aligned}
+\sum_{j} c_j\frac{Q_j^{*}}{2} &amp;= 20\,\frac{447.21}{2} + 10\,\frac{912.87}{2} + 15\,\frac{421.64}{2}
+  &amp;&amp;\text{investment at the free quantities}\\
+&amp;= 4{,}472.14 + 4{,}564.35 + 3{,}162.28 = \$12{,}198.77
+  &amp;&amp;\text{item by item}\\
+\$12{,}198.77 &amp;&gt; \$10{,}000
+  &amp;&amp;\text{the constraint is active}
+\end{aligned}
 \]</span></p>
-</div>
-<div class="fragment">
-<p><strong>Active.</strong> The unconstrained answer is not available.</p>
-</div>
-<div class="fragment">
-<p>Under a budget, <span class="math inline">\(a_j = c_j/2\)</span>, so the surcharge <span class="math inline">\(2\theta a_j\)</span> becomes <span class="math inline">\(\theta
-c_j\)</span>:</p>
+<p>Under a budget <span class="math inline">\(a_j = c_j/2\)</span>, so the surcharge <span class="math inline">\(2\theta a_j\)</span> becomes <span class="math inline">\(\theta c_j\)</span>:</p>
 <p><span class="math display">\[
-Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + \theta c_j}}
+Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + \theta c_j}}, \qquad
+R(\theta) = \sum_j c_j\frac{Q_j(\theta)}{2} - 10{,}000 .
 \]</span></p>
-</div>
+<aside class="notes">
+<p>The unconstrained answer is not available, so we continue to step 3: find the one theta that brings the investment to exactly 10,000.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="bisection-and-the-answer" class="slide level2">
-<h2>Bisection, and the Answer</h2>
-<p><span class="math display">\[
-\theta^{*} = 0.14643
-\]</span></p>
+<section id="step-3-bisection" class="slide level2">
+<h2>Step 3: Bisection</h2>
+<p>Bracket with <span class="math inline">\(\theta = 0\)</span> (investment $12,198.77, over) and <span class="math inline">\(\theta = 1\)</span> (investment $5,860.10, under), then halve.</p>
+<table style="font-size:0.85em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+Step
+</th>
+<th>
+Low
+</th>
+<th>
+High
+</th>
+<th>
+Midpoint <span class="math inline">\(\theta\)</span>
+</th>
+<th>
+Investment at midpoint
+</th>
+<th style="text-align:left">
+Keep
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0.5
+</td>
+<td>
+$7,470.19
+</td>
+<td style="text-align:left">
+under: lower half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0.5
+</td>
+<td>
+0.25
+</td>
+<td>
+$9,009.39
+</td>
+<td style="text-align:left">
+under: lower half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+0.25
+</td>
+<td>
+0.125
+</td>
+<td>
+$10,249.02
+</td>
+<td style="text-align:left">
+over: upper half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+0.125
+</td>
+<td>
+0.25
+</td>
+<td>
+0.1875
+</td>
+<td>
+$9,569.50
+</td>
+<td style="text-align:left">
+under: lower half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+0.125
+</td>
+<td>
+0.1875
+</td>
+<td>
+0.15625
+</td>
+<td>
+$9,891.80
+</td>
+<td style="text-align:left">
+under: lower half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+0.125
+</td>
+<td>
+0.15625
+</td>
+<td>
+0.14063
+</td>
+<td>
+$10,065.66
+</td>
+<td style="text-align:left">
+over: upper half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+0.14063
+</td>
+<td>
+0.15625
+</td>
+<td>
+0.14844
+</td>
+<td>
+$9,977.59
+</td>
+<td style="text-align:left">
+under: lower half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td>
+0.14063
+</td>
+<td>
+0.14844
+</td>
+<td>
+0.14453
+</td>
+<td>
+$10,021.33
+</td>
+<td style="text-align:left">
+over: upper half
+</td>
+</tr>
+<tr class="fragment">
+<td>
+9
+</td>
+<td>
+0.14453
+</td>
+<td>
+0.14844
+</td>
+<td>
+0.14648
+</td>
+<td>
+$9,999.39
+</td>
+<td style="text-align:left">
+under: lower half
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Each step halves the bracket, so twenty more steps pin it to six decimals: <span class="math inline">\(\theta^{*} = 0.14643\)</span>.</p>
+</div>
+<aside class="notes">
+<p>Too much investment means the surcharge is too small, so the root lies above the midpoint; too little means it lies below. That is the whole of the rule, and it works because R is strictly decreasing.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-answer-and-the-check" class="slide level2">
+<h2>The Answer, and the Check</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th>Item</th>
-<th style="text-align: right;"><span class="math inline">\(Q_j\)</span></th>
-<th style="text-align: right;">Ordering</th>
-<th style="text-align: right;">Holding</th>
+<th style="text-align: right;"><span class="math inline">\(Q_j\)</span> constrained</th>
+<th style="text-align: right;">Ordering cost</th>
+<th style="text-align: right;">Holding cost</th>
 </tr>
 </thead>
 <tbody>
@@ -1307,169 +1555,204 @@ Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + \theta c_j}}
 </tr>
 </tbody>
 </table>
-</section>
-<section id="the-arithmetic-check" class="slide level2">
-<h2>The Arithmetic Check</h2>
-<p>Notice the holding total is <strong>exactly $3,000</strong>.</p>
+<p><em>The check.</em> The holding cost total is $3,000, and it has to be:</p>
 <p><span class="math display">\[
-0.30 \times \$10{,}000 = \$3{,}000
+\begin{aligned}
+\sum_j h_j\frac{Q_j}{2} &amp;= \sum_j i\,c_j\frac{Q_j}{2} = i\sum_j c_j\frac{Q_j}{2}
+  &amp;&amp;h_j = ic_j\\
+&amp;= 0.30 \times \$10{,}000 = \$3{,}000
+  &amp;&amp;\text{the investment is the budget}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>The constraint fixed the investment, so it <strong>fixed the holding cost with it</strong>. The two numbers must agree.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Perform that check every time a budget constraint is solved. It catches an error in either the multiplier or the quantities immediately.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>And the investment itself comes to exactly $10,000, as an active constraint requires.</p>
-</div>
+<p>The constraint fixed the investment, so it fixed the holding cost with it. You should perform that check every time a budget is solved, because it catches an error in the multiplier or the quantities immediately.</p>
+<aside class="notes">
+<p>Item 1: the square root of 2 times 50 times 12,000 over (6 + 0.14643 times 20), which is 1,200,000 over 8.9286, square-rooted: 366.61.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="a-property-that-will-not-hold" class="slide level2">
-<h2>A Property That Will Not Hold</h2>
-<p>Ordering and holding are <strong>no longer equal</strong>: $4,464.30 against $3,000.00.</p>
-<div class="fragment">
-<p>At an <strong>unconstrained</strong> optimum they are equal. That fails here, <strong>as it must</strong>, because these quantities do not minimize the unconstrained cost.</p>
-</div>
-<div class="fragment">
+<section id="what-the-limit-costs" class="slide level2">
+<h2>What the Limit Costs</h2>
+<p><span class="math display">\[
+\begin{aligned}
+C &amp;= \$4{,}464.30 + \$3{,}000.00 = \$7{,}464.30
+  &amp;&amp;\text{relevant cost under the limit}\\
+\$7{,}464.30 - \$7{,}319.26 &amp;= \$145.04, \quad 145.04/7{,}319.26 = 1.98\%
+  &amp;&amp;\text{the price of the limit}\\
+\$12{,}198.77 - \$10{,}000 &amp;= \$2{,}198.77
+  &amp;&amp;\text{the stock it removes}
+\end{aligned}
+\]</span></p>
+<p>When someone proposes tightening or relaxing the working capital account, $145.04 a year is the figure that belongs in the conversation, and you should be prepared to supply it instead of merely complying with the limit.</p>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>If you check a constrained solution by looking for balanced costs, you will conclude wrongly that something is broken.</p>
+<p>Notice that ordering and holding are no longer equal: $4,464.30 against $3,000.00. That property holds only at an unconstrained optimum. If you check a constrained solution by looking for balanced costs, you will conclude wrongly that something is broken.</p>
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="what-the-limit-costs" class="slide level2">
-<h2>What the Limit Costs</h2>
-<p>Relevant cost rises to <strong>$7,464.30</strong>.</p>
-<p><span class="math display">\[
-\$7{,}464.30 - \$7{,}319.26 = \$145.04, \text{ or } 1.98\%
-\]</span></p>
-<div class="fragment">
-<p>That is the price of holding <strong>$2,199 less</strong> in stock.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>When someone proposes tightening or relaxing the working capital account, <strong>$145.04 is the figure that belongs in the conversation</strong>.</p>
-<p>Be prepared to supply it, rather than merely complying with the limit.</p>
-</div>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>These quantities do not minimize the unconstrained cost, so there is no reason for the two cost terms to balance.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="a-budget-rescales-and-does-not-reallocate" class="slide level2">
 <h2>A Budget Rescales, and Does Not Reallocate</h2>
-<p>With <span class="math inline">\(h_j = ic_j\)</span>, every constrained quantity is the unconstrained one times the <strong>same factor</strong>:</p>
+<p>Substitute <span class="math inline">\(a_j = c_j/2\)</span> and <span class="math inline">\(h_j = ic_j\)</span>:</p>
 <p><span class="math display">\[
-\frac{Q_j(\theta)}{Q_j^{*}} = \sqrt{\frac{i}{i + \theta}}
+\begin{aligned}
+Q_j &amp;= \sqrt{\frac{2k_j\lambda_j}{ic_j + \theta c_j}} = \sqrt{\frac{2k_j\lambda_j}{(i + \theta)c_j}}
+  &amp;&amp;\text{a carrying charge of } i + \theta\\
+\frac{Q_j(\theta)}{Q_j^{*}} &amp;= \sqrt{\frac{2k_j\lambda_j}{(i+\theta)c_j}\cdot\frac{ic_j}{2k_j\lambda_j}} = \sqrt{\frac{i}{i + \theta}}
+  &amp;&amp;\text{every item&#39;s data cancels}\\
+\sqrt{\frac{0.30}{0.44643}} &amp;= 0.81975
+  &amp;&amp;\text{the belt-tightening factor}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>Here: <span class="math inline">\(\sqrt{0.30/0.44643} = 0.8198\)</span>, and</p>
-<p><span class="math display">\[
-\frac{366.61}{447.21} = \frac{748.33}{912.87} = \frac{345.64}{421.64} = 0.8198
-\]</span></p>
-</div>
-<div class="fragment">
+<p><em>The check:</em> <span class="math inline">\(366.61/447.21\)</span>, <span class="math inline">\(748.33/912.87\)</span> and <span class="math inline">\(345.64/421.64\)</span> all equal 0.81975.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The unconstrained solution <strong>already had the items in the right proportion</strong>. The constraint asks only that everything be smaller.</p>
+<p>A budget constraint changes the <strong>scale</strong> of the whole portfolio and leaves the <strong>proportions</strong> between items untouched. Nothing is reallocated; everything shrinks.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>A planner faced with a cut in working capital might expect to cut deepest on the items that consume most of it. The unconstrained solution already put each item in the right proportion; the constraint asks only that everything be smaller.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="that-is-specific-to-a-budget" class="slide level2">
 <h2>That Is Specific to a Budget</h2>
-<p>It happens because the constraint’s coefficients, the <span class="math inline">\(c_j\)</span>, are <strong>the same things that already appear in the holding term</strong>.</p>
-<div class="fragment">
-<p>A <strong>space</strong> constraint’s coefficients have nothing to do with value. It <strong>reallocates</strong>.</p>
+<p>The scaling needed <span class="math inline">\(h_j = ic_j\)</span> and <span class="math inline">\(a_j = c_j/2\)</span>, so that the multiplier entered as a factor <span class="math inline">\((i + \theta)\)</span> <strong>common to every item</strong>. It fails:</p>
+<ul>
+<li>when holding cost is quoted directly, not as a carrying charge on value;</li>
+<li>under a <strong>space</strong> limit, where <span class="math inline">\(a_j = v_j\)</span> is unrelated to <span class="math inline">\(h_j\)</span>;</li>
+<li>under a limit on <strong>replenishments</strong>, next.</li>
+</ul>
+<p>Thus, uniform rescaling is a property of the budget case, not of constrained lot sizing in general.</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="fragment">
-<p>So does a limit on replenishments, because a constant added to unequal ordering costs changes them unequally. Which we can now show.</p>
+<div class="callout-content">
+<p>The effective carrying charge is <span class="math inline">\(0.30 + 0.14643 = 0.44643\)</span> a year. A budget constraint and a higher cost of capital are the same thing seen from two sides: both say money tied up in stock is scarcer than the accounting rate admits.</p>
 </div>
+</div>
+</div>
+<aside class="notes">
+<p>That is the second reading of the multiplier, which the closing slide collects with the other two.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-same-items-a-different-limit" class="slide level2">
-<h2>The Same Items, a Different Limit</h2>
-<p>Same demands, same unit costs, same carrying charge. This time the items differ in what they cost to <strong>order</strong>, and the limit falls on the <strong>receiving dock</strong>.</p>
-<table class="caption-top">
+<section id="when-the-limit-is-on-ordering" class="slide level2">
+<h2>When the Limit Is on Ordering</h2>
+<p>Receiving docks, purchasing staff and inspection limit how often the operation can act. Form the Lagrangian with <span class="math inline">\(\sum_j \lambda_j/Q_j \le A\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+L &amp;= \sum_{j}\left[\frac{k_j\lambda_j}{Q_j} + \frac{h_j Q_j}{2}\right]
++ \theta\left[\sum_{j}\frac{\lambda_j}{Q_j} - A\right]
+  &amp;&amp;\text{both terms carry } \lambda_j/Q_j\\
+\frac{\partial L}{\partial Q_j} &amp;= -\frac{k_j\lambda_j}{Q_j^{2}} - \frac{\theta\lambda_j}{Q_j^{2}} + \frac{h_j}{2}
+= -\frac{(k_j + \theta)\lambda_j}{Q_j^{2}} + \frac{h_j}{2} = 0
+  &amp;&amp;\text{they combine}\\
+Q_j(\theta) &amp;= \sqrt{\frac{2(k_j + \theta)\lambda_j}{h_j}}
+  &amp;&amp;\text{solve}
+\end{aligned}
+\]</span></p>
+<p>The multiplier is now added to the <strong>ordering cost</strong>: it is a price per order, in dollars. Quantities <strong>rise</strong> with <span class="math inline">\(\theta\)</span>, and the replenishment count falls, still strictly, so bisection applies unchanged.</p>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>The proportions do not survive. <span class="math inline">\(k_j + \theta\)</span> is a <strong>sum</strong>, and adding a constant to unequal ordering costs changes them by unequal proportions. A frequency limit <strong>reallocates</strong> where a budget does not.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>The one exception: if every item has the same ordering cost, k + theta is again common and the portfolio rescales uniformly.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-same-distributor-a-dock-limit" class="slide level2">
+<h2>The Same Distributor, a Dock Limit</h2>
+<p>The items now differ in what they cost to order, and the dock can process 50 receipts a year.</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Item</th>
 <th style="text-align: right;"><span class="math inline">\(\lambda_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(k_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(h_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(Q_j^{*}\)</span></th>
-<th style="text-align: right;">Orders per year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td style="text-align: right;">12,000</td>
-<td style="text-align: right;">$50</td>
-<td style="text-align: right;">447.21</td>
-<td style="text-align: right;">26.83</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td style="text-align: right;">25,000</td>
-<td style="text-align: right;">$20</td>
-<td style="text-align: right;">577.35</td>
-<td style="text-align: right;">43.30</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td style="text-align: right;">8,000</td>
-<td style="text-align: right;">$80</td>
-<td style="text-align: right;">533.33</td>
-<td style="text-align: right;">15.00</td>
-</tr>
-<tr class="even">
-<td><strong>Total</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"><strong>85.13</strong></td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p>The dock can process <strong>50</strong>. Active.</p>
-</div>
-</section>
-<section id="the-multiplier-enters-somewhere-else" class="slide level2">
-<h2>The Multiplier Enters Somewhere Else</h2>
-<p>Under a limit on replenishments, <span class="math inline">\(\theta^{*}\)</span> is added to the <strong>ordering cost</strong>, not to the holding rate, and it carries units of <strong>dollars per order</strong>.</p>
-<p><span class="math display">\[
-\theta^{*} = \$64.33 \text{ per order}
-\]</span></p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Item</th>
-<th style="text-align: right;">Effective <span class="math inline">\(k_j + \theta^{*}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(Q_j\)</span></th>
+<th style="text-align: right;">Orders a year</th>
+<th style="text-align: right;"><span class="math inline">\(k_j + \theta^{*}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(Q_j\)</span> held</th>
 <th style="text-align: right;">Orders</th>
 <th style="text-align: right;"><span class="math inline">\(Q_j/Q_j^{*}\)</span></th>
 </tr>
@@ -1477,27 +1760,47 @@ Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + \theta c_j}}
 <tbody>
 <tr class="odd">
 <td>1</td>
+<td style="text-align: right;">12,000</td>
+<td style="text-align: right;">$50</td>
+<td style="text-align: right;">$6.00</td>
+<td style="text-align: right;">447.21</td>
+<td style="text-align: right;">26.83</td>
 <td style="text-align: right;">$114.33</td>
 <td style="text-align: right;">676.25</td>
 <td style="text-align: right;">17.74</td>
-<td style="text-align: right;">1.5122</td>
+<td style="text-align: right;">1.5121</td>
 </tr>
 <tr class="even">
 <td>2</td>
+<td style="text-align: right;">25,000</td>
+<td style="text-align: right;">$20</td>
+<td style="text-align: right;">$3.00</td>
+<td style="text-align: right;">577.35</td>
+<td style="text-align: right;">43.30</td>
 <td style="text-align: right;">$84.33</td>
 <td style="text-align: right;">1,185.53</td>
 <td style="text-align: right;">21.09</td>
-<td style="text-align: right;"><strong>2.0534</strong></td>
+<td style="text-align: right;">2.0534</td>
 </tr>
 <tr class="odd">
 <td>3</td>
+<td style="text-align: right;">8,000</td>
+<td style="text-align: right;">$80</td>
+<td style="text-align: right;">$4.50</td>
+<td style="text-align: right;">533.33</td>
+<td style="text-align: right;">15.00</td>
 <td style="text-align: right;">$144.33</td>
 <td style="text-align: right;">716.36</td>
 <td style="text-align: right;">11.17</td>
-<td style="text-align: right;"><strong>1.3432</strong></td>
+<td style="text-align: right;">1.3432</td>
 </tr>
 <tr class="even">
 <td><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>85.13</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"><strong>50.00</strong></td>
@@ -1505,136 +1808,103 @@ Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + \theta c_j}}
 </tr>
 </tbody>
 </table>
-</section>
-<section id="read-the-last-column" class="slide level2">
-<h2>Read the Last Column</h2>
-<p>Every quantity has <strong>grown</strong>, as ordering less often requires.</p>
-<div class="fragment">
-<p>But they have <strong>not grown together</strong>.</p>
-</div>
-<div class="fragment">
-<p>Item 2, whose $20 ordering cost is most changed by an addition of $64.33, <strong>more than doubles</strong>. Item 3 grows by only a third.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The dock’s capacity has <strong>redistributed</strong> the quantities as well as lengthening them. That is reallocation, and it is what a budget constraint does not do.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The check is the same shape: each <span class="math inline">\(Q_j\)</span> is an ordinary EOQ computed with the effective ordering cost in column two.</p>
-<p><span class="math display">\[
-\sqrt{\frac{2(114.33)(12{,}000)}{6}} = 676.25 \quad\checkmark
-\]</span></p>
-</div>
+<p><span class="math inline">\(85.13 &gt; 50\)</span>, so the limit binds; bisection gives <span class="math inline">\(\theta^{*} = \$64.33\)</span> per order.</p>
+<p><em>The check.</em> The orders total 50.00, and each quantity is the economic order quantity with the effective ordering cost: item 1 gives <span class="math inline">\(\sqrt{2(114.33)(12{,}000)/6} = 676.25\)</span>. That confirms the multiplier and the quantities came from the same value.</p>
+<aside class="notes">
+<p>The unit costs are as before, $20, $10 and $15, with the carrying charge of 30%. Unconstrained, the three cost $6,815.33 a year.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-the-dock-limit-costs" class="slide level2">
 <h2>What the Dock Limit Costs</h2>
-<p>Annual cost rises to <strong>$7,621.27</strong>.</p>
 <p><span class="math display">\[
-\$7{,}621.27 - \$6{,}815.33 = \$805.93, \text{ or } 11.83\%
+\begin{aligned}
+\$7{,}621.27 - \$6{,}815.33 &amp;= \$805.93
+  &amp;&amp;\text{the price of the limit}\\
+805.93 / 6{,}815.33 &amp;= 11.83\%
+  &amp;&amp;\text{relative to unconstrained}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
+<p>Notice in the last column that the quantities have not grown together. Item 2, whose $20 ordering cost is most changed by adding $64.33, <strong>more than doubles</strong>; item 3, at $80, grows by only a third. The dock’s capacity has redistributed the quantities as well as lengthened them.</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>One more replenishment a year of dock capacity would save about $64. That is the figure to carry to whoever decides whether to add capacity at the dock.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>A limit on ordering capacity and a supplier who charges more per order are the same thing seen from two sides, as a budget and a higher cost of capital were.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="what-the-multiplier-means" class="slide level2">
+<h2>What the Multiplier Means</h2>
+<p><strong>It is a shadow price.</strong> <span class="math inline">\(\theta^{*}\)</span> is the rate at which the minimum cost falls as the limit is relaxed: at 0.14643, one more dollar of working capital saves about 15 cents a year, a hundred more about $14.</p>
+<p><strong>The rate is local.</strong> As the limit relaxes the multiplier falls, reaching zero at $12,198.77, where the constraint stops binding and the last of the $145.04 is recovered. Asking for more than that buys nothing.</p>
+<p><strong>Where it enters depends on the constraint.</strong> Under a budget it is an increment to the carrying charge, <span class="math inline">\(i + \theta\)</span>; under a replenishment limit it is a price per order, <span class="math inline">\(k_j + \theta\)</span>.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><strong>One more replenishment per year would save about $64.</strong></p>
-<p>That is the figure you carry to whoever decides whether to add capacity at the dock.</p>
+<p>The multiplier is not merely a device for getting an answer. It carries the economics of the constraint, and the formulation decides which reading applies.</p>
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="the-multiplier-is-the-economics" class="slide level2">
-<h2>The Multiplier Is the Economics</h2>
-<p><span class="math inline">\(\theta^{*}\)</span> is a <strong>shadow price</strong>: the rate at which relaxing the limit reduces cost.</p>
-<div class="fragment">
-<p>It says what another dollar of budget, or another square foot, or another dock slot, is <strong>worth</strong>.</p>
-</div>
-<div class="fragment">
-<p>And it says <strong>when it stops being worth asking for</strong>: when <span class="math inline">\(\theta^{*}\)</span> falls to zero, the constraint has stopped binding.</p>
-</div>
-</section>
-<section id="where-it-enters-depends-on-the-constraint" class="slide level2">
-<h2>Where It Enters Depends on the Constraint</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Constraint</th>
-<th>Where <span class="math inline">\(\theta^{*}\)</span> goes</th>
-<th>Its units</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Limit on <strong>stock</strong></td>
-<td>Added to the holding rate</td>
-<td>per year</td>
-</tr>
-<tr class="even">
-<td>Limit on <strong>replenishments</strong></td>
-<td>Added to the ordering cost</td>
-<td>dollars per order</td>
-</tr>
-<tr class="odd">
-<td><strong>Fixed investment target</strong>, no holding cost in the objective</td>
-<td>It <em>becomes</em> the carrying charge</td>
-<td>per year</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Keep these three separate. The third case surprises people: where management fixes an investment target and holding cost never appears, the multiplier <strong>is</strong> the implied carrying charge, and reading it tells you what the organization’s own behavior asserts about the cost of capital.</p>
-</div>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>Next session adds a third place for the same symbol: standing in for the carrying charge when there is no holding cost at all.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-we-did-today" class="slide level2">
 <h2>What We Did Today</h2>
-<p><strong>Three kinds of coupling, three kinds of mathematics.</strong> Today was the shared resource.</p>
-<div class="fragment">
-<p><strong>Check whether it binds first.</strong> It is free, and skipping it is expensive.</p>
-</div>
-<div class="fragment">
-<p><strong>The multiplier is a surcharge on holding</strong>, proportional to what a unit consumes of the scarce thing.</p>
-</div>
-<div class="fragment">
-<p><strong>A budget rescales; space and dock limits reallocate.</strong> 0.8198 three times over, against 1.51, 2.05, and 1.34.</p>
-</div>
-<div class="fragment">
-<p><strong><span class="math inline">\(\theta^{*}\)</span> is a price.</strong> $145 a year for a $10,000 cap. $64 for one more order slot.</p>
-</div>
+<p><strong>A shared resource couples items through a constraint;</strong> the cost functions stay separate.</p>
+<p><strong>Check whether it binds first.</strong> If not, the item-by-item answer stands.</p>
+<p><strong>The multiplier is a surcharge:</strong> <span class="math inline">\(Q_j(\theta) = \sqrt{2k_j\lambda_j/(h_j + 2\theta a_j)}\)</span>, and the resource function has one root, so bisection finds it.</p>
+<p><strong>Under a $10,000 budget</strong> <span class="math inline">\(\theta^{*} = 0.14643\)</span>, holding is $3,000 by construction, the limit costs $145.04, and every quantity shrinks by 0.81975.</p>
+<p><strong>Under a dock limit</strong> the multiplier joins the ordering cost, the quantities grow, and they are reallocated: the limit costs $805.93.</p>
 </section>
 <section id="for-next-time" class="slide level2">
 <h2>For Next Time</h2>
 <p><strong>Read before next session:</strong> <em>The Exchange Curve</em>.</p>
-<p>Next session we stop solving for a point and look at the <strong>whole frontier</strong>.</p>
+<p>Today’s material was <em>When Items Stop Being Independent</em>, <em>A Constrained Lot Sizing Problem</em> and <em>What the Multiplier Means</em>.</p>
+<p>Next session:</p>
 <ul>
-<li>What an operating point implies about a firm’s own costs</li>
-<li>Why aggregate investment and order frequency <strong>cannot be chosen separately</strong></li>
-<li>Reading a firm’s practice <strong>backwards</strong> to recover the cost ratio it is asserting</li>
-<li>The <strong>variety index</strong>, and what it says about a portfolio</li>
+<li>One item: why investment times order frequency is fixed</li>
+<li>Many items: the exchange curve, and reading a cost ratio from practice</li>
+<li>Unequal ordering costs, the variety index, and what moves the whole curve</li>
 </ul>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -1642,7 +1912,7 @@ Q_j(\theta) = \sqrt{\frac{2k_j\lambda_j}{h_j + \theta c_j}}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The multiplier you met today is about to become an axis.</p>
+<p>Bring the multiplier. Next session it stands in for the carrying charge.</p>
 </div>
 </div>
 </div>

@@ -335,6 +335,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -822,7 +823,14 @@ Table&nbsp;6.2: The deck assembly with nothing netted. Every negative entry is a
 <section id="sec-mrpdrp-safety" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-mrpdrp-safety"><span class="header-section-number">6.3.2</span> Safety Stock and Allocations</h3>
 <p>We meet two modifications to <a href="#eq-mrp-net" class="quarto-xref">Equation&nbsp;<span>6.3</span></a> constantly, and neither needs new machinery.</p>
-<p><em>Safety stock</em> is the <span class="math inline">\(\mathit{SS}\)</span> term. It enters every period’s netting, but its effect is to raise the <em>first</em> net requirement by <span class="math inline">\(\mathit{SS}\)</span>; after that the projected balance already carries it, and the plan holds <span class="math inline">\(\mathit{SS}\)</span> units permanently and plans around what is left. Whether it belongs in a system whose entire premise is that demand is known is a real question, and the field has never fully settled it. <a href="#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a> returns to it.</p>
+<p><em>Safety stock</em> is the <span class="math inline">\(\mathit{SS}\)</span> term. It enters every period’s netting, but its effect is to raise the <em>first</em> net requirement by <span class="math inline">\(\mathit{SS}\)</span>; after that the projected balance already carries it, and the plan holds <span class="math inline">\(\mathit{SS}\)</span> units permanently and plans around what is left. For example, take an item ordered lot-for-lot with nothing on hand and nothing on order, whose first requirement falls in period <span class="math inline">\(t\)</span>. Then <a href="#eq-mrp-net" class="quarto-xref">Equation&nbsp;<span>6.3</span></a> and <a href="#eq-mrp-balance" class="quarto-xref">Equation&nbsp;<span>6.2</span></a> give <span class="math display">\[
+\begin{aligned}
+\mathit{NR}_t &amp;= \max\left(G_t + \mathit{SS} - 0 - 0,\; 0\right) = G_t + \mathit{SS},
+  &amp; I_t &amp;= 0 + 0 + (G_t + \mathit{SS}) - G_t = \mathit{SS},\\
+\mathit{NR}_{t+1} &amp;= \max\left(G_{t+1} + \mathit{SS} - 0 - \mathit{SS},\; 0\right) = G_{t+1},
+  &amp; I_{t+1} &amp;= \mathit{SS} + 0 + G_{t+1} - G_{t+1} = \mathit{SS},
+\end{aligned}
+\]</span> and every later period repeats the second line. Whether it belongs in a system whose entire premise is that demand is known is a real question, and the field has never fully settled it. <a href="#sec-mrpdrp-assumptions" class="quarto-xref"><span>Section 6.8</span></a> returns to it.</p>
 <p><em>Allocated stock</em> is inventory that is physically present but already promised to something else. It is handled by reducing <span class="math inline">\(I_0\)</span>, the opening balance, in order to keep the stock that is promised elsewhere out of the calculation. Nothing else changes.</p>
 </section>
 <section id="sec-mrpdrp-horizon" class="level3" data-number="6.3.3">
@@ -1295,6 +1303,9 @@ Table&nbsp;6.7: What the end item’s rule does to the whole structure. The vari
 <p>We draw three things out of that table.</p>
 <p>Lot-for-lot is the only rule that changes nothing. Its receipts are the master schedule itself, so the components see the schedule, and <span class="math inline">\(VC = 0.6191\)</span> is the schedule’s own figure. Every rule that batches raises it, as far as 1.5463 under part-period balancing. The periodic order quantity happens to agree with lot-for-lot here, because the deck assembly’s holding rate is high enough that <a href="03-Chapter3.html#eq-eoq" class="quarto-xref">Equation&nbsp;<span>3.17</span></a> gives a time supply of 1.35 months, which rounds to one.</p>
 <p><em>The cost below a level rises with how often the level above orders.</em> Read the Orders column against the Cost below column and the relation is exact: seven orders cost between $5,900 and $6,100 below, eight cost $6,700, nine cost $7,500, and eleven cost $9,000. The reason is <a href="#eq-mrp-explosion" class="quarto-xref">Equation&nbsp;<span>6.1</span></a> and nothing else. Every release a parent makes is a requirement its components have to meet, and meeting a requirement costs a setup. For example, lot-for-lot releases eleven times and the components below it place their own orders eleven times each.</p>
+<p>That is, each release of the deck assembly costs the belt, the spindle assembly and the housing one setup apiece, <span class="math inline">\(\$300 + \$250 + \$150 = \$700\)</span>. The bearing orders once in every period in which either of its parents releases, at $100 an order, so a release adds one or two bearing orders, according to whether a neighboring release has already claimed those periods. Under lot-for-lot, <span class="math display">\[
+11 \times \$700 + 13 \times \$100 = \$7,700 + \$1,300 = \$9,000 ,
+\]</span> which is the Cost below entry. Every other row decomposes the same way.</p>
 <p>Thus, the rule that is best at a level is not the rule that is best for the product. Wagner-Whitin is optimal at the deck assembly, and it is optimal there by construction, since <a href="05-Chapter5.html#sec-dls-recursion" class="quarto-xref"><span>Section 5.4.2</span></a> proves no rule can beat it on that item’s own requirements. It costs $4,860 where the adjusted economic order quantity costs $5,588, and it is $872 worse over the structure as a whole. Choosing the rule by the level you can see costs 7.59% here.</p>
 </section>
 <section id="sec-mrpdrp-vcwarning" class="level3" data-number="6.5.2">

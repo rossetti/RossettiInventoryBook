@@ -354,6 +354,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -1046,7 +1047,13 @@ Q_j = \sqrt{\frac{2k_j\lambda_j}{ic_j + \theta c_j}} = \sqrt{\frac{2k_j\lambda_j
 N^{a} = \sum_{j=1}^{n}\frac{\lambda_j}{Q_j}
 \tag{4.12}\]</span></span></p>
 <p>The first is in dollars and appears on a balance sheet. The second is in orders per year and is what the receiving department feels. They trade against one another, and the question is exactly how.</p>
-<p>Suppose that every item is ordered in its economic quantity, that the ordering cost is a common <span class="math inline">\(k\)</span> for all items, and that the carrying charge is the common <span class="math inline">\(\gamma\)</span>. Then <span class="math inline">\(Q_j = \sqrt{2k\lambda_j/(\gamma c_j)}\)</span>, and substituting into <a href="#eq-aggregates" class="quarto-xref">Equation&nbsp;<span>4.12</span></a> we obtain</p>
+<p>Suppose that every item is ordered in its economic quantity, that the ordering cost is a common <span class="math inline">\(k\)</span> for all items, and that the carrying charge is the common <span class="math inline">\(\gamma\)</span>. Then <span class="math inline">\(Q_j = \sqrt{2k\lambda_j/(\gamma c_j)}\)</span>. Substituting it into one item’s terms of <a href="#eq-aggregates" class="quarto-xref">Equation&nbsp;<span>4.12</span></a> gives <span class="math display">\[
+c_j\frac{Q_j}{2} = \frac{c_j}{2}\sqrt{\frac{2k\lambda_j}{\gamma c_j}}
+= \sqrt{\frac{k}{\gamma}}\cdot\frac{\sqrt{\lambda_j c_j}}{\sqrt{2}},
+\qquad
+\frac{\lambda_j}{Q_j} = \lambda_j\sqrt{\frac{\gamma c_j}{2k\lambda_j}}
+= \sqrt{\frac{\gamma}{k}}\cdot\frac{\sqrt{\lambda_j c_j}}{\sqrt{2}} ,
+\]</span> and summing over the items we obtain</p>
 <p><span id="eq-aggregate-forms"><span class="math display">\[
 \bar{I}^{a} = \sqrt{\frac{k}{\gamma}}\cdot\frac{1}{\sqrt{2}}\sum_{j=1}^{n}\sqrt{\lambda_j c_j},
 \qquad

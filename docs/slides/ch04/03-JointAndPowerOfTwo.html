@@ -1001,200 +1001,336 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>A shared <strong>setup</strong>, which is not a shared resource</li>
-<li>Rewriting the model in terms of the <strong>interval</strong> rather than the quantity</li>
-<li>Power-of-two policies, and why a dock can run them</li>
-<li>The 6.07% bound, derived</li>
-<li>Coordination against cleverness, measured</li>
+<li>The second coupling: a shared setup, split into major and minor costs</li>
+<li>The coordinated problem: a base period and integer multipliers</li>
+<li>Independent ordering, a common cycle, and integer ratios</li>
+<li>Power-of-two policies: why they nest, and why they cost at most 6.07% more</li>
+<li>Two items rounded to a weekly base period</li>
+<li>Four items from one supplier, coordinated</li>
 </ul>
 </section>
 <section id="a-different-kind-of-coupling" class="slide level2">
 <h2>A Different Kind of Coupling</h2>
-<p>Last session the items were coupled by a <strong>constraint</strong>, and their cost functions stayed separate.</p>
-<div class="fragment">
-<p>Today they are coupled by a <strong>shared cost</strong>, and there is no constraint at all.</p>
-</div>
-<div class="fragment">
-<p>Items bought from one supplier share an order. Placing it costs <span class="math inline">\(K\)</span> <strong>whatever is on it</strong>, and each item added costs a further <span class="math inline">\(k_j\)</span>.</p>
-</div>
-<div class="fragment">
+<p>Items from one supplier, on one truck, or run on one machine share part of the cost of replenishing, and that part is incurred once no matter how many items are on the order. Split the ordering cost in two:</p>
+<ul>
+<li>Let <span class="math inline">\(K\)</span> represent the <strong>major</strong> setup cost, incurred whenever an order is placed at all: the truck, the paperwork, the changeover to the family.</li>
+<li>Let <span class="math inline">\(k_j\)</span> represent the <strong>minor</strong> setup cost, incurred for each item on that order: the line on the purchase order, the pick, the receipt.</li>
+</ul>
+<p>Ordering each item independently pays <span class="math inline">\(K\)</span> every time any item is replenished, <span class="math inline">\(n\)</span> times over. Coordinating the orders pays it once.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>That couples the <strong>objective</strong>. Ordering two items together is cheaper than ordering them separately, so what each item should do depends on what the others do.</p>
+<p>Last session the coupling was a constraint and the cost functions stayed separate. Here the coupling is a <strong>cost</strong>, and the cost functions themselves are no longer separate.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>The minor cost keeps the symbol k_j that an item’s ordering cost has carried all along. What is new is K, sitting outside the sum.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="change-of-variable" class="slide level2">
-<h2>Change of Variable</h2>
-<p>Work in <strong>intervals</strong> rather than quantities. Since <span class="math inline">\(Q = \lambda T\)</span>:</p>
+<section id="the-coordinated-problem" class="slide level2">
+<h2>The Coordinated Problem</h2>
+<p>Let <span class="math inline">\(T\)</span> represent the <strong>base period</strong>, the time between order opportunities, and <span class="math inline">\(m_j\)</span> a positive integer <strong>multiplier</strong>: item <span class="math inline">\(j\)</span> is ordered every <span class="math inline">\(m_j\)</span>th opportunity.</p>
 <p><span class="math display">\[
-C(T) = \frac{k}{T} + \frac{h\lambda T}{2} = \frac{k}{T} + gT,
-\qquad g \equiv \frac{h\lambda}{2}
+\begin{aligned}
+\text{item $j$&#39;s cycle} &amp;= m_jT, \qquad Q_j = \lambda_jm_jT
+  &amp;&amp;\text{its order covers its own cycle}\\
+\text{major setup} &amp;: K \text{ once per } T \;\Rightarrow\; K/T
+  &amp;&amp;\text{every opportunity is used}\\
+\text{minor setup} &amp;: k_j \text{ once per } m_jT \;\Rightarrow\; k_j/(m_jT)
+  &amp;&amp;\text{only when item $j$ is on it}\\
+\text{holding} &amp;: h_j\cdot\lambda_jm_jT/2
+  &amp;&amp;\text{average inventory } Q_j/2\\
+C(T, \vec{m}) &amp;= \frac{K}{T} + \sum_{j}\left[\frac{k_j}{m_j T} + \frac{h_j\lambda_j m_j T}{2}\right]
+  &amp;&amp;\text{the relevant cost rate}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>Same two-term function, decision variable renamed. So it has the same solution:</p>
-<p><span class="math display">\[
-T^{*} = \sqrt{\frac{k}{g}} = \sqrt{\frac{2k}{h\lambda}},
-\qquad C(T^{*}) = 2\sqrt{kg}
-\]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Choosing <span class="math inline">\(Q\)</span> and choosing <span class="math inline">\(T\)</span> were always the same decision. Now <span class="math inline">\(T\)</span> is the convenient one, because <strong>intervals are what a schedule is made of</strong>.</p>
-</div>
-</div>
-</div>
-</div>
+<p><span class="math inline">\(T\)</span> is continuous and the <span class="math inline">\(m_j\)</span> are integers, so the problem is harder than anything in the economic order quantity chapter.</p>
+<aside class="notes">
+<p>Three policies follow, ranked by how much structure they impose to make the problem tractable.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-power-of-two-restriction" class="slide level2">
-<h2>The Power-of-Two Restriction</h2>
-<p>Fix a <strong>base period</strong> <span class="math inline">\(T\)</span>, the shortest interval at which the organization can act. Then restrict every item to</p>
+<section id="independent-ordering-and-a-common-cycle" class="slide level2">
+<h2>Independent Ordering, and a Common Cycle</h2>
+<p><strong>Independent ordering.</strong> Each item pays <span class="math inline">\(K + k_j\)</span> on its own schedule, so its cost is <span class="math inline">\(\sqrt{2(K + k_j)h_j\lambda_j}\)</span>. This is the baseline.</p>
+<p><strong>A common cycle</strong>, every <span class="math inline">\(m_j = 1\)</span>. The cost collapses to two terms in <span class="math inline">\(T\)</span>:</p>
 <p><span class="math display">\[
-T_j = 2^{\ell_j}T, \qquad \ell_j = 0, 1, 2, \ldots
+\begin{aligned}
+C(T) &amp;= \frac{K + \sum_j k_j}{T} + \frac{\sum_j h_j\lambda_j}{2}\,T
+  &amp;&amp;\text{the EOQ shape in } T\\
+T^{*} &amp;= \sqrt{\frac{2\left(K + \sum_j k_j\right)}{\sum_j h_j\lambda_j}},
+\qquad
+C^{*} = \sqrt{2\Big(K + \sum_j k_j\Big)\sum_j h_j\lambda_j}
+  &amp;&amp;\text{set the derivative to zero}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>Items are ordered every base period, or every second, fourth, eighth, and so on.</p>
-</div>
-<div class="fragment">
-<p>Two reasons, and <strong>only one of them is mathematical</strong>.</p>
-</div>
+<p>Simple and often good, but wasteful when a slow-moving expensive item is dragged onto the frequency of a fast-moving cheap one.</p>
+<aside class="notes">
+<p>The common cycle is the economic order quantity in T with the family’s totals: all the setups in the numerator, all the holding in the denominator.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="reason-one-such-schedules-nest" class="slide level2">
-<h2>Reason One: Such Schedules Nest</h2>
-<p>If one item is ordered every <strong>2</strong> base periods and another every <strong>8</strong>, then every time the slow item is due, <strong>the fast one is due as well</strong>, because 2 divides 8.</p>
-<div class="fragment">
-<p>With arbitrary integers this fails. Multipliers of <strong>3 and 5</strong> coincide only every <strong>15</strong> base periods, and in between there are orders carrying one item and not the other.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A nested schedule is one a <strong>receiving dock can actually run</strong>.</p>
-<p>Nesting is the reason power-of-two policies are used in practice at all.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="reason-two-they-cost-almost-nothing" class="slide level2">
-<h2>Reason Two: They Cost Almost Nothing</h2>
-<p>Which we now prove.</p>
-<div class="fragment">
-<p><span class="math inline">\(C\)</span> is convex, so the best <span class="math inline">\(\ell\)</span> is the smallest one for which <strong>doubling again does not help</strong>:</p>
+<section id="integer-ratios" class="slide level2">
+<h2>Integer Ratios</h2>
+<p><strong>Integer ratios</strong>, any positive integers. Once <span class="math inline">\(T\)</span> is fixed the terms separate, and each item’s best continuous multiplier is</p>
 <p><span class="math display">\[
-\frac{k}{2^{\ell}T} + g2^{\ell}T \;\le\; \frac{k}{2^{\ell+1}T} + g2^{\ell+1}T
+m_j = \frac{1}{T}\sqrt{\frac{2k_j}{h_j\lambda_j}},
 \]</span></p>
-</div>
-<div class="fragment">
-<p>Collecting the <span class="math inline">\(k\)</span> terms left and the <span class="math inline">\(g\)</span> terms right gives <span class="math inline">\(k/(2g) \le (2^{\ell}T)^{2}\)</span>, so</p>
-<p><span class="math display">\[
-\ell^{*} = \text{smallest integer with}\quad
-2^{\ell} \ge \frac{T_j^{*}}{\sqrt{2}\,T}
-\]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>That is a <strong>formula, not a search</strong>. Take <span class="math inline">\(\log_2\)</span> of the right side and round up.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="where-the-chosen-interval-sits" class="slide level2">
-<h2>Where the Chosen Interval Sits</h2>
-<p>The rule already says <span class="math inline">\(T_j \ge T_j^{*}/\sqrt{2}\)</span>.</p>
-<div class="fragment">
-<p>The companion bound comes from the other side: because <span class="math inline">\(\ell^{*}\)</span> is the <strong>smallest</strong> integer that works, the previous power was worse, which yields <span class="math inline">\(T_j &lt; \sqrt{2}\,T_j^{*}\)</span>.</p>
-<p><span class="math display">\[
-\frac{T_j^{*}}{\sqrt{2}} \;\le\; T_j \;&lt;\; \sqrt{2}\,T_j^{*}
-\]</span></p>
-</div>
-<div class="fragment">
+<p>the cycle item <span class="math inline">\(j\)</span> would choose on its minor cost alone, measured in base periods. Round, search over <span class="math inline">\(T\)</span>, and the problem is solved to any accuracy wanted.</p>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Note carefully: this is <strong>not</strong> rounding to the nearest power of two. The test is against <span class="math inline">\(T^{*}/\sqrt{2}\)</span>, the <strong>geometric</strong> mean, not the midpoint.</p>
-<p>An interval of 22.8 weeks rounds <strong>up</strong> to 32, not down to 16.</p>
+<p>The answer is then a set of <strong>arbitrary</strong> integers, and that turns out to matter.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>That last phrase turns out to matter: arbitrary integers do not make a schedule a dock can run.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-worst-case" class="slide level2">
-<h2>The Worst Case</h2>
-<p><span class="math inline">\(C\)</span> is convex, so on that bracket it takes its largest value at <strong>one of the two ends</strong>. Evaluate both, using <span class="math inline">\(T_j^{*} = \sqrt{k/g}\)</span>:</p>
-<p><span class="math display">\[
-C\!\left(\frac{T_j^{*}}{\sqrt{2}}\right)
-= \sqrt{2}\sqrt{kg} + \frac{1}{\sqrt{2}}\sqrt{kg}
-\]</span></p>
-<p><span class="math display">\[
-C\!\left(\sqrt{2}\,T_j^{*}\right)
-= \frac{1}{\sqrt{2}}\sqrt{kg} + \sqrt{2}\sqrt{kg}
-\]</span></p>
-<div class="fragment">
-<p><strong>The same expression.</strong> Both equal</p>
-<p><span class="math display">\[
-\frac{3}{2\sqrt{2}}\,C(T_j^{*}) = 1.0607\,C(T_j^{*})
-\]</span></p>
+<section id="the-power-of-two-restriction" class="slide level2">
+<h2>The Power-of-Two Restriction</h2>
+<p>A <strong>power-of-two policy</strong> restricts every <span class="math inline">\(m_j = 2^{\ell_j}\)</span>, <span class="math inline">\(\ell_j = 0, 1, 2, \ldots\)</span>: items are ordered every base period, or every second, fourth, eighth, and so on.</p>
+<p><strong>Reason one: such schedules nest.</strong> If one item is ordered every 2 periods and another every 8, then whenever the slow item is due the fast one is too, because 2 divides 8. Multipliers of 3 and 5 coincide only every 15 periods, and in between are orders that carry one item and not the other.</p>
+<p><strong>Reason two: they cost almost nothing.</strong> That is a theorem, and it is what makes the restriction respectable instead of merely convenient.</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-content">
+<p>Only the second reason is mathematical. The first is why power-of-two policies are used in practice at all: a nested schedule is one a receiving dock can run.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>The bound is easiest to see one item at a time, with the base period fixed.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="six-point-oh-seven-percent" class="slide level2">
-<h2>Six Point Oh Seven Percent</h2>
+<section id="the-cost-in-terms-of-the-interval" class="slide level2">
+<h2>The Cost in Terms of the Interval</h2>
+<p>Fix <span class="math inline">\(T\)</span> and follow one item, dropping its subscript. Let <span class="math inline">\(T_j = m_jT\)</span> represent its reorder interval and <span class="math inline">\(g = h\lambda/2\)</span> the holding coefficient. Since <span class="math inline">\(Q = \lambda T_j\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+C(T_j) &amp;= \frac{k\lambda}{\lambda T_j} + \frac{h\lambda T_j}{2} = \frac{k}{T_j} + gT_j
+  &amp;&amp;\text{substitute } Q = \lambda T_j\\
+C&#39;(T_j) &amp;= -\frac{k}{T_j^{2}} + g = 0
+  &amp;&amp;\text{the same two-term function}\\
+T_j^{*} &amp;= \sqrt{\frac{k}{g}} = \sqrt{\frac{2k}{h\lambda}}
+  &amp;&amp;\text{the best interval}\\
+C(T_j^{*}) &amp;= \frac{k}{\sqrt{k/g}} + g\sqrt{\frac{k}{g}} = \sqrt{kg} + \sqrt{kg} = 2\sqrt{kg}
+  &amp;&amp;\text{its cost}
+\end{aligned}
+\]</span></p>
+<p>This is the economic order quantity with the decision variable renamed, and it is convex in <span class="math inline">\(T_j\)</span>.</p>
+<aside class="notes">
+<p>The purchase term has been dropped as usual. Working in intervals rather than quantities is what lets every item share one clock.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="which-power-to-use" class="slide level2">
+<h2>Which Power to Use</h2>
+<p><span class="math inline">\(C\)</span> is convex, so the best <span class="math inline">\(\ell\)</span> is the smallest one for which doubling again does not help, <span class="math inline">\(C(2^{\ell}T) \le C(2^{\ell+1}T)\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{k}{2^{\ell}T} + g\,2^{\ell}T &amp;\le \frac{k}{2^{\ell+1}T} + g\,2^{\ell+1}T
+  &amp;&amp;\text{doubling does not help}\\
+\frac{k}{2^{\ell}T}\left(1 - \frac{1}{2}\right) &amp;\le g\,2^{\ell}T\,(2 - 1)
+  &amp;&amp;\text{collect the $k$ terms and the $g$ terms}\\
+\frac{k}{2g} &amp;\le \left(2^{\ell}T\right)^{2}
+  &amp;&amp;\text{multiply through by } 2^{\ell}T/g\\
+2^{\ell} &amp;\ge \frac{\sqrt{k/g}}{\sqrt{2}\,T} = \frac{T_j^{*}}{\sqrt{2}\,T}
+  &amp;&amp;\text{take square roots}
+\end{aligned}
+\]</span></p>
+<p>So <span class="math inline">\(\ell^{*}\)</span> is the smallest non-negative integer with <span class="math inline">\(2^{\ell} \ge T_j^{*}/(\sqrt{2}\,T)\)</span>. That is a formula, not a search: take <span class="math inline">\(\log_2\)</span> of the right-hand side and round up.</p>
+<aside class="notes">
+<p>The left side is the saving in ordering cost from doubling; the right side is the extra holding. Doubling stops paying when the extra holding at least matches the saving.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="where-the-chosen-interval-sits" class="slide level2">
+<h2>Where the Chosen Interval Sits</h2>
+<p>The last line already says <span class="math inline">\(T_j = 2^{\ell^{*}}T \ge T_j^{*}/\sqrt{2}\)</span>. Because <span class="math inline">\(\ell^{*}\)</span> is the <strong>smallest</strong> integer that works, the power before it was worse, <span class="math inline">\(C(2^{\ell^{*}-1}T) &gt; C(2^{\ell^{*}}T)\)</span>. The same algebra on that inequality gives</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{2k}{g} &amp;&gt; \left(2^{\ell^{*}}T\right)^{2}
+  &amp;&amp;\text{the previous power was worse}\\
+T_j &amp;&lt; \sqrt{2}\,\sqrt{k/g} = \sqrt{2}\,T_j^{*}
+  &amp;&amp;\text{take square roots}
+\end{aligned}
+\]</span></p>
+<p>and together</p>
+<p><span class="math display">\[
+\frac{T_j^{*}}{\sqrt{2}} \;\le\; T_j \;&lt;\; \sqrt{2}\,T_j^{*} .
+\]</span></p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>A power-of-two policy costs <strong>at most 6.07% more</strong> than the best interval, whatever the item’s data and whatever the base period.</p>
+<p>The rounded interval is never more than a factor of <span class="math inline">\(\sqrt{2}\)</span> from the best one, in either direction. That bracket is the whole story.</p>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p>Rounding an interval <strong>up</strong> and rounding it <strong>down</strong> cost exactly the same in the worst case, so the bracket is symmetric in <span class="math inline">\(\sqrt{2}\)</span>.</p>
+<aside class="notes">
+<p>Halving the interval from 2 to the power l* to 2 to the power l* minus 1 was worse, which is the same doubling test read one step down.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-worst-case" class="slide level2">
+<h2>The Worst Case</h2>
+<p><span class="math inline">\(C\)</span> is convex, so its largest value over the bracket is at one of the two ends. Use <span class="math inline">\(T_j^{*} = \sqrt{k/g}\)</span>, so that <span class="math inline">\(k/T_j^{*} = gT_j^{*} = \sqrt{kg}\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+C\!\left(\frac{T_j^{*}}{\sqrt{2}}\right) &amp;= \frac{k\sqrt{2}}{T_j^{*}} + \frac{gT_j^{*}}{\sqrt{2}}
+= \sqrt{2}\sqrt{kg} + \frac{1}{\sqrt{2}}\sqrt{kg}
+  &amp;&amp;\text{the lower end}\\
+C\!\left(\sqrt{2}\,T_j^{*}\right) &amp;= \frac{k}{\sqrt{2}\,T_j^{*}} + g\sqrt{2}\,T_j^{*}
+= \frac{1}{\sqrt{2}}\sqrt{kg} + \sqrt{2}\sqrt{kg}
+  &amp;&amp;\text{the upper end: the same}\\
+\frac{(\sqrt{2} + 1/\sqrt{2})\sqrt{kg}}{2\sqrt{kg}} &amp;= \frac{3/\sqrt{2}}{2} = \frac{3}{2\sqrt{2}} = 1.0607
+  &amp;&amp;\text{divide by } C(T_j^{*}) = 2\sqrt{kg}
+\end{aligned}
+\]</span></p>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="fragment">
-<p>Recall that the EOQ total cost curve is <strong>flat near its minimum</strong>, and that this is why rounding to a case quantity is cheap.</p>
+<div class="callout-content">
+<p><strong>A power-of-two policy costs at most 6.07% more than the best interval,</strong> whatever the item’s data and whatever the base period.</p>
 </div>
-<div class="fragment">
-<p>This is the <strong>same fact</strong> applied to cycle lengths instead of order quantities. Flatness is what licenses throwing away every multiplier that is not a power of two.</p>
 </div>
+</div>
+<aside class="notes">
+<p>This is the flatness of the economic order quantity again, applied to cycle lengths instead of order quantities. Flatness is what licenses throwing away every multiplier that is not a power of two.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="two-qualifications" class="slide level2">
 <h2>Two Qualifications</h2>
-<p><strong>The derivation assumes <span class="math inline">\(\ell^{*} \ge 0\)</span></strong>, which requires <span class="math inline">\(T \le \sqrt{2}T_j^{*}\)</span>. An item that wants to be ordered <strong>more often than the base period allows</strong> is stuck at <span class="math inline">\(\ell = 0\)</span>, and for that item the base period, not the rounding, governs the cost.</p>
-<div class="fragment">
-<p><strong>The base period may itself be a decision.</strong> Choosing it along with the multipliers improves the worst case from <strong>6% to 2%</strong>.</p>
+<p><strong>The derivation assumes <span class="math inline">\(\ell^{*} \ge 0\)</span>,</strong> which requires <span class="math inline">\(T \le \sqrt{2}\,T_j^{*}\)</span>. An item that wants to be ordered more often than the base period allows is stuck at <span class="math inline">\(\ell = 0\)</span>, and for that item the base period, not the rounding, governs the cost.</p>
+<p><strong>The base period may itself be a decision.</strong> Choosing it along with the multipliers improves the worst case from 6% to <strong>2%</strong>. That sharper constant comes from treating the rounding error as spread across the items and averaging the penalty, with <span class="math inline">\(T\)</span> left free to be optimized.</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="fragment">
-<p>That sharper constant is also what lies behind the 98%-effective approximations for multi-stage systems that we meet next session.</p>
+<div class="callout-content">
+<p>The 2% constant is also the one behind Roundy’s 98%-effective approximation for multi-stage systems (Roundy, 1985). The multi-echelon session uses the same rounding on chains and networks.</p>
 </div>
+</div>
+</div>
+<aside class="notes">
+<p>Axsater (2006) gives the 2% result; Muckstadt and Sapra (2010) develop power-of-two policies and their multi-stage extensions at length.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="rounding-two-items" class="slide level2">
-<h2>Rounding Two Items</h2>
-<p>A plant can act on purchasing <strong>once a week</strong>, so <span class="math inline">\(T = 1/52\)</span> year.</p>
+<section id="rounding-two-items-to-a-weekly-base-period" class="slide level2">
+<h2>Rounding Two Items to a Weekly Base Period</h2>
+<p>A plant can act on purchasing once a week, <span class="math inline">\(T = 1/52\)</span> year. Two items from one supplier:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1222,96 +1358,91 @@ C\!\left(\sqrt{2}\,T_j^{*}\right)
 </tr>
 </tbody>
 </table>
-<div class="fragment">
 <p><span class="math display">\[
-T^{*}_{\text{drive}} = \sqrt{\frac{237}{20{,}000}} = 5.66 \text{ weeks}
+\begin{aligned}
+T^{*}_{\text{drive}} &amp;= \sqrt{237/20{,}000} = 0.10886 \text{ yr} = 5.66 \text{ weeks}
+  &amp;&amp;\text{times 52}\\
+2^{\ell} &amp;\ge 5.66/\sqrt{2} = 4.003 \;\Rightarrow\; \ell \ge \log_2 4.003 = 2.001 \;\Rightarrow\; \ell^{*} = 3
+  &amp;&amp;\text{every 8 weeks}\\
+T^{*}_{\text{arm}} &amp;= \sqrt{300/12{,}000} = 0.15811 \text{ yr} = 8.22 \text{ weeks}
+  &amp;&amp;\text{times 52}\\
+2^{\ell} &amp;\ge 8.22/\sqrt{2} = 5.81 \;\Rightarrow\; \ell \ge 2.54 \;\Rightarrow\; \ell^{*} = 3
+  &amp;&amp;\text{every 8 weeks}
+\end{aligned}
 \]</span></p>
-<p><span class="math display">\[
-T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
-\]</span></p>
-</div>
-<div class="fragment">
-<p>Neither is a whole number of weeks, let alone a power of two of them.</p>
-</div>
-</section>
-<section id="applying-the-rule" class="slide level2">
-<h2>Applying the Rule</h2>
-<p><strong>Drive unit:</strong></p>
-<p><span class="math display">\[
-2^{\ell} \ge \frac{5.66}{\sqrt{2}} = 4.003
-\quad\Longrightarrow\quad
-\ell \ge 2.001
-\quad\Longrightarrow\quad
-\ell^{*} = 3
-\]</span></p>
-<p>Ordered every <span class="math inline">\(2^{3} = \mathbf{8}\)</span> weeks.</p>
-<div class="fragment">
-<p><strong>Control arm:</strong></p>
-<p><span class="math display">\[
-2^{\ell} \ge \frac{8.22}{\sqrt{2}} = 5.81
-\quad\Longrightarrow\quad
-\ell \ge 2.54
-\quad\Longrightarrow\quad
-\ell^{*} = 3
-\]</span></p>
-<p>Also every <strong>8</strong> weeks.</p>
-</div>
+<aside class="notes">
+<p>Neither best interval is a whole number of weeks, let alone a power of two of them. The drive unit misses l = 2 by a whisker: 2.001 rounds up to 3.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-the-rounding-cost" class="slide level2">
 <h2>What the Rounding Cost</h2>
-<p><strong>Drive unit</strong>: pushed from 5.66 weeks out to 8, a ratio of <strong>1.4133</strong>, which is as far from 1 as the bracket permits.</p>
+<p>Recall the penalty of using a quantity, or an interval, <span class="math inline">\(x\)</span> times the best: <span class="math inline">\(C/C^{*} = \frac{1}{2}(x + 1/x)\)</span>.</p>
 <p><span class="math display">\[
-\$4{,}354.31 \longrightarrow \$4{,}617.42 \quad = \quad \mathbf{6.04\%}
+\begin{aligned}
+x_{\text{drive}} &amp;= 8/5.66 = 1.4133, \qquad \tfrac{1}{2}(1.4133 + 0.7076) = 1.0604
+  &amp;&amp;\textbf{6.04\%}\text{: nearly the worst case}\\
+C &amp;: 2\sqrt{237 \times 20{,}000} = \$4{,}354.31 \;\to\; \$4{,}617.42
+  &amp;&amp;\text{times } 1.0604\\
+x_{\text{arm}} &amp;= 8/8.22 = 0.9730, \qquad \tfrac{1}{2}(0.9730 + 1.0277) = 1.0004
+  &amp;&amp;\textbf{0.04\%}
+\end{aligned}
 \]</span></p>
-<p>essentially the worst case.</p>
-<div class="fragment">
-<p><strong>Control arm</strong>: pulled from 8.22 weeks in to 8, a ratio of <strong>0.9730</strong>.</p>
-<p><span class="math display">\[
-\mathbf{0.04\%}
-\]</span></p>
-</div>
-</section>
-<section id="two-readings" class="slide level2">
-<h2>Two Readings</h2>
-<p><strong>The penalty is bounded but not evenly spread.</strong> One item paid almost the entire worst case; the other paid nothing.</p>
-<div class="fragment">
-<p>Which one pays depends <strong>only on where its unconstrained interval happens to fall between two powers of two</strong>.</p>
-</div>
-<div class="fragment">
-<p><strong>And the two items ended up on the same eight-week cycle with no one coordinating them.</strong></p>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-style-simple">
+<p>The drive unit was pushed as far from 1 as the bracket permits: 1.4133 against <span class="math inline">\(\sqrt{2} = 1.4142\)</span>.</p>
+<div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Ordering them together is now <strong>free</strong>. That is the property the restriction was after.</p>
+<p>The penalty is bounded but not evenly spread: one item paid almost the whole worst case and the other paid nothing, depending only on where its best interval fell between two powers of two. And the two items landed on the same eight-week cycle with nobody coordinating them, so ordering them together is now free.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Which item pays is decided by the data, not by any choice the planner made.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="now-coordinate-deliberately" class="slide level2">
-<h2>Now Coordinate Deliberately</h2>
-<p>Four items from one supplier. Placing an order costs <span class="math inline">\(K = \$400\)</span> whatever is on it; each item adds <span class="math inline">\(k_j\)</span>. Carrying charge 25%.</p>
+<section id="four-items-from-one-supplier" class="slide level2">
+<h2>Four Items From One Supplier</h2>
+<p>Placing an order costs <span class="math inline">\(K = \$400\)</span> whatever is on it; each item adds <span class="math inline">\(k_j\)</span>; the carrying charge is 25% a year.</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Item</th>
 <th style="text-align: right;"><span class="math inline">\(\lambda_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(c_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(h_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(k_j\)</span></th>
-<th style="text-align: right;">Annual value</th>
+<th style="text-align: right;"><span class="math inline">\(c_j\lambda_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(\sqrt{2k_j/(h_j\lambda_j)}\)</span></th>
 </tr>
 </thead>
@@ -1320,6 +1451,7 @@ T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
 <td>Drive unit</td>
 <td style="text-align: right;">8,000</td>
 <td style="text-align: right;">$20</td>
+<td style="text-align: right;">$5.00</td>
 <td style="text-align: right;">$25</td>
 <td style="text-align: right;">$160,000</td>
 <td style="text-align: right;">0.0354</td>
@@ -1328,6 +1460,7 @@ T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
 <td>Gearbox</td>
 <td style="text-align: right;">800</td>
 <td style="text-align: right;">$20</td>
+<td style="text-align: right;">$5.00</td>
 <td style="text-align: right;">$20</td>
 <td style="text-align: right;">$16,000</td>
 <td style="text-align: right;">0.1000</td>
@@ -1336,6 +1469,7 @@ T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
 <td>Seal kit</td>
 <td style="text-align: right;">200</td>
 <td style="text-align: right;">$8</td>
+<td style="text-align: right;">$2.00</td>
 <td style="text-align: right;">$15</td>
 <td style="text-align: right;">$1,600</td>
 <td style="text-align: right;">0.2739</td>
@@ -1344,34 +1478,142 @@ T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
 <td>Name plate</td>
 <td style="text-align: right;">40</td>
 <td style="text-align: right;">$4</td>
+<td style="text-align: right;">$1.00</td>
 <td style="text-align: right;">$15</td>
 <td style="text-align: right;">$160</td>
 <td style="text-align: right;">0.8660</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>The last column spans a factor of <strong>24</strong>. The annual values span a factor of <strong>a thousand</strong>.</p>
-</div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>What is stocked?</em></td>
+<td>Four items from one supplier</td>
+</tr>
+<tr class="even">
+<td><em>What is the demand process?</em></td>
+<td>Constant and known</td>
+</tr>
+<tr class="odd">
+<td><em>What triggers replenishment, and how much?</em></td>
+<td>An order opportunity every <span class="math inline">\(T\)</span>; item <span class="math inline">\(j\)</span> joins every <span class="math inline">\(m_j\)</span>th, covering its cycle</td>
+</tr>
+<tr class="even">
+<td><em>What costs are incurred, and when?</em></td>
+<td><span class="math inline">\(K\)</span> per order placed, <span class="math inline">\(k_j\)</span> per item on it, 25% a year on value held</td>
+</tr>
+</tbody>
+</table>
+<p>The last column, each item’s preferred cycle on its minor cost alone, spans a factor of 24, and the annual values a factor of a thousand. That is why the multipliers will not all be one.</p>
+<aside class="notes">
+<p>Inventory is reviewed at each order opportunity, and no shortages are allowed. The spread of annual values is the ABC spread of the records chapter.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="four-policies-compared" class="slide level2">
-<h2>Four Policies, Compared</h2>
-<p><strong>Independent.</strong> Each item paying <span class="math inline">\(K + k_j\)</span> on its own: <strong>$8,422.39</strong> a year.</p>
-<div class="fragment">
-<p><strong>A common cycle.</strong> One interval for everything, <span class="math inline">\(T^{*} = 0.1462\)</span> years or <strong>53 days</strong>: <strong>$6,497.54</strong>.</p>
-</div>
-<div class="fragment">
-<p>Coordinating alone, with <strong>no differentiation between items</strong>, has already saved <strong>23%</strong>.</p>
-</div>
-<div class="fragment">
-<p><strong>Best integer-ratio.</strong> Base period 51.9 days, multipliers <span class="math inline">\((1,1,2,6)\)</span>: <strong>$6,402.06</strong>.</p>
-</div>
-<div class="fragment">
-<p><strong>Power-of-two.</strong> Base period 51.8 days, multipliers <span class="math inline">\((1,1,2,8)\)</span>: <strong>$6,403.34</strong>.</p>
-</div>
+<section id="independent-and-a-common-cycle" class="slide level2">
+<h2>Independent, and a Common Cycle</h2>
+<p><span class="math display">\[
+\begin{aligned}
+\text{independent} &amp;: \textstyle\sum_j \sqrt{2(400 + k_j)h_j\lambda_j}
+  &amp;&amp;\text{each pays } K + k_j\\
+&amp;= 5{,}830.95 + 1{,}833.03 + 576.19 + 182.21 = \$8{,}422.39
+  &amp;&amp;\text{drive, gearbox, seal, plate}\\
+K + \textstyle\sum_j k_j &amp;= 400 + 25 + 20 + 15 + 15 = 475
+  &amp;&amp;\text{one order carries everything}\\
+\textstyle\sum_j h_j\lambda_j &amp;= 40{,}000 + 4{,}000 + 400 + 40 = 44{,}440
+  &amp;&amp;\text{holding on the whole family}\\
+T^{*} &amp;= \sqrt{2(475)/44{,}440} = 0.1462 \text{ yr} = 53 \text{ days}
+  &amp;&amp;\text{the common cycle}\\
+C^{*} &amp;= \sqrt{2(475)(44{,}440)} = \$6{,}497.54
+  &amp;&amp;\text{23}\%\text{ below independent}
+\end{aligned}
+\]</span></p>
+<p>Coordinating alone, with no differentiation between items, has already saved 23%.</p>
+<aside class="notes">
+<p>Drive unit independently: the square root of 2 times 425 times 40,000, which is the square root of 34,000,000, or 5,830.95. The saving: 1 less 6,497.54 over 8,422.39 is 0.2285.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-resulting-schedule" class="slide level2">
-<h2>The Resulting Schedule</h2>
+<section id="integer-ratios-and-powers-of-two" class="slide level2">
+<h2>Integer Ratios and Powers of Two</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Policy</th>
+<th style="text-align: right;">Base period</th>
+<th>Multipliers</th>
+<th style="text-align: right;">Cost</th>
+<th style="text-align: right;">Against independent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Independent</td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;">$8,422.39</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td>Common cycle</td>
+<td style="text-align: right;">53.4 days</td>
+<td>(1, 1, 1, 1)</td>
+<td style="text-align: right;">$6,497.54</td>
+<td style="text-align: right;"><span class="math inline">\(-22.9\%\)</span></td>
+</tr>
+<tr class="odd">
+<td>Best integer ratio</td>
+<td style="text-align: right;">51.9 days</td>
+<td>(1, 1, 2, 6)</td>
+<td style="text-align: right;">$6,402.06</td>
+<td style="text-align: right;"><span class="math inline">\(-24.0\%\)</span></td>
+</tr>
+<tr class="even">
+<td>Power of two</td>
+<td style="text-align: right;">51.8 days</td>
+<td>(1, 1, 2, 8)</td>
+<td style="text-align: right;">$6,403.34</td>
+<td style="text-align: right;"><span class="math inline">\(-24.0\%\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The power-of-two policy is $6{,}403.34/6{,}402.06 - 1 = $ <strong>0.020%</strong> above the best integer ratio, against a worst case of 6.07%. The two do not share a base period: changing which multipliers are admissible moves the best <span class="math inline">\(T\)</span> with them.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1382,129 +1624,83 @@ T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
 </thead>
 <tbody>
 <tr class="odd">
-<td>Drive unit</td>
+<td>Drive unit, gearbox</td>
 <td style="text-align: right;">1</td>
 <td>52 days</td>
 </tr>
 <tr class="even">
-<td>Gearbox</td>
-<td style="text-align: right;">1</td>
-<td>52 days</td>
-</tr>
-<tr class="odd">
 <td>Seal kit</td>
 <td style="text-align: right;">2</td>
 <td>104 days</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Name plate</td>
 <td style="text-align: right;">8</td>
 <td>414 days</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>And it <strong>nests</strong>. Every second order opportunity the seal kit joins an order the drive unit and gearbox were placing anyway; every eighth, the name plate joins one of those.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>No order is ever placed for one item alone.</strong></p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The drive unit and gearbox sit at <span class="math inline">\(m_j = 1\)</span> because their own cycles, 13 and 37 days, are <strong>shorter than the base period</strong>. Nothing about them is rounded.</p>
-</div>
+<p>The schedule <strong>nests</strong>: every second opportunity the seal kit joins an order the drive unit and gearbox were placing anyway, and every eighth the name plate joins one of those. No order is ever placed for one item alone.</p>
+<aside class="notes">
+<p>The drive unit and gearbox sit at 1 because their preferred cycles, 13 and 37 days, are shorter than the base period; nothing about them is rounded. The 414 is 8 times 51.8, rounded to the day, which is why it is not eight times 52.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="coordination-beats-cleverness" class="slide level2">
 <h2>Coordination Beats Cleverness</h2>
-<p>Total saving against independent ordering: <strong>24%</strong>.</p>
-<div class="fragment">
-<p>Of those 24 points, the <strong>common cycle captured 23</strong>.</p>
-</div>
-<div class="fragment">
-<p>Differentiating the multipliers added <strong>one</strong>.</p>
-</div>
-<div class="fragment">
-<p>And restricting those multipliers to powers of two, which is what makes the schedule runnable, cost <strong>two hundredths of one percent</strong> against a worst case of 6.07%.</p>
-</div>
-</section>
-<section id="what-that-pattern-tells-an-analyst" class="slide level2">
-<h2>What That Pattern Tells an Analyst</h2>
+<p>Coordination saved <strong>24%</strong> against ordering separately, and almost all of it came from sharing orders: the common cycle captured 23 of the 24 points. Choosing clever multipliers added the last one.</p>
+<p>The power-of-two restriction, which makes the schedule runnable, cost <strong>two hundredths of one percent</strong>.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Nearly all the available saving comes from the <strong>decision to coordinate at all</strong>, not from tuning the multipliers afterward.</p>
+<p>The 6.07% bound is a worst case that a real instance rarely approaches. What makes a coordinated schedule valuable is the shared major setup; what makes it runnable is nesting; and the bound says the second costs almost nothing.</p>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p>Effort belongs in establishing that the items share a supplier and a setup, and in getting the <strong>major setup cost</strong> right. Those determine whether coordination pays.</p>
-</div>
-<div class="fragment">
-<p>Refining multipliers is arithmetic on the <strong>last percentage point</strong>.</p>
-</div>
-<div class="fragment">
-<p>And the 6.07% bound is a worst case that a real instance <strong>rarely approaches</strong>.</p>
-</div>
-</section>
-<section id="the-argument-against-a-common-cycle" class="slide level2">
-<h2>The Argument Against a Common Cycle</h2>
-<p>Worth stating, because the 23-of-24 figure is an <strong>aggregate</strong>.</p>
-<div class="fragment">
-<p>An item whose own optimal cycle is far from the common one is <strong>subsidizing the group</strong>, carrying more stock or ordering more often than it would choose.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>If that item is a large share of the investment, or if its manager is measured on it separately, the aggregate argument <strong>will not survive contact with the organization</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The objection is <strong>distributional</strong>, not about total cost. Know which kind of objection you are answering.</p>
-</div>
+<aside class="notes">
+<p>How the saving divides depends on the size of K relative to the minor costs. With a small major setup, coordination is worth less and the solution drifts back toward independent ordering.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-we-did-today" class="slide level2">
 <h2>What We Did Today</h2>
-<p><strong>A shared setup couples the objective</strong>, and leaves the items unconstrained. Different problem, different mathematics.</p>
-<div class="fragment">
-<p><strong>Work in intervals.</strong> <span class="math inline">\(C(T) = k/T + gT\)</span> is the same function with a better variable.</p>
-</div>
-<div class="fragment">
-<p><strong>Power-of-two schedules nest</strong>, which is why a dock can run them, and they cost at most <strong>6.07%</strong>, which is why you are allowed to.</p>
-</div>
-<div class="fragment">
-<p><strong>Round against <span class="math inline">\(T^{*}/\sqrt{2}\)</span>, not the midpoint.</strong></p>
-</div>
-<div class="fragment">
-<p><strong>Coordination beat cleverness 23 to 1</strong>, and the runnability restriction cost 0.02%.</p>
-</div>
+<p><strong>A shared setup couples items through a cost:</strong> a major <span class="math inline">\(K\)</span> per order and a minor <span class="math inline">\(k_j\)</span> per item on it.</p>
+<p><strong>A plan is a base period and integer multipliers.</strong> Once <span class="math inline">\(T\)</span> is fixed the items separate.</p>
+<p><strong>A common cycle is the economic order quantity in <span class="math inline">\(T\)</span></strong> with the family’s totals, and it captured most of the saving here.</p>
+<p><strong>Power-of-two intervals nest,</strong> and the doubling test puts the rounded interval within a factor of <span class="math inline">\(\sqrt{2}\)</span> of the best, which costs at most <span class="math inline">\(3/(2\sqrt{2}) = 1.0607\)</span>: 6.07%.</p>
+<p><strong>On real data the bound is loose:</strong> 6.04% and 0.04% on two items, 0.020% on four.</p>
 </section>
 <section id="for-next-time" class="slide level2">
 <h2>For Next Time</h2>
 <p><strong>Read before next session:</strong> <em>Multi-Echelon Systems</em>.</p>
-<p>The third kind of coupling, and the one that needs its accounting fixed before any technique applies.</p>
+<p>Today’s material was <em>Joint Replenishment</em>.</p>
 <p>Next session:</p>
 <ul>
-<li>Why charging every stage its own holding rate <strong>counts the same money twice</strong></li>
-<li><strong>Echelon stock</strong>, and the value-added rate that repairs it</li>
-<li>Serial chains: why intervals must increase up the chain, and what to do when they do not</li>
-<li>Distribution systems, where the constraint runs the <strong>other way</strong></li>
+<li>The third coupling: stock that exists to replenish other stock</li>
+<li>Echelon inventory and echelon holding cost, and why installation accounting double counts</li>
+<li>A serial chain: nesting, blocks, and the partition algorithm</li>
+<li>A distribution network: the pinned set</li>
 </ul>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -1512,7 +1708,7 @@ T^{*}_{\text{arm}} = \sqrt{\frac{300}{12{,}000}} = 8.22 \text{ weeks}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Power-of-two rounding returns next session, applied to whole networks. The bracket you proved today is what makes it safe there too.</p>
+<p>Bring the doubling test. Every chain and network next session is rounded with it.</p>
 </div>
 </div>
 </div>

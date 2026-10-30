@@ -354,6 +354,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -881,6 +882,7 @@ Table&nbsp;5.2: The periodic order quantity plan at a two month time supply.
 </div>
 <p>Six orders cost $1,800. The ending balances sum to 960 belt-months, which at $1.00 a belt-month costs $960. The relevant cost is $2,760.</p>
 <p>Notice that the periodic rule pays $960 to save $1,500 of setup against lot-for-lot. That is a good trade on this item. Look also at where the money goes. Month 5 needs 420 belts and month 6 needs 260, so the order in month 5 carries 260 belts for a month, which alone costs $260. An order in month 6 would have avoided that and cost $300. The two are close, and that hints that the best plan lies near this one.</p>
+<p>The adjusted economic order quantity is costed the same way once we know its plan, and the plan comes from comparing running totals with <span class="math inline">\(Q^{*} = 303.3\)</span>. From month 1 the totals are 40, 100, 220 and 520, and 220 is the closest, so the first order covers months 1 through 3. From month 4, 300 is closer than 720. From month 5, 420 is closer than 680. From month 6, 260 is closer than 380. From month 7 the totals run 120, 160, 160, 240 and 420, and 240 is the closest, so that order covers months 7 through 10. From month 11, 400 is closer than 180. Thus, the orders fall in months 1, 4, 5, 6, 7 and 11. The order in month 1 leaves <span class="math inline">\(180 + 120 = 300\)</span> belt-months, the order in month 7 leaves <span class="math inline">\(120 + 80 + 80 = 280\)</span>, and the order in month 11 leaves 220, so the relevant cost is <span class="math inline">\(\$1,800 + \$800 = \$2,600\)</span>.</p>
 </div>
 <p>Thus, we have three plans and no reason yet to prefer any of them. Their costs are collected in <a href="#tbl-dls-simple" class="quarto-xref">Table&nbsp;<span>5.3</span></a>.</p>
 <div id="tbl-dls-simple" class="quarto-float quarto-figure quarto-figure-left anchored">

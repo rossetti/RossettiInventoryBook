@@ -354,6 +354,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -2931,15 +2932,15 @@ Figure&nbsp;9.11: The two families of search. Marginal analysis builds a curve f
 <p><em>Read the two lines against each other.</em> The <code>mu_j</code> column agrees to four decimals and the <code>var</code> column does not, which is <a href="#sec-multiechelon-varimetric" class="quarto-xref"><span>Section 9.8</span></a>’s claim that no mean changes, enforced by the fact that one object produced both.</p>
 <p>The allocation prints <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, including which totals it struck out:</p>
 <pre><code>  total        EBO    S_0  reduction    kept?
-     11    17.6154     11     0.9927
-     12    16.6266      8     0.9888
-     13    15.6433      9     0.9833  dropped
-     14    14.6587     10     0.9846
+     11    17.6154     11     0.9927         
+     12    16.6303     12     0.9850  dropped
+     13    15.6433      9     0.9870         
+     14    14.6587     10     0.9846         
      ...
      19     9.9647     15     0.8842
      20     9.1088     12     0.8559  dropped
      21     8.2462     13     0.8627</code></pre>
-<p>Notice that the depot column falls from 11 to 8 at total 12 and from 15 to 12 at total 20. The flushout of <a href="#sec-multiechelon-allocation-flushout" class="quarto-xref"><span>Section 9.9.4</span></a> and the non-convexity of <a href="#sec-multiechelon-allocation-convexity" class="quarto-xref"><span>Section 9.9.3</span></a> are the same event seen from two columns.</p>
+<p>Notice that the depot column falls from 12 to 9 at total 13 and from 15 to 12 at total 20. The flushout of <a href="#sec-multiechelon-allocation-flushout" class="quarto-xref"><span>Section 9.9.4</span></a> and the non-convexity of <a href="#sec-multiechelon-allocation-convexity" class="quarto-xref"><span>Section 9.9.3</span></a> are the same event seen from two columns.</p>
 </section>
 <section id="sec-multiechelon-design-forward" class="level3" data-number="9.11.11">
 <h3 data-number="9.11.11" class="anchored" data-anchor-id="sec-multiechelon-design-forward"><span class="header-section-number">9.11.11</span> Where This Leaves Us</h3>

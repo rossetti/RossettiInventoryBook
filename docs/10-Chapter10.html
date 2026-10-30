@@ -354,6 +354,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -2303,7 +2304,7 @@ Algorithm&nbsp;10.1: Algorithm TwoLevel. Step 1 is case 3 of <a href="08-Chapter
 </div>
 </figure>
 </div>
-<p><strong>Read step 0, because it is the only guess in the procedure.</strong> A wait of zero says the hub always has stock, the assumption a planner makes by default when modelling a location alone. The first pass is therefore the uncoupled planner’s answer, and every pass after it is a correction.</p>
+<p><strong>Read step 0, because it is the only guess in the procedure.</strong> A wait of zero says the hub always has stock, the assumption a planner makes by default when modeling a location alone. The first pass is therefore the uncoupled planner’s answer, and every pass after it is a correction.</p>
 <p><strong>And read step 4, because it is weaker than it looks.</strong> The test is that the four integers stopped moving, not that any optimality condition holds. The iteration finds a <strong>fixed point of a heuristic</strong>: a pair of policies each optimal given the other. Nothing shows the pair is the best pair, and a fixed point of a biased map is a biased answer that has stopped moving.</p>
 <p>Each of steps 1 to 3 can be done two ways, and <a href="#alg-twoechelon" class="quarto-xref">Algorithm&nbsp;<span>10.1</span></a> names both. The <strong>moment route</strong> uses the recipe at the hub and two moments at the storeroom; it works for any customers. The <strong>exact route</strong> uses the convolution, the order’s own wait and conditioning; it needs customers who take one unit each.</p>
 <div id="exm-batched-iteration" class="theorem example">
@@ -2479,14 +2480,14 @@ Figure&nbsp;10.5: The comparison block of the <code>HubGeneral</code> sheet. Not
 </section>
 <section id="sec-batchedmultiechelon-build-partthree" class="level3" data-number="10.15.3">
 <h3 data-number="10.15.3" class="anchored" data-anchor-id="sec-batchedmultiechelon-build-partthree"><span class="header-section-number">10.15.3</span> Part III on the Sheets</h3>
-<p><code>Iterate</code> is <a href="#alg-twoechelon" class="quarto-xref">Algorithm&nbsp;<span>10.1</span></a> by hand. A sheet cannot run chapter 8’s search by itself without a block per pass, so the reader types each pass’s policies into the yellow cells, and the sheet prices each policy and its four neighbours and hands the wait to the next pass.</p>
+<p><code>Iterate</code> is <a href="#alg-twoechelon" class="quarto-xref">Algorithm&nbsp;<span>10.1</span></a> by hand. A sheet cannot run chapter 8’s search by itself without a block per pass, so the reader types each pass’s policies into the yellow cells, and the sheet prices each policy and its four neighbors and hands the wait to the next pass.</p>
 <div id="fig-ws10-iterate" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ws10-iterate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/ch10/IterateTrace.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws10-iterate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.6: The summary of the <code>Iterate</code> sheet. Notice the last column, “no” on every pass: no neighbour of any typed policy is cheaper. Notice also that passes 2 and 3 agree, which is the stopping test of <a href="#alg-twoechelon" class="quarto-xref">Algorithm&nbsp;<span>10.1</span></a> read off a sheet.
+Figure&nbsp;10.6: The summary of the <code>Iterate</code> sheet. Notice the last column, “no” on every pass: no neighbor of any typed policy is cheaper. Notice also that passes 2 and 3 agree, which is the stopping test of <a href="#alg-twoechelon" class="quarto-xref">Algorithm&nbsp;<span>10.1</span></a> read off a sheet.
 </figcaption>
 </figure>
 </div>
@@ -2934,7 +2935,7 @@ C = \frac{1}{Q_w Q_j}\sum_{i=R_w+1}^{R_w+Q_w}\ \sum_{k=r_j+1}^{r_j+Q_j} C(iQ_j, 
 </ol>
 </div>
 <div id="exr-ch10-iterate" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 10.12</strong></span> On the <code>Iterate</code> sheet, pass 1 starts from a wait of zero. Overwrite pass 1’s mean wait with 2 weeks and its variance with 1, then find each pass’s policies, typing into the yellow cells a policy that no neighbour undercuts.</p>
+<p><span class="theorem-title"><strong>Exercise 10.12</strong></span> On the <code>Iterate</code> sheet, pass 1 starts from a wait of zero. Overwrite pass 1’s mean wait with 2 weeks and its variance with 1, then find each pass’s policies, typing into the yellow cells a policy that no neighbor undercuts.</p>
 <ol type="a">
 <li>Give the storeroom’s and the hub’s policies on each pass until they repeat.</li>
 <li>How many passes does it take, and where does it end?</li>

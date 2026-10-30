@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Manuel D. Rossetti, PhD P.E.">
-  <title>Lead Time Demand and the Base-Stock Model</title>
+  <title>Lead Time Demand, and the Base-Stock Model</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -987,7 +987,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" data-background-color="#274060" class="quarto-title-block center">
-  <h1 class="title">Lead Time Demand and the Base-Stock Model</h1>
+  <h1 class="title">Lead Time Demand, and the Base-Stock Model</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1001,411 +1001,611 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>The policy is exposed to <strong>exactly one</strong> random quantity</li>
-<li>Two moments do not determine a distribution, and the gap is the work</li>
-<li>Why the <strong>normal</strong> is not on the candidate list</li>
-<li>The base-stock model at <span class="math inline">\(Q = 1\)</span>, in three lines</li>
-<li>Why its answer is the <strong>newsvendor’s</strong></li>
-<li>General <span class="math inline">\(Q\)</span>: the same model, averaged over a band</li>
+<li>Lead time demand, the one random quantity, and two ways to build it</li>
+<li>Its moments in three cases that are one formula, worked for the transformer</li>
+<li>Choosing a family, and a check better than a moment match</li>
+<li>The base-stock policy, <span class="math inline">\(Q = 1\)</span>, derived in three lines</li>
+<li>Its cost is the newsvendor’s cost; the transformer stocked one for one</li>
+<li>The bill for <span class="math inline">\(Q = 1\)</span> that the derivation left out</li>
 </ul>
 </section>
 <section id="one-random-quantity" class="slide level2">
 <h2>One Random Quantity</h2>
-<p>Demand arriving while stock is on the shelf is met from the shelf and costs nothing to have been uncertain about.</p>
-<div class="fragment">
-<p>Only demand arriving <strong>during a replenishment lead time</strong> can find the shelf empty.</p>
-</div>
-<div class="fragment">
+<p>Recall that everything that can go wrong happens during a lead time. Let <span class="math inline">\(D(L)\)</span> represent the <strong>lead time demand</strong>, the demand that arrives between placing an order and receiving it, and let <span class="math inline">\(\theta = E[D(L)]\)</span> represent its mean.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>So every measure and every cost in this chapter is a functional of the distribution of <span class="math inline">\(D(L)\)</span> <strong>and of nothing else</strong>.</p>
+<p>Everything in the rest of this chapter is a functional of the distribution of <span class="math inline">\(D(L)\)</span>, and nothing in it is a functional of anything else.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="fragment">
-<p>Two systems with different demand patterns and different lead times perform identically under the same policy whenever their lead time demand distributions coincide.</p>
-</div>
+<p>That is a stronger statement than it looks. Two systems with different demand patterns and lead times, whose lead time demand distributions happen to coincide, have identical performance under the same policy. Thus, the modeling effort belongs on <span class="math inline">\(D(L)\)</span>, and the choice of formula for <span class="math inline">\(\bar{B}\)</span> is a detail by comparison.</p>
+<aside class="notes">
+<p>A fast mover with a short lead time and a slow mover with a long one can have the same D(L), and then every number this chapter computes is the same for both. That is why today spends its first half on D(L) and only its second half on a policy.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="where-the-effort-belongs" class="slide level2">
-<h2>Where the Effort Belongs</h2>
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The modelling effort belongs on <span class="math inline">\(D(L)\)</span>, <strong>not on the formula built over it</strong>.</p>
-</div>
-</div>
-</div>
+<section id="two-ways-to-build-it" class="slide level2">
+<h2>Two Ways to Build It</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Period based.</strong> Let <span class="math inline">\(D_{i}\)</span> represent the demand in period <span class="math inline">\(i\)</span>, and count <span class="math inline">\(L\)</span> in whole periods:</p>
+<p><span class="math display">\[
+D(L) = \sum_{i=1}^{L} D_{i}
+\]</span></p>
+<p>The natural form when the data are a history of weekly or monthly totals.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Event based.</strong> Let <span class="math inline">\(N(L)\)</span> represent the number of demand events in the lead time and <span class="math inline">\(D_{i}\)</span> the size of the <span class="math inline">\(i\)</span>th:</p>
+<p><span class="math display">\[
+D(L) = \sum_{i=1}^{N(L)} D_{i}
+\]</span></p>
+<p>The natural form for a slow mover, where a bucket is mostly zeros and the information is in how often and how large.</p>
+</div></div>
+<p>Notice that the two are the same object reached from different data. You should choose between them by asking which one the organization’s records can actually support, not by which is more elegant.</p>
+<aside class="notes">
+<p>The first is the random sum of the probability appendix with the lead time as the count; the second is the compound process. Most organizations hold demand by week or month, not by lead time and not by transaction, which is why the first form is the common one and why the next slide matters.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-square-root-of-the-lead-time" class="slide level2">
+<h2>The Square Root of the Lead Time</h2>
+<p>Let <span class="math inline">\(\sigma_{D}\)</span> represent the standard deviation of demand in one period. With a constant lead time of <span class="math inline">\(L\)</span> periods and independent period demands:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[D(L)] &amp;= E\Big[\textstyle\sum_{i=1}^{L} D_{i}\Big] = \lambda L
+  &amp;&amp;\text{expectation is linear}\\
+\mathit{Var}[D(L)] &amp;= \textstyle\sum_{i=1}^{L}\mathit{Var}[D_{i}] = \sigma_{D}^{2}L
+  &amp;&amp;\text{independent periods}\\
+\sigma_{D(L)} &amp;= \sigma_{D}\sqrt{L}
+  &amp;&amp;\text{square root}
+\end{aligned}
+\]</span></p>
+<p>A supplier’s lead time doubles. What happens to the expected requirement, and to its standard deviation?</p>
 <div class="fragment">
-<p>Get the distribution right and the rest is arithmetic.</p>
-</div>
-<div class="fragment">
-<p>Get it wrong and no amount of exactness downstream will save you.</p>
+<p>The mean doubles; the standard deviation is multiplied by <span class="math inline">\(\sqrt{2} = 1.414\)</span>. Thus, a longer lead time raises the reorder point more than it raises the safety stock. The common error is to multiply the standard deviation by <span class="math inline">\(L\)</span>.</p>
+<aside class="notes">
+<p>Here lambda is the demand per period. Variances add over independent periods, standard deviations do not, and that is the whole of the square-root rule. The error of multiplying sigma by L overstates the spread of a two-month lead time by a factor of 1.414 and of a four-month one by a factor of 2.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </div>
 </section>
 <section id="three-cases-one-formula" class="slide level2">
 <h2>Three Cases, One Formula</h2>
-<p>Demand random, lead time constant. Lead time random, demand constant. Both random.</p>
-<div class="fragment">
+<p>The random sum gives the moments directly:</p>
 <p><span class="math display">\[
-E[D(L)] = E[L]\,E[D]
+E[D(L)] = E[L]\,E[D], \qquad
+\mathit{Var}[D(L)] = \underbrace{E[L]\,\mathit{Var}[D]}_{\text{the customer}}
++ \underbrace{\mathit{Var}[L]\,\big(E[D]\big)^{2}}_{\text{the supplier}}
 \]</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Case</th>
+<th>What is random</th>
+<th><span class="math inline">\(E[D(L)]\)</span></th>
+<th><span class="math inline">\(\mathit{Var}[D(L)]\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Demand only, lead time constant at <span class="math inline">\(L\)</span></td>
+<td><span class="math inline">\(L\,E[D]\)</span></td>
+<td><span class="math inline">\(L\,\mathit{Var}[D]\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Lead time only, demand constant at rate <span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(\lambda E[L]\)</span></td>
+<td><span class="math inline">\(\lambda^{2}\mathit{Var}[L]\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Both</td>
+<td><span class="math inline">\(E[L]E[D]\)</span></td>
+<td><span class="math inline">\(E[L]\mathit{Var}[D] + \mathit{Var}[L](E[D])^{2}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Notice that cases 1 and 2 are case 3 with one variance set to zero. Compute the two terms of case 3 separately, every time: a total that hides the split cannot tell you whether to spend money on the customer or the supplier.</p>
+<aside class="notes">
+<p>The literature treats these as three models. They are one formula with terms switched off. The first term is what the customer does; the second is what the supplier does, and only the second is negotiable.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-transformers-lead-time-demand" class="slide level2">
+<h2>The Transformer’s Lead Time Demand</h2>
+<p>Demand is Poisson at <span class="math inline">\(\lambda = 45\)</span> a year, one unit per event. Let <span class="math inline">\(L\)</span> represent the lead time in years.</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><em>Case 1, a constant two months.</em></p>
 <p><span class="math display">\[
-\mathit{Var}[D(L)] = E[L]\mathit{Var}[D] + \mathit{Var}[L]\left(E[D]\right)^{2}
+\begin{aligned}
+\theta &amp;= \frac{45 \text{ units}}{1 \text{ year}} \times
+\frac{2 \text{ months}}{1} \times \frac{1 \text{ year}}{12 \text{ months}}\\
+&amp;= 7.5 \text{ units}
+\end{aligned}
 \]</span></p>
+<p><span class="math inline">\(D(L)\)</span> is Poisson, so <span class="math inline">\(\mathit{Var}[D(L)] = 7.5\)</span> and the standard deviation is <span class="math inline">\(\sqrt{7.5} = 2.74\)</span> units.</p>
+</div><div class="column" style="width:52%;">
+<p><em>Case 3, two months on average, standard deviation one month.</em> <span class="math inline">\(E[L] = 1/6\)</span> year and <span class="math inline">\(\mathit{Var}[L] = (1/12)^{2} = 1/144\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathit{Var}[D(L)] &amp;= \lambda E[L] + \lambda^{2}\mathit{Var}[L]\\
+&amp;= 7.5 + 2025\left(\tfrac{1}{144}\right)\\
+&amp;= 7.5 + 14.0625 = 21.5625
+\end{aligned}
+\]</span></p>
+<p>The mean is still 7.5; the standard deviation is 4.64 units.</p>
+</div></div>
+<p><em>Read the split.</em> The lead time contributes <span class="math inline">\(14.0625/21.5625 = 65\%\)</span> of the variance the safety stock must cover, on an item whose demand nobody can control and whose lead time a purchasing department could negotiate.</p>
+<aside class="notes">
+<p>For Poisson demand Var[D] per year equals E[D] per year, which is why the first term of case 3 is lambda E[L]. Point at the split: the same total variance could come mostly from the customer or mostly from the supplier, and the response is different in each case.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="two-moments-are-not-a-distribution" class="slide level2">
+<h2>Two Moments Are Not a Distribution</h2>
+<p>Every model in this chapter needs a <em>distribution</em>. The procedure has three steps, in this order:</p>
+<ol type="1">
+<li>Compute <span class="math inline">\(E[D(L)]\)</span> and <span class="math inline">\(\mathit{Var}[D(L)]\)</span> from the case that applies.</li>
+<li>Choose a family by the variance to mean ratio: Poisson near one, negative binomial above one, gamma when the counts are large enough for a continuous model. The normal is not on the list, for a reason we meet with the approximation.</li>
+<li>Compute the performance measures and set <span class="math inline">\(r\)</span> and <span class="math inline">\(Q\)</span> from that distribution.</li>
+</ol>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><em>Case 3 for the transformer.</em> The ratio is <span class="math inline">\(21.5625/7.5 = 2.875\)</span>, so the negative binomial. Matching moments:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{p} &amp;= \frac{7.5}{21.5625} = 0.3478\\
+\hat{r} &amp;= \frac{7.5^{2}}{21.5625 - 7.5} = 4.00
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><em>The check, better than a moment match.</em> Build the lead time from four independent stages averaging half a month each: Erlang, shape 4, rate <span class="math inline">\(\mu = 24\)</span> a year. Poisson demand over an Erlang time is <strong>exactly</strong> negative binomial, with <span class="math inline">\(r = 4\)</span> and</p>
+<p><span class="math display">\[
+p = \frac{\mu}{\lambda + \mu} = \frac{24}{69} = 0.3478
+\]</span></p>
+</div></div>
+<aside class="notes">
+<p>Step 2 is a choice, not a finding. Where the answer matters, carry two families through step 3 and report the spread. The Erlang check: E[L] = 4/24 = 1/6 and Var[L] = 4/576 = 1/144, the figures on the last slide. Four stages is a purchase order, a production slot, a shipment and a receiving inspection. The moment match and the transform agree to four figures and are not the same calculation, so the negative binomial is what the model gives here, not an assumption. In practice the moments come from data the organization already has; observing D(L) directly needs a history of lead times most do not keep.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-base-stock-policy" class="slide level2">
+<h2>The Base-Stock Policy</h2>
+<p>Set <span class="math inline">\(Q = 1\)</span>. Every demand triggers an order for one unit, so the policy replenishes <strong>one for one</strong> and the inventory position never moves.</p>
+<p>Let <span class="math inline">\(S\)</span> represent the <strong>base-stock level</strong>, the value at which the position is held, and let <span class="math inline">\(r = S - 1\)</span> represent the reorder point. Let</p>
+<p><span class="math display">\[
+\mathit{ss} = r - \theta
+\]</span></p>
+<p>represent the <strong>safety stock</strong>, the reorder point in excess of expected lead time demand.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="A definition, not an interpretation">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
+<p><strong>A definition, not an interpretation</strong></p>
+</div>
+<div class="callout-content">
+<p>“Expected stock on hand when an order arrives” is correct only when at most one order is outstanding. One for one, the expected number outstanding is <span class="math inline">\(\theta\)</span>, which for the transformer is 7.5.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>Why <span class="math inline">\(k\)</span> drops out.</strong> Under <span class="math inline">\(Q = 1\)</span> the order rate is <span class="math inline">\(\lambda\)</span> whatever <span class="math inline">\(S\)</span> is, so <span class="math inline">\(k\lambda\)</span> is a constant added to every alternative. It cannot change which <span class="math inline">\(S\)</span> is least. It does not drop out of the comparison with <span class="math inline">\(Q &gt; 1\)</span>.</p>
+</div></div>
+<aside class="notes">
+<p>One for one is what stock rooms run for items that are expensive, slow moving and critical, the profile of the transformer, and it is the standard policy for military and utility spare parts. It is also the building block: the general (r, Q) case is base-stock results averaged over a range of S, next session. S and r carry the same information; the book states base-stock results in S and (r, Q) results in r.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="three-lines-of-derivation" class="slide level2">
+<h2>Three Lines of Derivation</h2>
+<p>An order is placed at the instant of every demand, so the orders outstanding now are exactly those triggered by the demands of the last <span class="math inline">\(L\)</span> time units.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathit{IO} &amp;= D(L)
+  &amp;&amp;\text{one order per demand in the last } L\\
+\mathit{IP} &amp;= I + \mathit{IO} - B = S
+  &amp;&amp;\text{the position never moves}\\
+S &amp;= I + D(L) - B
+  &amp;&amp;\text{substitute for } \mathit{IO}\\
+\mathit{IN} &amp;= I - B = S - D(L)
+  &amp;&amp;\text{rearrange}
+\end{aligned}
+\]</span></p>
+<div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The three cases are <strong>one formula with terms switched off</strong>. A constant lead time kills the second term; constant demand kills the first.</p>
+<p><span class="math inline">\(\mathit{IN} = S - D(L)\)</span> is the whole model. Everything else is read off it, using <span class="math inline">\(I = (\mathit{IN})^{+}\)</span> and <span class="math inline">\(B = (-\mathit{IN})^{+}\)</span>.</p>
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="the-transformer" class="slide level2">
-<h2>The Transformer</h2>
-<p><span class="math inline">\(\lambda = 45\)</span> a year, one unit at a time, lead time two months exactly.</p>
-<p><span class="math display">\[
-\theta = E[D(L)] = 45\left(\frac{2}{12}\right) = 7.5 \text{ units}
-\]</span></p>
-<div class="fragment">
-<p>Unit demand plus a constant lead time plus Poisson arrivals gives a <strong>Poisson</strong> lead time demand, with variance 7.5 as well.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Let the lead time be random and that stops being true. The variance rises and the family changes.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="choosing-a-family" class="slide level2">
-<h2>Choosing a Family</h2>
-<p>Two moments do not determine a distribution.</p>
-<div class="fragment">
-<p>The <strong>variance-to-mean ratio</strong> chooses among the candidates:</p>
-<p><span class="math display">\[
-\mathit{VMR} = \frac{\mathit{Var}[D(L)]}{E[D(L)]}
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\mathit{VMR} = 1\)</span>: Poisson. <span class="math inline">\(\mathit{VMR} &gt; 1\)</span>: negative binomial. <span class="math inline">\(\mathit{VMR}
-&lt; 1\)</span>: rarer, and worth checking your data before believing it.</p>
-</div>
-</section>
-<section id="the-normal-is-not-a-candidate" class="slide level2">
-<h2>The Normal Is Not a Candidate</h2>
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Lead time demand is a <strong>non-negative count</strong>.</p>
-<p>A normal puts mass below zero, and the slower and dearer the item, the more of its mass sits there.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The approximation is <strong>worst exactly where it matters</strong>: slow-moving, expensive items, which is where the money is.</p>
-</div>
-<div class="fragment">
-<p>This book models lead time demand with a normal <strong>nowhere</strong>.</p>
-</div>
-</section>
-<section id="the-base-stock-model" class="slide level2">
-<h2>The Base-Stock Model</h2>
-<p>Set <span class="math inline">\(Q = 1\)</span>.</p>
-<div class="fragment">
-<p>Every demand of one unit triggers an order for one unit, so the position <strong>never moves</strong>.</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(S\)</span> is the <strong>base-stock level</strong>, and <span class="math inline">\(r = S - 1\)</span>: the position reaches <span class="math inline">\(r\)</span> exactly when one unit has been demanded.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>This book states base-stock results in <span class="math inline">\(S\)</span> and <span class="math inline">\((r,Q)\)</span> results in <span class="math inline">\(r\)</span>. That relation is where the two meet.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="three-lines" class="slide level2">
-<h2>Three Lines</h2>
-<p>The key insight: with one-for-one replenishment, an order is placed at the instant of <strong>every</strong> demand.</p>
-<div class="fragment">
-<p>So the orders outstanding now are exactly those triggered in the last <span class="math inline">\(L\)</span> time units:</p>
-<p><span class="math display">\[
-\mathit{IO} = D(L)
-\]</span></p>
-</div>
-<div class="fragment">
-<p>Substituting into <span class="math inline">\(\mathit{IP} = I + \mathit{IO} - B\)</span> with <span class="math inline">\(\mathit{IP} = S\)</span>:</p>
-<p><span class="math display">\[
-\mathit{IN} = S - D(L)
-\]</span></p>
-</div>
-<div class="fragment">
-<p>That is the whole model.</p>
-</div>
+<aside class="notes">
+<p>The first line is the only idea. Everything after it is bookkeeping with the definitions from last session. I is the positive part of IN and B is the negative part, because the shelf and the backorders are never both positive.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="everything-reads-off-it" class="slide level2">
 <h2>Everything Reads Off It</h2>
 <p><span class="math display">\[
-\bar{B}(S) = E\left[(D(L)-S)^{+}\right] = G^{1}(S)
+\begin{aligned}
+\bar{B}(S) &amp;= E\big[(-\mathit{IN})^{+}\big] = E\big[(D(L) - S)^{+}\big] = G^{1}(S)
+  &amp;&amp;\text{first order loss function}\\[4pt]
+\bar{I}(S) &amp;= E\big[(S - D(L))^{+}\big]
+  = E\big[(D(L) - S)^{+} + S - D(L)\big]
+  &amp;&amp;(x)^{+} = (-x)^{+} + x\\
+  &amp;= S - \theta + G^{1}(S)
+  &amp;&amp;\text{take expectations}\\[4pt]
+\overline{\mathit{RR}}(S) &amp;= P\{\mathit{IN} \ge 1\} = P\{D(L) \le S - 1\} = G(S - 1)
+  &amp;&amp;\text{shelf not empty}
+\end{aligned}
 \]</span></p>
+<p>Under Poisson demand, PASTA makes the ready rate the fill rate too.</p>
+<p>Notice that the on-hand formula is not an approximation. It exceeds <span class="math inline">\(S - \theta\)</span> by the expected backorder level: stock you are short of is stock you are not holding.</p>
+<aside class="notes">
+<p>The identity on the second line is the one used for the newsvendor’s leftover stock: when D &lt; S both sides are S - D, and when D &gt;= S both sides are zero. The ready rate: net inventory is a whole number, so positive means at least one, which means lead time demand at most S - 1.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-hand-form-and-its-upper-limit" class="slide level2">
+<h2>The Hand Form, and Its Upper Limit</h2>
+<p>From a table of the distribution function, with <span class="math inline">\(G^{0}(x) = P\{D(L) &gt; x\}\)</span>:</p>
 <p><span class="math display">\[
-\bar{I}(S) = S - \theta + G^{1}(S)
+\bar{B}(S) = \theta - \sum_{x=0}^{S-1} G^{0}(x)
 \]</span></p>
+<p>For the transformer at <span class="math inline">\(S = 11\)</span>, from the <span class="math inline">\(\lambda = 7.5\)</span> column:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(G^{0}(x)\)</span></td>
+<td style="text-align: right;">0.9994</td>
+<td style="text-align: right;">0.9953</td>
+<td style="text-align: right;">0.9797</td>
+<td style="text-align: right;">0.9409</td>
+<td style="text-align: right;">0.8679</td>
+<td style="text-align: right;">0.7586</td>
+<td style="text-align: right;">0.6218</td>
+<td style="text-align: right;">0.4754</td>
+<td style="text-align: right;">0.3380</td>
+<td style="text-align: right;">0.2236</td>
+<td style="text-align: right;">0.1378</td>
+</tr>
+</tbody>
+</table>
 <p><span class="math display">\[
-\overline{\mathit{RR}}(S) = P\{D(L) \le S-1\} = G(S-1)
+\bar{B}(11) = 7.5 - 7.3384 = 0.1616
 \]</span></p>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The on-hand formula is an <strong>identity</strong>, not an approximation. Expected on-hand exceeds <span class="math inline">\(S - \theta\)</span> by exactly the expected backorder level.</p>
-<p><strong>Stock you are short of is stock you are not holding.</strong></p>
-</div>
-</div>
-</div>
-</div>
+<p>Notice the upper limit is <span class="math inline">\(S - 1\)</span>, not <span class="math inline">\(S\)</span>. Running the sum to <span class="math inline">\(x = 11\)</span> removes one term too many and reports <span class="math inline">\(G^{1}(12) = 0.0823\)</span>, half the true backorder level.</p>
+<aside class="notes">
+<p>G1(S) is the tail sum of G0 from S upward, and theta is the whole sum from zero. Subtracting the terms strictly below S leaves the tail. Read G0 carefully in the discrete case: it is P{D &gt; x}, which is P{D &gt;= x + 1}. A source that uses P{D &gt;= x} is using a different convention, and its formulas shift by one.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="a-warning-about-safety-stock" class="slide level2 smaller">
-<h2>A Warning About Safety Stock</h2>
-<p>Safety stock is defined as <span class="math inline">\(\mathit{ss} = r - \theta\)</span>.</p>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>It is often glossed as “expected stock on hand when a replenishment arrives”.</p>
-<p>That reading is correct only when <strong>at most one order is outstanding</strong>.</p>
-<p>Under one-for-one the expected number outstanding is <span class="math inline">\(\theta\)</span> itself, which here is 7.5. There are almost always several.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Treat it as a <strong>definition</strong>, not an interpretation.</p>
-</div>
-</section>
-<section id="why-the-ordering-cost-disappears" class="slide level2">
-<h2>Why the Ordering Cost Disappears</h2>
-<p>Under <span class="math inline">\(Q = 1\)</span> the order rate is <span class="math inline">\(\lambda\)</span> whatever <span class="math inline">\(S\)</span> is.</p>
-<div class="fragment">
-<p>So <span class="math inline">\(k\lambda\)</span> is a <strong>constant added to every alternative</strong>, and a constant cannot change which alternative is least.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(k\)</span> drops out of the choice of <span class="math inline">\(S\)</span>, exactly as it dropped out of the newsvendor.</p>
-<p>It does <strong>not</strong> drop out of the comparison between <span class="math inline">\(Q = 1\)</span> and <span class="math inline">\(Q &gt; 1\)</span>. That bill arrives later.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-cost-and-a-familiar-shape" class="slide level2">
-<h2>The Cost, and a Familiar Shape</h2>
+<section id="it-is-the-newsvendor" class="slide level2">
+<h2>It Is the Newsvendor</h2>
+<p>Substitute into the cost rate and drop the constant <span class="math inline">\(k\lambda\)</span>:</p>
 <p><span class="math display">\[
-C(S) = h(S - \theta) + (h + b)\,G^{1}(S)
+\begin{aligned}
+C(S) &amp;= h\,\bar{I}(S) + b\,\bar{B}(S)
+  &amp;&amp;\text{holding and backorder terms}\\
+&amp;= h\big(S - \theta + G^{1}(S)\big) + b\,G^{1}(S)
+  &amp;&amp;\text{substitute both}\\
+&amp;= h(S - \theta) + (h + b)\,G^{1}(S)
+  &amp;&amp;\text{collect } G^{1}(S)
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>That is the newsvendor’s expected cost, with the <strong>holding rate</strong> playing the overage cost and the <strong>backorder rate</strong> playing the underage cost.</p>
-</div>
-</div>
-</div>
-</div>
+<p>This is the newsvendor’s expected cost with <span class="math inline">\(c_{o} = h\)</span> and <span class="math inline">\(c_{u} = b\)</span>. Thus, the answer is the critical ratio, with the discrete rule since <span class="math inline">\(S\)</span> is a whole number:</p>
+<p><span class="math display">\[
+S^{*} = \min\left\{S : G(S) \ge \frac{b}{b + h}\right\}
+\]</span></p>
+<aside class="notes">
+<p>The newsvendor had one period and no future; this has an infinite horizon and a permanent stock. They have the same answer because both trade one unit too many against one unit too few, and in a one-for-one system that trade is made afresh at every demand. Holding is the overage cost; backordering is the underage cost.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="one-for-one-at-the-storeroom" class="slide level2">
+<h2>One for One at the Storeroom</h2>
+<p><span class="math inline">\(h = 0.25(3{,}800) = \$950\)</span> and <span class="math inline">\(b = \$8{,}550\)</span> per unit per year; <span class="math inline">\(D(L)\)</span> is Poisson with <span class="math inline">\(\theta = 7.5\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{b}{b + h} &amp;= \frac{8550}{9500} = 0.90
+  &amp;&amp;\text{critical ratio}\\
+G(10) &amp;= 0.8622 &lt; 0.90 \quad\text{and}\quad G(11) = 0.9208 \ge 0.90
+  &amp;&amp;\text{so } S^{*} = 11\\
+\bar{B} &amp;= G^{1}(11) = 0.1616, \quad \bar{I} = 11 - 7.5 + 0.1616 = 3.6616
+  &amp;&amp;\text{units owed, units held}\\
+C(11) &amp;= 950(3.6616) + 8550(0.1616) = 3478.48 + 1381.35 = \$4{,}859.83
+  &amp;&amp;\text{a year}
+\end{aligned}
+\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The fill rate is <span class="math inline">\(G(10) = 0.8622\)</span>, so the storeroom is out of stock about 14% of the time and holds about three and a half transformers.</p>
+</div><div class="column" style="width:50%;">
+<p>The average demand waits</p>
+<p><span class="math display">\[
+\frac{0.1616}{45} \text{ years} \times \frac{365 \text{ days}}{1 \text{ year}} = 1.3 \text{ days}
+\]</span></p>
+</div></div>
+<aside class="notes">
+<p>The six modeling questions: one item; Poisson demand one unit at a time; continuous review; every demand triggers an order for one; backordered; holding at h and backordering at b per unit per year. Walk the Poisson column with the class: G(10) and G(11) straddle 0.90.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-check-cost-the-neighbors" class="slide level2">
+<h2>The Check: Cost the Neighbors</h2>
+<p>The critical ratio is a shortcut, so we cost the neighbors directly.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(S\)</span></th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+<th style="text-align: right;">11</th>
+<th style="text-align: right;">12</th>
+<th style="text-align: right;">13</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\bar{I}\)</span></td>
+<td style="text-align: right;">2.0229</td>
+<td style="text-align: right;">2.7993</td>
+<td style="text-align: right;">3.6616</td>
+<td style="text-align: right;">4.5823</td>
+<td style="text-align: right;">5.5397</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{B}\)</span></td>
+<td style="text-align: right;">0.5229</td>
+<td style="text-align: right;">0.2993</td>
+<td style="text-align: right;">0.1616</td>
+<td style="text-align: right;">0.0823</td>
+<td style="text-align: right;">0.0397</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C(S)\)</span></td>
+<td style="text-align: right;">$6,392.69</td>
+<td style="text-align: right;">$5,218.57</td>
+<td style="text-align: right;"><strong>$4,859.83</strong></td>
+<td style="text-align: right;">$5,057.03</td>
+<td style="text-align: right;">$5,601.71</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that the minimum is at 11, where the critical ratio pointed, and that the curve is flat near it: levels 10 and 12 cost 7.4% and 4.1% more. Two routes, one answer.</p>
+<aside class="notes">
+<p>Every column is S - 7.5 + Bbar for the on-hand row, which is a quick check on the table itself. The flatness is the same lesson as the EOQ: near the optimum, being off by one costs a few percent.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-bill-for-q-1" class="slide level2">
+<h2>The Bill for <span class="math inline">\(Q = 1\)</span></h2>
+<p>We dropped <span class="math inline">\(k\)</span> because <span class="math inline">\(Q = 1\)</span> made it a constant. What is that constant for the transformer, at <span class="math inline">\(k = \$220\)</span> an order?</p>
 <div class="fragment">
 <p><span class="math display">\[
-S^{*} = \min\left\{S : G(S) \ge \frac{b}{b+h}\right\}
+k\,\overline{\mathit{OF}} = k\lambda = 220(45) = \$9{,}900 \text{ a year}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>The critical ratio, and the discrete rule, unchanged.</p>
-</div>
-</section>
-<section id="that-is-not-a-coincidence" class="slide level2">
-<h2>That Is Not a Coincidence</h2>
-<p>The newsvendor solved a problem with <strong>one period and no future</strong>.</p>
-<div class="fragment">
-<p>This one has an <strong>infinite horizon and a permanent stock</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>They reach the same rule because both trade <strong>one unit too many against one unit too few</strong>, and in a one-for-one system that trade is made afresh at every demand.</p>
-</div>
-</div>
-</div>
+<p>That is <strong>more than twice the $4,859.83 we just minimized</strong>. Thus, the policy is well chosen given <span class="math inline">\(Q = 1\)</span>, and <span class="math inline">\(Q = 1\)</span> has not been justified at all.</p>
+<p>One-for-one replenishment is right when an order is nearly free or a unit is nearly priceless, and the transformer is neither.</p>
+<aside class="notes">
+<p>This is the argument for next session. To trade the ordering cost against the others, Q has to be a decision, and then the position is no longer fixed: it moves in a band of width Q, which we saw in the ledger.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </div>
 </section>
-<section id="the-transformer-one-for-one" class="slide level2">
-<h2>The Transformer, One for One</h2>
-<p><span class="math inline">\(h = \$950\)</span>, <span class="math inline">\(b = \$8{,}550\)</span>, so the ratio is</p>
-<p><span class="math display">\[
-\frac{8550}{9500} = 0.90
-\]</span></p>
-<div class="fragment">
-<p>Reading down the Poisson distribution function at <span class="math inline">\(\theta = 7.5\)</span>, the first value at or above 0.90 gives</p>
-<p><span class="math display">\[
-S^{*} = 11 \text{ units}
-\]</span></p>
-</div>
+<section id="what-we-did-today" class="slide level2">
+<h2>What We Did Today</h2>
+<p><strong>Lead time demand is the one random quantity.</strong> Every measure in the chapter is a functional of its distribution.</p>
+<p><strong>Its moments are one formula with terms switched off.</strong> For the transformer, 65% of the variance under a variable lead time comes from the supplier.</p>
+<p><strong>A family is a choice.</strong> The variance to mean ratio picks it; an Erlang lead time shows the negative binomial is exact, not assumed.</p>
+<p><strong>Base stock is <span class="math inline">\(\mathit{IN} = S - D(L)\)</span>.</strong> <span class="math inline">\(\bar{B} = G^{1}(S)\)</span>, <span class="math inline">\(\bar{I} = S - \theta + G^{1}(S)\)</span>, <span class="math inline">\(\overline{\mathit{RR}} = G(S-1)\)</span>.</p>
+<p><strong>Its cost is the newsvendor’s.</strong> <span class="math inline">\(S^{*} = 11\)</span> transformers at $4,859.83 a year, and an ordering bill of $9,900 the derivation left out.</p>
 </section>
-<section id="general-batch-sizes" class="slide level2">
-<h2>General Batch Sizes</h2>
-<p>Now let <span class="math inline">\(Q &gt; 1\)</span>. The position is no longer pinned.</p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>In steady state the inventory position is <strong>uniform</strong> over the <span class="math inline">\(Q\)</span> integers <span class="math inline">\(r+1, \ldots, r+Q\)</span>, and <strong>independent</strong> of the lead time demand.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>That one fact carries the whole section.</p>
-</div>
-</section>
-<section id="so-everything-is-an-average" class="slide level2">
-<h2>So Everything Is an Average</h2>
-<p>Every measure at a general <span class="math inline">\(Q\)</span> is the base-stock measure <strong>averaged over the band</strong>:</p>
-<p><span class="math display">\[
-\bar{B}(r,Q) = \frac{1}{Q}\sum_{s=r+1}^{r+Q}\bar{B}(s)
-\]</span></p>
-<div class="fragment">
-<p>And every such average <strong>telescopes</strong> into a difference of two loss functions:</p>
-<p><span class="math display">\[
-\bar{B}(r,Q) = \frac{G^{2}(r) - G^{2}(r+Q)}{Q}
-\]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>One order higher each time. Backorders need <span class="math inline">\(G^{2}\)</span>; their <strong>variance</strong> needs <span class="math inline">\(G^{3}\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-loss-functions-are-recursions" class="slide level2">
-<h2>The Loss Functions Are Recursions</h2>
-<p><span class="math display">\[
-G^{1}(s) = G^{1}(s-1) - G^{0}(s-1), \qquad
-G^{2}(s) = G^{2}(s-1) - G^{1}(s)
-\]</span></p>
-<div class="fragment">
-<p>started from <span class="math inline">\(G^{1}(0) = \theta\)</span> and <span class="math inline">\(G^{2}(0) = \theta^{2}/2\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Watch the index on the second one. <span class="math inline">\(G^{2}\)</span> steps down by <span class="math inline">\(G^{1}(s)\)</span>, <strong>not</strong> by <span class="math inline">\(G^{1}(s-1)\)</span>, because <span class="math inline">\(G^{2}\)</span> is the tail sum of <span class="math inline">\(G^{1}\)</span> from <span class="math inline">\(s+1\)</span> upward.</p>
-<p>Getting it wrong is the most common error in a hand calculation.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="evaluating-a-policy-exactly" class="slide level2">
-<h2>Evaluating a Policy, Exactly</h2>
-<p>Nothing above is an approximation.</p>
-<div class="fragment">
-<p>No assumption that at most one order is outstanding. No continuous family fitted to a count. No shortage priced per cycle.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Given <span class="math inline">\(D(L)\)</span>, the four measures at any <span class="math inline">\((r,Q)\)</span> are <strong>exact</strong>, and they cost a short table of loss functions to compute.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Which raises an obvious question about the approximation everybody uses.</p>
-</div>
-</section>
-<section id="where-we-are" class="slide level2">
-<h2>Where We Are</h2>
+<section id="for-next-time" class="slide level2">
+<h2>For Next Time</h2>
+<p><strong>Read before next session:</strong> <em>General Batch Sizes</em> and <em>The Classical Approximation</em>.</p>
+<p>Today’s material was <em>Lead Time Demand</em> and <em>The Base-Stock Model</em>.</p>
+<p>Next session:</p>
 <ul>
-<li>One random quantity: <span class="math inline">\(D(L)\)</span>, and the modelling belongs there</li>
-<li>Choose the family by the variance-to-mean ratio, and never the normal</li>
-<li><span class="math inline">\(Q = 1\)</span> is the newsvendor with an infinite horizon</li>
-<li>General <span class="math inline">\(Q\)</span> is <span class="math inline">\(Q = 1\)</span> averaged over a uniform band</li>
-<li>The averages telescope, so evaluation is exact and cheap</li>
+<li>Where the position sits when <span class="math inline">\(Q &gt; 1\)</span>, and why that makes the exact analysis possible</li>
+<li>The four measures of an <span class="math inline">\((r, Q)\)</span> policy as base-stock results averaged over a band</li>
+<li>The classical approximation, and what each of its quiet assumptions costs</li>
 </ul>
-<div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Next: the classical approximation, what it assumes, and the two errors that partly cancel.</p>
+<p>Bring the base-stock formulas. Next session averages them.</p>
 </div>
 </div>
 </div>
 
-</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

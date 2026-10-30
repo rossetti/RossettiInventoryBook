@@ -300,6 +300,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -1295,7 +1296,9 @@ b \;=\; \text{dollars per unit backordered per unit time,}
 <section id="sec-costparams-accuracy" class="level3" data-number="1.4.8">
 <h3 data-number="1.4.8" class="anchored" data-anchor-id="sec-costparams-accuracy"><span class="header-section-number">1.4.8</span> How Accurate Do These Need to Be?</h3>
 <p>A reasonable worry, having seen how much judgment goes into these numbers, is whether the resulting model can be trusted at all. The answer has a reassuring half and an uncomfortable half, and you should know both before doing the work.</p>
-<p>The reassuring half is that the order quantity depends on <span class="math inline">\(k/h\)</span> under a square root, as <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a> derives, so errors are compressed. Let <span class="math inline">\(\theta\)</span> represent the factor by which the estimated ratio <span class="math inline">\(k/h\)</span> departs from its true value, so that <span class="math inline">\(\theta = 1\)</span> is a perfect estimate. A parameter wrong by a factor of four moves the order quantity by a factor of two and, as <a href="#fig-parameter-penalty" class="quarto-xref">Figure&nbsp;<span>1.3</span></a> shows, costs far less than that in dollars.</p>
+<p>The reassuring half is that the order quantity depends on <span class="math inline">\(k/h\)</span> under a square root, as <a href="03-Chapter3.html" class="quarto-xref"><span>Chapter 3</span></a> derives, so errors are compressed. Let <span class="math inline">\(\theta\)</span> represent the factor by which the estimated ratio <span class="math inline">\(k/h\)</span> departs from its true value, so that <span class="math inline">\(\theta = 1\)</span> is a perfect estimate. A parameter wrong by a factor of four moves the order quantity by a factor of two and, as <a href="#fig-parameter-penalty" class="quarto-xref">Figure&nbsp;<span>1.3</span></a> shows, costs far less than that in dollars. The curve in that figure is <span class="math display">\[
+\frac{C}{C^{*}} = \frac{1}{2}\left(\sqrt{\theta} + \frac{1}{\sqrt{\theta}}\right),
+\]</span> because the quantity actually ordered is <span class="math inline">\(\sqrt{\theta}\)</span> times the right one, and <a href="03-Chapter3.html#eq-eoq-penalty" class="quarto-xref">Equation&nbsp;<span>3.22</span></a> prices an order quantity that is wrong by a given factor.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-parameter-penalty" class="quarto-float quarto-figure quarto-figure-left anchored">

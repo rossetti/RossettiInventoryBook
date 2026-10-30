@@ -1001,535 +1001,820 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>The last assumption to go: <strong>one decision</strong></li>
-<li>The <span class="math inline">\((r, Q)\)</span> policy in one sentence, and three details people skate over</li>
-<li>Twelve events at a storeroom, by hand</li>
-<li>Why the <strong>position</strong> and the <strong>shelf</strong> answer different questions</li>
-<li>What to measure, and <strong>five</strong> ways to say “service” that are not the same</li>
-<li>The one exposure the policy actually faces</li>
+<li>The <span class="math inline">\((r, Q)\)</span> policy, its five state variables, and the one comparison it makes</li>
+<li>Twelve events at the storeroom, worked by hand one row at a time</li>
+<li>The long-run averages a policy is judged by, computed from that ledger</li>
+<li>Five ways to state a service requirement, and the two pairs that get confused</li>
+<li>The cost rate, and why a service target is a cost you declined to estimate</li>
 </ul>
 </section>
 <section id="where-we-have-been" class="slide level2">
 <h2>Where We Have Been</h2>
-<p>The EOQ knew its demand and ordered forever.</p>
-<div class="fragment">
-<p>The newsvendor did not know its demand, and ordered <strong>once</strong>.</p>
-</div>
-<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>The EOQ</strong> knew its demand and ordered forever.</p>
+<p><strong>The newsvendor</strong> did not know its demand, and ordered once.</p>
+</div><div class="column" style="width:50%;">
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Now: the item is stocked <strong>permanently</strong>, demand arrives at random <strong>forever</strong>, and a replenishment decision is available at <strong>every instant</strong>.</p>
+<p><strong>Now:</strong> the item is stocked permanently, demand arrives at random forever, and a replenishment decision is available at every instant.</p>
 </div>
 </div>
 </div>
-</div>
+</div></div>
+<p>The newsvendor removed the assumption that demand is known and kept the assumption that there is one decision. This chapter removes the second one.</p>
+<aside class="notes">
+<p>Two chapters, two assumptions. Chapter 3 kept demand known and let the decision repeat. Chapter 7 let demand be random and made one decision. Today both assumptions go at once. Keep the newsvendor close: next session the simplest policy of this chapter turns out to be one.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-policy-in-one-sentence" class="slide level2">
-<h2>The Policy, in One Sentence</h2>
-<p>Two numbers. Let <span class="math inline">\(r\)</span> be the <strong>reorder point</strong> and <span class="math inline">\(Q\)</span> the <strong>order quantity</strong>.</p>
-<div class="fragment">
+<section id="the-r-q-policy" class="slide level2">
+<h2>The <span class="math inline">\((r, Q)\)</span> Policy</h2>
+<p>Let <span class="math inline">\(r\)</span> represent the <strong>reorder point</strong> and let <span class="math inline">\(Q\)</span> represent the <strong>order quantity</strong>.</p>
 <blockquote>
-<p>Whenever the inventory position reaches or falls below <span class="math inline">\(r\)</span>, order <span class="math inline">\(Q\)</span> units.</p>
+<p>Whenever the inventory position <strong>reaches or falls below</strong> <span class="math inline">\(r\)</span>, order <span class="math inline">\(Q\)</span> units.</p>
 </blockquote>
-</div>
-<div class="fragment">
-<p>Written <span class="math inline">\((r, Q)\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
+<p>It is the policy most stock rooms actually run, under the name of a <strong>two-bin system</strong> or a <strong>min-max</strong> when the parameters are set by hand.</p>
+<p>Three details of its operation matter later.</p>
+<ul>
+<li><strong>Checked after every demand,</strong> including one that could not be filled. A backordered demand changes the position as a filled one does, so it can trigger an order.</li>
+<li><strong>Unmet demand is backordered,</strong> not lost, and filled first come first served when a replenishment arrives.</li>
+<li><strong>The lead time</strong> runs from placing an order to having it available to fill demand, so it includes receiving and put-away, not only transit.</li>
+</ul>
+<aside class="notes">
+<p>“Reaches or falls below”: with demand one unit at a time the position lands on r exactly, but with demand in lots (later in the chapter) it can jump past it. First come first served does not affect any average we compute; it affects the waiting time distribution. The lead time is the supplier’s quote plus your own dock and shelf time, and it is the dock time that is usually forgotten.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="five-state-variables" class="slide level2">
+<h2>Five State Variables</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<p>Recall that an inventory system carries more than one level.</p>
+<ul>
+<li><span class="math inline">\(I(t)\)</span>, the units physically <strong>on hand</strong></li>
+<li><span class="math inline">\(\mathit{IO}(t)\)</span>, the units <strong>on order</strong>, not yet received</li>
+<li><span class="math inline">\(B(t)\)</span>, the units <strong>backordered</strong>, owed to customers</li>
+<li><span class="math inline">\(\mathit{IN}(t) = I(t) - B(t)\)</span>, the <strong>net inventory</strong></li>
+<li><span class="math inline">\(\mathit{IP}(t) = I(t) + \mathit{IO}(t) - B(t)\)</span>, the <strong>inventory position</strong></li>
+</ul>
+<p>Notice that <span class="math inline">\(\mathit{IN}\)</span> can be negative and <span class="math inline">\(I\)</span> and <span class="math inline">\(B\)</span> cannot.</p>
+</div><div class="column" style="width:48%;">
+<div title="The comparison is against the position">
+<div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-content">
-<p>This is the policy most stock rooms actually run, under the name of a <strong>two-bin system</strong> or a <strong>min-max</strong> when the numbers are set by hand.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="three-details-that-matter-later" class="slide level2">
-<h2>Three Details That Matter Later</h2>
-<p><strong>The position is checked after every demand</strong>, including one that could not be filled. A backordered demand moves the position exactly as a filled one does, so it can trigger an order.</p>
-<div class="fragment">
-<p><strong>Unmet demand is backordered, not lost.</strong> Backorders accumulate and are filled when a replenishment arrives.</p>
-</div>
-<div class="fragment">
-<p><strong>The lead time is a constant quoted by the supplier.</strong> For now. That assumption is the subject of a later chapter.</p>
-</div>
-</section>
-<section id="four-state-variables" class="slide level2">
-<h2>Four State Variables</h2>
-<p><span class="math inline">\(I(t)\)</span>, units <strong>on hand</strong>, physically on the shelf. Never negative.</p>
-<div class="fragment">
-<p><span class="math inline">\(B(t)\)</span>, units <strong>backordered</strong>, owed to customers. Never negative.</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\mathit{IO}(t)\)</span>, units <strong>on order</strong>, ordered but not yet arrived.</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\mathit{IN}(t) = I(t) - B(t)\)</span>, the <strong>net inventory</strong>, which may be negative.</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\mathit{IP}(t) = \mathit{IN}(t) + \mathit{IO}(t)\)</span>, the <strong>inventory position</strong>.</p>
-</div>
-</section>
-<section id="which-one-triggers-an-order" class="slide level2">
-<h2>Which One Triggers an Order?</h2>
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><strong>The comparison is against the position</strong></p>
 </div>
 <div class="callout-content">
-<p>The <strong>position</strong>, never the shelf.</p>
-<p>A rule watching the shelf orders again while stock is already on its way, and orders far too much.</p>
+<p>A rule watching <span class="math inline">\(I(t)\)</span> would order again when the shelf is empty and an order is in transit, and again at the next demand, until the first delivery arrived.</p>
+<p>Thus, it would order the same shortage several times over. The position counts what is already coming, so an order placed is an order not placed again.</p>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p>We will see that happen on the ledger in a moment.</p>
 </div>
+</div></div>
+<aside class="notes">
+<p>I and B are never both positive: if anything is owed, the shelf is empty, because an arriving unit fills a backorder before it reaches the shelf. That is why IN carries the same information as the pair. The callout is the claim; the ledger on the next two slides is where it gets shown, at week 7.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-storerooms-transformer" class="slide level2">
-<h2>The Storeroom’s Transformer</h2>
-<p>A municipal electric utility. Pad-mount transformer, $3,800 a unit.</p>
-<div class="fragment">
-<p>Demand about 45 a year, one at a time. Supplier quotes eight weeks.</p>
-</div>
-<div class="fragment">
-<p>The storekeeper is running <span class="math inline">\(r = 4\)</span>, <span class="math inline">\(Q = 5\)</span>. Six on the shelf, none on order, nothing owed.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(r = 4\)</span> is <strong>not</strong> what we will end up recommending. It is set low deliberately, so the ledger passes through every state the system can occupy.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-rules-of-the-ledger" class="slide level2">
-<h2>The Rules of the Ledger</h2>
-<p>One row <strong>per event</strong>, at the week it occurs.</p>
-<div class="fragment">
-<p>State recorded <strong>after</strong> that event has been processed.</p>
-</div>
-<div class="fragment">
-<p>Review is continuous, so there are no periods and no buckets: something happens, the books are posted, and the next thing happens whenever it happens.</p>
-</div>
-</section>
-<section id="weeks-1-and-2" class="slide level2 smaller">
-<h2>Weeks 1 and 2</h2>
-<p>A demand arrives in week 1. There is stock, so it is filled and <span class="math inline">\(I\)</span> falls to 5. Position falls to 5. Since <span class="math inline">\(5 &gt; 4\)</span>, no order.</p>
-<div class="fragment">
-<p>A second demand in week 2. The shelf falls to 4 and the position with it.</p>
-</div>
-<div class="fragment">
-<p>The position has reached the reorder point. Order 5. They arrive in week 10.</p>
+<section id="the-transformer-at-the-storeroom" class="slide level2">
+<h2>The Transformer at the Storeroom</h2>
+<p>The utility storeroom carries a pad-mount transformer. Demand runs at <span class="math inline">\(\lambda = 45\)</span> units a year, one unit at a time. The supplier quotes two months, which the ledger carries as eight weeks. The storekeeper runs <span class="math inline">\(r = 4\)</span>, <span class="math inline">\(Q = 5\)</span>, and starts with 6 on the shelf, none on order, nothing owed.</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 11%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Week</th>
-<th>Event</th>
-<th style="text-align: right;"><span class="math inline">\(I\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IO}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IN}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}\)</span></th>
+<th>Question</th>
+<th>Answer</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0</td>
-<td>start</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">6</td>
+<td><em>What is stocked?</em></td>
+<td>One item, the transformer</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">1</td>
-<td>demand</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
+<td><em>What is the demand process?</em></td>
+<td>Random arrivals of one unit each, about 45 a year</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">2</td>
-<td>demand, <strong>order 5</strong></td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;"><strong>9</strong></td>
+<td><em>When is inventory reviewed?</em></td>
+<td>Continuously; the position is known after every transaction</td>
+</tr>
+<tr class="even">
+<td><em>What triggers replenishment, and how much?</em></td>
+<td>The position reaching <span class="math inline">\(r = 4\)</span> or below; order <span class="math inline">\(Q = 5\)</span></td>
+</tr>
+<tr class="odd">
+<td><em>What happens to unmet demand?</em></td>
+<td>Backordered; a utility crew waits for the transformer</td>
+</tr>
+<tr class="even">
+<td><em>What costs are incurred, and when?</em></td>
+<td>Not needed to run the ledger; they come at the end of today</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>The moment the order is placed the position <strong>jumps</strong> to <span class="math inline">\(4 + 5 = 9\)</span>.</p>
-</div>
+<aside class="notes">
+<p>Same six questions as every worked example in the book. r = 4 is not the policy the chapter ends up recommending for this item. It is set low on purpose, so the ledger passes through every state the system can occupy, including one the recommended policy would reach rarely.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="weeks-3-to-9" class="slide level2 smaller">
-<h2>Weeks 3 to 9</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 11%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
+<section id="twelve-events-one-row-at-a-time" class="slide level2">
+<h2>Twelve Events, One Row at a Time</h2>
+<table style="font-size:0.9em; margin-top:0.1em; max-height:none;">
 <thead>
-<tr class="header">
-<th style="text-align: right;">Week</th>
-<th>Event</th>
-<th style="text-align: right;"><span class="math inline">\(I\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IO}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IN}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}\)</span></th>
+<tr>
+<th>
+Week
+</th>
+<th style="text-align:left">
+Event
+</th>
+<th>
+<span class="math inline">\(I\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IO}\)</span>
+</th>
+<th>
+<span class="math inline">\(B\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IN}\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IP}\)</span>
+</th>
+<th style="text-align:left">
+What happened
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td>demand</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">8</td>
+<tr>
+<td>
+0
+</td>
+<td style="text-align:left">
+start
+</td>
+<td>
+6
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+6
+</td>
+<td>
+6
+</td>
+<td style="text-align:left">
+Six on the shelf, nothing on order or owed
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td>demand</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">7</td>
+<tr class="fragment">
+<td>
+1
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+5
+</td>
+<td style="text-align:left">
+Filled; <span class="math inline">\(5 &gt; 4\)</span>, no order
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">6</td>
-<td>demand</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">6</td>
+<tr class="fragment">
+<td>
+2
+</td>
+<td style="text-align:left">
+demand, <b>order 5</b>
+</td>
+<td>
+4
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+<b>9</b>
+</td>
+<td style="text-align:left">
+<span class="math inline">\(\mathit{IP}\)</span> reaches <span class="math inline">\(r\)</span>; order arrives week 10; <span class="math inline">\(\mathit{IP} = 4 + 5\)</span>
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">7</td>
-<td>demand</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<tr class="fragment">
+<td>
+3
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+8
+</td>
+<td style="text-align:left">
+Filled from the shelf
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">8</td>
-<td>demand backordered, <strong>order 5</strong></td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;"><span class="math inline">\(-1\)</span></td>
-<td style="text-align: right;">9</td>
+<tr class="fragment">
+<td>
+5
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+2
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+7
+</td>
+<td style="text-align:left">
+Filled from the shelf
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">9</td>
-<td>demand backordered</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;"><span class="math inline">\(-2\)</span></td>
-<td style="text-align: right;">8</td>
+<tr class="fragment">
+<td>
+6
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+1
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td style="text-align:left">
+Filled from the shelf
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td style="text-align:left">
+Shelf empty. Order? <span class="fragment"><b>No:</b> <span class="math inline">\(\mathit{IP} = 5 &gt; 4\)</span></span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td style="text-align:left">
+backordered, <b>order 5</b>
+</td>
+<td>
+0
+</td>
+<td>
+10
+</td>
+<td>
+1
+</td>
+<td>
+<span class="math inline">\(-1\)</span>
+</td>
+<td>
+9
+</td>
+<td style="text-align:left">
+Unfilled, yet <span class="math inline">\(\mathit{IP}\)</span> falls to 4; arrives week 16
+</td>
+</tr>
+<tr class="fragment">
+<td>
+9
+</td>
+<td style="text-align:left">
+backordered
+</td>
+<td>
+0
+</td>
+<td>
+10
+</td>
+<td>
+2
+</td>
+<td>
+<span class="math inline">\(-2\)</span>
+</td>
+<td>
+8
+</td>
+<td style="text-align:left">
+Two owed
+</td>
+</tr>
+<tr class="fragment">
+<td>
+10
+</td>
+<td style="text-align:left">
+<b>receipt of 5</b>
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+8
+</td>
+<td style="text-align:left">
+Backorders filled first; <span class="math inline">\(\mathit{IP}\)</span> unchanged
+</td>
+</tr>
+<tr class="fragment">
+<td>
+11
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+2
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+7
+</td>
+<td style="text-align:left">
+Filled from the shelf
+</td>
+</tr>
+<tr class="fragment">
+<td>
+13
+</td>
+<td style="text-align:left">
+demand
+</td>
+<td>
+1
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td style="text-align:left">
+Filled from the shelf
+</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Week 7.</strong> The shelf is empty. The position is 5, which is above <span class="math inline">\(r\)</span>, so <strong>no order is placed</strong>.</p>
-<p>A rule watching the shelf would have ordered here. The ledger shows why it must not: five units are already in transit.</p>
-</div>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>Every row is recorded after its event is processed. Narrate every row, the obvious ones too. Week 2: the demand lowers the position to the reorder point and the order raises it at once, so the position sits at r only for an instant. Week 7: stop and ask whether to order before showing the answer. A rule watching the shelf would order here, a second five transformers to cover a shortage the first five already cover. Week 8: the demand cannot be filled and still moves the position from 5 to 4, so a second order goes out. Week 10: five units arrive, the two owed are filled first, three reach the shelf, and the position does not move.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="week-8-is-the-other-half-of-the-point" class="slide level2">
-<h2>Week 8 Is the Other Half of the Point</h2>
-<p>The demand in week 8 <strong>cannot be filled</strong>, and it still moves the position, from 5 to 4.</p>
-<div class="fragment">
-<p>That reaches <span class="math inline">\(r\)</span>, so a second order is placed.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A backordered demand triggers an order exactly as a filled one does. If your system only decrements the position when it ships, it will under-order precisely when it is already short.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="weeks-10-onward" class="slide level2 smaller">
-<h2>Weeks 10 Onward</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 11%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Week</th>
-<th>Event</th>
-<th style="text-align: right;"><span class="math inline">\(I\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IO}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IN}\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">10</td>
-<td><strong>receipt of 5</strong></td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">11</td>
-<td>demand</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td>demand</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">6</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p>The receipt fills the two backorders <strong>first</strong> and puts three on the shelf.</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\mathit{IN}\)</span> goes from <span class="math inline">\(-2\)</span> straight to 3. It never passes through the shelf.</p>
-</div>
+<section id="three-rows-worth-stopping-on" class="slide level2">
+<h2>Three Rows Worth Stopping On</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Week 7.</strong> The shelf is empty and the policy does not order. The position knows five transformers are coming, and the shelf does not.</p>
+<p><strong>Week 8.</strong> A demand that cannot be filled still lowers the position. If a system decrements the position only when it ships, it under-orders when it is already short.</p>
+<p><strong>Week 10.</strong> A delivery does not change the inventory position. It converts units on order into units on hand, and the position counts both.</p>
+</div><div class="column" style="width:50%;">
+<p><em>The check.</em> Every row must satisfy <span class="math inline">\(\mathit{IP}(t) = I(t) + \mathit{IO}(t) - B(t)\)</span>.</p>
+<p>Week 8 is the first row on which a backorder enters the sum:</p>
+<p><span class="math display">\[
+0 + 10 - 1 = 9
+\]</span></p>
+<p>That check is worth performing on every ledger, because it catches an order recorded in the wrong column immediately.</p>
+</div></div>
+<aside class="notes">
+<p>Week 10 in numbers: before the receipt I = 0, IO = 10, B = 2, position 8. After it I = 3, IO = 5, B = 0, position 8. The order frequency, the shelf, and the backorders all moved, and the position did not. Have the class run the check on two or three other rows; it takes seconds.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-the-ledger-establishes" class="slide level2">
 <h2>What the Ledger Establishes</h2>
-<p><strong>The position moves within a band of width <span class="math inline">\(Q\)</span>.</strong> It falls one unit at a time from just above <span class="math inline">\(r + Q\)</span> down to <span class="math inline">\(r\)</span>, and an order restores it.</p>
+<p><strong>A band of width <span class="math inline">\(Q\)</span>.</strong> The position falls one unit at a time from just above <span class="math inline">\(r + Q\)</span> down to <span class="math inline">\(r\)</span>, and an order restores it. In the ledger it ran over 5, 6, 7, 8, 9, which is <span class="math inline">\(r + 1\)</span> through <span class="math inline">\(r + Q\)</span>.</p>
+<p><strong>One exposure.</strong> Everything that can go wrong happens during a lead time. Between placing an order and receiving it, nothing the storekeeper does changes the outcome. Thus, the only random quantity the policy is exposed to is the <strong>demand over that interval</strong>.</p>
+<p><strong>Two questions.</strong> The shelf and the position answer different questions. The position decides when to order. The shelf decides whether a customer is served. A model that confuses them will get the ordering right and the service wrong, or the reverse.</p>
+<aside class="notes">
+<p>Each property is used later. The band becomes a distribution: under Poisson demand the position is uniform on r+1 through r+Q, which is what makes the exact analysis possible. The second property is why lead time demand gets its own section next session. The third is why there are two service measures that look alike and are not.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="averaging-the-ledger" class="slide level2">
+<h2>Averaging the Ledger</h2>
+<p>A policy is judged by <strong>long-run time averages</strong> of the ledger’s columns. Over the 13 weeks of the ledger they are:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{I} &amp;\approx \frac{6+5+4+3(2)+2+1+0(3)+3+2(2)}{13} = \frac{31}{13} = 2.38
+  &amp;&amp;\text{area under } I(t) \text{, over 13 weeks}\\[2pt]
+\bar{B} &amp;\approx \frac{1(1) + 2(1)}{13} = \frac{3}{13} = 0.23
+  &amp;&amp;\text{one owed in week 8, two in week 9}\\[2pt]
+\overline{\mathit{SO}} &amp;\approx \frac{3}{13} = 0.23
+  &amp;&amp;\text{shelf empty from week 7 to week 10}\\[2pt]
+\overline{\mathit{OF}} &amp;= \frac{\lambda}{Q} = \frac{45}{5} = 9 \text{ orders a year}
+  &amp;&amp;\text{no analysis needed}
+\end{aligned}
+\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Each term of <span class="math inline">\(\bar{I}\)</span> is a level times the weeks it was held. The level 3 was held two weeks (3 to 5), the level 0 three weeks (7 to 10), and the level 2 at the end two weeks (11 to 13).</p>
+</div><div class="column" style="width:50%;">
+<p>Every order is for <span class="math inline">\(Q\)</span> units and all demand is eventually filled, so orders are placed at the rate demand consumes them. Over 13 weeks that is <span class="math inline">\(9 \times 13/52 = 2.25\)</span> orders; the ledger placed 2.</p>
+</div></div>
+<aside class="notes">
+<p>Thirteen weeks is far too short to estimate anything; the point is what each average is an average of. Ibar is an area divided by a length of time. So is Bbar. SO is a fraction of the clock. Only the order frequency depends on Q alone, and none of the other three does anything so simple: they all depend on the demand during a lead time, which is the next session.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="five-ways-to-state-a-service-requirement" class="slide level2">
+<h2>Five Ways to State a Service Requirement</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ol type="a">
+<li>The probability of <strong>no stockout during a lead time</strong></li>
+<li>The proportion of <strong>demands</strong> met from stock without delay</li>
+<li>The proportion of <strong>time</strong> that stock is on hand</li>
+<li>The expected number of <strong>backorders</strong></li>
+<li>The expected <strong>waiting time</strong> of a backordered demand</li>
+</ol>
+</div><div class="column" style="width:45%;">
+<p>Notice that (a) counts <strong>cycles</strong>, (b) counts <strong>demands</strong>, (c) counts <strong>time</strong>, and (d) and (e) are not proportions at all.</p>
+<p>An organization that has agreed on a number without agreeing on which of the five it measures has agreed on nothing.</p>
+</div></div>
+<p>The rest of today takes the two pairs most often confused: (b) against (c), and (d) against (e). Measures (a) and (b) come back as targets a planner sets.</p>
+<aside class="notes">
+<p>Ask the class which of these their own employer, or the last place they worked, reports. Most will say “95% service” and not know which one. That is the point of the slide.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-ready-rate-is-not-the-fill-rate" class="slide level2">
+<h2>The Ready Rate Is Not the Fill Rate</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<p>The <strong>ready rate</strong> <span class="math inline">\(\overline{\mathit{RR}} = 1 - \overline{\mathit{SO}}\)</span> is the proportion of <strong>time</strong> stock is on the shelf, measure (c).</p>
+<p>The <strong>fill rate</strong> <span class="math inline">\(\overline{\mathit{FR}}\)</span> is the proportion of <strong>demands</strong> filled from the shelf on arrival, measure (b).</p>
+<p>On the ledger they differ:</p>
+<p><span class="math display">\[
+\overline{\mathit{RR}} \approx 1 - \tfrac{3}{13} = 0.77,
+\qquad
+\overline{\mathit{FR}} \approx \tfrac{8}{10} = 0.80
+\]</span></p>
+</div><div class="column" style="width:48%;">
+<p>Recall that <strong>PASTA</strong> says a Poisson arrival finds the system in its time-stationary state. Thus, for Poisson demand</p>
+<p><span class="math display">\[
+\overline{\mathit{FR}} = \overline{\mathit{RR}} = 1 - \overline{\mathit{SO}}
+\]</span></p>
+<p>Under any other arrival process this fails in the direction that matters. Demand in bursts is more likely to find the shelf empty than a random instant is, because the burst that emptied the shelf is still arriving.</p>
+</div></div>
+<aside class="notes">
+<p>On thirteen weeks the two disagree by sampling noise; in the long run, under Poisson demand, they agree. Under lumpy demand they do not, and a system reporting a 95% ready rate may fill well under 95% of its demands. Whenever a service figure is quoted, ask which average it is and whether the demand process justifies treating them as one.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="waiting-is-backorders-in-other-units" class="slide level2">
+<h2>Waiting Is Backorders in Other Units</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Little’s Law, with the backordered demands as the system:</p>
+<p><span class="math display">\[
+\overline{W} = \frac{\bar{B}}{\lambda}
+\]</span></p>
+<p>On the ledger, the area under <span class="math inline">\(B(t)\)</span> is 3 unit-weeks, and the two backordered demands waited 2 weeks and 1 week. The area <strong>is</strong> the total wait, so</p>
+<p><span class="math display">\[
+\overline{W} \approx \frac{3/13}{10/13} = 0.3 \text{ weeks per demand}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p>For <span class="math inline">\(\bar{B} = 0.12\)</span> units at <span class="math inline">\(\lambda = 45\)</span> a year:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\overline{W} &amp;= \frac{0.12}{45} = 0.00267 \text{ years}\\
+&amp;= 0.00267 \text{ years} \times \frac{365 \text{ days}}{1 \text{ year}}
+= 0.97 \text{ days}
+\end{aligned}
+\]</span></p>
+<p>Does a crew that waits, wait about a day?</p>
 <div class="fragment">
-<p><strong>Everything that can go wrong happens during a lead time.</strong> Between placing an order and receiving it, nothing the storekeeper does changes the outcome.</p>
+<p><strong>No.</strong> The average is over <strong>all</strong> demands. Most wait no time at all, and the few that wait, wait much longer than a day.</p>
 </div>
-<div class="fragment">
+</div></div>
+<aside class="notes">
+<p>Little’s Law needs no distributional assumption, and the ledger shows why: each backordered unit contributes one unit of height to B(t) for as long as it waits, so the area under B(t) and the sum of the waits are the same number. Thus, a target on the average backorder level and a target on the average wait are the same target in different units. An organization that argues about them separately is arguing about a unit conversion.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-cost-rate" class="slide level2">
+<h2>The Cost Rate</h2>
+<p>Let <span class="math inline">\(C(r, Q)\)</span> represent the relevant cost rate, with <span class="math inline">\(k\)</span> the cost per order, <span class="math inline">\(h\)</span> the holding cost per unit per year, and <span class="math inline">\(b\)</span> the backorder cost per unit per year:</p>
+<p><span class="math display">\[
+C(r, Q) = k\,\frac{\lambda}{Q} + h\,\bar{I} + b\,\bar{B}
+\]</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(k\lambda/Q\)</span></td>
+<td>dollars per order <span class="math inline">\(\times\)</span> orders per year</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(h\bar{I}\)</span></td>
+<td>dollars per unit per year <span class="math inline">\(\times\)</span> units</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(b\bar{B}\)</span></td>
+<td>dollars per unit per year <span class="math inline">\(\times\)</span> units</td>
+</tr>
+</tbody>
+</table>
+<p>Notice the units of the last term. <span class="math inline">\(b\)</span> charges for <strong>how long</strong> a demand waits, not merely that it waited. A model that charges a flat <span class="math inline">\(\pi\)</span> per unit short is a different model, and the classical approximation uses it.</p>
+<p>For the transformer, <span class="math inline">\(h = 0.25(3{,}800) = \$950\)</span> per unit per year, and the utility judges <span class="math inline">\(b = \$8{,}550\)</span> per unit per year in rescheduled work and reliability penalties.</p>
+<aside class="notes">
+<p>Every quantity in the cost rate is one of today’s averages. The transformer’s figures are the ones used for the rest of the chapter. b per unit per year versus pi per unit: the first grows with the wait, the second does not, and the difference is one of the assumptions we will price when we meet the approximation.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="service-targets-are-costs-you-declined-to-estimate" class="slide level2">
+<h2>Service Targets Are Costs You Declined to Estimate</h2>
+<p><span class="math inline">\(b\)</span> is the parameter no ledger contains. The usual response is to drop it and impose a service target instead.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>So the only random quantity the policy is exposed to is <strong>demand over the lead time</strong>.</p>
+<p>Imposing a service target does not remove <span class="math inline">\(b\)</span> from the model. A service target is not an escape from <span class="math inline">\(b\)</span>; it is a statement about <span class="math inline">\(b\)</span> made without saying so.</p>
 </div>
 </div>
 </div>
-</div>
+<p>Recall from the multi-item chapter that a firm’s observed order quantities imply a ratio of its own cost parameters whether or not the firm ever estimated them. The same argument runs here, and later in the chapter we recover the <span class="math inline">\(b\)</span> that a service target implies and ask whether anyone believes it.</p>
+<aside class="notes">
+<p>Keep this in reserve. When we reach service levels, a 95% ready-rate target on the transformer will turn out to assert a backorder cost more than twice the one the utility actually states, and a 98% target more than five times it. The argument is the exchange curve’s argument again.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-shelf-and-the-position-answer-different-questions" class="slide level2">
-<h2>The Shelf and the Position Answer Different Questions</h2>
-<p>The <strong>position</strong> decides when to order.</p>
-<div class="fragment">
-<p>The <strong>shelf</strong> decides whether a customer is served.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A model that confuses them will get the ordering right and the service wrong, or the reverse.</p>
-</div>
-</div>
-</div>
-</div>
+<section id="what-we-did-today" class="slide level2">
+<h2>What We Did Today</h2>
+<p><strong>The <span class="math inline">\((r, Q)\)</span> policy compares <span class="math inline">\(r\)</span> against the position, not the shelf.</strong> The position counts what is already coming, so an order placed is not placed again.</p>
+<p><strong>The ledger shows it.</strong> At week 7 the shelf was empty and nothing was ordered; at week 8 an unfilled demand triggered an order; at week 10 a delivery left the position unchanged.</p>
+<p><strong>A policy is judged by time averages of the ledger’s columns.</strong> Only the order frequency, <span class="math inline">\(\lambda/Q\)</span>, needs no analysis.</p>
+<p><strong>The ready rate counts time and the fill rate counts demands.</strong> Poisson demand makes them equal; under any other arrival process they can come apart.</p>
+<p><strong>Backorders and waiting time are one target in two units.</strong> Little’s Law, with no distributional assumption.</p>
 </section>
-<section id="what-we-measure" class="slide level2">
-<h2>What We Measure</h2>
-<p>Long-run <strong>time averages</strong> of the ledger’s columns:</p>
+<section id="for-next-time" class="slide level2">
+<h2>For Next Time</h2>
+<p><strong>Read before next session:</strong> <em>Lead Time Demand</em> and <em>The Base-Stock Model</em>.</p>
+<p>Today’s material was <em>One Item, Watched Continuously</em> and <em>What to Measure</em>.</p>
+<p>Next session:</p>
 <ul>
-<li><span class="math inline">\(\bar{I}\)</span>, average units on hand</li>
-<li><span class="math inline">\(\bar{B}\)</span>, average units backordered</li>
-<li><span class="math inline">\(\overline{\mathit{SO}}\)</span>, proportion of time the shelf is empty</li>
-<li><span class="math inline">\(\overline{\mathit{OF}} = \lambda/Q\)</span>, orders placed per unit time</li>
+<li>The one random quantity, lead time demand, and three ways it arises</li>
+<li>Choosing a distribution for it, and why the normal is not a candidate for a slow-moving item</li>
+<li>The base-stock policy, <span class="math inline">\(Q = 1\)</span>, which turns out to be a newsvendor</li>
 </ul>
-<div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The order frequency needs no analysis at all. Every order is for <span class="math inline">\(Q\)</span> units and all demand is eventually filled, so orders are placed at the rate demand consumes them.</p>
-<p>It depends on <span class="math inline">\(Q\)</span> alone. <strong>Nothing else here is that simple.</strong></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="five-ways-to-say-service" class="slide level2">
-<h2>Five Ways to Say “Service”</h2>
-<ol type="a">
-<li>probability of <strong>no stockout during a lead time</strong></li>
-<li>proportion of <strong>demands</strong> met from stock without delay</li>
-<li>proportion of <strong>time</strong> stock is on hand</li>
-<li>expected number of <strong>backorders</strong></li>
-<li>expected <strong>waiting time</strong> of a backordered demand</li>
-</ol>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<ol type="a">
-<li>counts <strong>cycles</strong>. (b) counts <strong>demands</strong>. (c) counts <strong>time</strong>. (d) and (e) are not proportions at all.</li>
-</ol>
-<p>An organization that has agreed on a number without agreeing which of the five it measures <strong>has agreed on nothing</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="two-of-them-get-names" class="slide level2">
-<h2>Two of Them Get Names</h2>
-<p>The <strong>ready rate</strong> is the fraction of time stock is on the shelf: measure (c).</p>
-<div class="fragment">
-<p>The <strong>fill rate</strong> is the fraction of demands filled from the shelf: measure (b).</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>When demand arrives one unit at a time in a Poisson process, <strong>PASTA</strong> makes them equal: arrivals see time averages.</p>
-<p>Let demand arrive in <strong>lots</strong> and they come apart again. We will see that later.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="backorders-and-waiting-are-the-same-constraint" class="slide level2">
-<h2>Backorders and Waiting Are the Same Constraint</h2>
-<p>Little’s Law, applied to the set of backordered demands:</p>
-<p><span class="math display">\[
-\bar{B} = \lambda \overline{\mathit{BW}}
-\]</span></p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A constraint on the <strong>average number of units backordered</strong> is the same constraint as one on <strong>how long a customer waits</strong>.</p>
-<p>Two service targets an organization would argue about separately are one target in two units.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-costs" class="slide level2">
-<h2>The Costs</h2>
-<p><span class="math inline">\(k\)</span>, the fixed cost of placing an order.</p>
-<div class="fragment">
-<p><span class="math inline">\(h\)</span>, the holding cost per unit per unit time, usually <span class="math inline">\(\gamma c\)</span> with <span class="math inline">\(\gamma\)</span> a carrying charge.</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(b\)</span>, the backorder cost per unit per unit time.</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-C(r, Q) = k\,\overline{\mathit{OF}} + h\bar{I} + b\bar{B}
-\]</span></p>
-</div>
-<div class="fragment">
-<p>For the transformer: <span class="math inline">\(h = 0.25(3800) = \$950\)</span>, and the utility judges <span class="math inline">\(b = \$8{,}550\)</span>.</p>
-</div>
-</section>
-<section id="where-we-are-going" class="slide level2">
-<h2>Where We Are Going</h2>
-<ul>
-<li>Everything reduces to the distribution of <strong>lead time demand</strong></li>
-<li>The base-stock model, at <span class="math inline">\(Q = 1\)</span>, turns out to be the <strong>newsvendor</strong></li>
-<li>General <span class="math inline">\(Q\)</span> is base-stock <strong>averaged over a band</strong></li>
-<li>The classical approximation is wrong in <strong>two directions at once</strong></li>
-<li>An exact algorithm that terminates, with nothing to converge</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Next deck: the one random quantity, and what family to give it.</p>
+<p>Bring the newsvendor’s critical ratio with you. You will use it on the transformer.</p>
 </div>
 </div>
 </div>
 
-</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

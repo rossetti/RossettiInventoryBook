@@ -4,7 +4,7 @@
 :root{--slate:#274060;--light:#D6E4EE;--teal:#2A9D8F;--link:#1D6A96;--ink:#111827;--line:#E5E7EB;--paper:#fff;--muted:#6B7280}
 *{box-sizing:border-box} body{margin:0;font-family:Georgia,Cambria,"Times New Roman",serif;color:var(--ink);background:#F8FAFC}
 header{background:var(--slate);color:#fff;padding:26px 32px} header h1{margin:0;font-size:26px}
-header p{margin:6px 0 0;color:var(--light);font-size:15px}
+header p{margin:6px 0 0;color:var(--light);font-size:15px} header a{color:var(--light)}
 .wrap{max-width:1040px;margin:0 auto;padding:24px 32px 60px}
 .chap{margin:26px 0} .chap h2{font-size:20px;color:var(--slate);border-bottom:2px solid var(--teal);padding-bottom:6px;margin:0 0 12px}
 .cn{display:inline-block;background:var(--link);color:#fff;font-size:13px;padding:2px 9px;border-radius:6px;margin-right:8px;vertical-align:middle;font-family:Helvetica,Arial,sans-serif}
@@ -14,38 +14,50 @@ a.deck{display:flex;justify-content:space-between;align-items:center;gap:10px;te
 a.deck:hover{border-left-color:var(--teal);box-shadow:0 2px 10px rgba(39,64,96,.10);transform:translateY(-1px)}
 .dt{font-size:15px;line-height:1.25} .sc{font-family:Helvetica,Arial,sans-serif;font-size:12px;color:var(--muted);white-space:nowrap}
 .sc.missing{color:#B91C1C}
-.handout{font-family:Helvetica,Arial,sans-serif;font-size:13px;color:var(--muted);margin:6px 0 0 18px} .handout a{color:var(--link)}
 </style></head><body>
 <header><h1>Analysis of Inventory Systems, Lecture Slides</h1>
-<p>30 decks · 834 slides</p></header>
-<div class="wrap"><section class="chap"><h2><span class="cn">Ch 1</span> Introduction to Inventory Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch01/01-WhyInventoryExists.html"><span class="dt">Why Inventory Exists</span><span class="sc">20 slides</span></a></div>
-<div class="card"><a class="deck" href="ch01/02-ClassifyingAndState.html"><span class="dt">Classifying a System, and Describing Its State</span><span class="sc">26 slides</span></a></div>
-<div class="card"><a class="deck" href="ch01/03-CostsAndService.html"><span class="dt">Costs, and How Well the System Serves</span><span class="sc">30 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 2</span> Managing Inventory</h2><div class="decks"><div class="card"><a class="deck" href="ch02/01-SegmentationAndABC.html"><span class="dt">Segmentation: Deciding Which Items Get Attention</span><span class="sc">30 slides</span></a></div>
-<div class="card"><a class="deck" href="ch02/02-RecordAccuracy.html"><span class="dt">Record Accuracy: The Number the Policy Actually Reads</span><span class="sc">32 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 3</span> Deterministic Lot Sizing</h2><div class="decks"><div class="card"><a class="deck" href="ch03/01-TheGeneralCycle.html"><span class="dt">The General Inventory Cycle</span><span class="sc">30 slides</span></a></div>
-<div class="card"><a class="deck" href="ch03/02-EOQAndSensitivity.html"><span class="dt">The Economic Order Quantity, and What a Wrong One Costs</span><span class="sc">30 slides</span></a></div>
-<div class="card"><a class="deck" href="ch03/03-DiscountsAndPerformance.html"><span class="dt">Quantity Discounts, and What the Cycle Delivers</span><span class="sc">22 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 4</span> Multi-Item and Constrained Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch04/01-ConstrainedMultiItem.html"><span class="dt">When Items Compete for a Scarce Resource</span><span class="sc">26 slides</span></a></div>
-<div class="card"><a class="deck" href="ch04/02-ExchangeCurves.html"><span class="dt">Exchange Curves: Reading a Firm&#x27;s Own Costs</span><span class="sc">23 slides</span></a></div>
-<div class="card"><a class="deck" href="ch04/03-JointAndPowerOfTwo.html"><span class="dt">Joint Replenishment and Power-of-Two Policies</span><span class="sc">22 slides</span></a></div>
-<div class="card"><a class="deck" href="ch04/04-MultiEchelon.html"><span class="dt">Multi-Echelon Systems: Getting the Accounting Right First</span><span class="sc">25 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 5</span> Dynamic Lot Sizing</h2><div class="decks"><div class="card"><a class="deck" href="ch05/01-WagnerWhitin.html"><span class="dt">Dynamic Lot Sizing: Finding the Optimal Plan</span><span class="sc">25 slides</span></a></div>
-<div class="card"><a class="deck" href="ch05/02-HeuristicsAndRolling.html"><span class="dt">Heuristics, and the Horizon That Moves</span><span class="sc">26 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 6</span> Material and Distribution Requirements Planning</h2><div class="decks"><div class="card"><a class="deck" href="ch06/01-MRPRecords.html"><span class="dt">Material Requirements Planning: Demand You Calculate</span><span class="sc">23 slides</span></a><div class="handout">Breakout handout: <a href="ch06/handouts/01-MRPRecords-Breakout.pdf">PDF</a> · <a href="ch06/handouts/01-MRPRecords-Breakout.html">HTML</a></div></div>
-<div class="card"><a class="deck" href="ch06/02-LotSizingAndDRP.html"><span class="dt">Lot Sizing, Distribution, and the Bullwhip</span><span class="sc">28 slides</span></a><div class="handout">Breakout handout: <a href="ch06/handouts/02-LotSizingAndDRP-Breakout.pdf">PDF</a> · <a href="ch06/handouts/02-LotSizingAndDRP-Breakout.html">HTML</a></div></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 7</span> Single-Period Stochastic Inventory</h2><div class="decks"><div class="card"><a class="deck" href="ch07/01-NewsvendorByHand.html"><span class="dt">One Order, One Chance: The Newsvendor</span><span class="sc">31 slides</span></a></div>
-<div class="card"><a class="deck" href="ch07/02-FittingAndSolving.html"><span class="dt">Fitting the Demand, and Solving the Buy</span><span class="sc">36 slides</span></a></div>
-<div class="card"><a class="deck" href="ch07/03-DiscreteAndExtensions.html"><span class="dt">Small Numbers, Extensions, and Simulation</span><span class="sc">22 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 8</span> Continuous and Periodic Review Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch08/01-WatchingAnItem.html"><span class="dt">One Item, Watched Continuously</span><span class="sc">20 slides</span></a></div>
-<div class="card"><a class="deck" href="ch08/02-LeadTimeDemandAndBaseStock.html"><span class="dt">Lead Time Demand and the Base-Stock Model</span><span class="sc">20 slides</span></a></div>
-<div class="card"><a class="deck" href="ch08/03-ApproximationAndOptimization.html"><span class="dt">The Approximation, and an Exact Algorithm</span><span class="sc">15 slides</span></a></div>
-<div class="card"><a class="deck" href="ch08/04-ServiceLumpyAndPeriodic.html"><span class="dt">Service Targets, Lumpy Demand, Periodic Review</span><span class="sc">18 slides</span></a></div>
-<div class="card"><a class="deck" href="ch08/05-PortfoliosAndRunningSystems.html"><span class="dt">Many Items at Once, and Keeping a Policy Current</span><span class="sc">27 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 9</span> Multi-Echelon Inventory Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch09/01-RepairablesAndPalm.html"><span class="dt">Where the Stock Sits: Repairable Items</span><span class="sc">42 slides</span></a></div>
-<div class="card"><a class="deck" href="ch09/02-MetricAndVarimetric.html"><span class="dt">METRIC and VARI-METRIC</span><span class="sc">36 slides</span></a></div>
-<div class="card"><a class="deck" href="ch09/03-AllocatingTheBudget.html"><span class="dt">Spending a Budget Across Two Levels</span><span class="sc">29 slides</span></a></div>
-</div></section><section class="chap"><h2><span class="cn">Ch 10</span> Multi-Echelon Systems with Batch Ordering</h2><div class="decks"><div class="card"><a class="deck" href="ch10/01-TheBatchingHub.html"><span class="dt">A Hub That Orders in Batches</span><span class="sc">44 slides</span></a></div>
-<div class="card"><a class="deck" href="ch10/02-OrdersAndTheHub.html"><span class="dt">Storerooms That Batch, and a Hub With Other Demand</span><span class="sc">42 slides</span></a></div>
-<div class="card"><a class="deck" href="ch10/03-SettingBothPolicies.html"><span class="dt">Setting Both Policies</span><span class="sc">34 slides</span></a></div>
+<p>43 decks · 719 slides · <a href="../index.html">Back to the book</a></p></header>
+<div class="wrap"><section class="chap"><h2><span class="cn">Ch 1</span> Introduction to Inventory Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch01/01-WhyInventoryExists.html"><span class="dt">Why Inventory Exists</span><span class="sc">12 slides</span></a></div>
+<div class="card"><a class="deck" href="ch01/02-ClassifyingAndState.html"><span class="dt">Classifying Inventory Systems, and Describing Their State</span><span class="sc">14 slides</span></a></div>
+<div class="card"><a class="deck" href="ch01/03-CostParameters.html"><span class="dt">Cost Parameters: Pricing What a Policy Does</span><span class="sc">13 slides</span></a></div>
+<div class="card"><a class="deck" href="ch01/04-EstimatingAndService.html"><span class="dt">Estimating the Costs, and Measuring the Service</span><span class="sc">17 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 2</span> Managing Inventory</h2><div class="decks"><div class="card"><a class="deck" href="ch02/01-SegmentationAndABC.html"><span class="dt">Managing Inventory: Attention, Segmentation and ABC</span><span class="sc">20 slides</span></a></div>
+<div class="card"><a class="deck" href="ch02/02-RecordAccuracy.html"><span class="dt">Inventory Records: What the Policy Actually Reads</span><span class="sc">22 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 3</span> Deterministic Lot Sizing</h2><div class="decks"><div class="card"><a class="deck" href="ch03/01-TheGeneralCycle.html"><span class="dt">Deterministic Lot Sizing: One Cycle, Every Model</span><span class="sc">14 slides</span></a></div>
+<div class="card"><a class="deck" href="ch03/02-EOQAndSensitivity.html"><span class="dt">The Economic Order Quantity, and What a Wrong One Costs</span><span class="sc">15 slides</span></a></div>
+<div class="card"><a class="deck" href="ch03/03-DiscountsAndPerformance.html"><span class="dt">Quantity Discounts and the Performance of a Cycle</span><span class="sc">14 slides</span></a></div>
+<div class="card"><a class="deck" href="ch03/04-WorksheetAndSoftware.html"><span class="dt">Lot Sizing Models in a Worksheet and in Code</span><span class="sc">18 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 4</span> Multi-Item and Constrained Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch04/01-ConstrainedMultiItem.html"><span class="dt">Multi-Item Lot Sizing Under a Shared Constraint</span><span class="sc">19 slides</span></a></div>
+<div class="card"><a class="deck" href="ch04/02-ExchangeCurves.html"><span class="dt">Exchange Curves: What a Portfolio Can Reach</span><span class="sc">16 slides</span></a></div>
+<div class="card"><a class="deck" href="ch04/03-JointAndPowerOfTwo.html"><span class="dt">Joint Replenishment and Power-of-Two Policies</span><span class="sc">19 slides</span></a></div>
+<div class="card"><a class="deck" href="ch04/04-MultiEchelon.html"><span class="dt">Multi-Echelon Systems: Serial Chains and Distribution Networks</span><span class="sc">18 slides</span></a></div>
+<div class="card"><a class="deck" href="ch04/05-WorksheetAndSoftware.html"><span class="dt">Multi-Item Models in a Worksheet and in Code</span><span class="sc">19 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 5</span> Dynamic Lot Sizing</h2><div class="decks"><div class="card"><a class="deck" href="ch05/01-WagnerWhitin.html"><span class="dt">Dynamic Lot Sizing: When the Demand Rate Changes</span><span class="sc">24 slides</span></a></div>
+<div class="card"><a class="deck" href="ch05/02-HeuristicsAndRolling.html"><span class="dt">Lot Sizing Heuristics and the Rolling Horizon</span><span class="sc">17 slides</span></a></div>
+<div class="card"><a class="deck" href="ch05/03-WorksheetAndSoftware.html"><span class="dt">Dynamic Lot Sizing in a Worksheet and in Code</span><span class="sc">26 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 6</span> Material and Distribution Requirements Planning</h2><div class="decks"><div class="card"><a class="deck" href="ch06/01-MRPRecords.html"><span class="dt">Material Requirements Planning: Demand You Calculate</span><span class="sc">20 slides</span></a></div>
+<div class="card"><a class="deck" href="ch06/02-LotSizingAndDRP.html"><span class="dt">What a Parent&#x27;s Rule Does Below It, and the Same Arithmetic on a Network</span><span class="sc">19 slides</span></a></div>
+<div class="card"><a class="deck" href="ch06/03-WorksheetAndSoftware.html"><span class="dt">Requirements Planning in a Worksheet and in Code</span><span class="sc">20 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 7</span> Single-Period Stochastic Inventory</h2><div class="decks"><div class="card"><a class="deck" href="ch07/01-NewsvendorByHand.html"><span class="dt">One Order, One Chance: the Newsvendor by Hand</span><span class="sc">15 slides</span></a></div>
+<div class="card"><a class="deck" href="ch07/02-FittingAndSolving.html"><span class="dt">Getting a Demand Distribution, and Solving the Final Buy</span><span class="sc">17 slides</span></a></div>
+<div class="card"><a class="deck" href="ch07/03-DiscreteAndExtensions.html"><span class="dt">Discrete Demand, Extensions, and Simulation</span><span class="sc">12 slides</span></a></div>
+<div class="card"><a class="deck" href="ch07/04-WorksheetAndSoftware.html"><span class="dt">The Newsvendor on a Worksheet and in Code</span><span class="sc">15 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 8</span> Continuous and Periodic Review Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch08/01-WatchingAnItem.html"><span class="dt">One Item, Watched Continuously</span><span class="sc">16 slides</span></a></div>
+<div class="card"><a class="deck" href="ch08/02-LeadTimeDemandAndBaseStock.html"><span class="dt">Lead Time Demand, and the Base-Stock Model</span><span class="sc">17 slides</span></a></div>
+<div class="card"><a class="deck" href="ch08/03-BatchSizesAndApproximation.html"><span class="dt">General Batch Sizes, and the Classical Approximation</span><span class="sc">16 slides</span></a></div>
+<div class="card"><a class="deck" href="ch08/04-ServiceLevelsAndOptimization.html"><span class="dt">Service Targets, and the Optimal Policy</span><span class="sc">16 slides</span></a></div>
+<div class="card"><a class="deck" href="ch08/05-LumpyDemandAndSS.html"><span class="dt">Lumpy Demand, and the (s, S) Policy</span><span class="sc">14 slides</span></a></div>
+<div class="card"><a class="deck" href="ch08/06-PeriodicReview.html"><span class="dt">When Review Is Periodic</span><span class="sc">16 slides</span></a></div>
+<div class="card"><a class="deck" href="ch08/07-ManyItemsAndRunningSystems.html"><span class="dt">Many Items, Running Systems, and the Tools</span><span class="sc">20 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 9</span> Multi-Echelon Inventory Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch09/01-RepairablesAndPalm.html"><span class="dt">Where the Stock Sits: Repairable Items</span><span class="sc">19 slides</span></a></div>
+<div class="card"><a class="deck" href="ch09/02-TwoLevelsAndTheDepotDelay.html"><span class="dt">Two Levels by Hand, and the Delay the Depot Imposes</span><span class="sc">15 slides</span></a></div>
+<div class="card"><a class="deck" href="ch09/03-MetricAndVarimetric.html"><span class="dt">METRIC and VARI-METRIC</span><span class="sc">15 slides</span></a></div>
+<div class="card"><a class="deck" href="ch09/04-AllocatingTheBudget.html"><span class="dt">Spending a Budget, and the Tools</span><span class="sc">20 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 10</span> Multi-Echelon Systems with Batch Ordering</h2><div class="decks"><div class="card"><a class="deck" href="ch10/01-TheBatchingHub.html"><span class="dt">A Hub That Orders in Batches</span><span class="sc">16 slides</span></a></div>
+<div class="card"><a class="deck" href="ch10/02-OrdersAndTheHub.html"><span class="dt">Storerooms That Batch, and a Hub With Other Demand</span><span class="sc">18 slides</span></a></div>
+<div class="card"><a class="deck" href="ch10/03-SettingBothPolicies.html"><span class="dt">Setting Both Policies</span><span class="sc">16 slides</span></a></div>
+</div></section><section class="chap"><h2><span class="cn">Ch 11</span> Simulating Inventory Systems</h2><div class="decks"><div class="card"><a class="deck" href="ch11/01-EventsAndTheLedger.html"><span class="dt">Simulating Inventory: Events, Areas, and a Model That Reproduces Chapter 8</span><span class="sc">13 slides</span></a></div>
+<div class="card"><a class="deck" href="ch11/02-OutputAndBeyond.html"><span class="dt">Output Analysis, and Where the (r, Q) Formulas Stop</span><span class="sc">12 slides</span></a></div>
+<div class="card"><a class="deck" href="ch11/03-PeriodicAndComparing.html"><span class="dt">Periodic Review, and Comparing Policies by Simulation</span><span class="sc">11 slides</span></a></div>
+<div class="card"><a class="deck" href="ch11/04-MultiEchelonAndPackage.html"><span class="dt">Simulating Two-Level Systems, and the KSL Supply Chain Package</span><span class="sc">14 slides</span></a></div>
 </div></section></div></body></html>

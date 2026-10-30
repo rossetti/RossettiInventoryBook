@@ -354,6 +354,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -785,7 +786,7 @@ Table&nbsp;7.2: The marginal analysis, one hundred belts at a time. Notice that 
 </figure>
 </div>
 <p><strong>Order 500 belts.</strong> Notice that 500 is <em>more</em> than the mean of 485. The distributor should plan to be left with belts more often than it plans to run out, because running out costs more per belt than scrapping does.</p>
-<p>That the net column changes sign exactly once is not luck. Rearranging <a href="#eq-newsvendor-marginal" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>, the step is worth taking while</p>
+<p>That the net column changes sign exactly once is not luck. The outcomes of <a href="#tbl-newsvendor-sketch" class="quarto-xref">Table&nbsp;<span>7.1</span></a> are a hundred belts apart, so demand at least <span class="math inline">\(Q + 100\)</span> is demand above <span class="math inline">\(Q\)</span>, and <span class="math inline">\(P\{X \ge Q+100\} = 1 - P\{X \le Q\}\)</span>. Dividing <a href="#eq-newsvendor-marginal" class="quarto-xref">Equation&nbsp;<span>7.1</span></a> by 100 and substituting, the step is worth taking while <span class="math inline">\(45\left(1 - P\{X \le Q\}\right) &gt; 38\,P\{X \le Q\}\)</span>, that is, while</p>
 <p><span id="eq-newsvendor-stoprule"><span class="math display">\[
 P\{X \le Q\} &lt; \frac{45}{45+38} = \frac{c_{u}}{c_{u}+c_{o}} = 0.5422
 \tag{7.2}\]</span></span></p>
@@ -1126,7 +1127,16 @@ G(Q, X) = s\min(X, Q) + u(Q-X)^{+} - cQ
 c_{o} = c - u, \qquad c_{u} = s - c
 \tag{7.6}\]</span></span></p>
 <p>so the overage cost is what a unit loses between the counter and the scrap yard, and the underage cost is the margin forgone. For the belt, <span class="math inline">\(c_{o} = 50 - 12 = \$38\)</span> and <span class="math inline">\(c_{u} = 95 - 50 = \$45\)</span>, which are the numbers <a href="#sec-newsvendor-marginal" class="quarto-xref"><span>Section 7.2</span></a> used.</p>
-<p>Maximizing <a href="#eq-newsvendor-profit" class="quarto-xref">Equation&nbsp;<span>7.5</span></a> and minimizing <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> give the same <span class="math inline">\(Q\)</span>. Recall from <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a> that a term which does not depend on the decision shifts an objective without moving its optimum. The two expressions differ by <span class="math inline">\((s-c)E[X]\)</span>, which is the profit the vendor would make if every unit demanded were sold, and that quantity does not depend on <span class="math inline">\(Q\)</span>. It shifts the objective without moving its optimum, and</p>
+<p>Maximizing <a href="#eq-newsvendor-profit" class="quarto-xref">Equation&nbsp;<span>7.5</span></a> and minimizing <a href="#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> give the same <span class="math inline">\(Q\)</span>. Recall from <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a> that a term which does not depend on the decision shifts an objective without moving its optimum. The two expressions differ by <span class="math inline">\((s-c)E[X]\)</span>, which is the profit the vendor would make if every unit demanded were sold, and that quantity does not depend on <span class="math inline">\(Q\)</span>. It shifts the objective without moving its optimum. To see the difference exactly, write the units sold as <span class="math inline">\(\min(X, Q) = X - (X-Q)^{+}\)</span> and the order as <span class="math inline">\(Q = X + (Q-X)^{+} - (X-Q)^{+}\)</span>, and substitute both into <a href="#eq-newsvendor-profit" class="quarto-xref">Equation&nbsp;<span>7.5</span></a>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+G(Q, X) &amp;= s\left[X - (X-Q)^{+}\right] + u(Q-X)^{+}
+  - c\left[X + (Q-X)^{+} - (X-Q)^{+}\right]\\
+&amp;= (s-c)X - (s-c)(X-Q)^{+} - (c-u)(Q-X)^{+}
+= (s-c)X - C(Q, X)
+\end{aligned}
+\]</span></p>
+<p>by <a href="#eq-newsvendor-mapping" class="quarto-xref">Equation&nbsp;<span>7.6</span></a>. Taking expectations,</p>
 <p><span id="eq-newsvendor-equivalence"><span class="math display">\[
 E[G(Q,X)] = (s-c)E[X] - E[C(Q,X)]
 \tag{7.7}\]</span></span></p>

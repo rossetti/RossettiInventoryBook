@@ -335,6 +335,7 @@ window.Quarto = {
       <a href="./">Analysis of Inventory Systems</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./activities/index.html" title="Class Activities" class="quarto-navigation-tool px-1" aria-label="Class Activities"><i class="bi bi-people"></i></a>
     <a href="./inventory-book.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -700,7 +701,13 @@ T = T_1 + T_2 + T_3 + T_4 = \frac{Q}{\lambda}
 \qquad
 \bar{B} = \frac{1}{T}\int_{0}^{T} B(t)\,dt = \frac{1}{T}\cdot\frac{\hat{B}}{2}(T_1 + T_4)
 \tag{3.5}\]</span></span></p>
-<p>Substituting <a href="#eq-segments" class="quarto-xref">Equation&nbsp;<span>3.3</span></a> and <a href="#eq-cycle-length" class="quarto-xref">Equation&nbsp;<span>3.4</span></a> and simplifying, we obtain closed forms in the decision variables:</p>
+<p>Substituting <a href="#eq-segments" class="quarto-xref">Equation&nbsp;<span>3.3</span></a> and <a href="#eq-cycle-length" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>, the on-hand base is <span class="math display">\[
+T_2 + T_3 = \frac{\hat{I}}{p-\lambda} + \frac{\hat{I}}{\lambda}
+= \frac{\hat{I}\,p}{\lambda(p-\lambda)},
+\qquad\text{so}\qquad
+\bar{I} = \frac{\lambda}{Q}\cdot\frac{\hat{I}}{2}\cdot\frac{\hat{I}\,p}{\lambda(p-\lambda)}
+= \frac{\hat{I}^{2}}{2Q\left(1-\frac{\lambda}{p}\right)} ,
+\]</span> and the backorder base <span class="math inline">\(T_1 + T_4\)</span> simplifies the same way with <span class="math inline">\(\hat{B}\)</span> in place of <span class="math inline">\(\hat{I}\)</span>. With <a href="#eq-peak-inventory" class="quarto-xref">Equation&nbsp;<span>3.2</span></a> for <span class="math inline">\(\hat{I}\)</span>, we obtain closed forms in the decision variables:</p>
 <p><span id="eq-avg-inventory"><span class="math display">\[
 \bar{I} = \frac{\hat{I}^{2}}{2Q\left(1-\frac{\lambda}{p}\right)}
 = \frac{\left[Q\left(1-\frac{\lambda}{p}\right) - \hat{B}\right]^{2}}{2Q\left(1-\frac{\lambda}{p}\right)}
@@ -844,6 +851,15 @@ Q^{*} = \sqrt{\frac{h+b}{b}}\sqrt{\frac{2k\lambda}{h\left(1-\frac{\lambda}{p}\ri
 \qquad
 \hat{B}^{*} = Q^{*}\,\frac{h\left(1-\frac{\lambda}{p}\right)}{h+b}
 \tag{3.12}\]</span></span></p>
+<p><a href="#eq-nopi" class="quarto-xref">Equation&nbsp;<span>3.12</span></a> can be reached directly, and the route shows where the factor <span class="math inline">\(\sqrt{(h+b)/b}\)</span> comes from. Let <span class="math inline">\(a = 1 - \lambda/p\)</span>, so that with <span class="math inline">\(\pi = 0\)</span> the relevant part of <a href="#eq-general-tc" class="quarto-xref">Equation&nbsp;<span>3.9</span></a> is <span class="math inline">\(k\lambda/Q + [h(Qa - \hat{B})^{2} + b\hat{B}^{2}]/(2Qa)\)</span>. Then <span class="math display">\[
+\begin{aligned}
+\frac{\partial \mathit{TC}}{\partial \hat{B}} &amp;= \frac{-h(Qa - \hat{B}) + b\hat{B}}{Qa} = 0
+\quad\Longrightarrow\quad \hat{B} = \frac{hQa}{h+b},
+\qquad Qa - \hat{B} = \frac{bQa}{h+b}, \\
+\mathit{TC}(Q) &amp;= \frac{k\lambda}{Q} + \frac{hb^{2} + bh^{2}}{2(h+b)^{2}}\,Qa
+= \frac{k\lambda}{Q} + \frac{hb}{h+b}\cdot\frac{Qa}{2} ,
+\end{aligned}
+\]</span> which is the order model with holding rate <span class="math inline">\(ha\,b/(h+b)\)</span>, and its minimum is <a href="#eq-nopi" class="quarto-xref">Equation&nbsp;<span>3.12</span></a>. That is, the best backorder level for any <span class="math inline">\(Q\)</span> is a fixed share <span class="math inline">\(h/(h+b)\)</span> of the surviving part of the order, and what remains is an ordinary economic order quantity.</p>
 <p><a href="#eq-nopi" class="quarto-xref">Equation&nbsp;<span>3.12</span></a> is the usual formulation when shortages are paid for by the waiting they cause and nothing else. That is the common case when backorders are filled from the next scheduled replenishment and not by an expedited shipment.</p>
 </section>
 <section id="sec-eoq-nobackorders" class="level3" data-number="3.5.2">
@@ -995,9 +1011,14 @@ r = \left(L - \left\lfloor \frac{L}{T} \right\rfloor T\right)\lambda - \hat{B}
 <p><span class="math display">\[
 C(Q) = \frac{k\lambda}{Q} + \frac{hQ}{2}, \qquad C^{*} = C(Q^{*}) = \sqrt{2k\lambda h}
 \]</span></p>
-<p>Taking the ratio and substituting <span class="math inline">\(Q^{*} = \sqrt{2k\lambda/h}\)</span>, we obtain</p>
+<p>The step is to eliminate <span class="math inline">\(k\lambda\)</span> using <a href="#eq-eoq" class="quarto-xref">Equation&nbsp;<span>3.17</span></a> itself. Squaring it gives <span class="math inline">\(Q^{*2} = 2k\lambda/h\)</span>, so <span class="math inline">\(k\lambda = hQ^{*2}/2\)</span>, and the minimum is <span class="math inline">\(C^{*} = \sqrt{2k\lambda h} = h\sqrt{2k\lambda/h} = hQ^{*}\)</span>. Substituting for <span class="math inline">\(k\lambda\)</span> and dividing by <span class="math inline">\(C^{*}\)</span>, we obtain</p>
 <p><span id="eq-eoq-penalty"><span class="math display">\[
-\frac{C(Q)}{C^{*}} = \frac{1}{2}\left(\frac{Q}{Q^{*}} + \frac{Q^{*}}{Q}\right)
+\begin{aligned}
+C(Q) &amp;= \frac{hQ^{*2}}{2Q} + \frac{hQ}{2}
+      = \frac{h}{2}\left(\frac{Q^{*2}}{Q} + Q\right) \\
+\frac{C(Q)}{C^{*}} &amp;= \frac{1}{2Q^{*}}\left(\frac{Q^{*2}}{Q} + Q\right)
+      = \frac{1}{2}\left(\frac{Q}{Q^{*}} + \frac{Q^{*}}{Q}\right)
+\end{aligned}
 \tag{3.22}\]</span></span></p>
 <p>Notice that the penalty depends only on the <strong>ratio</strong> of the chosen quantity to the optimal one, and not on <span class="math inline">\(k\)</span>, <span class="math inline">\(\lambda\)</span>, <span class="math inline">\(h\)</span>, or the size of the item. Recall that the same expression appeared in <a href="01-Chapter1.html#sec-costparams-accuracy" class="quarto-xref"><span>Section 1.4.8</span></a>, where the ratio came from an error in the parameters and not from a deliberate rounding.</p>
 <div id="exm-eoq-sensitivity" class="theorem example">
@@ -1141,7 +1162,13 @@ C(Q) = R_j + c_j\left(Q - q_j\right)
 <p><span class="math display">\[
 \frac{C(Q)}{Q} = \frac{R_j}{Q} + c_j - \frac{c_j q_j}{Q}
 \]</span></p>
-<p>Holding cost is charged on the value of what is held. The holding cost per unit becomes <span class="math inline">\(i\,C(Q)/Q\)</span> instead of <span class="math inline">\(ic_j\)</span>. Substituting into the cost rate and collecting terms in <span class="math inline">\(Q\)</span>, we obtain</p>
+<p>Holding cost is charged on the value of what is held. The holding cost per unit becomes <span class="math inline">\(i\,C(Q)/Q\)</span> instead of <span class="math inline">\(ic_j\)</span>. The purchase rate is <span class="math inline">\(\lambda\,C(Q)/Q\)</span> and the holding rate is <span class="math inline">\(i\,C(Q)/2\)</span>, so <span class="math display">\[
+\begin{aligned}
+\frac{k\lambda}{Q} + \frac{\lambda C(Q)}{Q} + \frac{iC(Q)}{2}
+&amp;= \frac{k\lambda}{Q} + \frac{(R_j - c_jq_j)\lambda}{Q} + c_j\lambda
++ \frac{ic_jQ}{2} + \frac{i(R_j - c_jq_j)}{2} ,
+\end{aligned}
+\]</span> and collecting terms in <span class="math inline">\(Q\)</span>, we obtain</p>
 <p><span id="eq-incremental-tc"><span class="math display">\[
 \mathit{TC}(Q) = \frac{k_j\lambda}{Q} + \frac{h_j Q}{2}
 + \underbrace{c_j\lambda + \frac{i\left(R_j - c_j q_j\right)}{2}}_{\text{independent of } Q}

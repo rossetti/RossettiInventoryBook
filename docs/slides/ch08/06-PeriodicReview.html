@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Manuel D. Rossetti, PhD P.E.">
-  <title>The Approximation, and an Exact Algorithm</title>
+  <title>When Review Is Periodic</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -987,7 +987,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" data-background-color="#274060" class="quarto-title-block center">
-  <h1 class="title">The Approximation, and an Exact Algorithm</h1>
+  <h1 class="title">When Review Is Periodic</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1001,300 +1001,1030 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>The classical approximation, and the assumptions it makes quietly</li>
-<li>Two errors, in <strong>opposite directions</strong>, on one item</li>
-<li>What you know about the answer <strong>before</strong> you solve</li>
-<li>An exact algorithm with a <strong>stopping rule</strong>, not a convergence criterion</li>
-<li>The transformer’s optimum, and what the approximation would have said</li>
+<li>The <span class="math inline">\((R, S)\)</span> policy, and the protection interval that replaces the lead time</li>
+<li>Ten months at the storeroom, worked one review at a time</li>
+<li>The four measures under periodic review, and a second route to the fill rate</li>
+<li>The transformer reviewed monthly, and the trap in the critical ratio</li>
+<li>Choosing the interval, the <span class="math inline">\((R, s, S)\)</span> policy, and the price of not watching</li>
 </ul>
 </section>
-<section id="everybody-uses-an-approximation" class="slide level2">
-<h2>Everybody Uses an Approximation</h2>
-<p>It descends from Hadley and Whitin and appears in most textbooks.</p>
-<div class="fragment">
-<p><span class="math display">\[
-C(r,Q) \approx \frac{k\lambda}{Q} + h\left(\frac{Q}{2} + r - \theta\right)
-+ \frac{\pi\lambda}{Q}\,G^{1}(r)
-\]</span></p>
-</div>
-<div class="fragment">
-<p>It is not unreasonable. It is worth knowing <strong>exactly what it assumes</strong>, because the assumptions are not stated where you can see them.</p>
-</div>
-</section>
-<section id="three-quiet-assumptions" class="slide level2">
-<h2>Three Quiet Assumptions</h2>
-<p><strong>At most one order is outstanding</strong>, so the cycle is clean.</p>
-<div class="fragment">
-<p><strong>Shortages are priced per cycle</strong>, with <span class="math inline">\(\pi\)</span> a cost per unit short rather than per unit per unit time.</p>
-</div>
-<div class="fragment">
-<p><strong>The on-hand level is <span class="math inline">\(Q/2 + r - \theta\)</span></strong>, which drops the backorder term.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
+<section id="periodic-review" class="slide level2">
+<h2>Periodic Review</h2>
+<p>Every model so far assumed the position is known at all times: assumption (a), the one that is a fact about the <strong>organization</strong> rather than the item.</p>
+<p>Let <span class="math inline">\(R\)</span> represent the <strong>review interval</strong>. The position is observed at <span class="math inline">\(0, R, 2R, \ldots\)</span> and an order may be placed only then. It is usually imposed, not chosen: a delivery calendar, a weekly buying meeting, a shared truck, an overnight planning run.</p>
+<p>Let <span class="math inline">\(S\)</span> represent the <strong>order-up-to level</strong>. The <strong><span class="math inline">\((R, S)\)</span> policy</strong>: at every review, order the difference between <span class="math inline">\(S\)</span> and the observed position.</p>
+<div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>And in most presentations, a <strong>continuous family</strong> is fitted to a count, usually the normal.</p>
+<p>This is the <span class="math inline">\((s, S)\)</span> rule with the trigger removed. The calendar decides when to order; only the quantity is left to compute. One substitution carries the whole chapter across.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Recall from chapter 1 that review policy is part of classifying a system. Most systems that run periodic review do so because someone else’s calendar decides, not because anyone computed that it was best.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="what-each-one-costs" class="slide level2 smaller">
-<h2>What Each One Costs</h2>
-<p>On the transformer, against the exact answer:</p>
-<div class="fragment">
+<section id="the-protection-interval" class="slide level2">
+<h2>The Protection Interval</h2>
+<p>Fix the review at <span class="math inline">\(t\)</span>. The position goes to <span class="math inline">\(S\)</span>; that order arrives at <span class="math inline">\(t + L\)</span>. The next order is placed at <span class="math inline">\(t + R\)</span> and arrives at <span class="math inline">\(t + R + L\)</span>. Thus, the stock committed at <span class="math inline">\(t\)</span> is all there is until <span class="math inline">\(t + R + L\)</span>. Let</p>
+<p><span class="math display">\[
+\tau = R + L
+\]</span></p>
+<p>represent the <strong>protection interval</strong>. Let <span class="math inline">\(u\)</span> represent the time since the last receipt, <span class="math inline">\(0 \le u &lt; R\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathit{IN}(t + L + u) &amp;= S - D(L + u)
+  &amp;&amp;\text{every earlier order has arrived, no later one has}\\
+\mathit{IN} &amp;= S - D(L + U), \quad U \sim \text{Uniform}[0, R)
+  &amp;&amp;\text{a random instant in the cycle}
+\end{aligned}
+\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Under <span class="math inline">\((r, Q)\)</span>:</strong> a fixed exposure <span class="math inline">\(L\)</span>, a position uniform over <span class="math inline">\(Q\)</span> <strong>levels</strong>.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Under <span class="math inline">\((R, S)\)</span>:</strong> a fixed position <span class="math inline">\(S\)</span>, an exposure uniform over <span class="math inline">\(R\)</span> of <strong>time</strong>.</p>
+</div></div>
+<aside class="notes">
+<p>Compare with base stock: IN = S - D(L). The periodic version is the same statement with a lead time that grows through the review cycle. Both models are base stock averaged over a uniform quantity; one randomizes where the position sits, the other how long it has been sitting. Two conditions, both needed before: orders arrive in the sequence placed, and the review is accurate, which is the records chapter.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="ten-months-at-the-storeroom" class="slide level2">
+<h2>Ten Months at the Storeroom</h2>
+<p>The transformer, <span class="math inline">\(\lambda = 45\)</span> a year (3.75 a month), <span class="math inline">\(L = 2\)</span> months, now on a <strong>monthly</strong> review with <span class="math inline">\(S = 13\)</span>, so <span class="math inline">\(\tau = 3\)</span> months.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th style="text-align: right;">Effect on reported cost</th>
+<th>Question</th>
+<th>Answer</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>The structural assumptions</td>
-<td style="text-align: right;"><span class="math inline">\(-3.98\%\)</span></td>
+<td><em>What is stocked?</em></td>
+<td>One item, the transformer</td>
 </tr>
 <tr class="even">
-<td>Fitting a continuous family</td>
-<td style="text-align: right;"><span class="math inline">\(+6.34\%\)</span></td>
+<td><em>What is the demand process?</em></td>
+<td>Random arrivals of one unit each, about 3.75 a month</td>
 </tr>
 <tr class="odd">
-<td><strong>What is reported</strong></td>
-<td style="text-align: right;"><span class="math inline">\(\mathbf{+2.11\%}\)</span></td>
+<td><em>When is inventory reviewed?</em></td>
+<td>Every month, at the month end</td>
+</tr>
+<tr class="even">
+<td><em>What triggers replenishment, and how much?</em></td>
+<td>The review itself; order <span class="math inline">\(S\)</span> less the observed position</td>
+</tr>
+<tr class="odd">
+<td><em>What happens to unmet demand?</em></td>
+<td>Backordered</td>
+</tr>
+<tr class="even">
+<td><em>What costs are incurred, and when?</em></td>
+<td>Not needed to run the ledger</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A method that comes close because <strong>two errors offset</strong> has not been validated by coming close.</p>
-<p>Nothing guarantees the offset on the next item.</p>
-</div>
-</div>
-</div>
-</div>
+<p>An order placed at the end of month <span class="math inline">\(t\)</span> is available in month <span class="math inline">\(t + 3\)</span>. Each row is recorded at the month end, <strong>before</strong> that month’s order is placed.</p>
+<aside class="notes">
+<p>S = 13 is set one unit below what we will recommend, so that the ledger passes through a shortage. At the end of month 0 the shelf holds 5, with 4 due in month 1 and 4 in month 2, nothing owed: position 13, so the review orders nothing. That is the steady state the policy holds the system in.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="and-it-costs-no-more-to-be-exact" class="slide level2">
-<h2>And It Costs No More to Be Exact</h2>
-<p>The exact evaluation is a short table of loss functions.</p>
-<div class="fragment">
-<p>The approximation is a closed form that needs the same table anyway if you want <span class="math inline">\(G^{1}(r)\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The approximation was a computational convenience in 1963. It is not one now.</p>
-</div>
-</div>
-</div>
-</div>
+<section id="the-ledger-one-review-at-a-time" class="slide level2">
+<h2>The Ledger, One Review at a Time</h2>
+<table style="font-size:0.9em; margin-top:0.1em; max-height:none;">
+<thead>
+<tr>
+<th>
+Month
+</th>
+<th>
+Rcpt
+</th>
+<th>
+Dmd
+</th>
+<th>
+<span class="math inline">\(I\)</span>
+</th>
+<th>
+<span class="math inline">\(B\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IN}\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IO}\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IP}\)</span>
+</th>
+<th>
+Order
+</th>
+<th style="text-align:left">
+What happened
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+0
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+8
+</td>
+<td>
+13
+</td>
+<td>
+0
+</td>
+<td style="text-align:left">
+<span class="math inline">\(\mathit{IP} = S\)</span>: nothing to order
+</td>
+</tr>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+3
+</td>
+<td>
+6
+</td>
+<td>
+0
+</td>
+<td>
+6
+</td>
+<td>
+4
+</td>
+<td>
+10
+</td>
+<td>
+3
+</td>
+<td style="text-align:left">
+Shelf 9, then 6; order <span class="math inline">\(13 - 10\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+4
+</td>
+<td>
+5
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+3
+</td>
+<td>
+8
+</td>
+<td>
+5
+</td>
+<td style="text-align:left">
+Shelf 10, then 5; order <span class="math inline">\(13 - 8\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+8
+</td>
+<td>
+11
+</td>
+<td>
+2
+</td>
+<td style="text-align:left">
+No receipt: month 0 ordered nothing
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+3
+</td>
+<td>
+6
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+7
+</td>
+<td>
+7
+</td>
+<td>
+6
+</td>
+<td style="text-align:left">
+<span class="math inline">\(3 + 3 - 6 = 0\)</span> on the shelf
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+5
+</td>
+<td>
+4
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+8
+</td>
+<td>
+9
+</td>
+<td>
+4
+</td>
+<td style="text-align:left">
+Filled from the receipt
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+2
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+10
+</td>
+<td>
+10
+</td>
+<td>
+3
+</td>
+<td style="text-align:left">
+Shelf empty; the position counts 10 coming
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+6
+</td>
+<td>
+7
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+<span class="math inline">\(-1\)</span>
+</td>
+<td>
+7
+</td>
+<td>
+6
+</td>
+<td>
+7
+</td>
+<td style="text-align:left">
+One backordered. Decided when? <span class="fragment"><b>Month 4:</b> <span class="math inline">\(13 - (4+3+7) = -1\)</span></span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td>
+4
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+10
+</td>
+<td>
+11
+</td>
+<td>
+2
+</td>
+<td style="text-align:left">
+Backorder filled first: <span class="math inline">\(4 - 1 - 2\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+9
+</td>
+<td>
+3
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+9
+</td>
+<td>
+9
+</td>
+<td>
+4
+</td>
+<td style="text-align:left">
+<span class="math inline">\(1 + 3 - 4 = 0\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+10
+</td>
+<td>
+7
+</td>
+<td>
+3
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+6
+</td>
+<td>
+10
+</td>
+<td>
+3
+</td>
+<td style="text-align:left">
+<span class="math inline">\(7 - 3 = 4\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>Narrate every row. Month 3 is the first thing periodic review does that continuous review does not: a month passes with no replenishment and the policy is working correctly. Month 6: nothing reacts to the empty shelf, and nothing should. Month 7: ask where the shortage was decided before showing the answer. The stock available in month 7 was fixed by the review at the end of month 4, whose order arrived at the start of month 7; the next order did not arrive until month 8. So 13 had to cover months 5, 6 and 7.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="what-you-know-before-you-solve" class="slide level2">
-<h2>What You Know Before You Solve</h2>
-<p><strong>The optimal band straddles the optimal base-stock level:</strong></p>
+<section id="two-checks-on-the-ledger" class="slide level2">
+<h2>Two Checks on the Ledger</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><em>The first check.</em> Every row satisfies <span class="math inline">\(\mathit{IP} = I + \mathit{IO} - B\)</span>. Month 7 is the one row on which a backorder enters the sum: <span class="math inline">\(0 + 7 - 1 = 6\)</span>.</p>
+<p><em>The second check, the one this section is about.</em> The position set at each review, against the next three months of demand:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Review</th>
+<th>Next three demands</th>
+<th style="text-align: right;"><span class="math inline">\(13 - \text{sum}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{IN}\)</span> three months on</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">month 4</td>
+<td>4, 3, 7</td>
+<td style="text-align: right;"><span class="math inline">\(-1\)</span></td>
+<td style="text-align: right;">month 7: <span class="math inline">\(-1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">month 5</td>
+<td>3, 7, 2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">month 8: 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">month 7</td>
+<td>2, 4, 3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">month 10: 4</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p>Thus, <span class="math inline">\(\mathit{IN} = S - D(\tau)\)</span> holds at each month end, and the model is nothing more than taking its expectation.</p>
+<p><em>Interpretation.</em> The storekeeper ordered in ten months out of ten and was short in one. Recall that two orders covered thirteen weeks of the <span class="math inline">\((r, Q)\)</span> ledger. Ordering on a calendar means ordering <strong>often and in small amounts</strong>, and that bill comes due later today.</p>
+<p>Notice also that the ledger never had fewer than three units on order. “At most one order outstanding” would be a severe restriction here.</p>
+</div></div>
+<aside class="notes">
+<p>At a month end the elapsed time since the last receipt is a full R, so the exposure there is the full tau = 3 months. Between month ends it is shorter, which is why the averages on the next slide integrate over the cycle.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-four-measures" class="slide level2">
+<h2>The Four Measures</h2>
+<p>Let <span class="math inline">\(G^{1}_{v}\)</span> represent the first order loss function of <span class="math inline">\(D(v)\)</span>, and average over the cycle:</p>
 <p><span class="math display">\[
-r^{*} &lt; S^{*} \le r^{*} + Q^{*}
+\bar{G}(x) = \frac{1}{R}\int_{0}^{R} P\{D(L+u) \le x\}\,du, \qquad
+\overline{G^{1}}(x) = \frac{1}{R}\int_{0}^{R} G^{1}_{L+u}(x)\,du
 \]</span></p>
-<div class="fragment">
-<p><strong>And the optimal cost is bracketed</strong> between the deterministic cost and the two reference costs added in quadrature.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Both are cheap, and both are checks you can run on an answer produced by software you did not write.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="why-that-matters-beyond-checking" class="slide level2">
-<h2>Why That Matters Beyond Checking</h2>
-<p>The bounds say that everything the deterministic chapters established about what drives performance <strong>continues to hold</strong> once demand is random.</p>
-<div class="fragment">
-<p><span class="math inline">\(Q\)</span> is still driven by the ordering cost against the holding cost.</p>
-</div>
-<div class="fragment">
-<p>The randomness adds a layer; it does not overturn the structure.</p>
-</div>
-</section>
-<section id="the-cost-functions-shape" class="slide level2">
-<h2>The Cost Function’s Shape</h2>
 <p><span class="math display">\[
-C(r,Q) = \frac{k\lambda}{Q} + \frac{1}{Q}\sum_{s=r+1}^{r+Q}C(s)
+\begin{aligned}
+\overline{\mathit{OF}} &amp;= \frac{P\{D(R) \ge 1\}}{R}
+  &amp;&amp;\text{a review orders iff some demand arrived}\\
+\bar{B}(S) &amp;= \overline{G^{1}}(S)
+  &amp;&amp;\text{base stock, averaged over the cycle}\\
+\bar{I}(S) &amp;= S - \lambda\left(L + \tfrac{R}{2}\right) + \bar{B}(S)
+  &amp;&amp;E[D(L+U)] = \lambda(L + R/2)\text{; } I = \mathit{IN} + B\\
+\overline{\mathit{RR}}(S) &amp;= \bar{G}(S - 1)
+  &amp;&amp;\text{shelf not empty}
+\end{aligned}
 \]</span></p>
-<div class="fragment">
-<p>where <span class="math inline">\(C(s)\)</span> is the base-stock cost at level <span class="math inline">\(s\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>An <span class="math inline">\((r,Q)\)</span> policy costs the ordering term <strong>plus the average of <span class="math inline">\(Q\)</span> consecutive base-stock costs</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>And <span class="math inline">\(C(s)\)</span> is <strong>convex</strong>.</p>
-</div>
+<p>Write <span class="math inline">\(\bar{I} = \mathit{ss} + \lambda R/2 + \bar{B}\)</span> with <span class="math inline">\(\mathit{ss} = S - \lambda\tau\)</span>. The middle term is <strong>stock that exists only because the system orders on a calendar</strong>: the cycle stock of the EOQ, with the order quantity written <span class="math inline">\(\lambda R\)</span>.</p>
+<aside class="notes">
+<p>The bar covers the whole of G1 because it is the loss function that is averaged; the superscript is still its order, not a power or an inverse. The integrals do for (R, S) what the sums did for (r, Q): one averages over Q levels, the other over R of time. The order frequency depends almost entirely on the calendar, not on the demand rate: under Poisson demand it is (1 - e^(-lambda R))/R. For the transformer monthly, a month with no demand has probability e^(-3.75) = 0.0235, so it orders 12(0.9765) = 11.72 times a year.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="that-makes-the-problem-easy" class="slide level2">
-<h2>That Makes the Problem Easy</h2>
-<p>The best <span class="math inline">\(r\)</span> for a given <span class="math inline">\(Q\)</span> takes the <span class="math inline">\(Q\)</span> <strong>smallest</strong> values of <span class="math inline">\(C(s)\)</span>.</p>
-<div class="fragment">
-<p>Convexity puts those next to one another.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Adding one more value lowers the average <strong>exactly when the value added is below it</strong>.</p>
-<p>That is a <strong>stopping rule</strong>, not a convergence criterion.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-algorithm" class="slide level2 smaller">
-<h2>The Algorithm</h2>
-<pre><code>optimize(r, Q):
-
-    // 0, initialize at the base-stock optimum
-    find S*, the smallest S with G(S) &gt;= b/(b+h)
-    Q     &lt;- 1
-    r     &lt;- S* - 1
-    Cstar &lt;- k*lambda + C(S*)
-
-    loop:
-        // 1, the next smallest base-stock cost
-        c &lt;- min( C(r), C(r+Q+1) )
-
-        // 2, stop
-        if c &gt;= Cstar: return r, Q, Cstar
-
-        // 3, widen the window
-        Q     &lt;- Q + 1
-        Cstar &lt;- Cstar - (Cstar - c)/Q
-        if C(r) was the smaller: r &lt;- r - 1</code></pre>
-</section>
-<section id="what-that-buys" class="slide level2">
-<h2>What That Buys</h2>
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The <strong>exact integer optimum</strong>, in a finite number of steps.</p>
-<p>No search in two dimensions. No derivative. Nothing to converge.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The loop runs at most <span class="math inline">\(Q^{*}\)</span> times.</p>
-</div>
-<div class="fragment">
-<p>A worksheet cannot loop, and it does not have to: lay out one row per step and let each row read the row above.</p>
-</div>
-</section>
-<section id="the-transformers-optimum" class="slide level2">
-<h2>The Transformer’s Optimum</h2>
-<p><span class="math inline">\(\lambda = 45\)</span>, <span class="math inline">\(k = \$220\)</span>, <span class="math inline">\(h = \$950\)</span>, <span class="math inline">\(b = \$8{,}550\)</span>, <span class="math inline">\(\theta = 7.5\)</span>.</p>
-<div class="fragment">
+<section id="the-fill-rate-a-second-route" class="slide level2">
+<h2>The Fill Rate, a Second Route</h2>
+<p>Demand is filled late across the cycle from <span class="math inline">\(t + L\)</span> to <span class="math inline">\(t + R + L\)</span> exactly to the extent the backlog grows across it:</p>
 <p><span class="math display">\[
-r^{*} = 8, \qquad Q^{*} = 7, \qquad C^{*} = \$7{,}225.15
+\begin{aligned}
+E[\text{units short per cycle}] &amp;= G^{1}_{\tau}(S) - G^{1}_{L}(S)
+  &amp;&amp;\text{backlog at the end less at the start}\\
+\overline{\mathit{FR}}(S) &amp;= 1 - \frac{G^{1}_{\tau}(S) - G^{1}_{L}(S)}{\lambda R}
+  &amp;&amp;\text{demand per cycle is } \lambda R
+\end{aligned}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>Check the bound: <span class="math inline">\(S^{*} = 11\)</span>, and indeed <span class="math inline">\(8 &lt; 11 \le 15\)</span>. ✓</p>
-</div>
-</section>
-<section id="reading-the-answer" class="slide level2">
-<h2>Reading the Answer</h2>
-<p>The window <span class="math inline">\(\{9, \ldots, 15\}\)</span> holds the seven cheapest base-stock levels.</p>
-<div class="fragment">
-<p><span class="math inline">\(Q^{*} = 7\)</span> against an EOQ of 5: the randomness widened the batch a little, but the ordering economics still set its scale.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
+<p>Notice the shape against the <span class="math inline">\((r, Q)\)</span> ready rate, <span class="math inline">\(1 - [G^{1}(r) - G^{1}(r+Q)]/Q\)</span>. Under <span class="math inline">\((r, Q)\)</span> the two loss functions are at levels <span class="math inline">\(Q\)</span> apart; under <span class="math inline">\((R, S)\)</span> they are at one level over intervals <span class="math inline">\(R\)</span> apart.</p>
+<div title="Do not evaluate at the end of the interval">
+<div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-content">
-<p>The approximation on this item reports about 2 percent high, and lands on a neighbouring policy. On a fast mover it does better; on a slow expensive one it does worse.</p>
-<p>The exact method costs nothing extra. Use it.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="a-word-on-large-batches" class="slide level2">
-<h2>A Word on Large Batches</h2>
-<p>An item whose optimal batch is 2,842 is not a curiosity.</p>
-<div class="fragment">
-<p>The algorithm still terminates, but the loop runs <span class="math inline">\(Q^{*}\)</span> times.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><strong>Do not evaluate at the end of the interval</strong></p>
 </div>
 <div class="callout-content">
-<p>This is where a worksheet gives out: it can only unroll as many rows as you laid down.</p>
-<p>It is the reason to write a program at all.</p>
+<p><span class="math inline">\(G^{1}_{\tau}(S)\)</span> is the <strong>worst</strong> instant of the cycle, not a typical one. It is an upper bound on <span class="math inline">\(\bar{B}(S)\)</span>, and on the transformer it overstates by a factor of 2.8. It is right for a cycle service level, which asks about that instant on purpose.</p>
 </div>
 </div>
 </div>
+</div>
+<aside class="notes">
+<p>The ready rate and the fill rate are different quantities computed different ways; they agree here only because demand is Poisson. Four formulas, every one exact.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="computing-overlineg1-by-hand" class="slide level2">
+<h2>Computing <span class="math inline">\(\overline{G^{1}}\)</span> by Hand</h2>
+<p>The integrand is smooth in <span class="math inline">\(u\)</span>, so <strong>Simpson’s rule</strong> on three points:</p>
+<p><span class="math display">\[
+\overline{G^{1}}(S) \approx \frac{1}{6}\left[G^{1}_{L}(S) + 4\,G^{1}_{L+R/2}(S)
++ G^{1}_{\tau}(S)\right]
+\]</span></p>
+<p>Three loss-function evaluations, at mean demands over <span class="math inline">\(L\)</span>, <span class="math inline">\(L + R/2\)</span> and <span class="math inline">\(\tau\)</span>. The same rule applies to <span class="math inline">\(\bar{G}\)</span>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>A bracket for free.</strong> The exposure grows through the cycle, so</p>
+<p><span class="math display">\[
+G^{1}_{L}(S) \le \overline{G^{1}}(S) \le G^{1}_{\tau}(S)
+\]</span></p>
+<p>A narrow enough bracket settles the question with no weighted average.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>The rule has a range.</strong> It is exact for a cubic and the integrand is not one. On the transformer its error is invisible at a monthly review, 3.9% at a quarterly one, 17% at a half-yearly one and 66% at an annual one. Use it when <span class="math inline">\(R\)</span> is short against <span class="math inline">\(L\)</span>; integrate properly when it is not.</p>
+</div></div>
+<aside class="notes">
+<p>The Poisson tables will usually carry only one of the three means as a printed column, since lambda(L + R/2) and lambda tau are whatever the calendar makes them. Compute the others from the loss-function recursion or a worksheet, and use the table to check the one that does appear.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="choosing-the-level" class="slide level2">
+<h2>Choosing the Level</h2>
+<p>Substitute the measures into the cost rate:</p>
+<p><span class="math display">\[
+C(S) = k\,\overline{\mathit{OF}} + h\left(S - \lambda\left(L + \tfrac{R}{2}\right)\right)
++ (h + b)\,\overline{G^{1}}(S)
+\]</span></p>
+<p>which is the base-stock cost with <span class="math inline">\(\overline{G^{1}}\)</span> in place of <span class="math inline">\(G^{1}\)</span> and an ordering term no <span class="math inline">\(S\)</span> can change. Thus, the answer is again a critical ratio:</p>
+<p><span class="math display">\[
+S^{*} = \min\left\{S : \bar{G}(S) \ge \frac{b}{b + h}\right\}
+\]</span></p>
+<p>The transformer, monthly: <span class="math inline">\(b/(b+h) = 0.90\)</span>. The three means are <span class="math inline">\(45 \times \tfrac{2}{12} = 7.5\)</span>, <span class="math inline">\(45 \times \tfrac{2.5}{12} = 9.375\)</span> and <span class="math inline">\(45 \times \tfrac{3}{12} = 11.25\)</span> units. Which row does the critical ratio read?</p>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(S\)</span></th>
+<th style="text-align: right;">12</th>
+<th style="text-align: right;">13</th>
+<th style="text-align: right;">14</th>
+<th style="text-align: right;">15</th>
+<th style="text-align: right;">16</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\bar{G}(S)\)</span></td>
+<td style="text-align: right;">0.8339</td>
+<td style="text-align: right;">0.8928</td>
+<td style="text-align: right;"><strong>0.9340</strong></td>
+<td style="text-align: right;">0.9612</td>
+<td style="text-align: right;">0.9782</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(G_{\tau}(S)\)</span></td>
+<td style="text-align: right;">0.6611</td>
+<td style="text-align: right;">0.7576</td>
+<td style="text-align: right;">0.8352</td>
+<td style="text-align: right;">0.8935</td>
+<td style="text-align: right;"><strong>0.9344</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\bar{G}\)</span>, so <span class="math inline">\(S^{*} = 14\)</span>. Reading <span class="math inline">\(G_{\tau}\)</span> returns 16, at $9,301.76 against $8,397.22: <strong>10.8% more for a service level nobody asked for.</strong></p>
+<aside class="notes">
+<p>The periodic-review problem is still the newsvendor; the only thing that changed since base stock is which random variable the critical ratio is applied to. The G-tau rule answers “how much do I need at the worst instant” when the cost model asked “how much do I need on average”. The error is not one of arithmetic.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </div>
 </section>
-<section id="where-we-are" class="slide level2">
-<h2>Where We Are</h2>
+<section id="the-transformer-reviewed-monthly" class="slide level2">
+<h2>The Transformer Reviewed Monthly</h2>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{B}(14) &amp;\approx \frac{0.0181 + 4(0.1156) + 0.4200}{6} = 0.1501
+  &amp;&amp;\text{Simpson; the integral gives 0.150059}\\
+\bar{I}(14) &amp;= 14 - 9.375 + 0.1501 = 4.7751
+  &amp;&amp;\text{units on hand}\\
+\overline{\mathit{FR}} &amp;= 0.8928 = \bar{G}(13) = \overline{\mathit{RR}}
+  &amp;&amp;\text{two routes agree: Poisson}\\
+\overline{\mathit{OF}} &amp;= 12\left(1 - e^{-3.75}\right) = 11.7178
+  &amp;&amp;\text{orders a year}\\
+C(14) &amp;= 220(11.7178) + 950(4.7751) + 8550(0.1501)
+  &amp;&amp;\\
+&amp;= 2577.91 + 4536.31 + 1283.00 = \$8{,}397.22
+  &amp;&amp;\text{a year}
+\end{aligned}
+\]</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(S\)</span></th>
+<th style="text-align: right;">12</th>
+<th style="text-align: right;">13</th>
+<th style="text-align: right;">14</th>
+<th style="text-align: right;">15</th>
+<th style="text-align: right;">16</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(C(S)\)</span></td>
+<td style="text-align: right;">$9,093.07</td>
+<td style="text-align: right;">$8,465.46</td>
+<td style="text-align: right;"><strong>$8,397.22</strong></td>
+<td style="text-align: right;">$8,720.37</td>
+<td style="text-align: right;">$9,301.76</td>
+</tr>
+</tbody>
+</table>
+<p>The neighbors confirm 14. Against <span class="math inline">\((r, Q) = (8, 7)\)</span> at $7,225.15 on the same item and supplier, the monthly review costs <strong>$1,172.07 a year more</strong>, 16.2%.</p>
+<aside class="notes">
+<p>Only the first mean, 7.5, is a printed column of the Poisson loss table, which gives G1_L(14) = 0.0181. The other two come from the recursion. Simpson reproduces the integral to five figures. The average demand waits 0.1501/45 years, which is 0.00333 x 365 = 1.22 days. Nothing about the item changed; the storeroom stopped watching it.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="choosing-the-interval" class="slide level2">
+<h2>Choosing the Interval</h2>
+<p>Set the shortage term aside and take <span class="math inline">\(P\{D(R) \ge 1\} \approx 1\)</span>. Only ordering and cycle stock depend on <span class="math inline">\(R\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+C(R) &amp;\approx \frac{k}{R} + \frac{h\lambda R}{2}
+  &amp;&amp;\text{the EOQ with } \lambda R \text{ for } Q\\
+\frac{dC}{dR} &amp;= -\frac{k}{R^{2}} + \frac{h\lambda}{2} = 0
+  &amp;&amp;\text{differentiate}\\
+R^{*} &amp;= \sqrt{\frac{2k}{h\lambda}} = \frac{Q^{*}_{\text{EOQ}}}{\lambda}
+  &amp;&amp;\text{the EOQ as a time supply}
+\end{aligned}
+\]</span></p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\(R^{*} = \sqrt{440/42{,}750} = 0.1015\)</span> years, and <span class="math inline">\(0.1015 \times 52 = 5.3\)</span> weeks. Check: <span class="math inline">\(4.57/45 = 0.1015\)</span>.</p>
+<p>With the shortage term in, the true optimum is about 6.2 weeks at $8,187; 5.3 weeks costs $8,222, <strong>0.43% more</strong>.</p>
+</div><div class="column" style="width:55%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(R\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(S^{*}\)</span></th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2 weeks</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">$9,926</td>
+</tr>
+<tr class="even">
+<td>4 weeks</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">$8,512</td>
+</tr>
+<tr class="odd">
+<td>5.3 weeks</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">$8,222</td>
+</tr>
+<tr class="even">
+<td>6 weeks</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">$8,196</td>
+</tr>
+<tr class="odd">
+<td>8 weeks</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">$8,361</td>
+</tr>
+<tr class="even">
+<td>13 weeks</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">$9,584</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<aside class="notes">
+<p>Anything between four and eight weeks is within 5% of the best. The review interval is almost never worth an argument: prefer the interval that fits the delivery calendar or the truck, and use the formula only to find out whether the calendar is badly wrong. The calendar question and the batch question are the same question in different units.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-r-s-s-policy" class="slide level2">
+<h2>The <span class="math inline">\((R, s, S)\)</span> Policy</h2>
+<p><span class="math inline">\((R, S)\)</span> orders after any demand at all, however small. When <span class="math inline">\(k\)</span> is large, add a trigger: every <span class="math inline">\(R\)</span>, if the position is at or below <span class="math inline">\(s\)</span>, order up to <span class="math inline">\(S\)</span>. <span class="math inline">\(s = S - 1\)</span> recovers <span class="math inline">\((R, S)\)</span>; <span class="math inline">\(R \to 0\)</span> recovers <span class="math inline">\((s, S)\)</span>.</p>
+<p>The undershoot returns, for a second reason: <strong>a whole review interval of demand accumulates before anyone looks</strong>, even when demand is one unit at a time. With <span class="math inline">\(D(R)\)</span> in the role of the lot,</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[U] &amp;= \frac{E[D(R)^{2}] - E[D(R)]}{2E[D(R)]}
+  &amp;&amp;\text{the undershoot mean}\\
+&amp;= \frac{(\mu + \mu^{2}) - \mu}{2\mu} = \frac{\mu}{2}
+  &amp;&amp;\text{Poisson: } E[X^{2}] = \mu + \mu^{2}\\
+&amp;= \frac{3.75}{2} = 1.875 \text{ units}
+  &amp;&amp;\mu = \lambda R
+\end{aligned}
+\]</span></p>
+<p>That is <span class="math inline">\(\lambda R/2\)</span> again: the stock the calendar forces the system to carry and the drift past the trigger are the same number seen from two sides. It is more than twice the 0.8 units the cutout’s lots produced.</p>
+<aside class="notes">
+<p>This holds when S - s is wide compared with a review interval’s demand. At the narrow end, s = S - 1, the undershoot is the interval’s demand less one, given there was some: 3.75/(1 - e^(-3.75)) - 1 = 2.8403 units. Reach for (R, s, S) only when k is large enough that skipping reviews is common; when almost every review produces an order, (R, S) is the same policy with less arithmetic. The approximation in general use is Silver, Pyke and Thomas.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-price-of-not-watching" class="slide level2">
+<h2>The Price of Not Watching</h2>
+<p>Each policy optimized on its own terms, same item, supplier and costs:</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Continuous <span class="math inline">\((8, 7)\)</span></th>
+<th style="text-align: right;">Periodic, <span class="math inline">\(R = 0.120\)</span>, <span class="math inline">\(S = 15\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Safety stock</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">2.10</td>
+</tr>
+<tr class="even">
+<td>Cycle stock</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">2.70</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\overline{\mathit{FR}}\)</span></td>
+<td style="text-align: right;">0.8781</td>
+<td style="text-align: right;">0.8819</td>
+</tr>
+<tr class="even">
+<td>Ordering</td>
+<td style="text-align: right;">$1,414.29</td>
+<td style="text-align: right;">$1,825.05</td>
+</tr>
+<tr class="odd">
+<td>Holding</td>
+<td style="text-align: right;">$4,428.59</td>
+<td style="text-align: right;">$4,740.19</td>
+</tr>
+<tr class="even">
+<td>Backorder</td>
+<td style="text-align: right;">$1,382.28</td>
+<td style="text-align: right;">$1,621.68</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>$7,225.15</strong></td>
+<td style="text-align: right;"><strong>$8,186.92</strong></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:45%;">
+<p><strong>The fill rates match,</strong> so the $961.77 buys nothing: a like-for-like price.</p>
+<p><strong>The stock rows move apart.</strong> Safety stock rises because the exposure grew from <span class="math inline">\(L\)</span> to <span class="math inline">\(\tau\)</span>, and the spread by only <span class="math inline">\(\sqrt{\tau/L} = 1.31\)</span>. Cycle stock falls, because the calendar orders 8.3 times a year against 6.4.</p>
+<p><strong>The premium lands on all three terms:</strong> about $411, $312 and $239.</p>
+</div></div>
+<p>Continuous review is worth <strong>13.3%</strong>, about $960 a year on this item. If a perpetual record and the discipline to keep it cost less, they pay for themselves.</p>
+<aside class="notes">
+<p>An account that mentions only the extra safety stock has described the largest physical change and missed most of the money. The standard deviation over the exposure rose from 2.74 to 3.59 units. If the item were cheaper, or the lead time longer relative to the review interval, the figure would be smaller. This choice used to be made by what the technology allowed; it is now made by what the discipline costs.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="what-we-did-today" class="slide level2">
+<h2>What We Did Today</h2>
+<p><strong>The protection interval replaces the lead time.</strong> <span class="math inline">\(\mathit{IN} = S - D(L+U)\)</span>: a fixed position with an exposure uniform over <span class="math inline">\(R\)</span>.</p>
+<p><strong>The ledger verified it on every row.</strong> Month 7’s shortage was decided at month 4’s review.</p>
+<p><strong>Every measure is base stock averaged over the cycle,</strong> and the calendar adds <span class="math inline">\(\lambda R/2\)</span> of cycle stock.</p>
+<p><strong>The critical ratio reads <span class="math inline">\(\bar{G}\)</span>, not <span class="math inline">\(G_{\tau}\)</span>.</strong> The transformer monthly: <span class="math inline">\(S^{*} = 14\)</span>, $8,397.22.</p>
+<p><strong>The best interval is the EOQ as a time supply,</strong> and continuous review is worth 13.3% on this item.</p>
+</section>
+<section id="for-next-time" class="slide level2">
+<h2>For Next Time</h2>
+<p><strong>Read before next session:</strong> <em>Many Items at Once</em>, <em>Updating <span class="math inline">\(r\)</span> and <span class="math inline">\(Q\)</span> in a Running System</em>, <em>Building These Models in a Worksheet</em> and <em>Designing the Software</em>.</p>
+<p>Today’s material was <em>When Review Is Periodic</em>.</p>
+<p>Next session:</p>
 <ul>
-<li>The classical approximation makes three quiet assumptions plus a family choice</li>
-<li>On one item those errors are <span class="math inline">\(-3.98\%\)</span> and <span class="math inline">\(+6.34\%\)</span>, reported as <span class="math inline">\(+2.11\%\)</span></li>
-<li>Offsetting errors are not validation</li>
-<li>Bounds tell you a great deal before you solve</li>
-<li>The exact optimum comes from a terminating loop, not a search</li>
+<li>Many items under one budget or one service target, and why equal service is not efficient</li>
+<li>Where the parameters come from in a running system, and which deserve attention</li>
+<li>The worksheet and the software that compute everything this chapter derived</li>
 </ul>
-<div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Next: what to do when nobody will name a backorder cost, when demand arrives in lots, and when you cannot watch the item continuously.</p>
+<p>Every parameter so far has arrived as a given. Next session asks where they come from.</p>
 </div>
 </div>
 </div>
 
-</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

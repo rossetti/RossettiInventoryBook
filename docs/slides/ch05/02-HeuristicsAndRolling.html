@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Manuel D. Rossetti, PhD P.E.">
-  <title>Heuristics, and the Horizon That Moves</title>
+  <title>Lot Sizing Heuristics and the Rolling Horizon</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -987,7 +987,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" data-background-color="#274060" class="quarto-title-block center">
-  <h1 class="title">Heuristics, and the Horizon That Moves</h1>
+  <h1 class="title">Lot Sizing Heuristics and the Rolling Horizon</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1001,52 +1001,45 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>Why anyone uses a heuristic when an optimal algorithm exists</li>
-<li>Three rules that are <strong>one procedure</strong></li>
-<li>What each costs on the belt</li>
-<li>When none of this is worth doing</li>
-<li>The rolling horizon, where the guarantee disappears</li>
+<li>Why planning systems run heuristics when an optimal algorithm exists</li>
+<li>Silver-Meal, least unit cost and part-period balancing as one procedure</li>
+<li>The three rules on the belt, and where Silver-Meal loses its money</li>
+<li>What a heuristic costs, when none of this is worth doing, and what a wrong cost ratio costs</li>
+<li>The rolling horizon: what truncation costs, whether the heuristic ever wins, and nervousness</li>
 </ul>
 </section>
 <section id="an-uncomfortable-question" class="slide level2">
 <h2>An Uncomfortable Question</h2>
-<p>An optimal algorithm exists. It is not slow. It fits on half a page.</p>
-<div class="fragment">
-<p><strong>So why is almost every planning system in the field running something else?</strong></p>
-</div>
-<div class="fragment">
+<p>An optimal algorithm exists, it runs in <span class="math inline">\(O(N^2)\)</span>, and it fits on half a page. So why is almost every planning system in the field running something else?</p>
+<p>Recall the recursion: <span class="math inline">\(V(u) = \min_t\{V(t-1) + w(t,u)\}\)</span>. <span class="math inline">\(V(N)\)</span> depends on every window cost, and every window cost depends on the requirements out to period <span class="math inline">\(N\)</span>. That is, <strong>the decision for period 1 has been made to depend on a number <span class="math inline">\(N\)</span> periods out</strong>.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The answer is not running time.</p>
+<p>It is <strong>assumption 2</strong>: the requirements are known. They are a forecast, and nobody believes month 12’s. A heuristic that looks only a few periods ahead makes the period 1 decision from data the planner can believe.</p>
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="it-is-assumption-two" class="slide level2">
-<h2>It Is Assumption Two</h2>
-<p>The recursion needs <span class="math inline">\(d_1\)</span> through <span class="math inline">\(d_N\)</span> before it can compute <span class="math inline">\(V(N)\)</span>, because <span class="math inline">\(V(N)\)</span> depends on every window cost, and every window cost depends on the requirements out to period <span class="math inline">\(N\)</span>.</p>
-<div class="fragment">
-<p>Those requirements are a <strong>forecast</strong>.</p>
-</div>
-<div class="fragment">
-<p>The decision that actually gets made is the one for <strong>period 1</strong>. And it has been made to depend on a number <strong>twelve periods out that nobody believes</strong>.</p>
-</div>
-<div class="fragment">
-<p>A heuristic that looks only a few periods ahead makes the period 1 decision from data the planner <strong>can</strong> believe.</p>
-</div>
+<p>That is the case for heuristics here, and it is not an argument about running time.</p>
+<aside class="notes">
+<p>Last session’s assumptions slide flagged assumption 2 as the strong one. The heuristics answer it; the rolling horizon at the end of today tests whether the answer works.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="three-rules-one-procedure" class="slide level2">
 <h2>Three Rules, One Procedure</h2>
-<p>Start an order in period 1 and extend the window one period at a time. At each step compute a figure of merit, and <strong>stop when it stops improving</strong>.</p>
-<div class="fragment">
-<p>Whatever period the window reached, the next order starts in the one after it, and begin again.</p>
-</div>
-<div class="fragment">
+<p>Start an order in period <span class="math inline">\(t\)</span> and extend the window one period at a time. At each step compute a <strong>figure of merit</strong> for the window so far, and stop when it stops improving. The next order starts in the period after the window ends.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -1056,118 +1049,203 @@ Manuel D. Rossetti, PhD P.E.
 <thead>
 <tr class="header">
 <th>Rule</th>
-<th>Figure of merit for <span class="math inline">\([t,u]\)</span></th>
+<th>Figure of merit for the window <span class="math inline">\([t,u]\)</span></th>
 <th>Stop when</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Silver-Meal</strong></td>
-<td><span class="math inline">\(w(t,u)/(u-t+1)\)</span>, cost per period</td>
+<td>Silver-Meal</td>
+<td><span class="math inline">\(w(t,u) / (u - t + 1)\)</span>, cost per period</td>
 <td>it rises</td>
 </tr>
 <tr class="even">
-<td><strong>Least unit cost</strong></td>
-<td><span class="math inline">\(w(t,u)/d[t,u]\)</span>, cost per unit</td>
+<td>Least unit cost</td>
+<td><span class="math inline">\(w(t,u) / d[t,u]\)</span>, cost per unit</td>
 <td>it rises</td>
 </tr>
 <tr class="odd">
-<td><strong>Part-period balancing</strong></td>
+<td>Part-period balancing</td>
 <td><span class="math inline">\(w(t,u) - k_t\)</span>, what the window carries</td>
 <td>it passes <span class="math inline">\(k_t\)</span></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>All three use the <strong>same window costs</strong> the recursion used. That is what makes the comparison a comparison.</p>
-</div>
+<p>All three read the <strong>same window costs</strong> the recursion used. That is what makes comparing them a comparison and not an accident of arithmetic.</p>
+<aside class="notes">
+<p>The window costs are last session’s table; nothing is recomputed. The three rules differ only in the figure of merit, and the software deck shows that two of them are three lines of code apiece.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-each-rule-is-imitating" class="slide level2">
 <h2>What Each Rule Is Imitating</h2>
-<p><strong>Silver-Meal</strong> minimizes cost per period. The reasoning appeals to the EOQ, where the quantity minimizing cost per unit time is optimal <strong>because every cycle is identical</strong>. Here they are not, so this is a <strong>local imitation</strong> of that argument, not a consequence of it.</p>
-<div class="fragment">
-<p><strong>Least unit cost</strong> minimizes cost per unit. Older, more intuitive, since a buyer thinks in dollars per piece. It tends to order <strong>larger</strong> quantities, because adding a period always adds units to the denominator.</p>
-</div>
-<div class="fragment">
-<p><strong>Part-period balancing</strong> extends until accumulated carrying is as close as it can get to <span class="math inline">\(k_t\)</span>, imitating the equal-terms property of the EOQ. Dividing by <span class="math inline">\(h\)</span> turns carrying into a count of <strong>part-periods</strong>, which is where the name comes from.</p>
-</div>
-</section>
-<section id="one-implementation-difference" class="slide level2">
-<h2>One Implementation Difference</h2>
-<p>Silver-Meal and least unit cost walk a number <strong>to a minimum</strong> and keep the period before the first rise.</p>
-<div class="fragment">
-<p>Part-period balancing walks a number <strong>past a target</strong>, then keeps whichever of the last two came closer.</p>
-</div>
-<div class="fragment">
+<p><strong>Silver-Meal</strong> minimizes cost per period. Recall that the economic order quantity minimizes cost per unit time because every cycle is identical. Here the cycles are not, so this is a local imitation of that argument and not a consequence of it.</p>
+<p><strong>Least unit cost</strong> minimizes cost per unit, as a buyer thinks in dollars per piece. Adding a period always adds units to the denominator, so a long window is flattered by the arithmetic.</p>
+<p><strong>Part-period balancing</strong> recalls that the economic order quantity sets setup equal to holding, and extends the window until its carrying is as close as it can get to <span class="math inline">\(k_t\)</span>. Dividing by <span class="math inline">\(h\)</span> counts <strong>part-periods</strong>: for the belt, about <span class="math inline">\(k/h = 300\)</span> belt-months.</p>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>It can <strong>step back</strong>. Write it that way.</p>
+<p>Silver-Meal and least unit cost walk a number to a minimum and keep the period before the first rise. Part-period balancing walks a number <strong>past a target</strong>, then keeps whichever of the last two came closer. It can <strong>step back</strong>.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Two versions of part-period balancing are in circulation. The original never overshoots: it keeps the largest window whose carrying is at or under k. The one used here, from Nahmias, keeps whichever window is closer.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="the-first-window-three-ways" class="slide level2">
 <h2>The First Window, Three Ways</h2>
-<p><span class="math inline">\(k/h = 300\)</span>, so part-period balancing extends until the window carries about 300 belt-months.</p>
-<table class="caption-top">
+<p>Start in month 1 and extend, reading <span class="math inline">\(w(1,u)\)</span> from the window table.</p>
+<table style="font-size:0.9em; margin-top:0.2em;">
 <thead>
-<tr class="header">
-<th style="text-align: right;"><span class="math inline">\(u\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(w(1,u)\)</span></th>
-<th style="text-align: right;">Silver-Meal</th>
-<th style="text-align: right;">Least unit cost</th>
-<th style="text-align: right;">Part-period</th>
+<tr>
+<th>
+<span class="math inline">\(u\)</span>
+</th>
+<th>
+<span class="math inline">\(w(1,u)\)</span>
+</th>
+<th>
+<span class="math inline">\(d[1,u]\)</span>
+</th>
+<th>
+Silver-Meal, <span class="math inline">\(w/u\)</span>
+</th>
+<th>
+Least unit cost, <span class="math inline">\(w/d[1,u]\)</span>
+</th>
+<th>
+Part-period, <span class="math inline">\(w - k\)</span>
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">300.00</td>
-<td style="text-align: right;">7.500</td>
-<td style="text-align: right;">0</td>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+300
+</td>
+<td>
+40
+</td>
+<td>
+300.00
+</td>
+<td>
+7.500
+</td>
+<td>
+0
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">360</td>
-<td style="text-align: right;"><strong>180.00</strong></td>
-<td style="text-align: right;">3.600</td>
-<td style="text-align: right;">60</td>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+360
+</td>
+<td>
+100
+</td>
+<td>
+<b>180.00</b>
+</td>
+<td>
+3.600
+</td>
+<td>
+60
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">600</td>
-<td style="text-align: right;">200.00</td>
-<td style="text-align: right;"><strong>2.727</strong></td>
-<td style="text-align: right;"><strong>300</strong></td>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+600
+</td>
+<td>
+220
+</td>
+<td>
+200.00, rises
+</td>
+<td>
+<b>2.727</b>
+</td>
+<td>
+<b>300</b>, at <span class="math inline">\(k\)</span>
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1,500</td>
-<td style="text-align: right;">375.00</td>
-<td style="text-align: right;">2.885</td>
-<td style="text-align: right;">1,200</td>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+1,500
+</td>
+<td>
+520
+</td>
+<td>
+375.00
+</td>
+<td>
+2.885, rises
+</td>
+<td>
+1,200, past <span class="math inline">\(k\)</span>
+</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p><strong>Silver-Meal stops at <span class="math inline">\(u=2\)</span>.</strong> Cost per period rises from $180 to $200. Orders <strong>100</strong>.</p>
+<p><strong>Silver-Meal</strong> stops at <span class="math inline">\(u = 2\)</span>: the cost per period rises from $180.00 to $200.00. It orders <span class="math inline">\(d[1,2] = 100\)</span> belts.</p>
+<p><strong>Least unit cost</strong> stops at <span class="math inline">\(u = 3\)</span>: $2.727 a belt is least, and $2.885 is a rise. It orders 220.</p>
+<p><strong>Part-period balancing</strong> carries exactly $300 at <span class="math inline">\(u = 3\)</span>. Nothing can come closer, so it also orders 220.</p>
 </div>
-<div class="fragment">
-<p><strong>Least unit cost goes to <span class="math inline">\(u=3\)</span></strong>, where $2.727 a belt is least. Orders <strong>220</strong>.</p>
-</div>
-<div class="fragment">
-<p><strong>Part-period balancing</strong> carries exactly $300 at <span class="math inline">\(u=3\)</span>. Nothing can come closer. Also orders <strong>220</strong>.</p>
-</div>
+<aside class="notes">
+<p>Notice that each rule needs one row past its stop to know it has stopped. The Silver-Meal score at u = 4 is never needed, since the rise at u = 3 already ended the walk; it is shown for comparison.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-three-plans" class="slide level2 smaller">
+<section id="the-three-plans" class="slide level2">
 <h2>The Three Plans</h2>
+<p>Continuing each rule to the end of the horizon:</p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 5%">
@@ -1248,7 +1326,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">220</td>
 </tr>
 <tr class="even">
-<td>Part-period</td>
+<td>Part-period balancing</td>
 <td style="text-align: right;">220</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -1263,7 +1341,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">220</td>
 </tr>
 <tr class="odd">
-<td><strong>Optimal</strong></td>
+<td>Optimal</td>
 <td style="text-align: right;">220</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -1279,76 +1357,220 @@ Manuel D. Rossetti, PhD P.E.
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>All three place <strong>five</strong> orders. The optimum places <strong>six</strong>.</p>
-</div>
-<div class="fragment">
+<p>All three place <strong>five</strong> orders, and the optimum places <strong>six</strong>. That is the first surprise.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>That is the first surprise. The heuristics are not ordering too often.</p>
-<p>They are ordering <strong>too seldom</strong>, and the carrying that buys is what costs them.</p>
+<p>The heuristics are not ordering too often. They are ordering <strong>too seldom</strong>, and the carrying that buys is what costs them.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Every row sums to 1,840, which is the check on a plan written down by hand. None of the heuristics orders in month 5 by itself, although last session showed every optimal plan must.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="where-silver-meal-loses-its-money" class="slide level2">
 <h2>Where Silver-Meal Loses Its Money</h2>
-<p>The <strong>840</strong> in month 5. Extending from month 5, the cost per period runs</p>
-<p><span class="math display">\[
-300.00, \quad 280.00, \quad 266.67, \quad 230.00, \quad 184.00
-\]</span></p>
+<p>Extend from month 5. Each step adds <span class="math inline">\(h(u - 5)\,d_u\)</span> to the window cost:</p>
+<table style="font-size:0.9em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+<span class="math inline">\(u\)</span>
+</th>
+<th>
+<span class="math inline">\(d_u\)</span>
+</th>
+<th>
+Step <span class="math inline">\(h(u-5)d_u\)</span>
+</th>
+<th>
+<span class="math inline">\(w(5,u)\)</span>
+</th>
+<th>
+Length
+</th>
+<th>
+Cost per period
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+420
+</td>
+<td>
+</td>
+<td>
+300
+</td>
+<td>
+1
+</td>
+<td>
+300.00
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+260
+</td>
+<td>
+<span class="math inline">\(1 \times 260 = 260\)</span>
+</td>
+<td>
+560
+</td>
+<td>
+2
+</td>
+<td>
+280.00
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+120
+</td>
+<td>
+<span class="math inline">\(2 \times 120 = 240\)</span>
+</td>
+<td>
+800
+</td>
+<td>
+3
+</td>
+<td>
+266.67
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td>
+40
+</td>
+<td>
+<span class="math inline">\(3 \times 40 = 120\)</span>
+</td>
+<td>
+920
+</td>
+<td>
+4
+</td>
+<td>
+230.00
+</td>
+</tr>
+<tr class="fragment">
+<td>
+9
+</td>
+<td>
+0
+</td>
+<td>
+<span class="math inline">\(4 \times 0 = 0\)</span>
+</td>
+<td>
+920
+</td>
+<td>
+5
+</td>
+<td>
+<b>184.00</b>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+10
+</td>
+<td>
+80
+</td>
+<td>
+<span class="math inline">\(5 \times 80 = 400\)</span>
+</td>
+<td>
+1,320
+</td>
+<td>
+6
+</td>
+<td>
+220.00, rises
+</td>
+</tr>
+</tbody>
+</table>
 <div class="fragment">
-<p>and only then rises to <strong>220.00</strong> at month 10.</p>
+<p>It never rises until month 10, so one order covers five months: <strong>840 belts</strong>. Months 6 to 8 have falling requirements and month 9 has none, so each step adds little to the numerator and a full period to the denominator. The average falls because the window is longer, not because the plan is better.</p>
 </div>
-<div class="fragment">
-<p>It <strong>never rises</strong> through the whole run, so the rule never stops.</p>
-</div>
-<div class="fragment">
-<p>Months 6 through 8 have <strong>falling</strong> requirements and month 9 has <strong>none at all</strong>, so each additional period adds almost nothing to the numerator while adding a full period to the denominator.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The average keeps falling because the window is getting <strong>longer</strong>, not because the plan is getting <strong>better</strong>.</p>
-<p>That is the failure mode of a cost-per-period rule, and it is triggered by a declining tail and a dead period: exactly the shape of a seasonal item going into its off season.</p>
-</div>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>That is the failure mode of a cost-per-period rule, and it is triggered by a declining tail and a dead period: the shape of a seasonal item going into its off season.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="everything-on-one-item" class="slide level2 smaller">
-<h2>Everything On One Item</h2>
-<table class="caption-top">
+<section id="everything-on-one-item" class="slide level2">
+<h2>Everything on One Item</h2>
+<table class="caption-top" style="width:100%;">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
+<col style="width: 47%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Method</th>
+<th style="text-align: left;">Method</th>
 <th style="text-align: right;">Orders</th>
 <th style="text-align: right;">Setup</th>
 <th style="text-align: right;">Carrying</th>
-<th style="text-align: right;">Cost</th>
+<th style="text-align: right;">Relevant cost</th>
 <th style="text-align: right;">Penalty</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Lot-for-lot</td>
+<td style="text-align: left;">Lot-for-lot</td>
 <td style="text-align: right;">11</td>
 <td style="text-align: right;">$3,300</td>
 <td style="text-align: right;">$0</td>
@@ -1356,7 +1578,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">+33.06%</td>
 </tr>
 <tr class="even">
-<td>Least unit cost</td>
+<td style="text-align: left;">Least unit cost</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">$1,500</td>
 <td style="text-align: right;">$1,540</td>
@@ -1364,7 +1586,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">+22.58%</td>
 </tr>
 <tr class="odd">
-<td>Periodic order quantity, <span class="math inline">\(T=2\)</span></td>
+<td style="text-align: left;">Periodic order quantity, <span class="math inline">\(T = 2\)</span></td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">$1,800</td>
 <td style="text-align: right;">$960</td>
@@ -1372,7 +1594,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">+11.29%</td>
 </tr>
 <tr class="even">
-<td>Silver-Meal</td>
+<td style="text-align: left;">Silver-Meal</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">$1,500</td>
 <td style="text-align: right;">$1,160</td>
@@ -1380,7 +1602,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">+7.26%</td>
 </tr>
 <tr class="odd">
-<td>Adjusted economic order quantity</td>
+<td style="text-align: left;">Adjusted economic order quantity</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">$1,800</td>
 <td style="text-align: right;">$800</td>
@@ -1388,7 +1610,7 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">+4.84%</td>
 </tr>
 <tr class="even">
-<td>Part-period balancing</td>
+<td style="text-align: left;">Part-period balancing</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">$1,500</td>
 <td style="text-align: right;">$1,100</td>
@@ -1396,80 +1618,73 @@ Manuel D. Rossetti, PhD P.E.
 <td style="text-align: right;">+4.84%</td>
 </tr>
 <tr class="odd">
-<td><strong>Wagner-Whitin</strong></td>
+<td style="text-align: left;">Wagner-Whitin</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">$1,800</td>
 <td style="text-align: right;">$680</td>
-<td style="text-align: right;"><strong>$2,480</strong></td>
+<td style="text-align: right;">$2,480</td>
 <td style="text-align: right;">optimal</td>
 </tr>
 </tbody>
 </table>
+<p>The penalty is measured against the optimum: for example, <span class="math inline">\((2{,}660 - 2{,}480)/2{,}480 = 180/2{,}480 = 7.26\%\)</span>.</p>
+<p>Silver-Meal, usually the best heuristic on average, is beaten here by two others. <strong>One instance settles nothing.</strong> What it shows is how far apart the methods land on one item: the choice among the three heuristics is worth almost eighteen points.</p>
+<aside class="notes">
+<p>22.58 less 4.84 is 17.74 points. Over many generated problems all three land within a few percent of the optimum on average, Silver-Meal is usually best and least unit cost usually worst. A heuristic is a claim about a population of problems, not about the problem in front of you.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="read-that-table-carefully" class="slide level2">
-<h2>Read That Table Carefully</h2>
-<p>It does <strong>not</strong> say what a table like this is usually taken to say.</p>
-<div class="fragment">
-<p><strong>Silver-Meal</strong>, which the literature reports as the best of the three heuristics on average, is beaten here by part-period balancing <strong>and</strong> by an adjusted economic order quantity computed from the average requirement.</p>
-</div>
-<div class="fragment">
-<p>One instance settles nothing.</p>
-</div>
-<div class="fragment">
+<section id="when-none-of-this-is-worth-doing" class="slide level2">
+<h2>When None of This Is Worth Doing</h2>
+<p>If the requirements barely vary, the economic order quantity already has the answer. Let the <strong>variability coefficient</strong> be the variance of the requirements over the square of their mean:</p>
+<p><span class="math display">\[
+\begin{aligned}
+VC &amp;= \frac{\frac{1}{N}\sum_t (d_t - \bar{d})^2}{\bar{d}^2}
+  = \frac{\overline{d^2} - \bar{d}^2}{\bar{d}^2}
+  &amp;&amp;\text{expand the square}\\
+\overline{d^2} &amp;= \tfrac{1}{12}(40^2 + 60^2 + \cdots + 220^2) = \tfrac{456{,}800}{12} = 38{,}066.67
+  &amp;&amp;\text{the mean of the squares}\\
+VC &amp;= \frac{38{,}066.67 - 153.33^2}{153.33^2} = \frac{14{,}555.56}{23{,}511.11} = 0.6191
+  &amp;&amp;\text{dimensionless: belts or pallets alike}
+\end{aligned}
+\]</span></p>
+<p>The rule of thumb: <span class="math inline">\(VC &lt; 0.2\)</span> calls for an economic order quantity, <span class="math inline">\(VC \ge 0.2\)</span> for the methods of this chapter. The belt is well past it.</p>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>What it does show is how far apart the methods can land on a single item: part-period balancing gives away 4.84% and least unit cost 22.58%, so the choice among the three heuristics is worth nearly <strong>eighteen percentage points</strong> here.</p>
+<p>It is a rule of thumb and not a theorem. The adjusted economic order quantity is within 4.84% of optimal at <span class="math inline">\(VC = 0.6191\)</span>, better than the rule would lead you to expect.</p>
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="when-none-of-this-is-worth-doing" class="slide level2">
-<h2>When None of This Is Worth Doing</h2>
-<p>If the requirements barely vary, the EOQ already has the answer and this chapter is an elaborate way of reproducing it.</p>
-<p><span class="math display">\[
-VC = \frac{\frac{1}{N}\sum_t (d_t - \bar{d})^{2}}{\bar{d}^{2}}
-\]</span></p>
-<div class="fragment">
-<p>Dimensionless, so it does not matter whether you count belts or pallets. A perfectly level requirement gives <span class="math inline">\(VC = 0\)</span>.</p>
-</div>
-<div class="fragment">
-<p>Rule of thumb: <span class="math inline">\(VC &lt; 0.2\)</span> calls for an EOQ; <span class="math inline">\(VC \ge 0.2\)</span> calls for the methods of this chapter.</p>
-</div>
-<div class="fragment">
-<p>For the belt, <span class="math inline">\(\bar{d} = 153.33\)</span> and the variance is 14,555.6:</p>
-<p><span class="math display">\[
-VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
-\]</span></p>
-</div>
-</section>
-<section id="but-it-is-a-rule-of-thumb" class="slide level2">
-<h2>But It Is a Rule of Thumb</h2>
-<p>Well past the threshold.</p>
-<div class="fragment">
-<p>And yet the adjusted economic order quantity landed within <strong>4.84%</strong> of optimal at <span class="math inline">\(VC = 0.619\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Which is <strong>better than the rule would lead you to expect</strong>.</p>
-<p>The threshold is a convention, not a theorem.</p>
-</div>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>A perfectly level requirement gives VC = 0. The second form, mean of the squares less the square of the mean, is the one the worksheet uses, because it needs no array formula.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="how-wrong-can-the-cost-ratio-be" class="slide level2">
 <h2>How Wrong Can the Cost Ratio Be?</h2>
-<p>Solve the belt with a ratio <span class="math inline">\(k/h\)</span> that is wrong by a factor <span class="math inline">\(m\)</span>, then <strong>charge the resulting plan at the true costs</strong>.</p>
+<p>Solve the belt with a ratio <span class="math inline">\(k/h\)</span> that is wrong by a factor <span class="math inline">\(m\)</span>, then charge the plan at the <strong>true</strong> costs.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 9%">
@@ -1505,7 +1720,7 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 <td style="text-align: right;">3</td>
 </tr>
 <tr class="even">
-<td>Cost</td>
+<td>Cost at true costs</td>
 <td style="text-align: right;">$2,800</td>
 <td style="text-align: right;">$2,800</td>
 <td style="text-align: right;">$2,540</td>
@@ -1526,83 +1741,55 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>A factor of two in either direction costs <strong>less than 13%</strong>. The flatness of the EOQ cost curve <strong>survives the move to discrete periods</strong>.</p>
-</div>
-</section>
-<section id="two-features-of-that-table" class="slide level2">
-<h2>Two Features of That Table</h2>
-<p><strong>The curve is not smooth.</strong> The number of orders is an <strong>integer</strong>, and the plan does not change at all over a range of <span class="math inline">\(m\)</span>.</p>
-<div class="fragment">
-<p><strong>Doubling and halving are not symmetric.</strong> At <span class="math inline">\(m = 2\)</span> the plan has four orders and costs 7.26%; at <span class="math inline">\(m = 0.5\)</span> it has nine and costs 12.90%.</p>
-</div>
-<div class="fragment">
-<p>Ordering <strong>too often</strong> is the more expensive mistake on this item, since every extra order costs a full $300 while the carrying it saves is spread thin.</p>
-</div>
-</section>
-<section id="now-put-two-tables-side-by-side" class="slide level2">
-<h2>Now Put Two Tables Side by Side</h2>
-<p>The penalty for using <strong>Silver-Meal instead of the optimum</strong>: <strong>7.26%</strong>.</p>
-<div class="fragment">
-<p>The penalty for getting the <strong>cost ratio wrong by a factor of two</strong>: <strong>7.26%</strong>.</p>
-</div>
-<div class="fragment">
+<p>A factor of two either way costs less than 13%: the flatness of the economic order quantity survives the move to discrete periods. The curve is a staircase, since the plan does not change over a range of <span class="math inline">\(m\)</span>. Ordering too often is the more expensive mistake here: every extra order costs a full $300, while the carrying it saves is spread thin.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>An organization that has not measured <span class="math inline">\(k\)</span> to within a factor of two, and most have not, is <strong>not in a position to care which method it uses</strong>.</p>
+<p>Silver-Meal’s penalty is 7.26%. Getting <span class="math inline">\(k/h\)</span> wrong by a factor of two also costs 7.26%. An organization that has not measured <span class="math inline">\(k\)</span> to within a factor of two, and most have not, is not in a position to care which method it uses.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Recall the EOQ sensitivity result: a factor of two in k over h costs about 6%. Here, at m = 2 the plan has four orders; at m = 0.5 it has nine.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="the-rolling-horizon" class="slide level2">
 <h2>The Rolling Horizon</h2>
-<p>Everything so far assumed a horizon that <strong>ends</strong>. The belt’s year is planned, the plan is executed, and the problem is over.</p>
-<div class="fragment">
-<p><strong>No item is planned that way.</strong></p>
-</div>
-<div class="fragment">
-<p>What happens: the planner solves over the next <span class="math inline">\(N\)</span> periods, places <strong>only the order for the current period</strong>, waits a period, and solves again over a horizon that has moved forward one period and acquired a new last period.</p>
-</div>
-<div class="fragment">
-<p>The plan for periods 2 through <span class="math inline">\(N\)</span> was <strong>never executed</strong>. It existed to inform the decision for period 1.</p>
-</div>
-</section>
-<section id="two-things-follow-immediately" class="slide level2">
-<h2>Two Things Follow Immediately</h2>
-<p><strong>Only the first decision matters.</strong> The quality of a method is the quality of the <strong>sequence of first decisions</strong> it produces, not the quality of the plans it produces.</p>
-<div class="fragment">
-<p><strong>Wagner-Whitin is no longer optimal.</strong></p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>It is optimal for the problem it was handed, and the problem it was handed is a <strong>truncation</strong> of the real one.</p>
-</div>
-</div>
-</div>
-</div>
+<p>No item is planned over a horizon that ends. The planner solves over the next <span class="math inline">\(N\)</span> periods, places <strong>only the current period’s order</strong>, waits a period, and solves again over a horizon that has moved forward and gained a new last period.</p>
+<p>Two things follow immediately.</p>
+<p><strong>Only the first decision matters.</strong> The quality of a method is the quality of the sequence of first decisions it produces, not of the plans.</p>
+<p><strong>Wagner-Whitin is no longer optimal.</strong> It is optimal for the problem it was handed, and that problem is a truncation of the real one.</p>
+<aside class="notes">
+<p>The plan for periods 2 through N was never executed. It existed to inform the decision for period 1.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-the-truncation-costs" class="slide level2">
 <h2>What the Truncation Costs</h2>
-<p>Roll the belt: at each month, solve over the next <span class="math inline">\(W\)</span> months, place that month’s order, move on.</p>
+<p>Roll the belt: at each month solve over the next <span class="math inline">\(W\)</span> months, place that month’s order, move on. The realized cost of the twelve months of orders actually placed:</p>
 <table class="caption-top">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Planning window <span class="math inline">\(W\)</span></th>
@@ -1626,66 +1813,54 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 <td>Wagner-Whitin</td>
 <td style="text-align: right;">$2,640</td>
 <td style="text-align: right;"><strong>$2,480</strong></td>
-<td style="text-align: right;"><strong>$2,480</strong></td>
-<td style="text-align: right;"><strong>$2,480</strong></td>
-<td style="text-align: right;"><strong>$2,480</strong></td>
+<td style="text-align: right;">$2,480</td>
+<td style="text-align: right;">$2,480</td>
+<td style="text-align: right;">$2,480</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>Wagner-Whitin <strong>reaches the full-horizon optimum at a window of three months</strong> and stays there.</p>
-</div>
-<div class="fragment">
-<p>That is the forcing property doing its work. Month 5 forces an order, so the decision for month 4 cannot be improved by anything beyond month 5.</p>
-</div>
-</section>
-<section id="and-look-at-silver-meal" class="slide level2">
-<h2>And Look at Silver-Meal</h2>
-<p>It <strong>never</strong> reaches the optimum, and its cost is <strong>not even monotone</strong> in the window.</p>
-<div class="fragment">
-<p>A three-month window costs it <strong>$200 more</strong> than a two-month window.</p>
-</div>
-<div class="fragment">
-<p>Let us understand that rather than explain it away.</p>
-</div>
-<div class="fragment">
-<p>Lengthening the window gives the rule <strong>more periods to average over</strong>, and averaging over more periods is precisely what drives its cost-per-period down and its windows too long.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A longer horizon is <strong>not always better information</strong> for a rule that was not built to use it.</p>
-</div>
-</div>
-</div>
-</div>
+<p><strong>Wagner-Whitin reaches the full-horizon optimum at <span class="math inline">\(W = 3\)</span> and stays there.</strong> That is the forced order at work: month 5 must order, so the decision for month 4 cannot be improved by anything beyond month 5, and a three-month window already sees far enough.</p>
+<p><strong>Silver-Meal never reaches it, and is not even monotone in the window.</strong> A three-month window costs it $200 more than a two-month window. More periods to average over is what drives its cost per period down and its windows too long.</p>
+<aside class="notes">
+<p>A longer horizon is not always better information for a rule that was not built to use it. The stock on hand at each replanning is netted against the nearest requirements before the rule runs, as a requirements record would net it.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="does-the-heuristic-ever-win" class="slide level2">
 <h2>Does the Heuristic Ever Win?</h2>
-<p>It is often said that under a rolling horizon a heuristic <strong>can</strong> beat the optimal algorithm, since neither is optimal for the real problem.</p>
-<div class="fragment">
-<p><strong>The claim is true as stated.</strong> It is easy to read it as a claim about how the two typically compare. That is a different claim.</p>
-</div>
-<div class="fragment">
-<p>Settle it by measurement: 2,000 twelve-period schedules, requirements drawn at random, rolled under both rules.</p>
+<p>It is often said that under a rolling horizon a heuristic can beat the optimal algorithm. Settle it by measurement: 2,000 random twelve-period schedules, <span class="math inline">\(k =
+\$200\)</span>, <span class="math inline">\(c = \$50\)</span>, <span class="math inline">\(i = 0.02\)</span>, each rolled under both rules.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Window</th>
-<th style="text-align: right;">SM cheaper</th>
-<th style="text-align: right;">WW cheaper</th>
+<th>Window <span class="math inline">\(W\)</span></th>
+<th style="text-align: right;">Silver-Meal cheaper</th>
+<th style="text-align: right;">Wagner-Whitin cheaper</th>
 <th style="text-align: right;">Tied</th>
-<th style="text-align: right;">Mean, SM</th>
-<th style="text-align: right;">Mean, WW</th>
+<th style="text-align: right;">Mean, Silver-Meal</th>
+<th style="text-align: right;">Mean, Wagner-Whitin</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">3</td>
+<td>3</td>
 <td style="text-align: right;">360</td>
 <td style="text-align: right;">704</td>
 <td style="text-align: right;">936</td>
@@ -1693,7 +1868,7 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 <td style="text-align: right;">$1,429.90</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4</td>
+<td>4</td>
 <td style="text-align: right;">246</td>
 <td style="text-align: right;">886</td>
 <td style="text-align: right;">868</td>
@@ -1701,7 +1876,7 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 <td style="text-align: right;">$1,375.08</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">6</td>
+<td>6</td>
 <td style="text-align: right;">71</td>
 <td style="text-align: right;">1,062</td>
 <td style="text-align: right;">867</td>
@@ -1710,97 +1885,126 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 </tr>
 </tbody>
 </table>
-</div>
-</section>
-<section id="reading-the-study" class="slide level2">
-<h2>Reading the Study</h2>
-<p>Silver-Meal <strong>does</strong> win, 360 times out of 2,000 at a three-period window. The claim is not empty.</p>
-<div class="fragment">
-<p>The two rules <strong>tie about 45% of the time</strong>, because on many schedules they make the same first decision every period.</p>
-</div>
-<div class="fragment">
-<p>When they differ, the algorithm is ahead about <strong>two to one</strong> at a three-period window and about <strong>fifteen to one</strong> at six.</p>
-</div>
-<div class="fragment">
-<p>On average the algorithm is cheaper at every window length, by <strong>0.8% to 2.4%</strong>.</p>
-</div>
-<div class="fragment">
+<p>Silver-Meal does win: 360 times in 2,000 at <span class="math inline">\(W = 3\)</span>, so the claim is not empty. The two tie about 45% of the time. When they differ the algorithm is ahead about two to one at <span class="math inline">\(W = 3\)</span> and about fifteen to one at <span class="math inline">\(W = 6\)</span>, and it is cheaper on average at every window.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The rolling horizon does not rescue the heuristic. What it does is <strong>remove the guarantee</strong>, which turns a proof into an empirical question, and the empirical answer here still favours the algorithm.</p>
+<p>The rolling horizon does not rescue the heuristic. It removes the <strong>guarantee</strong>, which turns a proof into an empirical question, and the empirical answer still favors the algorithm.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Requirements were drawn from 0, 10, 20, 40, 80, 120, 200 and 300 units, with a non-zero first period. Ratios: 704/360 is about 2; 1,062/71 is about 15. The mean gap runs from 0.8% at W = 3 to 2.4% at W = 6.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="a-cost-the-tables-do-not-show" class="slide level2">
 <h2>A Cost the Tables Do Not Show</h2>
-<p>Each period the plan is recomputed, and the new plan may <strong>disagree with the old one</strong> about orders that have not been placed yet.</p>
-<div class="fragment">
-<p>Suppliers were told to expect 300 belts in month 7, and now the plan says 0.</p>
-</div>
-<div class="fragment">
-<p>That instability is called <strong>nervousness</strong>, and it is expensive in ways that appear in no cost equation.</p>
-</div>
-<div class="fragment">
-<p>Part of it comes from the method. Silver-Meal orders <strong>100 belts in month 1 at every window length from two to six</strong>. Wagner-Whitin orders 100 at a two-month window and <strong>220 at every longer one</strong>.</p>
-</div>
-<div class="fragment">
-<p>The heuristic is <strong>steadier</strong> here, because it never looks far enough ahead for a distant period to change its mind.</p>
-</div>
+<p>Each period the plan is recomputed, and the new plan may disagree with the old one about orders not yet placed. Suppliers were told to expect 300 belts in month 7, and now the plan says 0. That instability is <strong>nervousness</strong>.</p>
+<p>Part of it comes from the method. What each rule commits to in month 1:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Window <span class="math inline">\(W\)</span></th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Silver-Meal</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td>Wagner-Whitin</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">220</td>
+</tr>
+</tbody>
+</table>
+<p>The heuristic is steadier here, because it never looks far enough ahead for a distant period to change its mind.</p>
+<aside class="notes">
+<p>Nervousness is expensive in ways that do not appear in the relevant cost: expediting, rescheduling, and suppliers who stop believing the schedule.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="three-devices-against-it" class="slide level2">
 <h2>Three Devices Against It</h2>
-<p><strong>A freeze fence</strong> fixes the plan for the first several periods and forbids the next solve from changing them. It converts instability into <strong>inflexibility</strong>, which is sometimes the better problem.</p>
-<div class="fragment">
-<p><strong>A time fence</strong> is softer: inside it, changes need approval; outside it, the plan may move freely.</p>
-</div>
-<div class="fragment">
-<p><strong>A change penalty</strong> adds a cost for every order differing from the previous plan. The previous plan becomes part of the data.</p>
-</div>
-<div class="fragment">
+<p>A <strong>freeze fence</strong> fixes the plan for the first several periods and forbids the next solve from changing them. It converts instability into inflexibility, which is sometimes the better problem. Committing <span class="math inline">\(F\)</span> periods at a time is the same idea.</p>
+<p>A <strong>time fence</strong> is softer: inside it, changes need approval; outside it, the plan may move freely.</p>
+<p>A <strong>change penalty</strong> adds a cost for every order that differs from the previous plan, so the previous plan becomes part of the data. It is the most direct treatment and the least used, for that reason.</p>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The third is the most direct treatment and the <strong>least used</strong>, for exactly that reason.</p>
+<p>The requirements planning chapter returns to all three, because nervousness at one level of a bill of material propagates downward and multiplies.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>Each device buys stability at a price, and none of them changes the relevant cost calculation; they constrain which plans the rule may choose.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-we-did-today" class="slide level2">
 <h2>What We Did Today</h2>
-<p><strong>Heuristics exist because the recursion needs a forecast</strong>, not because it is slow.</p>
-<div class="fragment">
-<p><strong>Three rules are one procedure</strong> with three stopping conditions, and they order <strong>too seldom</strong>, not too often.</p>
-</div>
-<div class="fragment">
-<p><strong>Silver-Meal fails on a declining tail followed by a dead period</strong>, which is the shape of a seasonal item going into its off season.</p>
-</div>
-<div class="fragment">
-<p><strong>Method error and parameter error are the same size here</strong>: 7.26% either way.</p>
-</div>
-<div class="fragment">
-<p><strong>The rolling horizon removes the guarantee</strong> and turns the comparison into an empirical question.</p>
-</div>
+<p><strong>Heuristics answer assumption 2,</strong> not running time: the recursion makes period 1 depend on a forecast <span class="math inline">\(N\)</span> periods out.</p>
+<p><strong>Three rules are one procedure</strong> with three figures of merit, all reading the same window costs.</p>
+<p><strong>On the belt the heuristics order too seldom,</strong> and Silver-Meal’s 840 in month 5 is a cost-per-period rule fooled by a declining tail and a dead period.</p>
+<p><strong>The penalties run from 4.84% to 22.58%,</strong> the same order as getting <span class="math inline">\(k/h\)</span> wrong by a factor of two; <span class="math inline">\(VC = 0.6191\)</span> says lot sizing is worth doing at all.</p>
+<p><strong>The rolling horizon removes Wagner-Whitin’s guarantee</strong> without handing the advantage to the heuristic, and the heuristic’s steadiness is its real argument.</p>
 </section>
 <section id="for-next-time" class="slide level2">
 <h2>For Next Time</h2>
-<p><strong>Read before next session:</strong> <em>Demand You Should Not Forecast</em>, <em>The Bill of Material</em>, and <em>The MRP Record</em>.</p>
-<p>Everything so far assumed demand was <strong>observed</strong>. Next session it is <strong>calculated</strong>, from a production schedule one level up.</p>
+<p><strong>Read before next session:</strong> <em>Building These Models in a Worksheet</em> and <em>Designing the Software</em>.</p>
+<p>Today’s material was <em>Three Heuristics and One Shape</em>, <em>What a Heuristic Costs</em> and <em>The Rolling Horizon</em>.</p>
 <p>Next session:</p>
 <ul>
-<li>Why forecasting dependent demand throws away information you already have</li>
-<li>The bill of material, and <strong>low-level codes</strong></li>
-<li>The six-row record, and the <span class="math inline">\(\max\)</span> that is the whole idea</li>
-<li>The explosion, and the single most common error in working one by hand</li>
+<li>The five sheets of <code>Chapter5Models.xlsx</code>, and the cells that carry the window costs, the recursion and the traceback</li>
+<li>The software: a schedule that owns the window cost, and one procedure for three rules</li>
+<li>Why part-period balancing does not fit that procedure, in code and in the worksheet both</li>
 </ul>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -1808,7 +2012,7 @@ VC = \frac{14{,}555.6}{153.33^{2}} = \mathbf{0.619}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The methods of this chapter do most of their real work inside requirements planning. That is where we are going.</p>
+<p>The worksheet cannot roll a horizon. Next session says why, and shows the class that exists because of it.</p>
 </div>
 </div>
 </div>

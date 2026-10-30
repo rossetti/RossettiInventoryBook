@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Manuel D. Rossetti, PhD P.E.">
-  <title>Small Numbers, Extensions, and Simulation</title>
+  <title>Discrete Demand, Extensions, and Simulation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -1053,7 +1053,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" data-background-color="#274060" class="quarto-title-block center">
-  <h1 class="title">Small Numbers, Extensions, and Simulation</h1>
+  <h1 class="title">Discrete Demand, Extensions, and Simulation</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1067,361 +1067,384 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>Why the inverse <strong>does not exist</strong> when demand is counted in small whole numbers</li>
-<li>The staircase rule, and the service level it hands you for free</li>
-<li>A one-time buy of spare transformers</li>
-<li>When rounding a continuous answer is safe, and when it costs $3,800</li>
-<li>Four extensions, <strong>none</strong> of which changes the ratio</li>
-<li>Simulating an answer you already know, and why that is the right order</li>
+<li>Demand counted in small whole numbers, and the staircase rule</li>
+<li>A one-time buy of spare transformers, walked one unit at a time</li>
+<li>When rounding the normal answer fails</li>
+<li>Four extensions: a penalty, stock on hand, a model that refuses, and the single-period test</li>
+<li>The final buy estimated by simulation, and when simulation is worth it</li>
 </ul>
-</section>
-<section id="where-we-left-off" class="slide level2">
-<h2>Where We Left Off</h2>
-<p>The belt’s fourteen-week total had a standard deviation of <strong>92.64 belts</strong>.</p>
-<div class="fragment">
-<p>One belt is <strong>1.1%</strong> of that, so treating the total as continuous was safe: rounding could not decide the answer.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>That was a <strong>property of the aggregation</strong>, not a property of the newsvendor model.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Today’s item does not have it.</p>
-</div>
 </section>
 <section id="when-demand-is-counted-in-small-whole-numbers" class="slide level2">
 <h2>When Demand Is Counted in Small Whole Numbers</h2>
-<p>A continuous distribution is the wrong tool, and the <strong>inverse does not exist</strong>.</p>
-<div class="fragment">
-<p>A discrete distribution function is a <strong>staircase</strong>, and a critical ratio almost never lands exactly on a step.</p>
-</div>
-<div class="fragment">
-<p>The replacement follows from the same marginal argument: keep adding a unit while <span class="math inline">\(F(Q) &lt; c_{u}/(c_{u}+c_{o})\)</span>. That is,</p>
+<p>A discrete distribution function is a staircase, so the inverse <span class="math inline">\(F^{-1}\)</span> does not exist and a critical ratio almost never lands on a step. The marginal argument of the first session still runs, one unit at a time:</p>
 <p><span class="math display">\[
-Q^{*} = \min\left\{Q : F(Q) \ge \frac{c_{u}}{c_{u}+c_{o}}\right\}
+\begin{aligned}
+c_u\,P\{X &gt; Q\} &amp;&gt; c_o\,P\{X \le Q\}
+  &amp;&amp;\text{the next unit is worth buying}\\
+c_u\big(1 - F(Q)\big) &amp;&gt; c_o\,F(Q)
+  &amp;&amp;P\{X &gt; Q\} = 1 - F(Q)\\
+F(Q) &amp;&lt; \frac{c_u}{c_u + c_o}
+  &amp;&amp;\text{collect } F(Q)\\
+Q^{*} &amp;= \min\left\{Q : F(Q) \ge \frac{c_u}{c_u + c_o}\right\}
+  &amp;&amp;\text{stop at the first failure}
+\end{aligned}
 \]</span></p>
-</div>
-</section>
-<section id="that-is-not-an-inverse" class="slide level2">
-<h2>That Is Not an Inverse</h2>
-<p>It is the <strong>smallest quantity whose cumulative probability reaches the ratio</strong>, and at that quantity <span class="math inline">\(F(Q^{*})\)</span> is usually <strong>strictly greater</strong> than the ratio.</p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>That gap is not an error. It is the <strong>staircase</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>A discrete newsvendor generally achieves a service level <strong>a little better</strong> than the one its costs call for, because it cannot buy a fraction of a unit.</p>
-</div>
+<p><strong>It is not an inverse.</strong> It is the smallest quantity whose cumulative probability <em>reaches</em> the ratio, and there <span class="math inline">\(F(Q^{*})\)</span> is usually strictly greater. That gap is the staircase: a discrete newsvendor achieves a little better service than its costs call for, because it cannot buy a fraction of a unit.</p>
+<aside class="notes">
+<p>The next unit is sold when demand exceeds Q, which for integer demand is the event X &gt;= Q + 1. Evaluate a discrete second order loss function only at whole units: the KSL’s first order loss function is correct at any argument from version R1.7, but the second order one is correct only at whole units. That costs nothing here, since the rule only asks about whole units; it matters when a continuous answer is priced against a discrete model: round first, then evaluate.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="a-one-time-buy-of-spare-transformers" class="slide level2">
 <h2>A One-Time Buy of Spare Transformers</h2>
-<p>A municipal utility carries a pad-mount transformer at <strong>$3,800</strong>. A capital project is about to begin, after which the specification changes.</p>
-<div class="fragment">
-<p><em>Demand process?</em> Failures arrive independently at a low rate. Over the window the utility expects <strong>6</strong> failures, and models the count as <strong>Poisson with <span class="math inline">\(\lambda = 6\)</span></strong>.</p>
-</div>
-<div class="fragment">
-<p><em>Costs?</em> Bought and not used, it scraps at $900, so <span class="math inline">\(c_{o} = \$2{,}900\)</span>. A failure with no spare is covered by an emergency purchase at $9,500, so <span class="math inline">\(c_{u} = \$5{,}700\)</span>.</p>
-</div>
-<div class="fragment">
+<p>The utility storeroom’s pad-mount transformer, $3,800. A capital project will change the specification, so transformers not used become obsolete. Failures over the project window: Poisson with <span class="math inline">\(\lambda = 6\)</span>.</p>
 <p><span class="math display">\[
-\frac{5700}{5700+2900} = 0.662791
+\begin{aligned}
+c_o &amp;= 3800 - 900 = \$2{,}900
+  &amp;&amp;\text{bought and unused, scrapped at \$900}\\
+c_u &amp;= 9500 - 3800 = \$5{,}700
+  &amp;&amp;\text{a failure covered by an emergency purchase}\\
+\frac{c_u}{c_u + c_o} &amp;= \frac{5700}{8600} = 0.662791
+  &amp;&amp;\text{critical ratio}
+\end{aligned}
 \]</span></p>
-</div>
+<table style="font-size:0.9em; margin-top:0.3em; max-height:none;">
+<thead>
+<tr>
+<th>
+<span class="math inline">\(Q\)</span>
+</th>
+<th>
+<span class="math inline">\(F(Q)\)</span>
+</th>
+<th>
+Expected shortage <span class="math inline">\(G^{1}(Q)\)</span>
+</th>
+<th>
+Expected cost
+</th>
+<th style="text-align:left">
+Against 0.6628
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+0.2851
+</td>
+<td>
+2.2330
+</td>
+<td>
+$13,404
+</td>
+<td style="text-align:left">
+short, add one
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+0.4457
+</td>
+<td>
+1.5181
+</td>
+<td>
+$10,155
+</td>
+<td style="text-align:left">
+short, add one
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+0.6063
+</td>
+<td>
+0.9637
+</td>
+<td>
+$8,288
+</td>
+<td style="text-align:left">
+short, add one
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+<b>0.7440</b>
+</td>
+<td>
+0.5700
+</td>
+<td>
+<b>$7,802</b>
+</td>
+<td style="text-align:left">
+<b>clears it: stop</b>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td>
+0.8472
+</td>
+<td>
+0.3140
+</td>
+<td>
+$8,501
+</td>
+<td style="text-align:left">
+the check: cost rises
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>The rule reads only the F(Q) column. The cost column confirms it rather than being used by it; each cost is (c_u + c_o) G1(Q) + c_o (Q - 6) with the Poisson loss function. The answer: buy 7 spares, 26,600 dollars, with an expected 7,802 in obsolescence and emergency purchases.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="walk-the-distribution-function" class="slide level2">
-<h2>Walk the Distribution Function</h2>
+<section id="does-rounding-the-normal-answer-work" class="slide level2">
+<h2>Does Rounding the Normal Answer Work?</h2>
+<p>Treat demand as normal with mean 6 and variance 6: <span class="math inline">\(6 + \Phi^{-1}(0.6628)\sqrt{6} = 6 + 0.4201(2.4495) = 7.029\)</span>, which rounds to 7. It agrees.</p>
+<p>Now change one number: the emergency purchase costs $8,150, so <span class="math inline">\(c_u = \$4{,}350\)</span> and the ratio is exactly 0.6000. What do the exact rule and the normal say?</p>
+<div class="fragment">
 <table class="caption-top">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-<col style="width: 17%">
-</colgroup>
 <thead>
 <tr class="header">
-<th><span class="math inline">\(Q\)</span></th>
-<th style="text-align: right;">4</th>
-<th style="text-align: right;">5</th>
-<th style="text-align: right;">6</th>
-<th style="text-align: right;">7</th>
-<th style="text-align: right;">8</th>
+<th></th>
+<th>Reads</th>
+<th style="text-align: right;">Answer</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(F(Q)\)</span></td>
-<td style="text-align: right;">0.2851</td>
-<td style="text-align: right;">0.4457</td>
-<td style="text-align: right;">0.6063</td>
-<td style="text-align: right;"><strong>0.7440</strong></td>
-<td style="text-align: right;">0.8472</td>
+<td>Exact rule</td>
+<td><span class="math inline">\(F(5) = 0.4457\)</span>, <span class="math inline">\(F(6) = 0.6063\)</span></td>
+<td style="text-align: right;"><strong>6</strong></td>
 </tr>
 <tr class="even">
-<td>Expected shortage <span class="math inline">\(G^{1}(Q)\)</span></td>
-<td style="text-align: right;">2.2330</td>
-<td style="text-align: right;">1.5181</td>
-<td style="text-align: right;">0.9637</td>
-<td style="text-align: right;">0.5700</td>
-<td style="text-align: right;">0.3140</td>
-</tr>
-<tr class="odd">
-<td>Expected cost</td>
-<td style="text-align: right;">$13,404</td>
-<td style="text-align: right;">$10,155</td>
-<td style="text-align: right;">$8,288</td>
-<td style="text-align: right;"><strong>$7,802</strong></td>
-<td style="text-align: right;">$8,501</td>
+<td>Normal approximation</td>
+<td><span class="math inline">\(6 + 0.2533(2.4495) = 6.621\)</span></td>
+<td style="text-align: right;"><strong>7</strong></td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>The rule reads the <span class="math inline">\(F(Q)\)</span> row and stops at <strong>7</strong>, because 0.6063 is short of 0.6628 and 0.7440 clears it.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
+<p>The approximation buys one transformer too many, <strong>$3,800</strong>, a real error on a real decision.</p>
+<div title="When the approximation is safe">
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
+<p><strong>When the approximation is safe</strong></p>
+</div>
 <div class="callout-content">
-<p><strong>Buy 7 spare transformers</strong>, at $26,600, expecting $7,802 in obsolescence and emergency purchases.</p>
+<p>When one unit is a small fraction of the standard deviation. At <span class="math inline">\(\lambda = 6\)</span> one transformer is <span class="math inline">\(1/2.45 = 40\%\)</span> of it, and rounding decides the answer; at <span class="math inline">\(\lambda = 600\)</span> it is 4%. Use the staircase rule whenever the numbers are small, which is when items are slow-moving and each unit is expensive.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p>The cost row <strong>confirms</strong> the rule rather than being used by it. Its minimum is at 7, where the rule put it.</p>
+<aside class="notes">
+<p>Compare the belt last session: one belt was 1.1% of the standard deviation of the fourteen-week total, which is why the normal was safe there.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </div>
 </section>
-<section id="does-rounding-the-continuous-answer-work" class="slide level2">
-<h2>Does Rounding the Continuous Answer Work?</h2>
-<p>Usually. <strong>Not always.</strong></p>
-<div class="fragment">
-<p>Treating demand as normal with mean 6 and variance 6:</p>
+<section id="a-penalty-beyond-the-lost-margin" class="slide level2">
+<h2>A Penalty Beyond the Lost Margin</h2>
+<p>Four extensions cover most of what a real single-period problem adds. <strong>None changes the critical ratio’s form; they change what goes into it.</strong></p>
+<p><span class="math inline">\(c_u = s - c\)</span> is the whole underage cost only if a customer turned away returns next time as though nothing happened. Let <span class="math inline">\(\pi\)</span> represent the stockout penalty per unit of unmet demand, so <span class="math inline">\(c_u = s - c + \pi\)</span>.</p>
+<p>For the belt, suppose a refused dealer costs $40 in future business:</p>
 <p><span class="math display">\[
-6 + \Phi^{-1}(0.6628)\sqrt{6} = 6 + 0.4201(2.4495) = 7.029 \to 7
+\begin{aligned}
+c_u &amp;= 45 + 40 = 85, \qquad \frac{85}{85 + 38} = 0.6911
+  &amp;&amp;\text{from } 0.5422\\
+Q^{*} &amp;= 465.37 + 0.4988(92.64) = 511.58 \to \textbf{512 belts}
+  &amp;&amp;\text{from 475}
+\end{aligned}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>Agrees. Now change <strong>one number</strong>: suppose the emergency purchase costs $8,150 rather than $9,500, so <span class="math inline">\(c_{u} = \$4{,}350\)</span> and the ratio is exactly <strong>0.6000</strong>.</p>
-</div>
-<div class="fragment">
-<p>The <strong>exact</strong> rule reads <span class="math inline">\(F(5) = 0.4457\)</span> and <span class="math inline">\(F(6) = 0.6063\)</span>, and stops at <strong>6</strong>.</p>
-</div>
-<div class="fragment">
-<p>The <strong>normal</strong> gives <span class="math inline">\(6 + 0.2533(2.4495) = 6.621\)</span>, which rounds to <strong>7</strong>.</p>
-</div>
-</section>
-<section id="when-the-approximation-is-safe" class="slide level2">
-<h2>When the Approximation Is Safe</h2>
-<p>The approximation buys <strong>one transformer too many</strong>, at <strong>$3,800</strong>. A real error on a real decision.</p>
-<div class="fragment">
-<p>A normal approximation to a discrete distribution is good when the mean is large enough that <strong>one unit is a small fraction of the standard deviation</strong>.</p>
-</div>
-<div class="fragment">
-<p>At <span class="math inline">\(\lambda = 6\)</span>: <span class="math inline">\(\sigma = 2.45\)</span> units, so one transformer is <strong>40%</strong> of it, and rounding decides the answer.</p>
-</div>
-<div class="fragment">
-<p>At <span class="math inline">\(\lambda = 600\)</span>: one unit is <strong>4%</strong>, and rounding decides nothing.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Use the staircase rule whenever the numbers are small, which is <strong>exactly when slow-moving items are involved</strong>, and exactly when each unit is expensive.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="four-extensions-none-changing-the-ratio" class="slide level2">
-<h2>Four Extensions, None Changing the Ratio</h2>
-<p>They change <strong>what goes into</strong> it.</p>
-<div class="fragment">
-<p><strong>A penalty beyond the lost margin.</strong> <span class="math inline">\(c_{u} = s - c\)</span> is the whole cost only when a customer turned away returns next time as though nothing happened. Otherwise <span class="math inline">\(c_{u} = s - c + \pi\)</span>.</p>
-</div>
-<div class="fragment">
-<p>For the belt, suppose a refused dealer costs <strong>$40</strong> in future business. Then <span class="math inline">\(c_{u} = 85\)</span>, the ratio rises from 0.5422 to <strong>0.6911</strong>, and the order rises from 475 to <strong>512 belts</strong>.</p>
-</div>
-<div class="fragment">
-<p>Notice the size: a penalty <strong>under half the selling price</strong> moved the order by <strong>7.8%</strong>.</p>
-</div>
-</section>
-<section id="report-it-honestly" class="slide level2">
-<h2>Report It Honestly</h2>
-<p><span class="math inline">\(\pi\)</span> is the parameter <strong>no ledger contains</strong> and the one hardest to defend.</p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>So the honest way to report this decision is <strong>not a single number</strong>.</p>
-<p>It is that <strong>475 belts is right if a stockout costs only the margin, and 512 if it costs $40 more</strong>, and that the organization should say which it believes.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="stock-already-on-hand" class="slide level2">
-<h2>Stock Already on Hand</h2>
-<p>Suppose <span class="math inline">\(I\)</span> belts are already held. The decision is now how many to <strong>add</strong>, and the model is unchanged in a way worth seeing.</p>
-<div class="fragment">
-<p>What the model determines is the quantity that should be <strong>available</strong>, which is stock on hand plus the order. The cost of ending with <span class="math inline">\(S - X\)</span> units left <strong>does not care how they got there</strong>.</p>
-<p><span class="math display">\[
-S^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right), \qquad Q^{*} = (S^{*} - I)^{+}
-\]</span></p>
-</div>
-<div class="fragment">
-<p>With <span class="math inline">\(S^{*} = 475.18\)</span> and 120 on hand, order <strong>355</strong>. With 600 on hand, order <strong>zero</strong>, and the distributor is over-stocked before it begins.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>This is the first appearance of the <strong>order-up-to level</strong>, a structure the rest of the course uses constantly. The truncation at zero matters: a newsvendor cannot sell stock back.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="when-the-model-refuses" class="slide level2">
-<h2>When the Model Refuses</h2>
-<p>The ratio requires <span class="math inline">\(c_{o} &gt; 0\)</span> and <span class="math inline">\(c_{u} &gt; 0\)</span>, and <strong>both failures are informative</strong>.</p>
-<div class="fragment">
-<p><strong>If <span class="math inline">\(c_{u} \le 0\)</span>:</strong> no penalty for being short, so the answer is to order nothing. That is correct, and it usually means the problem was stated wrongly. An item nobody loses anything by running out of is an item nobody should stock.</p>
-</div>
-<div class="fragment">
-<p><strong>If <span class="math inline">\(c_{o} \le 0\)</span>:</strong> salvage meets or beats purchase cost, so the answer is to order <strong>without limit</strong>. Also correct, also a mis-stated problem.</p>
-</div>
-<div class="fragment">
+<p>A penalty under half the selling price moved the order by 37 belts, 7.8%.</p>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>An unbounded answer is the model reporting that you have described a situation <strong>with no downside</strong>.</p>
-<p>The right response is to find the cost you left out.</p>
+<p><span class="math inline">\(\pi\)</span> is the parameter no ledger contains. Report the decision as: 475 belts if a stockout costs only the margin, 512 if it costs $40 more, and the organization should say which it believes.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>z = 0.4988 is the standard normal quantile at 0.6911. The penalty is the one from the cost-estimation chapter, the hardest parameter to defend.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="is-it-really-a-single-period" class="slide level2">
-<h2>Is It Really a Single Period?</h2>
-<p>The strongest assumption is the one in the title: <strong>leftover stock must have no value after the period</strong>.</p>
-<div class="fragment">
-<p>Exactly true for a perishable item, and for a final buy before a product is withdrawn.</p>
-</div>
-<div class="fragment">
-<p><strong>False for most inventory.</strong> A belt left over in an ordinary week is a belt available next week, worth its purchase cost less one week of holding.</p>
-</div>
-<div class="fragment">
-<p>Applying the newsvendor model there charges the <strong>whole value of the unit</strong> against a decision that costs only a week of carrying, so the order comes out <strong>far too small</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The test: <strong>what is a leftover unit worth at the end of the period?</strong></p>
-<p>Its scrap value, and this is a newsvendor problem. Nearly what you paid, and it is not.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-exact-model-for-the-belt" class="slide level2">
-<h2>The Exact Model for the Belt</h2>
-<p>The staircase rule applies to the belt too, and here it can be applied <strong>exactly</strong>.</p>
-<div class="fragment">
-<p>A sum of independent negative binomials sharing <span class="math inline">\(p\)</span> is negative binomial with the same <span class="math inline">\(p\)</span> and the numbers of successes <strong>added</strong>. So the fitted weekly model gives the fourteen-week distribution with no approximation at all:</p>
+<section id="stock-already-on-hand" class="slide level2">
+<h2>Stock Already on Hand</h2>
+<p>With <span class="math inline">\(I\)</span> belts already held, the model determines the quantity that should be <strong>available</strong>: the order-up-to level <span class="math inline">\(S^{*}\)</span>. The cost of ending with <span class="math inline">\(S - X\)</span> units does not care how they got there:</p>
 <p><span class="math display">\[
-\mathit{NB}(\hat{p} = 0.054222,\; 14\hat{r} = 26.6798)
+S^{*} = F^{-1}\!\left(\frac{c_u}{c_u + c_o}\right), \qquad Q^{*} = \left(S^{*} - I\right)^{+}
 \]</span></p>
-</div>
-<div class="fragment">
-<p>Walking it, <span class="math inline">\(F(468) = 0.5392\)</span> is short of the ratio and <span class="math inline">\(F(469) = 0.5434\)</span> clears it.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Already on hand</th>
+<th style="text-align: right;"><span class="math inline">\(S^{*}\)</span></th>
+<th style="text-align: right;">Order</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">475.18</td>
+<td style="text-align: right;">475</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">475.18</td>
+<td style="text-align: right;"><span class="math inline">\(475.18 - 120 = 355.18 \to\)</span> <strong>355</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">475.18</td>
+<td style="text-align: right;"><strong>0</strong>: over-stocked before it begins</td>
+</tr>
+</tbody>
+</table>
+<p>The truncation at zero matters: a newsvendor cannot sell stock back.</p>
+<p>This is the first appearance of a structure the rest of the book uses constantly: chapter 8’s order-up-to policies are this idea with a trigger attached.</p>
+<aside class="notes">
+<p>The (R, S) policy of periodic review builds its rule on an order-up-to level; the (s, S) policy is the same idea with a reorder point. Both trace to this slide.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="when-the-model-refuses-and-is-it-really-one-period" class="slide level2">
+<h2>When the Model Refuses, and Is It Really One Period?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>If <span class="math inline">\(c_u \le 0\)</span></strong> the ratio is zero or negative: order nothing. Correct, and usually a mis-stated problem: an item nobody loses by running out of is one nobody should stock.</p>
+<p><strong>If <span class="math inline">\(c_o \le 0\)</span></strong>, salvage at least the purchase cost, the ratio is one or more: order without limit. Also correct, and also a sign of a mis-statement: a unit that can always be disposed of for what it cost carries no risk. <strong>Find the cost you left out.</strong></p>
+</div><div class="column" style="width:50%;">
+<p>The strongest assumption is in the title: leftover stock has no value after the period. Exactly true for a newspaper, a flu vaccine, the belt’s final buy. False for most inventory, where a leftover is available next week.</p>
+<div title="The test">
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
+<p><strong>The test</strong></p>
+</div>
 <div class="callout-content">
-<p>So the exact answer is <strong>469 belts</strong>, against the normal’s 475.</p>
-<p>Six belts apart, and we priced that gap at <strong>0.19%</strong> last session. It is the number the simulation below is checked against.</p>
+<p><strong>What is a leftover unit worth at the end of the period?</strong> Its scrap value: a newsvendor problem. Nearly what you paid: not one, and chapter 8 is where to go.</p>
 </div>
 </div>
 </div>
 </div>
+</div></div>
+<aside class="notes">
+<p>Applying the newsvendor to an ordinary weekly item charges the whole value of the unit against a decision that costs only a week of carrying, so the order comes out far too small.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="estimating-the-answer-by-simulation" class="slide level2">
 <h2>Estimating the Answer by Simulation</h2>
-<p>Everything so far has been a formula. Now compute the same answer by <strong>sampling</strong>.</p>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The order matters. The formula already gives the <strong>exact</strong> answer, so simulating it proves nothing about the belt.</p>
-<p>What it proves is that <strong>the simulation is right</strong>, and that is worth having before the simulation is pointed at a problem where no formula exists.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Sample from the <strong>fitted</strong> model, not from the normal approximation. There is no reason to hand a simulation an approximation, and sampling counts removes the truncation at zero a normal would have needed.</p>
-</div>
-</section>
-<section id="the-model-is-four-lines" class="slide level2">
-<h2>The Model Is Four Lines</h2>
+<p>The first simulation in the book. The closed form already gives the belt’s exact answer, so simulating it proves nothing about the belt. <strong>It proves the simulation is right</strong>, which is worth having before pointing it where no formula exists.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb1-1"><a href></a><span class="kw">val</span> <span class="va">demand</span> <span class="op">=</span> NegativeBinomialRV<span class="op">(</span>probOfSuccess <span class="op">=</span> <span class="fl">0.054222</span><span class="op">,</span> numSuccess <span class="op">=</span> <span class="fl">26.6798</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
 <span id="cb1-2"><a href></a><span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;profit at Q&quot;</span><span class="op">)</span></span>
-<span id="cb1-3"><a href></a></span>
-<span id="cb1-4"><a href></a>demand<span class="op">.</span>resetStartStream<span class="op">()</span></span>
-<span id="cb1-5"><a href></a>repeat<span class="op">(</span><span class="dv">100_000</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-6"><a href></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> demand<span class="op">.</span>value</span>
-<span id="cb1-7"><a href></a>    stat<span class="op">.</span>collect<span class="op">(</span>s <span class="op">*</span> minOf<span class="op">(</span>d<span class="op">,</span> q<span class="op">)</span> <span class="op">+</span> u <span class="op">*</span> maxOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> q <span class="op">-</span> d<span class="op">)</span> <span class="op">-</span> c <span class="op">*</span> q<span class="op">)</span></span>
-<span id="cb1-8"><a href></a><span class="op">}</span></span>
-<span id="cb1-9"><a href></a>println<span class="op">(</span><span class="st">&quot;%.2f +/- %.2f&quot;</span><span class="op">.</span>format<span class="op">(</span>stat<span class="op">.</span>average<span class="op">,</span> stat<span class="op">.</span>halfWidth<span class="op">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p>Notice <code>resetStartStream</code>. Running it before each candidate makes every quantity face the <strong>same</strong> hundred thousand demands.</p>
-</div>
-<div class="fragment">
-<p>That is what lets the rows be compared <strong>with one another</strong>, rather than only with the exact answer. It also makes each row reproducible on its own.</p>
-</div>
+<span id="cb1-3"><a href></a>demand<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb1-4"><a href></a>repeat<span class="op">(</span><span class="dv">100_000</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> demand<span class="op">.</span>value</span>
+<span id="cb1-6"><a href></a>    stat<span class="op">.</span>collect<span class="op">(</span>s <span class="op">*</span> minOf<span class="op">(</span>d<span class="op">,</span> q<span class="op">)</span> <span class="op">+</span> u <span class="op">*</span> maxOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> q <span class="op">-</span> d<span class="op">)</span> <span class="op">-</span> c <span class="op">*</span> q<span class="op">)</span></span>
+<span id="cb1-7"><a href></a><span class="op">}</span></span>
+<span id="cb1-8"><a href></a>println<span class="op">(</span><span class="st">&quot;%.2f +/- %.2f&quot;</span><span class="op">.</span>format<span class="op">(</span>stat<span class="op">.</span>average<span class="op">,</span> stat<span class="op">.</span>halfWidth<span class="op">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The model is the profit expression on sampled demand, from the <strong>fitted</strong> negative binomial, not the normal approximation: the simulation samples counts as easily as real numbers. <code>resetStartStream</code> before each candidate makes <strong>every quantity face the same hundred thousand demands</strong>, so rows compare with each other, and each row is reproducible on its own.</p>
+<aside class="notes">
+<p>s, c and u are 95, 50 and 12; q is the candidate quantity. The software session packages this loop as an estimate method priced by the same cost function the exact route uses. Sampling counts removes the truncation at zero a normal would need.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="five-agreements-not-one" class="slide level2">
 <h2>Five Agreements, Not One</h2>
@@ -1471,97 +1494,77 @@ S^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right), \qquad Q^{*} = (S^{*} - 
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p>At <span class="math inline">\(Q^{*} = 469\)</span> the interval is <span class="math inline">\([\$17{,}866.72,\ \$17{,}919.34]\)</span>, and the exact $17,886.06 lies inside it. So does the exact figure in <strong>every other column</strong>.</p>
-</div>
-<div class="fragment">
-<p>Five agreements are far more convincing than one, and they cost nothing extra to report.</p>
-</div>
+<p>At <span class="math inline">\(Q^{*} = 469\)</span> the interval is <span class="math inline">\([\$17{,}866.72, \$17{,}919.34]\)</span>, and the exact $17,886.06 lies inside it, as it does in every column. <strong>Five agreements are more convincing than one, and cost nothing extra.</strong> The simulation peaks at the same candidate, which the common demands make a fair comparison.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>What it has that the formula does not:</strong> every figure carries a half-width. A simulated answer without its interval is a number that is not there.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>What it costs:</strong> the half-width shrinks with the square root of the replications, so ten times the precision costs a hundred times the run. Simulation is not how you solve the newsvendor.</p>
+</div></div>
+<aside class="notes">
+<p>The closed form is the expected profit evaluated on the exact fourteen-week negative binomial. The exact answer took one walk up a distribution function; the estimate took half a million samples and is still uncertain in the third significant figure.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="what-simulation-has-that-the-formula-does-not" class="slide level2">
-<h2>What Simulation Has That the Formula Does Not</h2>
-<p><strong>Every figure carries a half-width.</strong></p>
-<div class="fragment">
-<p>A simulated answer is an <strong>estimate with a standard error</strong>, and reporting one without its interval is reporting a number that is not there.</p>
-</div>
-<div class="fragment">
-<p>The half-width shrinks with the <strong>square root</strong> of the replication count, so ten times the precision costs <strong>a hundred times</strong> the run.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>And notice what it cost. The exact answer took <strong>one walk up a distribution function</strong>.</p>
-<p>The estimate took <strong>half a million samples</strong> and is still uncertain in the third significant figure.</p>
-<p><strong>Simulation is not how you solve the newsvendor problem.</strong></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="when-it-is-worth-it" class="slide level2">
-<h2>When It Is Worth It</h2>
-<p>Simulation earns its place the moment any assumption behind the ratio fails.</p>
-<div class="fragment">
-<p><strong>A distribution with no convenient inverse.</strong> A mixture has no closed-form quantile. The formula needs a search; the simulation does not care.</p>
-</div>
-<div class="fragment">
-<p><strong>A salvage rule that is not linear.</strong> The scrap dealer takes the first 100 belts at $12 and the rest at $4. The derivation breaks; <strong>three lines change</strong> in the simulation.</p>
-</div>
-<div class="fragment">
-<p><strong>A constraint.</strong> A supplier minimum, a case quantity, a shared budget.</p>
-</div>
-<div class="fragment">
-<p><strong>More than one item that interact.</strong> Two products competing for one display, or a substitution rule. There is no formula, and there is an obvious simulation.</p>
-</div>
-</section>
-<section id="the-pattern-behind-all-four" class="slide level2">
-<h2>The Pattern Behind All Four</h2>
-<p>The <strong>policy</strong> stays simple: a single quantity chosen once.</p>
-<div class="fragment">
-<p>What changes is the <strong>cost function</strong>.</p>
-</div>
-<div class="fragment">
+<section id="when-simulation-is-worth-it" class="slide level2">
+<h2>When Simulation Is Worth It</h2>
+<p>Simulation earns its place the moment an assumption behind the critical ratio fails. Four failures are common:</p>
+<ul>
+<li><strong>No convenient inverse.</strong> A mixture has no closed-form quantile; the formula needs a search, the simulation does not care.</li>
+<li><strong>A salvage rule that is not linear.</strong> The scrap dealer takes the first 100 belts at $12 and the rest at $4: <span class="math inline">\(c_o\)</span> is no longer constant, the derivation breaks, and three lines of the simulation change.</li>
+<li><strong>A constraint.</strong> A budget is the easy case, by a multiplier. A supplier minimum or a case quantity makes the order jump, and a search over simulated costs is often the shortest route.</li>
+<li><strong>Items that interact.</strong> Two products sharing one display, or refused demand substituted to another. No formula; an obvious simulation.</li>
+</ul>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>And a cost function is <strong>easier to sample than to integrate</strong>.</p>
+<p>In all four the <strong>policy</strong> stays simple, one quantity chosen once, and what changes is the cost function. A cost function is easier to sample than to integrate.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>The two-tier salvage rule is run in code in the chapter’s software example, next session. Building and running models of systems no formula reaches is the subject of the KSL simulation text, and the final chapter of this course.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="what-we-did-today" class="slide level2">
 <h2>What We Did Today</h2>
-<p><strong>The staircase rule is not an inverse.</strong> It is the smallest quantity whose cumulative probability reaches the ratio, and the gap above it is not an error.</p>
-<div class="fragment">
-<p><strong>Rounding a continuous answer is safe only when one unit is a small fraction of the standard deviation</strong>, and one worked case cost a real $3,800.</p>
-</div>
-<div class="fragment">
-<p><strong>Four extensions change what goes into the ratio, never the ratio itself.</strong></p>
-</div>
-<div class="fragment">
-<p><strong>An unbounded answer is a mis-stated problem</strong>, and the right response is to find the cost you left out.</p>
-</div>
-<div class="fragment">
-<p><strong>Simulation validated against a formula first</strong>, because the agreement is the only thing that licenses pointing it at a problem where no formula exists.</p>
-</div>
+<p><strong>The staircase rule:</strong> the smallest <span class="math inline">\(Q\)</span> whose cumulative probability reaches the ratio. For the transformers, 7, confirmed by the cost column.</p>
+<p><strong>Rounding the normal answer fails when one unit is a large fraction of <span class="math inline">\(\sigma\)</span>:</strong> at a ratio of 0.6, it buys one $3,800 transformer too many.</p>
+<p><strong>Extensions change what goes into the ratio:</strong> a $40 penalty moves the belt to 512; stock on hand gives an order-up-to level.</p>
+<p><strong>The single-period test:</strong> what is a leftover worth at the end of the period?</p>
+<p><strong>Simulation agreed with the closed form at all five quantities,</strong> and is worth its cost only where the formula breaks.</p>
 </section>
 <section id="for-next-time" class="slide level2">
 <h2>For Next Time</h2>
-<p><strong>Read before next session:</strong> the opening of <em>Continuous and Periodic Review Systems</em>.</p>
-<p>The single-period assumption is the one we drop next:</p>
+<p><strong>Read before next session:</strong> <em>Building These Models in a Worksheet</em> and <em>Designing the Software</em>.</p>
+<p>Today’s material was <em>Discrete Demand</em>, <em>Extensions</em> and <em>Estimating the Answer by Simulation</em>.</p>
+<p>Next session:</p>
 <ul>
-<li>Leftover stock is now worth <strong>nearly what you paid</strong>, so the ordering cost comes back</li>
-<li>Demand arrives <strong>continuously</strong>, and the position is watched rather than reviewed</li>
-<li>A <strong>reorder point</strong> and an order quantity, chosen together</li>
-<li>Uncertainty over the <strong>lead time</strong> only, which is the interval where being wrong has consequences</li>
+<li>The five sheets of the workbook, and the cells that carry the mathematics</li>
+<li>Reading the sheets on the final buy, and a scrap offer priced on them</li>
+<li>The software, its two routes that must agree, and a salvage rule no formula takes</li>
 </ul>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -1569,7 +1572,7 @@ S^{*} = F^{-1}\!\left(\frac{c_{u}}{c_{u}+c_{o}}\right), \qquad Q^{*} = (S^{*} - 
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The order-up-to level you saw today is the structure the next several chapters are built on. What changes is what triggers the order.</p>
+<p>Bring the two-tier scrap dealer. The code prices it.</p>
 </div>
 </div>
 </div>

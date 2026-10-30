@@ -1001,148 +1001,43 @@ Manuel D. Rossetti, PhD P.E.
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
-<li>When the storerooms batch too: Axsäter’s exact results, and <strong>where they end</strong></li>
-<li>Counting a storeroom’s orders <strong>from the Poisson table</strong></li>
-<li>Two views of the same count: a random moment, and <strong>one of its own orders</strong></li>
-<li>A second ledger: a batching storeroom and other demand</li>
-<li>The hub’s lead time demand: exact, a <strong>recipe</strong>, and a <strong>shortcut to avoid</strong></li>
-<li>The wait of an <strong>order</strong>, not a unit</li>
-<li>A supplier whose lead time <strong>varies</strong></li>
+<li>Storerooms that batch: Axsäter’s equation (2), and where exactness ends</li>
+<li>Counting a storeroom’s orders in a window, at a random moment and from an order</li>
+<li>A second ledger: a batching storeroom and a hub with other demand</li>
+<li>The hub’s lead time demand, exactly and by a two-moment recipe, and the shortcut to warn against</li>
+<li>The wait of an order, and a supplier whose lead time varies</li>
 </ul>
-<style>
-
-.ledger table td:nth-child(2), .ledger table th:nth-child(2) { min-width: 380px; }
-.ledger table td, .ledger table th { padding: 4px 8px; }
-</style>
 </section>
-<section id="where-deck-1-left-us" class="slide level2">
-<h2>Where Deck 1 Left Us</h2>
-<p>With one-for-one storerooms, <strong>everything was exact</strong>:</p>
-<ul>
-<li>the hub was a chapter 8 location</li>
-<li>its wait was the ready rate at a shorter lead time</li>
-<li>conditioning on the wait matched Axsäter to the last decimal</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Now let the storerooms order <span class="math inline">\(Q_j\)</span> at a time. The hub no longer sees their customers.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="one-storeroom-counted-in-batches" class="slide level2">
-<h2>One Storeroom, Counted in Batches</h2>
-<p>Axsäter counts the hub in storeroom batches: <span class="math inline">\(Q_w\)</span> batches per hub order, reorder point <span class="math inline">\(R_w\)</span> batches.</p>
+<section id="when-the-storerooms-batch-too" class="slide level2">
+<h2>When the Storerooms Batch Too</h2>
+<p>Let one storeroom run <span class="math inline">\((r_j, Q_j)\)</span>, and let the hub order <span class="math inline">\(Q_w\)</span> storeroom batches with a reorder point of <span class="math inline">\(R_w\)</span> batches: <span class="math inline">\(Q_0 = Q_wQ_j\)</span> and <span class="math inline">\(r_0 = R_wQ_j\)</span> units.</p>
+<p>A hub order is <span class="math inline">\(Q_w\)</span> sub-batches. The storeroom that triggered it has just reset to <span class="math inline">\(r_j + Q_j\)</span>, so its next orders come after <span class="math inline">\(Q_j, 2Q_j, \ldots\)</span> further demands: the <span class="math inline">\(i\)</span>th sub-batch is released against system demand <span class="math inline">\(iQ_j\)</span>, and its units fill the storeroom’s <span class="math inline">\((r_j + 1)\)</span>th to <span class="math inline">\((r_j + Q_j)\)</span>th demands. Averaging,</p>
 <p><span class="math display">\[
-Q_0 = Q_w Q_j \text{ units}, \qquad r_0 = R_w Q_j
+C = \frac{1}{Q_wQ_j}\sum_{i=R_w+1}^{R_w+Q_w}\ \sum_{k=r_j+1}^{r_j+Q_j} C(iQ_j, k)
 \]</span></p>
-<div class="fragment">
-<p>The storeroom’s order triggered the hub’s, so its position was <strong>just reset</strong> to <span class="math inline">\(r_j + Q_j\)</span>.</p>
-</div>
-<div class="fragment">
-<p>Its next orders come after exactly <span class="math inline">\(Q_j\)</span>, <span class="math inline">\(2Q_j\)</span>, … further demands.</p>
-</div>
-</section>
-<section id="equation-2-the-move-again" class="slide level2">
-<h2>Equation (2): The Move Again</h2>
-<p>The <span class="math inline">\(i\)</span>th sub-batch is released against system demand <span class="math inline">\(iQ_j\)</span>, and its units fill the storeroom’s <span class="math inline">\((r_j + 1)\)</span>th to <span class="math inline">\((r_j + Q_j)\)</span>th demands.</p>
-<div class="fragment">
+<p><em>Example.</em> Crews draw two a week; <span class="math inline">\(Q_j = 3\)</span>, a week from a hub ordering <span class="math inline">\(Q_w = 2\)</span> batches with a three-week lead time. At <span class="math inline">\((R_w, r_j) = (0, 6)\)</span>:</p>
 <p><span class="math display">\[
-C = \frac{1}{Q_w Q_j}\sum_{i=R_w+1}^{R_w+Q_w}\ \sum_{k=r_j+1}^{r_j+Q_j} C(iQ_j, k)
+C = \frac{(3.6962 + 3.1290 + 3.0011) + (3.1694 + 3.5117 + 3.9591)}{2 \times 3}
+= \frac{20.4665}{6} = \$3.4111 \text{ a week}
 \]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>An average of one-for-one costs, over the hub’s positions <strong>and</strong> the storeroom’s.</p>
-</div>
-</div>
-</div>
-</div>
+<p>the exact optimum, holding 0.52 cutouts at the hub against 4.13 at the storeroom.</p>
+<aside class="notes">
+<p>Axsater counts the hub in batches, and so does this slide where his results are used. The six one-for-one costs are at hub positions 3 and 6 and storeroom positions 7, 8, 9. With one storeroom the hub is little more than a pass-through: stock is worth more a week closer to the crews. Raising R_w to one batch moves 1.5 units to the hub, the best r_j falls to 3, and the cost rises to 3.5354, 3.6% more.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="one-batching-storeroom-behind-the-hub" class="slide level2 smaller">
-<h2>One Batching Storeroom Behind the Hub</h2>
-<p>Crews draw two cutouts a week. The storeroom orders <span class="math inline">\(Q_j = 3\)</span>, a week from a hub that orders <span class="math inline">\(Q_w = 2\)</span> batches (six units) with a three-week lead time.</p>
-<div class="fragment">
-<p>At <span class="math inline">\((R_w, r_j) = (0, 6)\)</span>: hub positions 3 and 6, storeroom positions 7, 8, 9.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: right;"><span class="math inline">\(k = 7\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(k = 8\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(k = 9\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(S_0 = 3\)</span></td>
-<td style="text-align: right;">3.6962</td>
-<td style="text-align: right;">3.1290</td>
-<td style="text-align: right;">3.0011</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(S_0 = 6\)</span></td>
-<td style="text-align: right;">3.1694</td>
-<td style="text-align: right;">3.5117</td>
-<td style="text-align: right;">3.9591</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-C = \frac{20.4665}{2 \times 3} = \$3.4111 \text{ a week}
-\]</span></p>
-</div>
-</section>
-<section id="the-hub-is-nearly-a-pass-through" class="slide level2">
-<h2>The Hub Is Nearly a Pass-Through</h2>
-<p><span class="math inline">\((0, 6)\)</span> is the <strong>exact optimum</strong>, and it holds almost nothing at the hub:</p>
-<div class="fragment">
-<p>0.52 cutouts on hand at the hub, against <strong>4.13</strong> at the storeroom.</p>
-</div>
-<div class="fragment">
-<p>With one storeroom there is nothing to pool, and stock is worth more <strong>a week closer to the crews</strong>.</p>
-</div>
-<div class="fragment">
-<p>Raise the hub’s reorder point to one batch: 1.5 units move to the hub, the best storeroom policy falls to <span class="math inline">\(r_j = 3\)</span>, and the cost rises to $3.5354, <strong>3.6% more</strong>.</p>
-</div>
-</section>
-<section id="several-storerooms" class="slide level2">
-<h2>Several Storerooms</h2>
-<p>With <span class="math inline">\(N\)</span> storerooms, the <span class="math inline">\(i\)</span>th sub-batch is <strong>not</strong> released at a fixed system demand. It depends on where the other storerooms’ positions sit.</p>
-<div class="fragment">
-<p>Axsäter’s <span class="math inline">\(p_{i,j}\)</span>: the chance the <span class="math inline">\(i\)</span>th system demand after a hub order triggers the <span class="math inline">\(j\)</span>th storeroom order.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The triggering storeroom has just reset. <strong>The other <span class="math inline">\(N - 1\)</span> have positions equally likely to sit anywhere in their ranges.</strong> The move, again.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>The recursion is in the software. We need its structure, not its algebra.</p>
-</div>
-</section>
-<section id="where-exactness-ends" class="slide level2 smaller">
-<h2>Where Exactness Ends</h2>
+<section id="several-storerooms-and-where-exactness-ends" class="slide level2">
+<h2>Several Storerooms, and Where Exactness Ends</h2>
+<p>With <span class="math inline">\(N\)</span> identical storerooms the <span class="math inline">\(i\)</span>th sub-batch is not released at a fixed demand. Let <span class="math inline">\(p_{i,j}\)</span> represent the probability that the <span class="math inline">\(i\)</span>th system demand after a hub order triggers the <span class="math inline">\(j\)</span>th storeroom order. The other <span class="math inline">\(N - 1\)</span> storerooms’ positions are <strong>uniformly distributed</strong>: the chapter’s move again.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -1183,100 +1078,59 @@ C = \frac{20.4665}{2 \times 3} = \$3.4111 \text{ a week}
 <td>Axsäter (2000)</td>
 </tr>
 <tr class="even">
-<td>Hub demand as a renewal stream of batches</td>
+<td>The hub’s demand as a renewal stream of batches</td>
 <td>Approximate</td>
 <td>Deuermeyer and Schwarz; Svoronos and Zipkin</td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Every exact row assumes <strong>no other demand at the hub</strong> and <strong>constant lead times</strong>. A real hub has both. That is the rest of this deck.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Notice the footnote to every exact row: constant lead times and <strong>no demand at the hub except the storerooms’</strong>. Those are what a real hub has, and they are the subject of the rest of today.</p>
+<aside class="notes">
+<p>Axsater also offers three approximations; on his problem 4 the exact cost is 17.07 and the three give 15.92, 17.33 and 16.98, the third closest. The recursion for several storerooms is in the software; the chapter gives its structure, not its algebra. Axsater’s recursion is the yardstick: today’s route reaches past the boundary, and where the two overlap they agree exactly.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="orders-in-a-window" class="slide level2">
 <h2>Orders in a Window</h2>
-<p>The hub sees one order of <span class="math inline">\(Q_j\)</span> each time the customers carry the storeroom’s position down through <span class="math inline">\(r_j\)</span>.</p>
-<div class="fragment">
-<p><strong>How many orders fall in a window?</strong></p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The storeroom’s orders are its customers’ demand, <strong>counted in whole batches</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-order-count-law" class="slide level2">
-<h2>The Order-Count Law</h2>
-<p>Let <span class="math inline">\(u \in \{1, \dots, Q_j\}\)</span> be how far the position sits above <span class="math inline">\(r_j\)</span> when the window opens. <span class="math inline">\(D\)</span>: the customers’ demand in the window; <span class="math inline">\(N\)</span>: the orders placed.</p>
-<div class="fragment">
-<p>The first order comes after <span class="math inline">\(u\)</span> units, each later one after <span class="math inline">\(Q_j\)</span> more:</p>
+<p>The hub sees one order of <span class="math inline">\(Q_j\)</span> each time the customers carry the storeroom’s position down through <span class="math inline">\(r_j\)</span>. Let <span class="math inline">\(u\)</span> represent how far the position sits above <span class="math inline">\(r_j\)</span> when a window opens, <span class="math inline">\(D\)</span> the customers’ demand in the window, and <span class="math inline">\(N\)</span> the number of orders.</p>
 <p><span class="math display">\[
-N \ge n \iff D \ge u + (n - 1)Q_j
+\begin{aligned}
+N \ge n &amp;\iff D \ge u + (n-1)Q_j
+  &amp;&amp;\text{first order after } u \text{, each later one after } Q_j\\
+P(N \ge n) &amp;= \frac{1}{Q_j}\sum_{u=1}^{Q_j} P\big(D \ge u + (n-1)Q_j\big)
+  &amp;&amp;u \text{ uniform on } 1, \ldots, Q_j\\
+&amp;= \frac{1}{Q_j}\sum_{y=(n-1)Q_j+1}^{nQ_j} P(D \ge y)
+  &amp;&amp;\text{let } y = u + (n-1)Q_j
+\end{aligned}
 \]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(u\)</span> is uniform on its <span class="math inline">\(Q_j\)</span> values. Average over them:</p>
-<p><span class="math display">\[
-P(N \ge n) = \frac{1}{Q_j}\sum_{y=(n-1)Q_j+1}^{nQ_j} P(D \ge y), \qquad n \ge 1
-\]</span></p>
-</div>
+<p><strong>The storeroom’s orders are its customers’ demand, counted in whole batches.</strong> The chance of at least <span class="math inline">\(n\)</span> orders is the average of <span class="math inline">\(Q_j\)</span> consecutive tail entries: chapter 8’s Poisson table and nothing else.</p>
+<p><em>Two checks.</em> At <span class="math inline">\(Q_j = 1\)</span> it is <span class="math inline">\(P(D \ge n)\)</span>, the case of Part I. And <span class="math inline">\(Q_jE[N] = E[D]\)</span>: on average the storeroom passes up its customers’ demand.</p>
+<aside class="notes">
+<p>In Axsater’s terms, his equation (7) is the same law counted in demands rather than in time; mixing it over a Poisson number of demands gives this one.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="read-it-as-a-sentence" class="slide level2">
-<h2>Read It as a Sentence</h2>
-<p>The chance of at least <span class="math inline">\(n\)</span> orders is <strong>the average of <span class="math inline">\(Q_j\)</span> consecutive entries of the demand’s tail</strong>.</p>
-<div class="fragment">
-<p>With Poisson customers, that is chapter 8’s table <strong>and nothing else</strong>.</p>
-</div>
-<div class="fragment">
-<p>Two checks, both to be run:</p>
-<ul>
-<li>At <span class="math inline">\(Q_j = 1\)</span> it is <span class="math inline">\(P(D \ge n)\)</span>: the hub sees the customers, Part I</li>
-<li><span class="math inline">\(Q_j E[N] = E[D]\)</span>: the storeroom passes up exactly its customers’ demand</li>
-</ul>
-</div>
-</section>
-<section id="seen-from-one-of-its-own-orders" class="slide level2">
-<h2>Seen From One of Its Own Orders</h2>
-<p>A window ending at one of the storeroom’s orders is <strong>not a random moment</strong> for that storeroom.</p>
-<div class="fragment">
-<p>Its position has just reached <span class="math inline">\(r_j\)</span>, so <span class="math inline">\(u\)</span> is <strong>known</strong>, not uniform.</p>
-</div>
-<div class="fragment">
-<p>Let <span class="math inline">\(D&#39;\)</span> be the demand in the window <strong>before</strong> the triggering demand. Still Poisson.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The storeroom’s earlier orders in the window number <span class="math inline">\(\lfloor D&#39;/Q_j \rfloor\)</span>. That is the whole difference, and the order’s wait will need it.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="counting-a-storerooms-orders" class="slide level2 smaller">
+<section id="counting-a-storerooms-orders" class="slide level2">
 <h2>Counting a Storeroom’s Orders</h2>
-<p>Two cutouts a week, <span class="math inline">\(Q_j = 3\)</span>, a three-week window: <span class="math inline">\(D\)</span> is Poisson with mean 6.</p>
-<div class="fragment">
+<p>Crews draw two a week, <span class="math inline">\(Q_j = 3\)</span>. How many orders reach the hub in three weeks? <span class="math inline">\(D\)</span> is Poisson with mean 6.</p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 5%">
@@ -1328,39 +1182,62 @@ P(N \ge n) = \frac{1}{Q_j}\sum_{y=(n-1)Q_j+1}^{nQ_j} P(D \ge y), \qquad n \ge 1
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>Average in threes:</p>
-<p><span class="math display">\[
-P(N \ge 1) = 0.9727,\quad P(N \ge 2) = 0.7060,\quad P(N \ge 3) = 0.2675,\quad P(N \ge 4) = 0.0489
-\]</span></p>
-</div>
-<div class="fragment">
-<p>Difference: <span class="math inline">\(P(N = 0, 1, 2, 3) = 0.0273,\ 0.2667,\ 0.4385,\ 0.2186\)</span>.</p>
-</div>
-</section>
-<section id="check-it" class="slide level2">
-<h2>Check It</h2>
-<p>Carry the small masses for four, five and six orders: 0.0443, 0.0044, 0.0002.</p>
-<div class="fragment">
-<p><span class="math display">\[
-3E[N] = 3(0.2667 + 2 \times 0.4385 + 3 \times 0.2186 + 4 \times 0.0443 + 5 \times 0.0044 + 6 \times 0.0002)
-\]</span></p>
-<p><span class="math display">\[
-= 3(1.9999) = 6.0
-\]</span></p>
-</div>
-<div class="fragment">
-<p>The customers’ mean demand. ✓</p>
-</div>
-</section>
-<section id="the-same-count-seen-from-an-order" class="slide level2">
-<h2>The Same Count, Seen From an Order</h2>
-<p><span class="math inline">\(\lfloor D&#39;/3 \rfloor\)</span> is 0 when <span class="math inline">\(D&#39; \le 2\)</span>, 1 when <span class="math inline">\(3 \le D&#39; \le 5\)</span>, and so on:</p>
+<p>Averaging in threes:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Orders</th>
+<th><span class="math inline">\(n\)</span></th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P(N \ge n)\)</span></td>
+<td style="text-align: right;">0.9727</td>
+<td style="text-align: right;">0.7060</td>
+<td style="text-align: right;">0.2675</td>
+<td style="text-align: right;">0.0489</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P(N = n - 1)\)</span></td>
+<td style="text-align: right;">0.0273</td>
+<td style="text-align: right;">0.2667</td>
+<td style="text-align: right;">0.4385</td>
+<td style="text-align: right;">0.2186</td>
+</tr>
+</tbody>
+</table>
+<p><em>The check.</em> With 0.0443, 0.0044 and 0.0002 for four, five and six orders,</p>
+<p><span class="math display">\[
+3E[N] = 3(0.2667 + 2(0.4385) + 3(0.2186) + 4(0.0443) + 5(0.0044) + 6(0.0002))
+= 3(1.9999) = 6.0
+\]</span></p>
+<p>the customers’ mean demand. The customers’ demand runs from 0 to a dozen; the hub sees 0, 3, 6, 9 or 12, most likely 6. <strong>That is the lumpiness, and the tightly bunched count is the regularity.</strong></p>
+<aside class="notes">
+<p>P(D &gt;= y) = 1 - G(y - 1) from the Poisson table at mean 6. Differencing the first row gives the second: P(N = 0) = 1 - 0.9727, P(N = 1) = 0.9727 - 0.7060, and so on.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="seen-from-one-of-its-own-orders" class="slide level2">
+<h2>Seen From One of Its Own Orders</h2>
+<p>A window that <strong>ends at one of the storeroom’s orders</strong> is not a random moment for that storeroom. Its position has just reached <span class="math inline">\(r_j\)</span>, so <span class="math inline">\(u\)</span> is known, not uniform.</p>
+<p>Let <span class="math inline">\(D&#39;\)</span> represent the customers’ demand in the window before the demand that triggered the order. It is still Poisson, by independent increments, and the storeroom’s <strong>earlier</strong> orders in the window number <span class="math inline">\(\lfloor D&#39;/Q_j \rfloor\)</span>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Earlier orders</th>
 <th style="text-align: right;">0</th>
 <th style="text-align: right;">1</th>
 <th style="text-align: right;">2</th>
@@ -1369,509 +1246,807 @@ P(N \ge 1) = 0.9727,\quad P(N \ge 2) = 0.7060,\quad P(N \ge 3) = 0.2675,\quad P(
 </thead>
 <tbody>
 <tr class="odd">
-<td>At a random moment</td>
+<td>Range of <span class="math inline">\(D&#39;\)</span></td>
+<td style="text-align: right;">0 to 2</td>
+<td style="text-align: right;">3 to 5</td>
+<td style="text-align: right;">6 to 8</td>
+<td style="text-align: right;">9 to 11</td>
+</tr>
+<tr class="even">
+<td>Probability</td>
+<td style="text-align: right;"><span class="math inline">\(G(2) = 0.0620\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.3837\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.4015\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0.1327\)</span></td>
+</tr>
+<tr class="odd">
+<td>At a random moment, <span class="math inline">\(P(N = n)\)</span></td>
 <td style="text-align: right;">0.0273</td>
 <td style="text-align: right;">0.2667</td>
 <td style="text-align: right;">0.4385</td>
 <td style="text-align: right;">0.2186</td>
 </tr>
-<tr class="even">
-<td>Seen from an order</td>
-<td style="text-align: right;">0.0620</td>
-<td style="text-align: right;">0.3837</td>
-<td style="text-align: right;">0.4015</td>
-<td style="text-align: right;">0.1327</td>
-</tr>
 </tbody>
 </table>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Much more weight on few orders.</strong> The storeroom has just ordered: its position is at the top of its range, the farthest it can be from its next order.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Notice how much more weight sits on few orders. The storeroom has just ordered, so its position is at the top of its range, the farthest it can be from its next order.</p>
+<aside class="notes">
+<p>That is the whole difference between the two views, and the wait of an order later today needs it. The masses are G(2), G(5) - G(2), G(8) - G(5), G(11) - G(8) at mean 6.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="lumpy-and-regular" class="slide level2">
-<h2>Lumpy, and Regular</h2>
-<p>The customers’ demand over three weeks runs from 0 to a dozen or more.</p>
-<div class="fragment">
-<p>The hub sees <strong>0, 3, 6, 9 or 12</strong> units, with two orders, six units, the most likely.</p>
-</div>
-<div class="fragment">
-<p>That is the <strong>lumpiness</strong>.</p>
-</div>
-<div class="fragment">
-<p>And the count bunched tightly around two is the <strong>regularity</strong>.</p>
-</div>
-</section>
-<section id="a-second-ledger" class="slide level2 smaller">
-<h2>A Second Ledger</h2>
-<p><strong>Hub:</strong> <span class="math inline">\((r_0, Q_0) = (1, 6)\)</span>, <span class="math inline">\(L_0 = 3\)</span> weeks, starts with 7.</p>
-<p><strong>Storeroom:</strong> <span class="math inline">\((r_j, Q_j) = (1, 3)\)</span>, a week away, starts with 4.</p>
-<div class="fragment">
-<p>Crew failures in weeks 1, 3, 5, 7, 8, 9, 9, 10, 11.</p>
-<p>One unit of <strong>other demand</strong> reaches the hub in each of weeks 2 and 4.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Same columns, same posting rule, same two-way position check as the first ledger.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="weeks-1-to-6" class="slide level2 smaller">
-<h2>Weeks 1 to 6</h2>
-<div class="ledger">
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 7%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
+<section id="a-second-ledger-weeks-1-to-8" class="slide level2">
+<h2>A Second Ledger: Weeks 1 to 8</h2>
+<p>Hub <span class="math inline">\((r_0, Q_0) = (1, 6)\)</span>, <span class="math inline">\(L_0 = 3\)</span>, starts with 7. Storeroom <span class="math inline">\((r_j, Q_j) = (1, 3)\)</span>, a week away, starts with 4. Failures in weeks 1, 3, 5, 7, 8, 9, 9, 10, 11; one unit of <strong>other demand at the hub</strong> in weeks 2 and 4.</p>
+<table style="font-size:0.78em; margin-top:0.1em; max-height:none;">
 <thead>
-<tr class="header">
-<th style="text-align: right;">Week</th>
-<th>Event</th>
-<th style="text-align: right;"><span class="math inline">\(I_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}_j\)</span></th>
-<th style="text-align: right;">In transit</th>
-<th style="text-align: right;"><span class="math inline">\(I_0\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B_0\)</span></th>
-<th style="text-align: right;">On order</th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}_0\)</span></th>
+<tr>
+<th>
+Week
+</th>
+<th style="text-align:left">
+Event
+</th>
+<th>
+<span class="math inline">\(I_j\)</span>
+</th>
+<th>
+<span class="math inline">\(B_j\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IP}_j\)</span>
+</th>
+<th>
+In transit
+</th>
+<th>
+<span class="math inline">\(I_0\)</span>
+</th>
+<th>
+<span class="math inline">\(B_0\)</span>
+</th>
+<th>
+On order
+</th>
+<th>
+<span class="math inline">\(\mathit{IP}_0\)</span>
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">1</td>
-<td>failure</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">7</td>
+<tr>
+<td>
+0
+</td>
+<td style="text-align:left">
+start
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+7
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+7
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td>other demand at the hub</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
+<tr class="fragment">
+<td>
+1
+</td>
+<td style="text-align:left">
+failure
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+7
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+7
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td>failure</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
+<tr class="fragment">
+<td>
+2
+</td>
+<td style="text-align:left">
+other demand at the hub
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+6
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+6
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td>other demand at the hub</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<tr class="fragment">
+<td>
+3
+</td>
+<td style="text-align:left">
+failure
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+6
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+6
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td>failure, order of 3 to hub, shipped</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
+<tr class="fragment">
+<td>
+4
+</td>
+<td style="text-align:left">
+other demand at the hub
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td>storeroom receives 3</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
+<tr class="fragment">
+<td>
+5
+</td>
+<td style="text-align:left">
+failure, <b>order of 3 to hub</b>, shipped
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+3
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td style="text-align:left">
+storeroom receives 3
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td style="text-align:left">
+failure
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td style="text-align:left">
+failure
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>Failures in weeks 1 and 3 <strong>never reach the hub</strong>. Its position moves only for its own customers.</p>
-</div>
-<div class="fragment">
-<p>Week 5: the storeroom hits its reorder point, and <strong>an order of 3 arrives at the hub at once</strong>.</p>
-</div>
+<aside class="notes">
+<p>Weeks 1 to 4: the failures take the storeroom from four to two, and they do not reach the hub at all. The hub’s position moves only in weeks 2 and 4, when its own customers take a unit. Week 5: the storeroom’s position reaches its reorder point and an order of 3 arrives at the hub at once, the moment the hub stops seeing customer demand. The hub has five, ships three, and its position falls to 2. Weeks 7 and 8: two failures the hub never sees.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="week-9-ship-two-owe-one" class="slide level2">
-<h2>Week 9: Ship Two, Owe One</h2>
-<p>Two failures in weeks 7 and 8; the hub sees neither.</p>
-<div class="fragment">
-<p>Week 9: the storeroom orders three. The hub has two. <strong>It ships two and owes one.</strong></p>
-</div>
-<div class="fragment">
-<p>The order of 3 takes the hub’s position from 2 to <span class="math inline">\(-1\)</span>, <strong>two below</strong> its reorder point. The hub orders six, due week 12; position 5.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Undershoot.</strong> One order of three carried the position past <span class="math inline">\(r_0\)</span> in a single step, exactly what a lumpy demand did in chapter 8.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="weeks-7-to-10" class="slide level2 smaller">
-<h2>Weeks 7 to 10</h2>
-<div class="ledger">
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 7%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
+<section id="the-second-ledger-weeks-9-to-13" class="slide level2">
+<h2>The Second Ledger: Weeks 9 to 13</h2>
+<table style="font-size:0.78em; margin-top:0.1em; max-height:none;">
 <thead>
-<tr class="header">
-<th style="text-align: right;">Week</th>
-<th>Event</th>
-<th style="text-align: right;"><span class="math inline">\(I_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}_j\)</span></th>
-<th style="text-align: right;">In transit</th>
-<th style="text-align: right;"><span class="math inline">\(I_0\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B_0\)</span></th>
-<th style="text-align: right;">On order</th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}_0\)</span></th>
+<tr>
+<th>
+Week
+</th>
+<th style="text-align:left">
+Event
+</th>
+<th>
+<span class="math inline">\(I_j\)</span>
+</th>
+<th>
+<span class="math inline">\(B_j\)</span>
+</th>
+<th>
+<span class="math inline">\(\mathit{IP}_j\)</span>
+</th>
+<th>
+In transit
+</th>
+<th>
+<span class="math inline">\(I_0\)</span>
+</th>
+<th>
+<span class="math inline">\(B_0\)</span>
+</th>
+<th>
+On order
+</th>
+<th>
+<span class="math inline">\(\mathit{IP}_0\)</span>
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">7</td>
-<td>failure</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
+<tr>
+<td>
+8
+</td>
+<td style="text-align:left">
+(carried from the last slide)
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">8</td>
-<td>failure</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
+<tr class="fragment">
+<td>
+9
+</td>
+<td style="text-align:left">
+failure, order of 3: <b>2 shipped, 1 backordered</b>, hub orders 6
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+5
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">9</td>
-<td>failure, order of 3: 2 shipped, 1 backordered, hub orders 6</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
+<tr class="fragment">
+<td>
+9
+</td>
+<td style="text-align:left">
+failure
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+5
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">9</td>
-<td>failure</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
+<tr class="fragment">
+<td>
+10
+</td>
+<td style="text-align:left">
+storeroom receives 2
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+5
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">10</td>
-<td>storeroom receives 2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
+<tr class="fragment">
+<td>
+10
+</td>
+<td style="text-align:left">
+failure
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+5
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">10</td>
-<td>failure</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">5</td>
+<tr class="fragment">
+<td>
+11
+</td>
+<td style="text-align:left">
+failure, order of 3 to hub, backordered
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+6
+</td>
+<td>
+2
+</td>
+</tr>
+<tr class="fragment">
+<td>
+12
+</td>
+<td style="text-align:left">
+hub receives 6, <span class="fragment"><b>completes the week-9 order</b>, fills week 11</span>
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+4
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+</tr>
+<tr class="fragment">
+<td>
+13
+</td>
+<td style="text-align:left">
+storeroom receives 4
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>Check week 9’s first row at the hub: <span class="math inline">\(0 + 6 - 1 = 5\)</span>. ✓</p>
-</div>
+<aside class="notes">
+<p>Week 9: the storeroom orders three and the hub has two on its shelf: it ships two and owes one. The order takes the hub’s position from 2 to -1, two below its reorder point, in one step: the undershoot of lumpy demand from chapter 8. The hub orders six and its position rises to 5. Week 11: the whole order waits; the hub owes four. Week 12, the payoff row: ask what the delivery does before showing it. The week-9 order’s last unit is first in line, then the three of week 11, and two go on the shelf. The week-9 order is complete only now: two thirds of it left at once, and it still waited three weeks.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="week-12-the-payoff-row" class="slide level2 smaller">
-<h2>Week 12: The Payoff Row</h2>
-<p>Week 11: the storeroom orders three more. The hub’s shelf is empty, so <strong>the whole order waits</strong>; the hub owes four.</p>
-<div class="fragment">
-<div class="ledger">
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 7%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Week</th>
-<th>Event</th>
-<th style="text-align: right;"><span class="math inline">\(I_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B_j\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}_j\)</span></th>
-<th style="text-align: right;">In transit</th>
-<th style="text-align: right;"><span class="math inline">\(I_0\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(B_0\)</span></th>
-<th style="text-align: right;">On order</th>
-<th style="text-align: right;"><span class="math inline">\(\mathit{IP}_0\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">11</td>
-<td>failure, order of 3 to hub, backordered</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td>hub receives 6, completes the week-9 order, fills week 11’s</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td>storeroom receives 4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>The week-9 order is complete only now.</strong> Two thirds of it left at once, and it still waited three weeks: an order is filled when its <strong>last</strong> unit is.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-count-checked" class="slide level2">
-<h2>The Count, Checked</h2>
-<p>The storeroom ordered in weeks 5, 9 and 11.</p>
-<div class="fragment">
-<p>Weeks 9 to 11 hold <strong>two</strong> orders. Weeks 6 to 8 hold <strong>none</strong>.</p>
-</div>
-<div class="fragment">
-<p>Both are values the order-count law gives appreciable probability.</p>
-</div>
-<div class="fragment">
-<p>The second is the regularity: <strong>a storeroom that has just ordered does not order again for a while.</strong></p>
-</div>
+<section id="what-the-second-ledger-shows" class="slide level2">
+<h2>What the Second Ledger Shows</h2>
+<p><strong>Customer failures can be invisible to the hub.</strong> Weeks 1, 3, 7 and 8 left its position untouched.</p>
+<p><strong>An order arrives all at once,</strong> and can carry the hub’s position past <span class="math inline">\(r_0\)</span> in a single step.</p>
+<p><strong>An order is filled when its last unit is.</strong> The week-9 order shipped two units at once and its third three weeks later; it waited three weeks.</p>
+<p><em>The count, checked.</em> The storeroom ordered in weeks 5, 9 and 11, so weeks 9 to 11 hold two orders and weeks 6 to 8 hold none. Both have appreciable probability in the count we just computed, and the second is the regularity: <strong>a storeroom that has just ordered does not order again for a while.</strong></p>
+<aside class="notes">
+<p>The hub identity, IP_0 = I_0 + on order - B_0, holds on every row of both slides; check two or three rows with the class.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="the-hub-with-other-demand" class="slide level2">
 <h2>The Hub With Other Demand</h2>
-<p><span class="math inline">\(X_o(\ell)\)</span>: other demand in a window, Poisson with mean <span class="math inline">\(\lambda_o \ell\)</span>. <span class="math inline">\(N_j(\ell)\)</span>: storeroom <span class="math inline">\(j\)</span>’s orders, by the order-count law.</p>
+<p>Let <span class="math inline">\(X_o(\ell)\)</span> represent the hub’s own customers’ demand in <span class="math inline">\(\ell\)</span> weeks, Poisson with mean <span class="math inline">\(\lambda_o\ell\)</span>, and <span class="math inline">\(N_j(\ell)\)</span> count storeroom <span class="math inline">\(j\)</span>’s orders. Then</p>
 <p><span class="math display">\[
-D_0(\ell) = X_o(\ell) + \sum_j Q_j N_j(\ell)
+D_0(\ell) = X_o(\ell) + \sum_j Q_jN_j(\ell)
 \]</span></p>
-<div class="fragment">
-<p>The terms are <strong>independent</strong>: each storeroom’s position is uniform and independent of every other’s.</p>
-</div>
-<div class="fragment">
-<p>A <strong>convolution</strong>: a short table by hand, a worksheet column otherwise. Then chapter 8’s formulas, unchanged.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>Nothing needs the storerooms to be identical. <strong>Each adds one term.</strong></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="a-caution-on-the-hubs-position" class="slide level2">
-<h2>A Caution on the Hub’s Position</h2>
-<p>The hub’s position is uniform on <span class="math inline">\(r_0 + 1, \dots, r_0 + Q_0\)</span> <strong>provided some of its demand comes one unit at a time</strong>.</p>
-<div class="fragment">
-<p>When its only demand is storeroom orders of a common size <span class="math inline">\(Q_j\)</span>, the position moves in steps of <span class="math inline">\(Q_j\)</span>.</p>
-</div>
-<div class="fragment">
-<p>It is then uniform on the <strong>multiples of <span class="math inline">\(Q_j\)</span></strong> in that band instead.</p>
-</div>
-<div class="fragment">
-<p>That is why Axsäter counts the hub in batches.</p>
-</div>
-</section>
-<section id="a-two-moment-recipe" class="slide level2">
-<h2>A Two-Moment Recipe</h2>
-<p>The mean is <span class="math inline">\(\lambda_0 \ell\)</span>. For the variance, write the orders as demand plus the change in position:</p>
-<p><span class="math display">\[
-Q_j N_j = D + U_\ell - U_0
-\]</span></p>
-<div class="fragment">
-<p>Over a long window, <span class="math inline">\(U_0\)</span> and <span class="math inline">\(U_\ell\)</span> are independent and uniform on <span class="math inline">\(1, \dots, Q_j\)</span>, each with variance <span class="math inline">\((Q_j^{2} - 1)/12\)</span>.</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-\mathit{Var}[D_0(\ell)] \approx \lambda_o \ell + \sum_j \Big(\lambda_j \ell + \frac{Q_j^{2}}{6}\Big)
-\]</span></p>
-</div>
-<div class="fragment">
-<p>The exact long-window term is <span class="math inline">\((Q_j^{2} - 1)/6\)</span>. The recipe errs by a sixth of a unit squared, <strong>on the safe side</strong>.</p>
-</div>
-</section>
-<section id="the-shortcut-to-warn-against" class="slide level2">
-<h2>The Shortcut to Warn Against</h2>
-<p>Treat each storeroom’s orders as <strong>Poisson arrivals of <span class="math inline">\(Q_j\)</span> units</strong> at rate <span class="math inline">\(\lambda_j/Q_j\)</span>.</p>
-<div class="fragment">
-<p>Its variance term becomes <span class="math inline">\(\lambda_j Q_j \ell\)</span>: <strong><span class="math inline">\(Q_j\)</span> times</strong> its customers’ own.</p>
-</div>
-<div class="fragment">
+<p>and the terms are independent, since each storeroom’s position is uniform and independent of every other’s. Its distribution is a <strong>convolution</strong>: a short table by hand, a worksheet column otherwise. Every hub measure then follows from chapter 8 unchanged. The storerooms need not be identical; each adds one term.</p>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>The storeroom’s orders are not random in that way. It orders <strong>once per <span class="math inline">\(Q_j\)</span> units of demand</strong>, nearly on a schedule. The shortcut charges the hub for a randomness that is not there.</p>
+<p>The hub’s position is uniform on <span class="math inline">\(r_0 + 1, \ldots, r_0 + Q_0\)</span> provided some of its demand comes one unit at a time. If its only demand is storeroom orders of a common size <span class="math inline">\(Q_j\)</span>, the position moves in steps of <span class="math inline">\(Q_j\)</span>, which is why Axsäter counts the hub in batches.</p>
 </div>
 </div>
 </div>
-</div>
+<aside class="notes">
+<p>This is the step that reaches past Axsater’s boundary: other demand at the hub, and storerooms that differ, each just one more term in the convolution.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="a-hub-with-other-demand-the-setting" class="slide level2 smaller">
-<h2>A Hub With Other Demand: The Setting</h2>
-<p>The hub serves two cutouts a week of its own customers and the storeroom we just counted (<span class="math inline">\(\lambda_j = 2\)</span>, <span class="math inline">\(Q_j = 3\)</span>, <span class="math inline">\(r_j = 3\)</span>). The hub runs <span class="math inline">\(Q_0 = 8\)</span>, <span class="math inline">\(L_0 = 3\)</span>.</p>
-<div class="fragment">
-<p><em>What is stocked?</em> The cutout, at the hub and one storeroom.</p>
-<p><em>Demand?</em> Poisson, two a week at each, one unit per customer.</p>
-<p><em>Review?</em> Continuous. <em>Replenishment?</em> Storeroom at <span class="math inline">\(r_j = 3\)</span> for 3; hub at <span class="math inline">\(r_0\)</span> for 8.</p>
-<p><em>Unmet demand?</em> Backordered at both levels.</p>
-<p><em>Costs?</em> For this example the hub is priced alone, <span class="math inline">\(h\)</span> and <span class="math inline">\(b\)</span> per week on its own on-hand and backorders.</p>
+<section id="a-two-moment-recipe-and-a-shortcut-to-warn-against" class="slide level2">
+<h2>A Two-Moment Recipe, and a Shortcut to Warn Against</h2>
+<p>Let <span class="math inline">\(U_0\)</span> and <span class="math inline">\(U_\ell\)</span> represent how far the storeroom’s position sits above <span class="math inline">\(r_j\)</span> at the start and end of the window. Then:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Q_jN_j &amp;= D + U_\ell - U_0
+  &amp;&amp;\text{units ordered} = \text{demand} + \text{change in position}\\
+\mathit{Var}[Q_jN_j] &amp;\approx \lambda_j\ell + 2\cdot\frac{Q_j^{2} - 1}{12}
+  = \lambda_j\ell + \frac{Q_j^{2} - 1}{6}
+  &amp;&amp;U_0, U_\ell \text{ independent, uniform on } 1, \ldots, Q_j\\
+\mathit{Var}[D_0(\ell)] &amp;\approx \lambda_o\ell + \sum_j\Big(\lambda_j\ell + \frac{Q_j^{2}}{6}\Big)
+  &amp;&amp;\text{the recipe: continuous version}
+\end{aligned}
+\]</span></p>
+<p>The recipe’s <span class="math inline">\(Q_j^{2}/6\)</span> errs by a sixth of a unit squared, on the safe side.</p>
+<div title="The shortcut">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<p><strong>The shortcut</strong></p>
+</div>
+<div class="callout-content">
+<p>Treat each storeroom’s orders as Poisson arrivals of <span class="math inline">\(Q_j\)</span> units at rate <span class="math inline">\(\lambda_j/Q_j\)</span>. That gives a variance of <span class="math inline">\(\lambda_jQ_j\ell\)</span>, <strong><span class="math inline">\(Q_j\)</span> times its customers’ own.</strong> The storeroom orders once per <span class="math inline">\(Q_j\)</span> units of demand, nearly on a schedule, and the shortcut charges the hub for a randomness that is not there.</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Over a long window the two positions are independent and uniform, with variance (Q^2 - 1)/12 each. The continuous version is Q^2 times the average of x(1 - x) for x uniform on [0, 1], which is Q^2/6.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="three-variances-three-policies" class="slide level2 smaller">
-<h2>Three Variances, Three Policies</h2>
-<p><span class="math inline">\(D_0(3) = X_o(3) + 3N(3)\)</span>: Poisson with mean 6, plus 0, 3, 6, 9 or 12.</p>
-<div class="fragment">
+<section id="a-hub-with-other-demand-the-example" class="slide level2">
+<h2>A Hub With Other Demand: the Example</h2>
+<p>The hub serves two cutouts a week of its own and the storeroom of the order count (<span class="math inline">\(\lambda_j = 2\)</span>, <span class="math inline">\(Q_j = 3\)</span>); <span class="math inline">\(Q_0 = 8\)</span>, <span class="math inline">\(L_0 = 3\)</span> weeks. <span class="math inline">\(D_0(3) = X_o(3) + 3N(3)\)</span>, with <span class="math inline">\(X_o(3)\)</span> Poisson, mean 6.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
+<th>Model of <span class="math inline">\(D_0(3)\)</span></th>
 <th style="text-align: right;">Variance</th>
-<th style="text-align: right;">Reorder point chosen</th>
-<th style="text-align: right;">True cost a week</th>
+<th style="text-align: right;">Best <span class="math inline">\(r_0\)</span></th>
+<th style="text-align: right;">Cost a week, priced exactly</th>
 </tr>
 </thead>
 <tbody>
@@ -1882,166 +2057,112 @@ Q_j N_j = D + U_\ell - U_0
 <td style="text-align: right;">$4.4054</td>
 </tr>
 <tr class="even">
-<td>Recipe: <span class="math inline">\(6 + 6 + 9/6\)</span></td>
-<td style="text-align: right;">13.5</td>
+<td>Two-moment recipe</td>
+<td style="text-align: right;"><span class="math inline">\(6 + 6 + 9/6 = 13.5\)</span></td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">$4.4054</td>
 </tr>
 <tr class="odd">
-<td>Shortcut: <span class="math inline">\(6 + 2 \times 3 \times 3\)</span></td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">$4.6533</td>
+<td>Shortcut</td>
+<td style="text-align: right;"><span class="math inline">\(6 + 2(3)(3) = 24\)</span></td>
+<td style="text-align: right;">?</td>
+<td style="text-align: right;">?</td>
 </tr>
 </tbody>
 </table>
-</div>
+<p>Which reorder point does the shortcut choose, and what does it cost?</p>
 <div class="fragment">
-<p>Check: mean <span class="math inline">\(4 \times 3 = 12\)</span>. The exact variance exceeds the customers’ 12 by 1.333, which is <span class="math inline">\((3^{2} - 1)/6\)</span>. ✓</p>
-</div>
-</section>
-<section id="read-the-table" class="slide level2">
-<h2>Read the Table</h2>
-<p>The shortcut believes the hub faces <strong>nearly twice</strong> the variance it does.</p>
-<div class="fragment">
-<p>It holds two cutouts too many and costs <strong>5.6% more</strong>.</p>
-</div>
-<div class="fragment">
-<p>The recipe is within a sixth of a unit squared and chooses <strong>the same reorder point</strong> as the exact convolution.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The shortcut is not eccentric. It is the natural reading of “orders of <span class="math inline">\(Q_j\)</span> at rate <span class="math inline">\(\lambda_j/Q_j\)</span>”. <strong>Check for it in any planning system.</strong></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="where-the-recipe-stops" class="slide level2">
-<h2>Where the Recipe Stops</h2>
-<p>At <span class="math inline">\(Q_j = 1\)</span> the convolution is Poisson with mean 12: the hub of Part I. ✓</p>
-<div class="fragment">
-<p>The recipe’s error stays bounded as the window <strong>grows</strong>.</p>
-</div>
-<div class="fragment">
-<p>Not as it <strong>shrinks</strong>: over a window holding one order or none, the rounding term is far from its long-window value.</p>
-</div>
-<div class="fragment">
-<p>Short windows: <strong>use the convolution</strong>.</p>
+<p><strong>15, at $4.6533 a week.</strong> It believes the hub faces nearly twice the variance it does, holds two cutouts too many, and costs <strong>5.6% more</strong>.</p>
+<p><em>The check.</em> The mean is <span class="math inline">\(\lambda_0L_0 = 4 \times 3 = 12\)</span>, and the exact variance exceeds the customers’ <span class="math inline">\(6 + 6 = 12\)</span> by <span class="math inline">\(1.333 = (3^{2} - 1)/6\)</span>.</p>
+<aside class="notes">
+<p>The convolution’s masses peak at P(D_0 = 11) = 0.1083 and P(D_0 = 12) = 0.1087. For this example the hub is priced as a chapter 8 location with h and b per week on its own on-hand and backorders. The shortcut is not eccentric; it is the natural reading of orders arriving at rate lambda_j/Q_j, and it is the one to check for in any planning system. At Q_j = 1 the convolution is Poisson, the hub of Part I. The recipe’s error grows as the window shrinks to one order or none; there, use the convolution.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </div>
 </section>
 <section id="an-order-waits-differently-from-a-unit" class="slide level2">
 <h2>An Order Waits Differently From a Unit</h2>
-<p>The lead-time shift still applies: an order placed at <span class="math inline">\(A\)</span> is complete by <span class="math inline">\(A + w\)</span> exactly when, with the supplier <span class="math inline">\(w\)</span> faster, it would have been complete at <span class="math inline">\(A\)</span>.</p>
-<div class="fragment">
-<p>Three things differ from a customer’s single unit, all visible in the ledger:</p>
-</div>
-<div class="fragment">
-<ol type="1">
-<li>The order needs <strong><span class="math inline">\(Q_j\)</span> units</strong>, not one.</li>
-<li>Other demand and other storerooms are seen as <strong>a random moment</strong> sees them.</li>
-<li>The storeroom’s own earlier orders are seen <strong>from the order</strong>: <span class="math inline">\(\lfloor D_j&#39;/Q_j \rfloor\)</span> of them.</li>
-</ol>
-</div>
-</section>
-<section id="the-orders-wait" class="slide level2 smaller">
-<h2>The Order’s Wait</h2>
-<p>With <span class="math inline">\(\ell = L_0 - w\)</span> and <span class="math inline">\(u\)</span> averaged over the hub’s positions:</p>
+<p>The lead-time shift still applies: an order placed at <span class="math inline">\(A\)</span> is complete by <span class="math inline">\(A + w\)</span> exactly when the hub’s position <span class="math inline">\(\ell = L_0 - w\)</span> weeks earlier covered all the demand since, <strong>the order’s own <span class="math inline">\(Q_j\)</span> units included.</strong></p>
 <p><span class="math display">\[
 P(W_j \le w) = \frac{1}{Q_0}\sum_{u=r_0+1}^{r_0+Q_0}
-P\Big(X_o(\ell) + \sum_{i \ne j} Q_i N_i(\ell) + Q_j\big\lfloor D_j&#39;(\ell)/Q_j \big\rfloor \le u - Q_j\Big)
+P\Big(X_o(\ell) + \sum_{i \ne j} Q_iN_i(\ell) + Q_j\big\lfloor D_j&#39;(\ell)/Q_j\big\rfloor \le u - Q_j\Big)
 \]</span></p>
-<p>for <span class="math inline">\(0 \le w &lt; L_0\)</span>.</p>
-<div class="fragment">
-<p>At <span class="math inline">\(Q_j = 1\)</span> it reduces to deck 1’s customer wait. ✓</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p><strong>Conditioning on this wait is exact</strong>, for deck 1’s reason: the wait is fixed by the history up to the order, and the customers after it are independent of that history.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="checked-against-axsäter" class="slide level2">
-<h2>Checked Against Axsäter</h2>
-<p>The code checks the route wherever both apply:</p>
-<div class="fragment">
+<p>Three differences from a customer’s single unit, each visible in the ledger:</p>
 <ul>
-<li><strong>144 policies</strong> with one storeroom, against his equation (2)</li>
-<li><strong>96 policies</strong> with four identical storerooms, against his equation (6)</li>
+<li>the order needs <strong><span class="math inline">\(Q_j\)</span> units</strong>, not one;</li>
+<li>the other demand and other storerooms are seen as <strong>a random moment</strong> sees them;</li>
+<li>the storeroom’s own earlier orders are seen <strong>from the order</strong>: <span class="math inline">\(\lfloor D_j&#39;/Q_j \rfloor\)</span>.</li>
 </ul>
-</div>
-<div class="fragment">
-<p>Agreement to <strong>six decimals or better</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The order’s own view is not a refinement. Using a customer’s wait in its place overstates the cost by <strong>14%</strong> on one of those test systems.</p>
-</div>
-</div>
-</div>
-</div>
+<p><strong>Conditioning on this wait is exact.</strong> The code agrees with Axsäter’s equations (2) and (6) on 240 policies to six decimals. Using a customer’s wait instead overstates the cost by 14% on one test system.</p>
+<aside class="notes">
+<p>At Q_j = 1 it reduces to the single-unit wait of last session. The kth unit of the order fills the (r_j + k)th demand after it, so each unit’s cost is chapter 8’s at lead time O_j + W_j, averaged over W_j. The 240 policies are 144 with one storeroom and 96 with four identical storerooms.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="the-storeroom-of-the-hub-with-other-demand" class="slide level2 smaller">
+<section id="the-storeroom-of-the-hub-with-other-demand" class="slide level2">
 <h2>The Storeroom of the Hub With Other Demand</h2>
-<p>Hub at <span class="math inline">\((r_0, Q_0) = (12, 8)\)</span>, storeroom at <span class="math inline">\((r_j, Q_j) = (3, 3)\)</span>, one week away.</p>
-<div class="fragment">
+<p>The same system, hub at <span class="math inline">\((r_0, Q_0) = (12, 8)\)</span>, storeroom at <span class="math inline">\((r_j, Q_j) = (3, 3)\)</span>, one week from the hub.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th></th>
-<th style="text-align: right;"><span class="math inline">\(P(W = 0)\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(P(W \le 1)\)</span></th>
-<th style="text-align: right;">Mean wait, weeks</th>
+<th style="text-align: right;">Waits nothing</th>
+<th style="text-align: right;">At most a week</th>
+<th style="text-align: right;">Mean wait</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>A hub customer</td>
+<td>A customer of the hub’s own</td>
 <td style="text-align: right;">0.8228</td>
 <td style="text-align: right;">0.9797</td>
-<td style="text-align: right;">0.0874</td>
+<td style="text-align: right;">0.0874 weeks</td>
 </tr>
 <tr class="even">
 <td>The storeroom’s order</td>
 <td style="text-align: right;">0.7626</td>
 <td style="text-align: right;">0.9668</td>
-<td style="text-align: right;">0.1264</td>
+<td style="text-align: right;">0.1264 weeks</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>Storeroom backorders:</p>
+<p>The order’s wait has variance 0.0894. <strong>It waits 45% longer</strong> than a customer: it needs three units, and it arrives just after a draw of three the hub has had no time to recover from.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Route</th>
+<th>Route to the storeroom’s lead time demand</th>
 <th style="text-align: right;">Backorders</th>
-<th style="text-align: right;">Against conditioned</th>
+<th style="text-align: right;">Against conditioning</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Conditioned on the order’s wait</td>
 <td style="text-align: right;">0.0823</td>
-<td style="text-align: right;"></td>
+<td style="text-align: right;">exact</td>
 </tr>
 <tr class="even">
 <td>Two moments</td>
@@ -2055,195 +2176,146 @@ P\Big(X_o(\ell) + \sum_{i \ne j} Q_i N_i(\ell) + Q_j\big\lfloor D_j&#39;(\ell)/Q
 </tr>
 </tbody>
 </table>
-</div>
-</section>
-<section id="why-the-order-waits-longer" class="slide level2">
-<h2>Why the Order Waits Longer</h2>
-<p>The storeroom’s orders wait <strong>45% longer</strong> on average than the hub’s own customers.</p>
-<div class="fragment">
-<p>Each needs <strong>three units</strong> rather than one.</p>
-</div>
-<div class="fragment">
-<p>And each arrives <strong>just after a draw of three</strong> the hub has had no time to recover from.</p>
-</div>
-<div class="fragment">
-<p>With the batches held at <span class="math inline">\(Q_0 = 8\)</span> and <span class="math inline">\(Q_j = 3\)</span>, <span class="math inline">\((r_0, r_j) = (12, 3)\)</span> is the cheapest pair for the whole system, at <strong>$5.6675 a week</strong>.</p>
-</div>
+<aside class="notes">
+<p>A customer of the hub’s own waits nothing with the hub’s ready rate, 0.8228. The check: at Q_j = 1 the order’s wait and a customer’s coincide, and the code asserts it. With the batches held at 8 and 3, (r_0, r_j) = (12, 3) is the cheapest pair for the whole system, at 5.6675 a week, counting the hub’s customers’ waits at b.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="a-supplier-whose-lead-time-varies" class="slide level2">
 <h2>A Supplier Whose Lead Time Varies</h2>
-<p>Let <span class="math inline">\(L_0\)</span> take values <span class="math inline">\(\ell_1, \dots, \ell_K\)</span> with probabilities <span class="math inline">\(p_1, \dots, p_K\)</span>.</p>
-<div class="fragment">
-<p><strong>Condition on the lead time, then average:</strong></p>
+<p>Let <span class="math inline">\(L_0\)</span> take values <span class="math inline">\(\ell_1, \ldots, \ell_K\)</span> with probabilities <span class="math inline">\(p_1, \ldots, p_K\)</span>. <strong>Condition on the lead time, then average:</strong></p>
 <p><span class="math display">\[
-P\big(D_0(L_0) \le x\big) = \sum_k p_k\, P\big(D_0(\ell_k) \le x\big)
+P\big(D_0(L_0) \le x\big) = \sum_k p_k\,P\big(D_0(\ell_k) \le x\big), \qquad
+P(W \le w) = \sum_k p_k\,P(W \le w \mid L_0 = \ell_k)
 \]</span></p>
-</div>
-<div class="fragment">
-<p>The measures average the same way, since each is an expectation. So does the wait:</p>
-<p><span class="math display">\[
-P(W \le w) = \sum_k p_k\, P(W \le w \mid L_0 = \ell_k)
-\]</span></p>
-<p>provided orders <strong>do not overtake</strong> and lead times are independent of demand.</p>
-</div>
-</section>
-<section id="the-order-of-operations-matters" class="slide level2">
-<h2>The Order of Operations Matters</h2>
-<p>Both streams are counted over <strong>the same</strong> lead time.</p>
-<div class="fragment">
-<p>They are independent only <strong>once its value is known</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
+<div title="The order matters">
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
+<div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
+<p><strong>The order matters</strong></p>
+</div>
 <div class="callout-content">
-<p>Average each stream over the lead time on its own, then add them, and you lose the covariance a shared lead time creates:</p>
+<p>Both streams are counted over the <strong>same</strong> lead time, so they are independent only once its value is known. Averaging each over the lead time separately and then adding loses the covariance a shared lead time creates,</p>
 <p><span class="math display">\[
-2\lambda_o\lambda_j\mathrm{Var}[L_0]
+\mathit{Cov} = 2\lambda_o\lambda_j\,\mathit{Var}[L_0]
 \]</span></p>
-<p>The variance is <strong>understated</strong>.</p>
+<p>and understates the variance.</p>
 </div>
 </div>
 </div>
 </div>
+<p>The wait mixture needs lead times that vary without orders overtaking and independently of demand, the condition chapter 8 already imposed.</p>
+<aside class="notes">
+<p>Each measure is an expectation, so the measures average the same way. A long lead time makes both streams large together; that common movement is the covariance, and it is lost if the streams are averaged one at a time.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="two-three-or-five-weeks" class="slide level2 smaller">
+<section id="two-three-or-five-weeks" class="slide level2">
 <h2>Two, Three or Five Weeks</h2>
-<p>The system just priced, but the supplier takes 2, 3 or 5 weeks with probabilities 0.4, 0.4, 0.2.</p>
-<p><span class="math display">\[
-E[L_0] = 3, \qquad \mathrm{Var}[L_0] = 0.4(1) + 0.4(0) + 0.2(4) = 1.2 \text{ weeks}^{2}
-\]</span></p>
-<div class="fragment">
+<p>The same system, but the supplier takes 2, 3 or 5 weeks with probabilities 0.4, 0.4, 0.2: mean still 3, and <span class="math inline">\(\mathit{Var}[L_0] = 0.4(1) + 0.4(0) + 0.2(4) = 1.2\)</span> weeks squared.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
 <thead>
 <tr class="header">
 <th></th>
-<th style="text-align: right;">Mean</th>
-<th style="text-align: right;">Variance</th>
+<th style="text-align: right;">Constant 3 weeks</th>
+<th style="text-align: right;">Varying supplier</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Built at each value, then averaged</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">32.535</td>
+<td>Hub lead time demand variance</td>
+<td style="text-align: right;">13.333</td>
+<td style="text-align: right;"><strong>32.535</strong> (one stream at a time: 22.935)</td>
 </tr>
 <tr class="even">
-<td>Each stream averaged alone</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">22.935</td>
+<td>Hub ready rate at <span class="math inline">\((12, 8)\)</span></td>
+<td style="text-align: right;">0.8228</td>
+<td style="text-align: right;">0.7656</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="fragment">
-<p>Check: <span class="math inline">\(32.535 - 22.935 = 9.6 = 2 \times 2 \times 2 \times 1.2\)</span>. ✓</p>
-</div>
-</section>
-<section id="what-varying-the-supplier-does" class="slide level2 smaller">
-<h2>What Varying the Supplier Does</h2>
-<p>At <span class="math inline">\((r_0, Q_0) = (12, 8)\)</span>:</p>
-<ul>
-<li>the hub’s ready rate falls from 0.8228 to <strong>0.7656</strong></li>
-<li>its backorders rise from 0.3497 to <strong>0.9948</strong></li>
-<li>the order’s wait: mean <strong>0.3037</strong> weeks, variance 0.4396</li>
-</ul>
-<div class="fragment">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Storeroom planned on</th>
-<th style="text-align: right;"><span class="math inline">\(r_j\)</span></th>
-<th style="text-align: right;">Backorders</th>
-<th style="text-align: right;">Cost a week</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
-<td>The mean wait only</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0.239</td>
-<td style="text-align: right;">$2.7771</td>
+<td>Hub backorders</td>
+<td style="text-align: right;">0.3497</td>
+<td style="text-align: right;">0.9948</td>
 </tr>
 <tr class="even">
-<td>Two moments, or the whole wait</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0.143</td>
-<td style="text-align: right;">$2.7472</td>
+<td>Order’s mean wait, variance</td>
+<td style="text-align: right;">0.1264, 0.0894</td>
+<td style="text-align: right;">0.3037, 0.4396</td>
 </tr>
 </tbody>
 </table>
-</div>
+<p><em>The check.</em> <span class="math inline">\(32.535 - 22.935 = 9.6 = 2 \times 2 \times 2 \times 1.2\)</span>.</p>
+<p>Planned on the mean wait the storeroom chooses <span class="math inline">\(r_j = 3\)</span>; on two moments or the whole distribution, <span class="math inline">\(r_j = 4\)</span>. Priced by conditioning: 0.239 owed at $2.7771 a week, against 0.143 at $2.7472.</p>
+<p><strong>Planned on the mean wait, it owes its crews 67% more at a cost only 1.1% higher.</strong> Both numbers are worth stating: a utility watching cost will not notice what its crews do.</p>
+<aside class="notes">
+<p>The supplier’s variability multiplies the variance the hub covers by two and a half, and it carries down to the storeroom through the wait. What to measure: when a supplier delivers in sequence, use the time from placement to receipt, order by order; with data, a handful of values at its quantiles, equally weighted, is enough. With only a mean and a standard deviation the values must come from a family you choose, and you should say so. When orders overtake one another the model over-protects, and correcting for it is beyond this chapter.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
-<section id="two-numbers-both-worth-stating" class="slide level2">
-<h2>Two Numbers, Both Worth Stating</h2>
-<p>The supplier’s variability multiplies the variance the hub covers by <strong>two and a half</strong>, and it carries down to the storeroom through the wait.</p>
-<div class="fragment">
-<p>Planned on the mean wait, the storeroom owes its crews <strong>67% more</strong> than it needs to.</p>
-</div>
-<div class="fragment">
-<p>At a cost only <strong>1.1% higher</strong>.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>A utility that watches cost will not notice what its crews do. <strong>Report both.</strong></p>
-</div>
-</div>
-</div>
-</div>
+<section id="what-we-did-today" class="slide level2">
+<h2>What We Did Today</h2>
+<p><strong>Batching storerooms are exact while the hub has no other demand</strong> and lead times are constant: Axsäter’s equations (2) and (6).</p>
+<p><strong>A storeroom’s orders are its demand counted in whole batches,</strong> read from the Poisson table by averaging over a uniform position.</p>
+<p><strong>The hub’s lead time demand is a convolution;</strong> the two-moment recipe is close, and the Poisson-orders shortcut over-stocks by two units and 5.6%.</p>
+<p><strong>An order waits for its last unit,</strong> seen from the order: 45% longer than a customer.</p>
+<p><strong>A random supplier is conditioned on, then averaged,</strong> in that order; reversing it drops the covariance.</p>
 </section>
-<section id="what-to-measure" class="slide level2">
-<h2>What to Measure</h2>
-<p>When the supplier delivers in the order orders were placed, use the time from <strong>placement to receipt</strong>, order by order.</p>
-<div class="fragment">
-<p>With data: a handful of values at its quantiles, <strong>equal weights</strong>.</p>
-</div>
-<div class="fragment">
-<p>With only a mean and a standard deviation: the values must come from a family <strong>you choose</strong>, and you should say so.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>When orders <strong>overtake</strong> one another, the model over-protects, as chapter 8 warned. Correcting for it is beyond this chapter.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="where-we-are" class="slide level2">
-<h2>Where We Are</h2>
+<section id="for-next-time" class="slide level2">
+<h2>For Next Time</h2>
+<p><strong>Read before next session:</strong> <em>Setting Both Policies</em>, <em>Validating the Iteration</em>, <em>The Cutout in Job Lots</em>, <em>Building These Models in a Worksheet</em> and <em>Designing the Software</em>.</p>
+<p>Today’s material was <em>When the Storerooms Batch Too</em> through <em>Random Lead Times</em>.</p>
+<p>Next session:</p>
 <ul>
-<li>Axsäter is exact for the hub’s own storerooms, <strong>constant lead times, no other demand</strong></li>
-<li>A storeroom’s orders are its demand <strong>in whole batches</strong>, countable from the Poisson table</li>
-<li>The hub’s lead time demand is a <strong>convolution</strong>; the recipe is close, the shortcut over-stocks</li>
-<li>An order’s wait is its <strong>own</strong>, and conditioning on it matches Axsäter</li>
-<li>A random lead time: <strong>build at each value, then average</strong></li>
+<li>The circle between the two policies, and an iteration that breaks it</li>
+<li>Pricing the iteration’s answer against the exact cost</li>
+<li>The cutout in job lots; the workbook and the code</li>
 </ul>
-<div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>Next: we can evaluate any pair of policies. Now <strong>choose</strong> them.</p>
+<p>Part II evaluates any pair of policies. Part III chooses them.</p>
 </div>
 </div>
 </div>
 
-</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
