@@ -1870,7 +1870,7 @@ display:block!important;
 </section>
 <section id="the-window-costs-of-the-first-half-year" class="slide level2">
 <h2>The Window Costs of the First Half Year</h2>
-<p>With <span class="math inline">\(k = \$300\)</span> and <span class="math inline">\(h = \$1.00\)</span>: <span class="math inline">\(w(1,3) = 300 + 1.00\left[0(40) + 1(60) + 2(120)\right] = 300 + 300 = \$600\)</span>.</p>
+<p>With <span class="math inline">\(k = \$300\)</span> and <span class="math inline">\(h = \$1.00\)</span>: <span class="math inline">\(w(1,3) = 300 + 1.00\left[0(40) + 1(60) + 2(120)\right] = 300 + 300 = \$600\)</span>, and a window that starts later counts the wait from its own first month: <span class="math inline">\(w(2,4) = 300 + 1.00\left[0(60) + 1(120) + 2(300)\right] = \$1{,}020\)</span>.</p>
 <table style="font-size:0.9em; margin-top:0.2em;">
 <thead>
 <tr>
@@ -2496,6 +2496,190 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="column-7-of-the-full-year" class="slide level2">
+<h2>Column 7 of the Full Year</h2>
+<p>The first six columns do not change, since <span class="math inline">\(V(u)\)</span> depends only on the months through <span class="math inline">\(u\)</span>. Month 7 requires 120 belts, so each row of the window table is extended by one step: <span class="math inline">\(w(t,7) = w(t,6) + 1.00(7 - t)(120)\)</span>.</p>
+<table style="font-size:0.88em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+Last order in <span class="math inline">\(t\)</span>
+</th>
+<th>
+<span class="math inline">\(V(t-1)\)</span>
+</th>
+<th>
+<span class="math inline">\(w(t,6)\)</span>
+</th>
+<th>
+Step, <span class="math inline">\((7-t)(120)\)</span>
+</th>
+<th>
+<span class="math inline">\(w(t,7)\)</span>
+</th>
+<th>
+<span class="math inline">\(V(t-1) + w(t,7)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+4,480
+</td>
+<td>
+720
+</td>
+<td>
+5,200
+</td>
+<td>
+5,200
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+300
+</td>
+<td>
+3,320
+</td>
+<td>
+600
+</td>
+<td>
+3,920
+</td>
+<td>
+4,220
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+360
+</td>
+<td>
+2,220
+</td>
+<td>
+480
+</td>
+<td>
+2,700
+</td>
+<td>
+3,060
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+600
+</td>
+<td>
+1,240
+</td>
+<td>
+360
+</td>
+<td>
+1,600
+</td>
+<td>
+2,200
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+900
+</td>
+<td>
+560
+</td>
+<td>
+240
+</td>
+<td>
+800
+</td>
+<td>
+1,700
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+1,200
+</td>
+<td>
+300
+</td>
+<td>
+120
+</td>
+<td>
+420
+</td>
+<td>
+<b>1,620</b>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+1,460
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+300
+</td>
+<td>
+1,760
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>The least is 1,620, so <span class="math inline">\(V(7) = 1{,}620\)</span> and <span class="math inline">\(S(7) = 6\)</span>: cover the first five months as cheaply as possible, for $1,200, then order in month 6 for months 6 and 7. Columns 8 through 12 repeat the computation, each with one more candidate.</p>
+</div>
+<aside class="notes">
+<p>The second column is the V row already found, and the third is the last column of the six-month window table. This is the page of arithmetic the WagnerWhitin sheet does. Nobody should do all twelve columns by hand; everybody should do one.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="the-full-twelve-months" class="slide level2">
 <h2>The Full Twelve Months</h2>
 <table class="caption-top" style="width:100%;">
@@ -2616,7 +2800,7 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p><em>The check.</em> Six orders cost $1,800 and 680 belt-months cost $680: $2,480 <span class="math inline">\(= V(12)\)</span>.</p>
+<p><em>The check.</em> Six orders cost $1,800, and <span class="math inline">\(180 + 120 + 160 + 40 + 180 = 680\)</span> belt-months cost $680: $2,480 <span class="math inline">\(= V(12)\)</span>.</p>
 <p>Notice that <span class="math inline">\(V(9) = V(8)\)</span>: month 9 requires nothing, so covering through it costs what covering through month 8 costs. Notice also that month 5 holds an order, as the forced-order test promised. The optimum saves $820 on lot-for-lot and $120 on the adjusted economic order quantity, which was within 4.84%.</p>
 <aside class="notes">
 <p>Month 6 is the one place in the optimal plan where a month both orders and carries something forward: 420 arrive, 260 are used, 160 wait. The adjusted plan came within $120, which raises a real question about how much the rest of the chapter buys; next session takes it up.</p>

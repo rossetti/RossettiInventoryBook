@@ -1227,18 +1227,20 @@ R_3 = 1500 + 2.97(1500-500) = 4470
 \]</span></p>
 <p>The effective ordering costs. From <a href="#eq-incremental-kj" class="quarto-xref">Equation&nbsp;<span>3.27</span></a>,</p>
 <p><span class="math display">\[
-k_1 = 0 - 3.00(0) + 50 = 50, \quad
-k_2 = 1500 - 2.97(500) + 50 = 65, \quad
-k_3 = 4470 - 2.95(1500) + 50 = 95
+\begin{aligned}
+k_1 &amp;= 0 - 3.00(0) + 50 = 50\\
+k_2 &amp;= 1500 - 2.97(500) + 50 = 65\\
+k_3 &amp;= 4470 - 2.95(1500) + 50 = 95
+\end{aligned}
 \]</span></p>
 <p>The effective ordering cost <strong>rises</strong> with the discount level. That is the mechanism by which incremental discounting encourages larger orders. Reaching a deeper level means having already paid for everything below it, and that paid amount behaves exactly like a larger fixed charge.</p>
 <p><strong>The candidate quantities.</strong> From <a href="#eq-incremental-q" class="quarto-xref">Equation&nbsp;<span>3.28</span></a> with <span class="math inline">\(h_j = ic_j\)</span>,</p>
 <p><span class="math display">\[
-Q_1^{*} = \sqrt{\frac{2(50)(3000)}{0.3(3.00)}} = 577.4,
-\quad
-Q_2^{*} = \sqrt{\frac{2(65)(3000)}{0.3(2.97)}} = 661.6,
-\quad
-Q_3^{*} = \sqrt{\frac{2(95)(3000)}{0.3(2.95)}} = 802.5
+\begin{aligned}
+Q_1^{*} &amp;= \sqrt{\frac{2(50)(3000)}{0.3(3.00)}} = 577.4\\
+Q_2^{*} &amp;= \sqrt{\frac{2(65)(3000)}{0.3(2.97)}} = 661.6\\
+Q_3^{*} &amp;= \sqrt{\frac{2(95)(3000)}{0.3(2.95)}} = 802.5
+\end{aligned}
 \]</span></p>
 <p><strong>Feasibility.</strong> The quantity <span class="math inline">\(Q_1^{*} = 577.4\)</span> must lie in <span class="math inline">\([0, 500)\)</span> and does not, and <span class="math inline">\(Q_3^{*} = 802.5\)</span> must lie in <span class="math inline">\([1500, \infty)\)</span> and does not. Only <span class="math inline">\(Q_2^{*} = 661.6\)</span> lies in its own interval <span class="math inline">\([500, 1500)\)</span>.</p>
 <p><strong>The answer.</strong> One candidate survives. Thus, <span class="math inline">\(Q^{*} = 661.6\)</span> units, and from <a href="#eq-incremental-tc" class="quarto-xref">Equation&nbsp;<span>3.26</span></a></p>
@@ -1467,11 +1469,11 @@ Figure&nbsp;3.5: The Classic EOQ worksheet with formulas displayed. The reorder 
 <p><span class="theorem-title"><strong>Example 3.8 (A lead time longer than the cycle)</strong></span> Recall the item of <a href="#exm-ss-eoq" class="quarto-xref">Example&nbsp;<span>3.7</span></a>, whose cycle is <span class="math inline">\(T^{*} = 1.5492\)</span> months, and suppose the supplier now quotes a lead time of <span class="math inline">\(L = 4\)</span> months.</p>
 <p>The naive calculation gives <span class="math inline">\(\lambda L = 100(4) = 400\)</span> units, more than twice the order quantity, so it cannot be a position at which to order. The worksheet cell instead gives</p>
 <p><span class="math display">\[
-\left\lfloor \frac{4}{1.5492} \right\rfloor = \lfloor 2.582 \rfloor = 2,
-\qquad
-4 - 2(1.5492) = 0.9016 \text{ month},
-\qquad
-r = 100(0.9016) = 90.16 \text{ units}
+\begin{aligned}
+\left\lfloor \frac{4}{1.5492} \right\rfloor &amp;= \lfloor 2.582 \rfloor = 2\\
+4 - 2(1.5492) &amp;= 0.9016 \text{ month}\\
+r &amp;= 100(0.9016) = 90.16 \text{ units}
+\end{aligned}
 \]</span></p>
 <p>Two replenishment orders are outstanding at the moment the third is placed, and they cover <span class="math inline">\(2T\)</span> of the four months. Only the remaining <span class="math inline">\(0.9016\)</span> month has to be covered by stock on hand. Thus, the order is placed when the inventory <strong>position</strong> reaches 90.16 units. Recall that <a href="01-Chapter1.html#sec-state-position" class="quarto-xref"><span>Section 1.3.3</span></a> distinguishes the position carefully from the on-hand level, and this is a case where the distinction decides the answer.</p>
 <p>Sweeping <span class="math inline">\(L\)</span> upward makes the point visible. For example, at <span class="math inline">\(L = 2\)</span> months the same cell returns <span class="math inline">\(r = 45.08\)</span> units, far less than <span class="math inline">\(\lambda L = 200\)</span>. The reorder point is not monotone in the lead time. It climbs to <span class="math inline">\(Q\)</span> and drops back to zero once per cycle length of lead time.</p>

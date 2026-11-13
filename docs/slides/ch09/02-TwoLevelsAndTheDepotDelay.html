@@ -2085,6 +2085,115 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="the-first-row-from-its-two-tables" class="slide level2">
+<h2>The First Row, from Its Two Tables</h2>
+<p>Neither mean is a printed column, so both tables are built by the recursions.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><em>The depot,</em> Poisson with <span class="math inline">\(\mu_0 = 20.7123\)</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(g(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{0}(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{1}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0310</td>
+<td style="text-align: right;">0.9199</td>
+<td style="text-align: right;">6.8171</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.0428</td>
+<td style="text-align: right;">0.8771</td>
+<td style="text-align: right;">5.8972</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.0554</td>
+<td style="text-align: right;">0.8217</td>
+<td style="text-align: right;"><strong>5.0201</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.0675</td>
+<td style="text-align: right;">0.7541</td>
+<td style="text-align: right;">4.1985</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.0777</td>
+<td style="text-align: right;">0.6764</td>
+<td style="text-align: right;">3.4443</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\bar{B}_0(16) = G^{1}(16) = 5.0201\)</span>, and each row is the one above less its <span class="math inline">\(G^{0}\)</span>: <span class="math inline">\(5.8972 - 0.8771 = 5.0201\)</span>.</p>
+</div><div class="column" style="width:50%;">
+<p><em>A storeroom,</em> Poisson with <span class="math inline">\(\mu_j = 3.2276\)</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(g(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{0}(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{1}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0397</td>
+<td style="text-align: right;">0.9603</td>
+<td style="text-align: right;">3.2276</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.1280</td>
+<td style="text-align: right;">0.8324</td>
+<td style="text-align: right;">2.2673</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.2065</td>
+<td style="text-align: right;">0.6258</td>
+<td style="text-align: right;">1.4349</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.2222</td>
+<td style="text-align: right;">0.4036</td>
+<td style="text-align: right;">0.8091</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.1793</td>
+<td style="text-align: right;">0.2243</td>
+<td style="text-align: right;"><strong>0.4055</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\bar{B}_j(4) = 3.2276 - (0.9603 + 0.8324 + 0.6258 + 0.4036) = 3.2276 - 2.8221 = 0.4055\)</span>.</p>
+</div></div>
+<aside class="notes">
+<p>The depot’s table starts at g(0) = e^(-20.7123), which is about a billionth, and runs twenty-seven rows; only the rows the example reads are shown. The storeroom’s figure is the hand form of the base-stock backorder level: the mean less the sum of G0 below the stock level. The other rows of the last slide repeat both steps with their own depot level.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="six-units-four-storerooms" class="slide level2">
 <h2>Six Units, Four Storerooms</h2>
 <p>From <span class="math inline">\(S_0 = 16\)</span> to <span class="math inline">\(22\)</span>: the delay falls from 14.5 days to 3.6, and each storeroom’s pipeline from 3.23 units to 2.29.</p>

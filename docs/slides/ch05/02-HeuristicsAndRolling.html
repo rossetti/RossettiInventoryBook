@@ -1243,6 +1243,119 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="silver-meal-one-order-at-a-time" class="slide level2">
+<h2>Silver-Meal, One Order at a Time</h2>
+<p>Each rule starts again in the month after its window ended. Silver-Meal’s second order falls in month 3, with window costs from row 3 of the table:</p>
+<p><span class="math display">\[
+\frac{w(3,3)}{1} = \frac{300}{1} = 300.00, \qquad
+\frac{w(3,4)}{2} = \frac{600}{2} = 300.00, \qquad
+\frac{w(3,5)}{3} = \frac{1{,}440}{3} = 480.00 .
+\]</span></p>
+<p>The cost per period does <strong>not</strong> rise when month 4 is added, so the window is extended. It rises at month 5, so the order covers months 3 and 4: <span class="math inline">\(120 + 300 = 420\)</span>.</p>
+<table style="font-size:0.85em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+Order in month
+</th>
+<th style="text-align:left">
+Cost per period as the window extends
+</th>
+<th>
+Stops at
+</th>
+<th>
+Quantity
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+1
+</td>
+<td style="text-align:left">
+300.00, 180.00, 200.00
+</td>
+<td>
+month 2
+</td>
+<td>
+100
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td style="text-align:left">
+300.00, 300.00, 480.00
+</td>
+<td>
+month 4
+</td>
+<td>
+420
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td style="text-align:left">
+300.00, 280.00, 266.67, 230.00, 184.00, 220.00
+</td>
+<td>
+month 9
+</td>
+<td>
+840
+</td>
+</tr>
+<tr class="fragment">
+<td>
+10
+</td>
+<td style="text-align:left">
+300.00, 240.00, 306.67
+</td>
+<td>
+month 11
+</td>
+<td>
+260
+</td>
+</tr>
+<tr class="fragment">
+<td>
+12
+</td>
+<td style="text-align:left">
+300.00
+</td>
+<td>
+month 12
+</td>
+<td>
+220
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>The rule stops only on a rise, and a tie is not a rise. The last figure in each list is the rise that stops the window, except in the last row, where the horizon ends first. Least unit cost and part-period balancing are continued the same way, each with its own figure of merit.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="the-three-plans" class="slide level2">
 <h2>The Three Plans</h2>
 <p>Continuing each rule to the end of the horizon:</p>
@@ -1547,6 +1660,120 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="costing-the-three-plans" class="slide level2">
+<h2>Costing the Three Plans</h2>
+<p>The plans are costed in a ledger. The ending balance <span class="math inline">\(I_t\)</span> under each, in belts:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+<th style="text-align: right;">11</th>
+<th style="text-align: right;">12</th>
+<th style="text-align: right;">Sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Silver-Meal</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1,160</td>
+</tr>
+<tr class="even">
+<td>Least unit cost</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1,540</td>
+</tr>
+<tr class="odd">
+<td>Part-period balancing</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1,100</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\begin{aligned}
+840 - 420 = 420, \quad 420 - 260 = 160, \quad 160 - 120 &amp;= 40
+  &amp;&amp;\text{Silver-Meal after month 5&#39;s order}\\
+5(300) + 1.00(1{,}160) &amp;= \$2{,}660
+  &amp;&amp;\text{five orders, 1,160 belt-months}\\
+360 + 600 + 920 + 480 + 300 &amp;= \$2{,}660
+  &amp;&amp;\textit{the check: } \text{its five windows}
+\end{aligned}
+\]</span></p>
+<p>The other two rows give <span class="math inline">\(5(300) + 1{,}540 = \$3{,}040\)</span> and <span class="math inline">\(5(300) + 1{,}100 = \$2{,}600\)</span>.</p>
+<aside class="notes">
+<p>A plan costs the sum of its windows: w(1,2), w(3,4), w(5,9), w(10,11) and w(12,12). From the chain, w(5,9) is 5 times 184.00, or 920, and w(10,11) is 2 times 240.00, or 480. Perform that check every time a heuristic plan is costed, because the ledger and the window sum share no arithmetic.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="everything-on-one-item" class="slide level2">
 <h2>Everything on One Item</h2>
 <table class="caption-top" style="width:100%;">
@@ -1741,7 +1968,8 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p>A factor of two either way costs less than 13%: the flatness of the economic order quantity survives the move to discrete periods. The curve is a staircase, since the plan does not change over a range of <span class="math inline">\(m\)</span>. Ordering too often is the more expensive mistake here: every extra order costs a full $300, while the carrying it saves is spread thin.</p>
+<p><em>One column worked.</em> At <span class="math inline">\(m = 2\)</span> the recursion runs with <span class="math inline">\(k = \$600\)</span> and returns orders in months 1, 4, 6 and 11, which carry 1,460 belt-months. At the true costs that plan costs <span class="math inline">\(4(300) + 1.00(1{,}460) = \$2{,}660\)</span>, and <span class="math inline">\(2{,}660/2{,}480 - 1 = 7.26\%\)</span>.</p>
+<p>A factor of two either way costs less than 13%: the flatness of the economic order quantity survives the move to discrete periods. Ordering too often is the more expensive mistake here.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -1753,7 +1981,7 @@ display:block!important;
 </div>
 </div>
 <aside class="notes">
-<p>Recall the EOQ sensitivity result: a factor of two in k over h costs about 6%. Here, at m = 2 the plan has four orders; at m = 0.5 it has nine.</p>
+<p>Recall the EOQ sensitivity result: a factor of two in k over h costs about 6%. Here, at m = 2 the plan has four orders; at m = 0.5 it has nine. Each column is one run of the recursion and one ledger at the true costs. The curve is a staircase, since the plan does not change over a range of m. Every extra order costs a full $300, while the carrying it saves is spread thin.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1774,6 +2002,290 @@ display:block!important;
 <p><strong>Wagner-Whitin is no longer optimal.</strong> It is optimal for the problem it was handed, and that problem is a truncation of the real one.</p>
 <aside class="notes">
 <p>The plan for periods 2 through N was never executed. It existed to inform the decision for period 1.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="rolling-a-two-month-window-by-hand" class="slide level2">
+<h2>Rolling a Two-Month Window by Hand</h2>
+<p>Each month: net the stock on hand against the requirements in view, plan what is left, and place only this month’s order. Both rules place the same orders at <span class="math inline">\(W = 2\)</span>.</p>
+<table style="font-size:0.74em; margin-top:0.1em;">
+<thead>
+<tr>
+<th>
+Month
+</th>
+<th>
+On hand
+</th>
+<th>
+Months planned
+</th>
+<th>
+Requirements
+</th>
+<th>
+Plan
+</th>
+<th>
+Order placed
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1, 2
+</td>
+<td>
+40, 60
+</td>
+<td>
+100, 0
+</td>
+<td>
+100
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+60
+</td>
+<td>
+3
+</td>
+<td>
+120
+</td>
+<td>
+120
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+3, 4
+</td>
+<td>
+120, 300
+</td>
+<td>
+420, 0
+</td>
+<td>
+420
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+300
+</td>
+<td>
+5
+</td>
+<td>
+420
+</td>
+<td>
+420
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+5, 6
+</td>
+<td>
+420, 260
+</td>
+<td>
+680, 0
+</td>
+<td>
+680
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+260
+</td>
+<td>
+7
+</td>
+<td>
+120
+</td>
+<td>
+120
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+0
+</td>
+<td>
+7, 8
+</td>
+<td>
+120, 40
+</td>
+<td>
+160, 0
+</td>
+<td>
+160
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td>
+40
+</td>
+<td>
+none
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="fragment">
+<td>
+9
+</td>
+<td>
+0
+</td>
+<td>
+10
+</td>
+<td>
+80
+</td>
+<td>
+80
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="fragment">
+<td>
+10
+</td>
+<td>
+0
+</td>
+<td>
+10, 11
+</td>
+<td>
+80, 180
+</td>
+<td>
+260, 0
+</td>
+<td>
+260
+</td>
+</tr>
+<tr class="fragment">
+<td>
+11
+</td>
+<td>
+180
+</td>
+<td>
+12
+</td>
+<td>
+220
+</td>
+<td>
+220
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="fragment">
+<td>
+12
+</td>
+<td>
+0
+</td>
+<td>
+12
+</td>
+<td>
+220
+</td>
+<td>
+220
+</td>
+<td>
+220
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Six orders, and ending balances of <span class="math inline">\(60 + 300 + 260 + 40 + 180 = 840\)</span> belt-months: <span class="math inline">\(6(300) + 1.00(840) = \$2{,}640\)</span>.</p>
+</div>
+<aside class="notes">
+<p>Month 1: one order for both months costs $360 and two cost $600, so 100 belts are ordered. Month 2: the 60 left cover month 2, so the only plan is 120 for month 3, and nothing is ordered. Month 3 is a tie, $600 either way, and both rules keep the longer window, so the plan made in month 2 is never executed. Month 8: the 40 on hand cover it and month 9 requires nothing, so there is nothing to plan.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

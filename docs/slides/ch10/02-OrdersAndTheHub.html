@@ -1182,7 +1182,7 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p>Averaging in threes:</p>
+<p>Averaging in threes: <span class="math inline">\(P(N \ge 1) = \tfrac{1}{3}(0.9975 + 0.9826 + 0.9380) = 0.9727\)</span> and <span class="math inline">\(P(N \ge 2) = \tfrac{1}{3}(0.8488 + 0.7149 + 0.5543) = 0.7060\)</span>.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1987,6 +1987,39 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="the-convolution-by-hand" class="slide level2">
+<h2>The Convolution, by Hand</h2>
+<p>A convolution is conditioning under another name. With one storeroom, the hub’s demand is <span class="math inline">\(x\)</span> when the storeroom places <span class="math inline">\(n\)</span> orders and the other demand supplies the remaining <span class="math inline">\(x - nQ_j\)</span> units. Condition on the number of orders, then add:</p>
+<p><span class="math display">\[
+P\{D_0(\ell) = x\} = \sum_{n \ge 0} P\{N_j(\ell) = n\}\,P\{X_o(\ell) = x - nQ_j\}
+\]</span></p>
+<p><em>Three weeks, <span class="math inline">\(Q_j = 3\)</span>.</em> The order count has masses 0.0273, 0.2667, 0.4385, 0.2186 and 0.0443 for zero to four orders, and <span class="math inline">\(X_o(3)\)</span> is Poisson with mean 6.</p>
+<p><span class="math display">\[
+\begin{aligned}
+P\{D_0 = 2\} &amp;= P\{N = 0\}P\{X_o = 2\} = 0.0273(0.0446) = 0.0012
+  &amp;&amp;\text{under three units: no order}\\
+P\{D_0 = 6\} &amp;= 0.0273(0.1606) + 0.2667(0.0892) + 0.4385(0.0025)
+  &amp;&amp;\text{no order, one, or two}\\
+&amp;= 0.0044 + 0.0238 + 0.0011 = 0.0293
+  &amp;&amp;X_o = 6,\ 3,\ 0\\
+\mathit{Var}[D_0(3)] &amp;= 6 + 9(4.8148 - 2^{2}) = 6 + 7.333 = 13.333
+  &amp;&amp;\text{independent streams: variances add}
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>The Poisson masses at mean 6 are the table built by recursion in the newsvendor session. Every other row repeats the sum with its own terms; the masses peak at 11 and 12. For the variance, E[N squared] is 4.8148 with the small masses for five and six orders included, and E[N] is 2. The probability appendix works a convolution in a grid, on two lots of the cutout.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="a-two-moment-recipe-and-a-shortcut-to-warn-against" class="slide level2">
 <h2>A Two-Moment Recipe, and a Shortcut to Warn Against</h2>
 <p>Let <span class="math inline">\(U_0\)</span> and <span class="math inline">\(U_\ell\)</span> represent how far the storeroom’s position sits above <span class="math inline">\(r_j\)</span> at the start and end of the window. Then:</p>
@@ -2072,7 +2105,7 @@ display:block!important;
 </table>
 <p>Which reorder point does the shortcut choose, and what does it cost?</p>
 <div class="fragment">
-<p><strong>15, at $4.6533 a week.</strong> It believes the hub faces nearly twice the variance it does, holds two cutouts too many, and costs <strong>5.6% more</strong>.</p>
+<p><strong>15, at $4.6533 a week.</strong> It believes the hub faces nearly twice the variance it does, holds two cutouts too many, and costs <strong>5.6% more</strong>. At <span class="math inline">\(r_0 = 13\)</span> the positions are <span class="math inline">\(14, \ldots, 21\)</span>: <span class="math inline">\(\bar{B}_0 = 1.7950/8 = 0.2244\)</span>, <span class="math inline">\(\bar{I}_0 = 4.5 + 13 - 12 + 0.2244 = 5.7244\)</span>, and <span class="math inline">\(0.5529(5.7244) + 5.5288(0.2244) = \$4.4054\)</span>.</p>
 <p><em>The check.</em> The mean is <span class="math inline">\(\lambda_0L_0 = 4 \times 3 = 12\)</span>, and the exact variance exceeds the customers’ <span class="math inline">\(6 + 6 = 12\)</span> by <span class="math inline">\(1.333 = (3^{2} - 1)/6\)</span>.</p>
 <aside class="notes">
 <p>The convolution’s masses peak at P(D_0 = 11) = 0.1083 and P(D_0 = 12) = 0.1087. For this example the hub is priced as a chapter 8 location with h and b per week on its own on-hand and backorders. The shortcut is not eccentric; it is the natural reading of orders arriving at rate lambda_j/Q_j, and it is the one to check for in any planning system. At Q_j = 1 the convolution is Poisson, the hub of Part I. The recipe’s error grows as the window shrinks to one order or none; there, use the convolution.</p>
@@ -2144,7 +2177,8 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p>The order’s wait has variance 0.0894. <strong>It waits 45% longer</strong> than a customer: it needs three units, and it arrives just after a draw of three the hub has had no time to recover from.</p>
+<p><em>At <span class="math inline">\(w = 0\)</span>, from the convolution’s table.</em> A customer needs the positions <span class="math inline">\(13, \ldots, 20\)</span> to cover the demand: <span class="math inline">\(P(W = 0) = 6.5825/8 = 0.8228\)</span>, and <span class="math inline">\(\bar{W} = \bar{B}_0/\lambda_0 = (2.7974/8)/4 = 0.0874\)</span> weeks. The order needs three units to spare, so it reads its own table at <span class="math inline">\(10, \ldots, 17\)</span>: <span class="math inline">\(P(W_j = 0) = 6.1011/8 = 0.7626\)</span>.</p>
+<p><strong>The order waits 45% longer</strong> than a customer: it needs three units, and it arrives just after a draw of three the hub has had no time to recover from.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 27%">
@@ -2177,7 +2211,7 @@ display:block!important;
 </tbody>
 </table>
 <aside class="notes">
-<p>A customer of the hub’s own waits nothing with the hub’s ready rate, 0.8228. The check: at Q_j = 1 the order’s wait and a customer’s coincide, and the code asserts it. With the batches held at 8 and 3, (r_0, r_j) = (12, 3) is the cheapest pair for the whole system, at 5.6675 a week, counting the hub’s customers’ waits at b.</p>
+<p>The order’s wait has variance 0.0894. The order’s own table uses the seen-from-order masses in place of the order count, because the storeroom has just ordered and fewer of its orders lie behind it. The rest of the order’s distribution, and its mean and variance, come from the OrderDelay sheet or the software. A customer of the hub’s own waits nothing with the hub’s ready rate, 0.8228. The check: at Q_j = 1 the order’s wait and a customer’s coincide, and the code asserts it. With the batches held at 8 and 3, (r_0, r_j) = (12, 3) is the cheapest pair for the whole system, at 5.6675 a week, counting the hub’s customers’ waits at b.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -2219,6 +2253,71 @@ P(W \le w) = \sum_k p_k\,P(W \le w \mid L_0 = \ell_k)
 <p>The wait mixture needs lead times that vary without orders overtaking and independently of demand, the condition chapter 8 already imposed.</p>
 <aside class="notes">
 <p>Each measure is an expectation, so the measures average the same way. A long lead time makes both streams large together; that common movement is the covariance, and it is lost if the streams are averaged one at a time.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-mixture-by-the-law-of-total-variance" class="slide level2">
+<h2>The Mixture, by the Law of Total Variance</h2>
+<p>The supplier takes 2, 3 or 5 weeks with probabilities 0.4, 0.4 and 0.2. Given the lead time, the hub’s demand is the convolution over that window.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Lead time <span class="math inline">\(\ell\)</span>, weeks</th>
+<th style="text-align: right;">Probability</th>
+<th style="text-align: right;"><span class="math inline">\(E[D_0 \mid L_0 = \ell]\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{Var}[D_0 \mid L_0 = \ell]\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9.3365</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">13.3333</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">21.3333</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\begin{aligned}
+E[D_0] &amp;= 0.4(8) + 0.4(12) + 0.2(20) = 12
+  &amp;&amp;\text{total expectation}\\
+E\big[\mathit{Var}[D_0 \mid L_0]\big] &amp;= 0.4(9.3365) + 0.4(13.3333) + 0.2(21.3333) = 13.3346
+  &amp;&amp;\text{within}\\
+\mathit{Var}\big[E[D_0 \mid L_0]\big] &amp;= 0.4(8^{2}) + 0.4(12^{2}) + 0.2(20^{2}) - 12^{2} = 19.2
+  &amp;&amp;\text{between: } 4^{2}\,\mathit{Var}[L_0]\\
+\mathit{Var}[D_0] &amp;= 13.3346 + 19.2 = 32.535
+  &amp;&amp;\text{most of it is the supplier&#39;s}
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>The conditional mean is 4 times the lead time, so its variance is 16 times 1.2. Averaging one stream at a time gives 13.3346 + 9.6, or 22.935, which is low by the covariance a shared lead time creates. The probability appendix writes the same two terms out for any mixture.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

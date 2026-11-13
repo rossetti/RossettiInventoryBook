@@ -1108,19 +1108,19 @@ display:block!important;
 <p><span class="math display">\[
 m_j = \frac{1}{T}\sqrt{\frac{2k_j}{h_j\lambda_j}},
 \]</span></p>
-<p>the cycle item <span class="math inline">\(j\)</span> would choose on its minor cost alone, measured in base periods. Round, search over <span class="math inline">\(T\)</span>, and the problem is solved to any accuracy wanted.</p>
-<div class="callout callout-warning callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>The answer is then a set of <strong>arbitrary</strong> integers, and that turns out to matter.</p>
-</div>
-</div>
-</div>
+<p>the cycle item <span class="math inline">\(j\)</span> would choose on its minor cost alone, measured in base periods. An item that comes out below one is held at <span class="math inline">\(m_j = 1\)</span>, and every other is rounded.</p>
+<p>The separation runs the other way as well. With the multipliers fixed, the cost is two terms in <span class="math inline">\(T\)</span> again:</p>
+<p><span class="math display">\[
+\begin{aligned}
+C(T, \vec{m}) &amp;= \frac{1}{T}\Big[K + \sum_j \frac{k_j}{m_j}\Big] + \frac{T}{2}\sum_j h_j\lambda_jm_j
+  &amp;&amp;\text{collect the terms in } T\\
+T^{*}(\vec{m}) &amp;= \sqrt{\frac{2\left(K + \sum_j k_j/m_j\right)}{\sum_j h_j\lambda_jm_j}}
+  &amp;&amp;\text{the EOQ shape again}
+\end{aligned}
+\]</span></p>
+<p>Choose <span class="math inline">\(T\)</span>, set the multipliers, reset <span class="math inline">\(T\)</span>, and repeat until the multipliers stop changing. The answer is then a set of <strong>arbitrary</strong> integers, and that turns out to matter.</p>
 <aside class="notes">
-<p>That last phrase turns out to matter: arbitrary integers do not make a schedule a dock can run.</p>
+<p>With every multiplier equal to one this is the common cycle. The procedure stops at a base period that is the best one for its own multipliers, which is not a proof that no other set does better; the worksheet deck plots the cost to check. Rounding to the nearest integer is right except close to a half. Arbitrary integers do not make a schedule a dock can run.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1386,14 +1386,16 @@ display:block!important;
 </section>
 <section id="what-the-rounding-cost" class="slide level2">
 <h2>What the Rounding Cost</h2>
-<p>Recall the penalty of using a quantity, or an interval, <span class="math inline">\(x\)</span> times the best: <span class="math inline">\(C/C^{*} = \frac{1}{2}(x + 1/x)\)</span>.</p>
+<p>Cost the drive unit at its best interval and at eight weeks, then recall the penalty of an interval <span class="math inline">\(x\)</span> times the best: <span class="math inline">\(C/C^{*} = \frac{1}{2}(x + 1/x)\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
-x_{\text{drive}} &amp;= 8/5.66 = 1.4133, \qquad \tfrac{1}{2}(1.4133 + 0.7076) = 1.0604
-  &amp;&amp;\textbf{6.04\%}\text{: nearly the worst case}\\
-C &amp;: 2\sqrt{237 \times 20{,}000} = \$4{,}354.31 \;\to\; \$4{,}617.42
-  &amp;&amp;\text{times } 1.0604\\
-x_{\text{arm}} &amp;= 8/8.22 = 0.9730, \qquad \tfrac{1}{2}(0.9730 + 1.0277) = 1.0004
+C(T^{*}) &amp;= 2\sqrt{kg} = 2\sqrt{237(20{,}000)} = \$4{,}354.31
+  &amp;&amp;\text{the drive unit at 5.66 weeks}\\
+C\!\left(\tfrac{8}{52}\right) &amp;= 237\left(\tfrac{52}{8}\right) + 20{,}000\left(\tfrac{8}{52}\right) = 1{,}540.50 + 3{,}076.92 = \$4{,}617.42
+  &amp;&amp;\text{at 8 weeks: } \textbf{6.04\%}\text{ more}\\
+x_{\text{drive}} &amp;= 8/5.6606 = 1.4133, \qquad \tfrac{1}{2}(1.4133 + 0.7076) = 1.0604
+  &amp;&amp;\text{the same figure from the penalty}\\
+x_{\text{arm}} &amp;= 8/8.2219 = 0.9730, \qquad \tfrac{1}{2}(0.9730 + 1.0277) = 1.0004
   &amp;&amp;\textbf{0.04\%}
 \end{aligned}
 \]</span></p>
@@ -1550,7 +1552,42 @@ C^{*} &amp;= \sqrt{2(475)(44{,}440)} = \$6{,}497.54
 \]</span></p>
 <p>Coordinating alone, with no differentiation between items, has already saved 23%.</p>
 <aside class="notes">
-<p>Drive unit independently: the square root of 2 times 425 times 40,000, which is the square root of 34,000,000, or 5,830.95. The saving: 1 less 6,497.54 over 8,422.39 is 0.2285.</p>
+<p>Drive unit independently: the square root of 2 times 425 times 40,000, which is the square root of 34,000,000, or 5,830.95. The four independent costs total $8,422.39 with every digit carried; the rounded terms sum to a cent less. The saving: 1 less 6,497.54 over 8,422.39 is 0.2285.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-alternation-pass-by-pass" class="slide level2">
+<h2>The Alternation, Pass by Pass</h2>
+<p>Start from the common cycle, <span class="math inline">\(T = 0.1462\)</span> years, and divide each preferred cycle by it.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\tfrac{0.0354}{0.1462}, \tfrac{0.1000}{0.1462}, \tfrac{0.2739}{0.1462}, \tfrac{0.8660}{0.1462} &amp;= 0.24,\ 0.68,\ 1.87,\ 5.92 \;\to\; (1, 1, 2, 6)
+  &amp;&amp;\text{pass 1: below one is held at 1}\\
+K + \textstyle\sum_j k_j/m_j &amp;= 400 + 25 + 20 + 7.50 + 2.50 = 455
+  &amp;&amp;\text{setups per base period}\\
+\textstyle\sum_j h_j\lambda_jm_j &amp;= 40{,}000 + 4{,}000 + 800 + 240 = 45{,}040
+  &amp;&amp;\text{holding}\\
+T &amp;= \sqrt{2(455)/45{,}040} = 0.14214 \text{ yr} = 51.9 \text{ days}
+  &amp;&amp;\text{reset the base period}\\
+\text{at } 0.14214 &amp;: 0.25,\ 0.70,\ 1.93,\ 6.09 \;\to\; (1, 1, 2, 6)
+  &amp;&amp;\text{pass 2: nothing changes, stop}\\
+C^{*} &amp;= \sqrt{2(455)(45{,}040)} = \$6{,}402.06
+  &amp;&amp;\text{the best integer ratio}
+\end{aligned}
+\]</span></p>
+<p><em>The check.</em> The ordering side equals the holding side at the reset base period: <span class="math inline">\(455/0.14214 = \tfrac{1}{2}(45{,}040)(0.14214) = \$3{,}201\)</span>.</p>
+<p><strong>Powers of two.</strong> The name plate needs <span class="math inline">\(2^{\ell} \ge 0.8660/(\sqrt{2}\,(0.14214)) = 4.31\)</span>, so <span class="math inline">\(m_j = 8\)</span> where the integer rule gave 6. With <span class="math inline">\((1, 1, 2, 8)\)</span> the sums are 454.375 and 45,120, so <span class="math inline">\(T = 0.14192\)</span> years and <span class="math inline">\(C^{*} = \$6{,}403.34\)</span>.</p>
+<aside class="notes">
+<p>Differentiating bought this: the seal kit and the name plate now pay $10 of minor setup per base period where the common cycle charged $30, for 600 more in the holding sum. Under powers of two the seal kit needs 1.36, so its multiplier is 2, and the minor setups are 25 + 20 + 7.50 + 1.875. Perform the balance check every time a base period is reset; it catches a multiplier left out of either sum.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

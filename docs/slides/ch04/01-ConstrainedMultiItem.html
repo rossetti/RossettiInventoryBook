@@ -1264,10 +1264,14 @@ display:block!important;
 <h2>Steps 1 and 2: Does It Bind?</h2>
 <p><span class="math display">\[
 \begin{aligned}
-\sum_{j} c_j\frac{Q_j^{*}}{2} &amp;= 20\,\frac{447.21}{2} + 10\,\frac{912.87}{2} + 15\,\frac{421.64}{2}
-  &amp;&amp;\text{investment at the free quantities}\\
-&amp;= 4{,}472.14 + 4{,}564.35 + 3{,}162.28 = \$12{,}198.77
-  &amp;&amp;\text{item by item}\\
+\sqrt{2k_1\lambda_1h_1} &amp;= \sqrt{2(50)(12{,}000)(6.00)} = \$2{,}683.28
+  &amp;&amp;\text{item 1&#39;s cost at its own quantity}\\
+2{,}683.28 + 2{,}738.61 + 1{,}897.37 &amp;= \$7{,}319.26
+  &amp;&amp;\text{the unconstrained relevant cost}\\
+c_1\frac{Q_1^{*}}{2} &amp;= 20\,\frac{447.2136}{2} = \$4{,}472.14
+  &amp;&amp;\text{item 1&#39;s average investment}\\
+4{,}472.14 + 4{,}564.35 + 3{,}162.28 &amp;= \$12{,}198.77
+  &amp;&amp;\text{all three items}\\
 \$12{,}198.77 &amp;&gt; \$10{,}000
   &amp;&amp;\text{the constraint is active}
 \end{aligned}
@@ -1291,29 +1295,95 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
-<section id="step-3-bisection" class="slide level2">
-<h2>Step 3: Bisection</h2>
-<p>Bracket with <span class="math inline">\(\theta = 0\)</span> (investment $12,198.77, over) and <span class="math inline">\(\theta = 1\)</span> (investment $5,860.10, under), then halve.</p>
+<section id="step-3-the-bracket-and-one-pass" class="slide level2">
+<h2>Step 3: The Bracket, and One Pass</h2>
+<p>Bisection needs two multipliers at which <span class="math inline">\(R\)</span> has opposite signs. Each pass then evaluates <span class="math inline">\(R\)</span> at the midpoint and keeps the half where the sign changes.</p>
+<p><span class="math display">\[
+\begin{aligned}
+R(0) &amp;= 12{,}198.77 - 10{,}000 = 2{,}198.77 &gt; 0
+  &amp;&amp;\text{the unconstrained quantities}\\
+Q_1(0.30) &amp;= \sqrt{\frac{1{,}200{,}000}{6.00 + 0.30(20)}} = 316.228
+  &amp;&amp;\text{item 1, the carrying charge doubled}\\
+\tfrac{c_1}{2}Q_1(0.30) &amp;= 10(316.228) = \$3{,}162.28
+  &amp;&amp;\text{its investment}\\
+R(0.30) &amp;= 8{,}625.83 - 10{,}000 = -1{,}374.17 &lt; 0
+  &amp;&amp;\text{all three: the root is in } (0, 0.30)
+\end{aligned}
+\]</span></p>
+<p><em>Pass 1,</em> at the midpoint <span class="math inline">\(\theta = 0.15\)</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;"><span class="math inline">\(h_j + 0.15c_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(Q_j(0.15)\)</span></th>
+<th style="text-align: right;">Investment <span class="math inline">\(c_jQ_j(0.15)/2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td style="text-align: right;">$9.00</td>
+<td style="text-align: right;">365.15</td>
+<td style="text-align: right;">$3,651.48</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td style="text-align: right;">$4.50</td>
+<td style="text-align: right;">745.36</td>
+<td style="text-align: right;">$3,726.78</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td style="text-align: right;">$6.75</td>
+<td style="text-align: right;">344.27</td>
+<td style="text-align: right;">$2,581.99</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><strong>$9,960.25</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(R(0.15) = 9{,}960.25 - 10{,}000 = -39.75 &lt; 0\)</span>, so the root lies in the lower half and the bracket becomes 0 to 0.15.</p>
+<aside class="notes">
+<p>Any multiplier at which R is negative will do for the upper end. We try 0.30 because it doubles the carrying charge on every item, which is easy to compute. Items 2 and 3 at 0.30 invest $3,227.49 and $2,236.07.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="step-3-eight-passes" class="slide level2">
+<h2>Step 3: Eight Passes</h2>
 <table style="font-size:0.85em; margin-top:0.2em;">
 <thead>
 <tr>
 <th>
-Step
+Pass
 </th>
 <th>
-Low
-</th>
-<th>
-High
+Bracket
 </th>
 <th>
 Midpoint <span class="math inline">\(\theta\)</span>
 </th>
 <th>
-Investment at midpoint
+Investment
+</th>
+<th>
+<span class="math inline">\(R(\theta)\)</span>
 </th>
 <th style="text-align:left">
-Keep
+Half kept
 </th>
 </tr>
 </thead>
@@ -1323,19 +1393,19 @@ Keep
 1
 </td>
 <td>
-0
+0 to 0.30
 </td>
 <td>
-1
+0.15
 </td>
 <td>
-0.5
+$9,960.25
 </td>
 <td>
-$7,470.19
+<span class="math inline">\(-39.75\)</span>
 </td>
 <td style="text-align:left">
-under: lower half
+under: lower
 </td>
 </tr>
 <tr class="fragment">
@@ -1343,19 +1413,19 @@ under: lower half
 2
 </td>
 <td>
-0
+0 to 0.15
 </td>
 <td>
-0.5
+0.075
 </td>
 <td>
-0.25
+$10,910.91
 </td>
 <td>
-$9,009.39
+910.91
 </td>
 <td style="text-align:left">
-under: lower half
+over: upper
 </td>
 </tr>
 <tr class="fragment">
@@ -1363,19 +1433,19 @@ under: lower half
 3
 </td>
 <td>
-0
+0.075 to 0.15
 </td>
 <td>
-0.25
+0.1125
 </td>
 <td>
-0.125
+$10,403.14
 </td>
 <td>
-$10,249.02
+403.14
 </td>
 <td style="text-align:left">
-over: upper half
+over: upper
 </td>
 </tr>
 <tr class="fragment">
@@ -1383,19 +1453,19 @@ over: upper half
 4
 </td>
 <td>
-0.125
+0.1125 to 0.15
 </td>
 <td>
-0.25
+0.13125
 </td>
 <td>
-0.1875
+$10,174.48
 </td>
 <td>
-$9,569.50
+174.48
 </td>
 <td style="text-align:left">
-under: lower half
+over: upper
 </td>
 </tr>
 <tr class="fragment">
@@ -1403,19 +1473,19 @@ under: lower half
 5
 </td>
 <td>
-0.125
+0.13125 to 0.15
 </td>
 <td>
-0.1875
+0.140625
 </td>
 <td>
-0.15625
+$10,065.66
 </td>
 <td>
-$9,891.80
+65.66
 </td>
 <td style="text-align:left">
-under: lower half
+over: upper
 </td>
 </tr>
 <tr class="fragment">
@@ -1423,19 +1493,19 @@ under: lower half
 6
 </td>
 <td>
-0.125
+0.140625 to 0.15
 </td>
 <td>
-0.15625
+0.145313
 </td>
 <td>
-0.14063
+$10,012.54
 </td>
 <td>
-$10,065.66
+12.54
 </td>
 <td style="text-align:left">
-over: upper half
+over: upper
 </td>
 </tr>
 <tr class="fragment">
@@ -1443,19 +1513,19 @@ over: upper half
 7
 </td>
 <td>
-0.14063
+0.145313 to 0.15
 </td>
 <td>
-0.15625
+0.147656
 </td>
 <td>
-0.14844
+$9,986.29
 </td>
 <td>
-$9,977.59
+<span class="math inline">\(-13.71\)</span>
 </td>
 <td style="text-align:left">
-under: lower half
+under: lower
 </td>
 </tr>
 <tr class="fragment">
@@ -1463,48 +1533,28 @@ under: lower half
 8
 </td>
 <td>
-0.14063
+0.145313 to 0.147656
 </td>
 <td>
-0.14844
-</td>
-<td>
-0.14453
-</td>
-<td>
-$10,021.33
-</td>
-<td style="text-align:left">
-over: upper half
-</td>
-</tr>
-<tr class="fragment">
-<td>
-9
-</td>
-<td>
-0.14453
-</td>
-<td>
-0.14844
-</td>
-<td>
-0.14648
+0.146484
 </td>
 <td>
 $9,999.39
 </td>
+<td>
+<span class="math inline">\(-0.61\)</span>
+</td>
 <td style="text-align:left">
-under: lower half
+under: lower
 </td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p>Each step halves the bracket, so twenty more steps pin it to six decimals: <span class="math inline">\(\theta^{*} = 0.14643\)</span>.</p>
+<p>After eight passes the investment at the midpoint is within a dollar of the limit. Each pass halves the bracket, and after sixteen both ends round to the same five decimals: <span class="math inline">\(\theta^{*} = 0.14643\)</span>.</p>
 </div>
 <aside class="notes">
-<p>Too much investment means the surcharge is too small, so the root lies above the midpoint; too little means it lies below. That is the whole of the rule, and it works because R is strictly decreasing.</p>
+<p>Too much investment means the surcharge is too small, so the root lies above the midpoint; too little means it lies below. That is the whole of the rule, and it works because R is strictly decreasing. The method is slow and cannot fail.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1555,18 +1605,21 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p><em>The check.</em> The holding cost total is $3,000, and it has to be:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\sum_j h_j\frac{Q_j}{2} &amp;= \sum_j i\,c_j\frac{Q_j}{2} = i\sum_j c_j\frac{Q_j}{2}
-  &amp;&amp;h_j = ic_j\\
-&amp;= 0.30 \times \$10{,}000 = \$3{,}000
-  &amp;&amp;\text{the investment is the budget}
+Q_1 &amp;= \sqrt{\frac{1{,}200{,}000}{6.00 + 0.14643(20)}} = \sqrt{\frac{1{,}200{,}000}{8.9286}} = 366.6055
+  &amp;&amp;\text{row 1: the surcharge sets } Q_1\\
+\frac{k_1\lambda_1}{Q_1} &amp;= \frac{50(12{,}000)}{366.6055} = \$1{,}636.64
+  &amp;&amp;\text{its ordering cost}\\
+\frac{h_1Q_1}{2} &amp;= \frac{6.00(366.6055)}{2} = \$1{,}099.82
+  &amp;&amp;\text{holding, at its own } \$6.00\\
+\sum_j h_j\frac{Q_j}{2} &amp;= i\sum_j c_j\frac{Q_j}{2} = 0.30 \times \$10{,}000 = \$3{,}000
+  &amp;&amp;\textit{the check: } h_j = ic_j
 \end{aligned}
 \]</span></p>
-<p>The constraint fixed the investment, so it fixed the holding cost with it. You should perform that check every time a budget is solved, because it catches an error in the multiplier or the quantities immediately.</p>
+<p>The constraint fixed the investment, so it fixed the holding cost with it. You should perform that check every time a budget is solved.</p>
 <aside class="notes">
-<p>Item 1: the square root of 2 times 50 times 12,000 over (6 + 0.14643 times 20), which is 1,200,000 over 8.9286, square-rooted: 366.61.</p>
+<p>The surcharge decides the quantity. It is not money the distributor pays, so the holding cost is charged at $6.00 and not at $8.9286. Items 2 and 3 repeat the three computations. The check catches an error in the multiplier or in the quantities immediately.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1642,6 +1695,45 @@ Q_j &amp;= \sqrt{\frac{2k_j\lambda_j}{ic_j + \theta c_j}} = \sqrt{\frac{2k_j\lam
 </div>
 <aside class="notes">
 <p>A planner faced with a cut in working capital might expect to cut deepest on the items that consume most of it. The unconstrained solution already put each item in the right proportion; the constraint asks only that everything be smaller.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-multiplier-in-one-line" class="slide level2">
+<h2>The Multiplier in One Line</h2>
+<p>Where the scaling holds, it removes the search. Each term <span class="math inline">\(c_jQ_j/2\)</span> of the investment shrinks by the same factor, so the total does too, and the unconstrained quantities consume <span class="math inline">\(R(0) + A\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+A &amp;= \bigl[R(0) + A\bigr]\sqrt{\frac{i}{i + \theta^{*}}}
+  &amp;&amp;\text{every term shrinks by one factor}\\
+\frac{i + \theta^{*}}{i} &amp;= \left(\frac{R(0) + A}{A}\right)^{2}
+  &amp;&amp;\text{square and invert both sides}\\
+\theta^{*} &amp;= i\left[\left(\frac{R(0) + A}{A}\right)^{2} - 1\right]
+  &amp;&amp;\text{solve for } \theta^{*}\\
+&amp;= 0.30\left[\left(\frac{12{,}198.77}{10{,}000}\right)^{2} - 1\right] = 0.30(1.48810 - 1) = 0.14643
+  &amp;&amp;\text{the three items}
+\end{aligned}
+\]</span></p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>That is the value sixteen passes of bisection reached. Under a budget with <span class="math inline">\(h_j = ic_j\)</span> you can compute the multiplier in one line. Bisection remains the route for every other case.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>The other cases are a space limit, a holding cost quoted directly, and the limit on replenishments that comes next. The search is the general method and the formula is the special case.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1808,10 +1900,165 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\(85.13 &gt; 50\)</span>, so the limit binds; bisection gives <span class="math inline">\(\theta^{*} = \$64.33\)</span> per order.</p>
+<p><span class="math inline">\(85.13 &gt; 50\)</span>, so the limit binds, and the next slide finds <span class="math inline">\(\theta^{*} = \$64.33\)</span> per order by bisection.</p>
 <p><em>The check.</em> The orders total 50.00, and each quantity is the economic order quantity with the effective ordering cost: item 1 gives <span class="math inline">\(\sqrt{2(114.33)(12{,}000)/6} = 676.25\)</span>. That confirms the multiplier and the quantities came from the same value.</p>
 <aside class="notes">
 <p>The unit costs are as before, $20, $10 and $15, with the carrying charge of 30%. Unconstrained, the three cost $6,815.33 a year.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-dock-limit-by-bisection" class="slide level2">
+<h2>The Dock Limit by Bisection</h2>
+<p>The count <span class="math inline">\(\sum_j\lambda_j/Q_j(\theta)\)</span> falls as <span class="math inline">\(\theta\)</span> rises, and we want it at 50.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\theta = 0 &amp;: 26.83 + 43.30 + 15.00 = 85.13 &gt; 50
+  &amp;&amp;\text{the unconstrained count}\\
+\theta = 100 &amp;: Q_1 = \sqrt{\frac{2(150)(12{,}000)}{6.00}} = 774.60, \quad \frac{12{,}000}{774.60} = 15.49
+  &amp;&amp;\text{item 1 at } \$150\\
+&amp;: 15.49 + 17.68 + 10.00 = 43.17 &lt; 50
+  &amp;&amp;\text{the root is in } (0, 100)
+\end{aligned}
+\]</span></p>
+<table style="font-size:0.8em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+Pass
+</th>
+<th>
+Bracket
+</th>
+<th>
+Midpoint <span class="math inline">\(\theta\)</span>
+</th>
+<th>
+Orders a year
+</th>
+<th style="text-align:left">
+Half kept
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0 to 100
+</td>
+<td>
+50
+</td>
+<td>
+18.97 + 23.15 + 11.77 = 53.89
+</td>
+<td style="text-align:left">
+over: upper
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+50 to 100
+</td>
+<td>
+75
+</td>
+<td>
+47.61
+</td>
+<td style="text-align:left">
+under: lower
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+50 to 75
+</td>
+<td>
+62.5
+</td>
+<td>
+50.45
+</td>
+<td style="text-align:left">
+over: upper
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+62.5 to 75
+</td>
+<td>
+68.75
+</td>
+<td>
+48.97
+</td>
+<td style="text-align:left">
+under: lower
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+62.5 to 68.75
+</td>
+<td>
+65.625
+</td>
+<td>
+49.69
+</td>
+<td style="text-align:left">
+under: lower
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+62.5 to 65.625
+</td>
+<td>
+64.0625
+</td>
+<td>
+50.06
+</td>
+<td style="text-align:left">
+over: upper
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>After fifteen passes both ends of the bracket round to the same cent: <span class="math inline">\(\theta^{*} = \$64.33\)</span> per order.</p>
+</div>
+<aside class="notes">
+<p>A count above 50 means the multiplier is still too small, so the upper half is kept. Pass 1 in full: the effective ordering costs are $100, $70 and $130, the quantities 632.46, 1,080.12 and 679.87. Passes 7 and 8 give 49.88 and 49.97.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1828,10 +2075,14 @@ display:block!important;
 <h2>What the Dock Limit Costs</h2>
 <p><span class="math display">\[
 \begin{aligned}
-\$7{,}621.27 - \$6{,}815.33 &amp;= \$805.93
-  &amp;&amp;\text{the price of the limit}\\
-805.93 / 6{,}815.33 &amp;= 11.83\%
-  &amp;&amp;\text{relative to unconstrained}
+\frac{k_1\lambda_1}{Q_1} + \frac{h_1Q_1}{2} &amp;= \frac{50(12{,}000)}{676.2523} + \frac{6.00(676.2523)}{2}
+  &amp;&amp;\text{item 1, at its real } k_1\\
+&amp;= 887.24 + 2{,}028.76 = \$2{,}916.00
+  &amp;&amp;\text{ordering plus holding}\\
+C &amp;= 2{,}202.40 + 5{,}418.86 \;\to\; \$7{,}621.27
+  &amp;&amp;\text{all ordering, all holding}\\
+7{,}621.2652 - 6{,}815.3324 &amp;= \$805.93, \qquad 805.93 / 6{,}815.33 = 11.83\%
+  &amp;&amp;\text{the price of the limit}
 \end{aligned}
 \]</span></p>
 <p>Notice in the last column that the quantities have not grown together. Item 2, whose $20 ordering cost is most changed by adding $64.33, <strong>more than doubles</strong>; item 3, at $80, grows by only a third. The dock’s capacity has redistributed the quantities as well as lengthened them.</p>
@@ -1846,7 +2097,7 @@ display:block!important;
 </div>
 </div>
 <aside class="notes">
-<p>A limit on ordering capacity and a supplier who charges more per order are the same thing seen from two sides, as a budget and a higher cost of capital were.</p>
+<p>The multiplier sets the quantities and is not itself paid, so the cost uses the real ordering costs. The total is carried with every digit, which is why the two rounded parts sum to a cent less. A limit on ordering capacity and a supplier who charges more per order are the same thing seen from two sides, as a budget and a higher cost of capital were.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

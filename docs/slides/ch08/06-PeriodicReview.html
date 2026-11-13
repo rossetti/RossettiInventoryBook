@@ -1604,8 +1604,8 @@ display:block!important;
 \begin{aligned}
 \overline{\mathit{OF}} &amp;= \frac{P\{D(R) \ge 1\}}{R}
   &amp;&amp;\text{a review orders iff some demand arrived}\\
-\bar{B}(S) &amp;= \overline{G^{1}}(S)
-  &amp;&amp;\text{base stock, averaged over the cycle}\\
+\bar{B}(S) &amp;= \frac{1}{R}\int_{0}^{R} E[B \mid U = u]\,du = \overline{G^{1}}(S)
+  &amp;&amp;\text{condition on the time } U \text{ since the review}\\
 \bar{I}(S) &amp;= S - \lambda\left(L + \tfrac{R}{2}\right) + \bar{B}(S)
   &amp;&amp;E[D(L+U)] = \lambda(L + R/2)\text{; } I = \mathit{IN} + B\\
 \overline{\mathit{RR}}(S) &amp;= \bar{G}(S - 1)
@@ -1758,6 +1758,55 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </div>
+</section>
+<section id="the-level-by-the-three-point-rule" class="slide level2">
+<h2>The Level, by the Three-Point Rule</h2>
+<p>The rule gives <span class="math inline">\(\bar{G}\)</span> from three Poisson distribution functions, at the three means 7.5, 9.375 and 11.25.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Mean demand over the exposure</th>
+<th style="text-align: right;">7.5</th>
+<th style="text-align: right;">9.375</th>
+<th style="text-align: right;">11.25</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(G(13)\)</span></td>
+<td style="text-align: right;">0.9784</td>
+<td style="text-align: right;">0.9057</td>
+<td style="text-align: right;">0.7576</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(G(14)\)</span></td>
+<td style="text-align: right;">0.9897</td>
+<td style="text-align: right;">0.9451</td>
+<td style="text-align: right;">0.8352</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{G}(13) &amp;\approx \frac{0.9784 + 4(0.9057) + 0.7576}{6} = \frac{5.3588}{6} = 0.8931
+  &amp;&amp;\text{short of 0.90}\\
+\bar{G}(14) &amp;\approx \frac{0.9897 + 4(0.9451) + 0.8352}{6} = \frac{5.6053}{6} = 0.9342
+  &amp;&amp;\text{clears it: } S^{*} = 14
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>The first column is the transformer’s hand table. The other two means are not printed columns of the Poisson table, so they are built by the recursion or read from POISSON.DIST. The table on the last slide prints the integral evaluated numerically, which differs from the three-point rule in the fourth decimal and gives the same level.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="the-transformer-reviewed-monthly" class="slide level2">
 <h2>The Transformer Reviewed Monthly</h2>

@@ -473,15 +473,19 @@ window.Quarto = {
   <li><a href="#sec-appprobability-1" id="toc-sec-appprobability-1" class="nav-link active" data-scroll-target="#sec-appprobability-1"><span class="header-section-number">B.1</span> Random Variables and Expectation</a>
   <ul>
   <li><a href="#sec-appprobability-rv-moments" id="toc-sec-appprobability-rv-moments" class="nav-link" data-scroll-target="#sec-appprobability-rv-moments"><span class="header-section-number">B.1.1</span> Expectation, Variance, and Two Ratios</a></li>
-  <li><a href="#sec-appprobability-rv-function" id="toc-sec-appprobability-rv-function" class="nav-link" data-scroll-target="#sec-appprobability-rv-function"><span class="header-section-number">B.1.2</span> A Function of a Random Variable</a></li>
-  <li><a href="#sec-appprobability-rv-conditioning" id="toc-sec-appprobability-rv-conditioning" class="nav-link" data-scroll-target="#sec-appprobability-rv-conditioning"><span class="header-section-number">B.1.3</span> Conditioning</a></li>
+  <li><a href="#sec-appprobability-rv-uniform" id="toc-sec-appprobability-rv-uniform" class="nav-link" data-scroll-target="#sec-appprobability-rv-uniform"><span class="header-section-number">B.1.2</span> The Discrete Uniform</a></li>
+  <li><a href="#sec-appprobability-rv-function" id="toc-sec-appprobability-rv-function" class="nav-link" data-scroll-target="#sec-appprobability-rv-function"><span class="header-section-number">B.1.3</span> A Function of a Random Variable</a></li>
+  <li><a href="#sec-appprobability-rv-factorial" id="toc-sec-appprobability-rv-factorial" class="nav-link" data-scroll-target="#sec-appprobability-rv-factorial"><span class="header-section-number">B.1.4</span> Factorial Moments</a></li>
+  <li><a href="#sec-appprobability-rv-conditioning" id="toc-sec-appprobability-rv-conditioning" class="nav-link" data-scroll-target="#sec-appprobability-rv-conditioning"><span class="header-section-number">B.1.5</span> Conditioning</a></li>
+  <li><a href="#sec-appprobability-rv-mixture" id="toc-sec-appprobability-rv-mixture" class="nav-link" data-scroll-target="#sec-appprobability-rv-mixture"><span class="header-section-number">B.1.6</span> Mixtures</a></li>
   </ul></li>
   <li><a href="#sec-appprobability-2" id="toc-sec-appprobability-2" class="nav-link" data-scroll-target="#sec-appprobability-2"><span class="header-section-number">B.2</span> Sums of Random Variables</a>
   <ul>
   <li><a href="#sec-appprobability-sums-moments" id="toc-sec-appprobability-sums-moments" class="nav-link" data-scroll-target="#sec-appprobability-sums-moments"><span class="header-section-number">B.2.1</span> The Mean and the Variance of a Sum</a></li>
   <li><a href="#sec-appprobability-sums-average" id="toc-sec-appprobability-sums-average" class="nav-link" data-scroll-target="#sec-appprobability-sums-average"><span class="header-section-number">B.2.2</span> Averages, and Why Precision Is Expensive</a></li>
   <li><a href="#sec-appprobability-sums-closure" id="toc-sec-appprobability-sums-closure" class="nav-link" data-scroll-target="#sec-appprobability-sums-closure"><span class="header-section-number">B.2.3</span> Families Closed Under Addition</a></li>
-  <li><a href="#sec-appprobability-sums-clt" id="toc-sec-appprobability-sums-clt" class="nav-link" data-scroll-target="#sec-appprobability-sums-clt"><span class="header-section-number">B.2.4</span> The Central Limit Theorem, and What It Does Not Say</a></li>
+  <li><a href="#sec-appprobability-sums-convolution" id="toc-sec-appprobability-sums-convolution" class="nav-link" data-scroll-target="#sec-appprobability-sums-convolution"><span class="header-section-number">B.2.4</span> The Distribution of a Sum</a></li>
+  <li><a href="#sec-appprobability-sums-clt" id="toc-sec-appprobability-sums-clt" class="nav-link" data-scroll-target="#sec-appprobability-sums-clt"><span class="header-section-number">B.2.5</span> The Central Limit Theorem, and What It Does Not Say</a></li>
   </ul></li>
   <li><a href="#sec-appprobability-3" id="toc-sec-appprobability-3" class="nav-link" data-scroll-target="#sec-appprobability-3"><span class="header-section-number">B.3</span> The Poisson Process</a>
   <ul>
@@ -506,6 +510,7 @@ window.Quarto = {
   <li><a href="#sec-appprobability-randomsums-compound" id="toc-sec-appprobability-randomsums-compound" class="nav-link" data-scroll-target="#sec-appprobability-randomsums-compound"><span class="header-section-number">B.5.4</span> Batches, and the Compound Poisson</a></li>
   <li><a href="#sec-appprobability-randomsums-caution" id="toc-sec-appprobability-randomsums-caution" class="nav-link" data-scroll-target="#sec-appprobability-randomsums-caution"><span class="header-section-number">B.5.5</span> What This Does and Does Not Give You</a></li>
   </ul></li>
+  <li><a href="#sec-appprobability-exercises" id="toc-sec-appprobability-exercises" class="nav-link" data-scroll-target="#sec-appprobability-exercises"><span class="header-section-number">B.6</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -545,7 +550,9 @@ window.Quarto = {
 <p>After reading this chapter you should be able to:</p>
 <ul>
 <li>compute expectations and variances, and condition on a second random variable</li>
+<li>recognize a mixture, and obtain its mean and its variance by conditioning</li>
 <li>find the mean and the variance of a sum, and say when the variances add</li>
+<li>build the distribution of a sum of two independent discrete quantities by convolution</li>
 <li>state what the central limit theorem gives and what it does not</li>
 <li>work with the Poisson and renewal processes used in the inventory models</li>
 <li>explain why the fill rate and the ready rate coincide only under Poisson demand</li>
@@ -573,7 +580,7 @@ E[X] = \sum_{x} x\,g(x) \quad\text{or}\quad \int_{-\infty}^{\infty} x f(x)\,dx
 <p><span id="eq-variance"><span class="math display">\[
 \mathit{Var}[X] = E\big[(X - E[X])^{2}\big] = E[X^{2}] - \big(E[X]\big)^{2}
 \tag{B.3}\]</span></span></p>
-<p>The second form is the one to compute with, and it is how <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.31</span></a> below collapses to a second moment. The <strong>standard deviation</strong> <span class="math inline">\(\sigma_{X} = \sqrt{\mathit{Var}[X]}\)</span> carries the units of <span class="math inline">\(X\)</span> and is therefore the one to report.</p>
+<p>The second form is the one to compute with, and it is how <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.37</span></a> below collapses to a second moment. The <strong>standard deviation</strong> <span class="math inline">\(\sigma_{X} = \sqrt{\mathit{Var}[X]}\)</span> carries the units of <span class="math inline">\(X\)</span> and is therefore the one to report.</p>
 <p>Two dimensionless ratios appear throughout the book and they are not the same thing. The <strong>coefficient of variation</strong> <span class="math inline">\(c_{X} = \sigma_{X}/E[X]\)</span> measures spread relative to level, and <a href="14-AppDistributions.html#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> reads a normal model’s defect off it directly. The <strong>variance to mean ratio</strong> of <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> selects among discrete families and carries the units of <span class="math inline">\(X\)</span>. Notice that <span class="math inline">\(c_{X}\)</span> compares a standard deviation with a mean and <span class="math inline">\(\mathit{VMR}\)</span> compares a variance with a mean, so the two answer different questions and only one of them is a pure number.</p>
 <p>For a <strong>linear</strong> transformation, with <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> constants,</p>
 <p><span id="eq-linear-transform"><span class="math display">\[
@@ -581,17 +588,51 @@ E[aX + b] = aE[X] + b, \qquad \mathit{Var}[aX + b] = a^{2}\mathit{Var}[X]
 \tag{B.4}\]</span></span></p>
 <p>Notice that <span class="math inline">\(b\)</span> moves the mean and does not touch the variance, and that <span class="math inline">\(a\)</span> enters the variance squared. That is why a change of units rescales a standard deviation linearly, and it is the whole of the argument in <a href="01-Chapter1.html#sec-costparams-charges" class="quarto-xref"><span>Section 1.4.1</span></a> that a constant added to every alternative cannot change which alternative is least.</p>
 </section>
-<section id="sec-appprobability-rv-function" class="level3" data-number="B.1.2">
-<h3 data-number="B.1.2" class="anchored" data-anchor-id="sec-appprobability-rv-function"><span class="header-section-number">B.1.2</span> A Function of a Random Variable</h3>
+<section id="sec-appprobability-rv-uniform" class="level3" data-number="B.1.2">
+<h3 data-number="B.1.2" class="anchored" data-anchor-id="sec-appprobability-rv-uniform"><span class="header-section-number">B.1.2</span> The Discrete Uniform</h3>
+<p>The simplest random variable in the book is one that is equally likely to be each of a run of consecutive whole numbers. Let <span class="math inline">\(U\)</span> represent a random variable that takes each of the <span class="math inline">\(Q\)</span> values <span class="math inline">\(a+1, a+2, \ldots, a+Q\)</span> with probability <span class="math inline">\(1/Q\)</span>, where <span class="math inline">\(a\)</span> is a whole number. That is the <strong>discrete uniform</strong> distribution. It earns a place here because it is the distribution of the inventory position under the <span class="math inline">\((r, Q)\)</span> policy of <a href="08-Chapter8.html#sec-continuousreview-batch-position" class="quarto-xref"><span>Section 8.5.1</span></a>, with <span class="math inline">\(a = r\)</span>, and every measure of that policy is an average over it.</p>
+<p>Its mean is <a href="#eq-expectation" class="quarto-xref">Equation&nbsp;<span>B.2</span></a> worked through:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[U] &amp;= \sum_{i=1}^{Q}(a + i)\frac{1}{Q}
+  &amp;&amp;\text{each value has probability } 1/Q\\
+&amp;= a + \frac{1}{Q}\sum_{i=1}^{Q} i
+  &amp;&amp;\text{the constant } a \text{ comes out}\\
+&amp;= a + \frac{1}{Q}\cdot\frac{Q(Q+1)}{2} = a + \frac{Q+1}{2}
+  &amp;&amp;\text{the sum of 1 through } Q
+\end{aligned}
+\]</span></p>
+<p>For the variance, <a href="#eq-linear-transform" class="quarto-xref">Equation&nbsp;<span>B.4</span></a> says that a shift does not change it, so we may take <span class="math inline">\(a = 0\)</span> and work with the values 1 through <span class="math inline">\(Q\)</span>. The squares of the whole numbers 1 through <span class="math inline">\(Q\)</span> sum to <span class="math inline">\(Q(Q+1)(2Q+1)/6\)</span>. By the second form of <a href="#eq-variance" class="quarto-xref">Equation&nbsp;<span>B.3</span></a>, we obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[U^{2}] &amp;= \frac{1}{Q}\sum_{i=1}^{Q} i^{2} = \frac{(Q+1)(2Q+1)}{6}
+  &amp;&amp;\text{the sum of the squares}\\
+\mathit{Var}[U] &amp;= \frac{(Q+1)(2Q+1)}{6} - \left(\frac{Q+1}{2}\right)^{2}
+  &amp;&amp;\text{second moment less squared mean}\\
+&amp;= \frac{(Q+1)\left[2(2Q+1) - 3(Q+1)\right]}{12}
+  &amp;&amp;\text{a common denominator}\\
+&amp;= \frac{(Q+1)(Q-1)}{12}
+  &amp;&amp;\text{the bracket is } Q - 1
+\end{aligned}
+\]</span></p>
+<p>Thus,</p>
+<p><span id="eq-discrete-uniform"><span class="math display">\[
+E[U] = a + \frac{Q+1}{2}, \qquad \mathit{Var}[U] = \frac{Q^{2}-1}{12}
+\tag{B.5}\]</span></span></p>
+<p><strong>For example</strong>, the transformer of <a href="08-Chapter8.html#sec-continuousreview-batch-position" class="quarto-xref"><span>Section 8.5.1</span></a> run at <span class="math inline">\(r = 9\)</span> and <span class="math inline">\(Q = 5\)</span> has its position at 10, 11, 12, 13 or 14, each one fifth of the time. <a href="#eq-discrete-uniform" class="quarto-xref">Equation&nbsp;<span>B.5</span></a> gives a mean of <span class="math inline">\(9 + \tfrac{1}{2}(6) = 12\)</span> and a variance of <span class="math inline">\((25 - 1)/12 = 2\)</span>. Let’s check both against the definitions. The five values average <span class="math inline">\(60/5 = 12\)</span>. Their deviations from 12 are <span class="math inline">\(-2\)</span>, <span class="math inline">\(-1\)</span>, 0, 1 and 2, whose squares average <span class="math inline">\((4 + 1 + 0 + 1 + 4)/5 = 2\)</span>. The two agree.</p>
+<p>Notice two things about <a href="#eq-discrete-uniform" class="quarto-xref">Equation&nbsp;<span>B.5</span></a>. At <span class="math inline">\(Q = 1\)</span> the variance is zero, which is the base-stock policy, whose position never moves. In addition, a continuous uniform over an interval of length <span class="math inline">\(Q\)</span> has a mean of <span class="math inline">\(\tfrac{1}{2}Q\)</span> above its lower end and a variance of <span class="math inline">\(Q^{2}/12\)</span>. The whole-number version sits half a unit higher and is less spread by a twelfth of a unit squared, whatever <span class="math inline">\(Q\)</span> is. That is the difference between counting units and measuring them, and it is why <a href="08-Chapter8.html#eq-rq-onhand" class="quarto-xref">Equation&nbsp;<span>8.22</span></a> carries <span class="math inline">\(\tfrac{1}{2}(Q+1)\)</span> and not <span class="math inline">\(\tfrac{1}{2}Q\)</span>.</p>
+</section>
+<section id="sec-appprobability-rv-function" class="level3" data-number="B.1.3">
+<h3 data-number="B.1.3" class="anchored" data-anchor-id="sec-appprobability-rv-function"><span class="header-section-number">B.1.3</span> A Function of a Random Variable</h3>
 <p>For any function <span class="math inline">\(h\)</span>,</p>
 <p><span id="eq-expectation-function"><span class="math display">\[
 E\big[h(X)\big] = \sum_{x} h(x)\,g(x) \quad\text{or}\quad \int_{-\infty}^{\infty} h(x) f(x)\,dx
-\tag{B.5}\]</span></span></p>
-<p>so the expectation is taken against the distribution of <span class="math inline">\(X\)</span> and no distribution of <span class="math inline">\(h(X)\)</span> has to be found. <a href="07-Chapter7.html#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> is <a href="#eq-expectation-function" class="quarto-xref">Equation&nbsp;<span>B.5</span></a> applied to the newsvendor cost, and <a href="14-AppDistributions.html#eq-loss-first" class="quarto-xref">Equation&nbsp;<span>C.9</span></a> is it applied to <span class="math inline">\((X-b)^{+}\)</span>.</p>
+\tag{B.6}\]</span></span></p>
+<p>so the expectation is taken against the distribution of <span class="math inline">\(X\)</span> and no distribution of <span class="math inline">\(h(X)\)</span> has to be found. <a href="07-Chapter7.html#eq-newsvendor-expectedcost" class="quarto-xref">Equation&nbsp;<span>7.10</span></a> is <a href="#eq-expectation-function" class="quarto-xref">Equation&nbsp;<span>B.6</span></a> applied to the newsvendor cost, and <a href="14-AppDistributions.html#eq-loss-first" class="quarto-xref">Equation&nbsp;<span>C.9</span></a> is it applied to <span class="math inline">\((X-b)^{+}\)</span>.</p>
 <p>The result that matters here is the one about what you may not do. In general</p>
 <p><span id="eq-jensen"><span class="math display">\[
 E\big[h(X)\big] \ne h\big(E[X]\big)
-\tag{B.6}\]</span></span></p>
+\tag{B.7}\]</span></span></p>
 <p>and the two sides differ by more than a rounding. Replacing a random demand by its average and evaluating the cost there is the commonest modeling error in inventory work, and it has a name outside this book: the flaw of averages. Thus, a model that plans against average demand is not a conservative approximation of a stochastic model. It is a different model, and usually an optimistic one.</p>
 <p><strong>For example</strong>, take the five-point demand sketch of <a href="07-Chapter7.html#tbl-newsvendor-sketch" class="quarto-xref">Table&nbsp;<span>7.1</span></a>, whose mean is 485 belts, with <span class="math inline">\(c_{o} = \$38\)</span> and <span class="math inline">\(c_{u} = \$45\)</span>. Order the average, <span class="math inline">\(Q = 485\)</span>. Substituting the average demand into <a href="07-Chapter7.html#eq-newsvendor-cost" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> gives</p>
 <p><span class="math display">\[
@@ -603,18 +644,91 @@ E\big[C(485)\big] = 38(49.0) + 45(49.0) = 49.0(83) = \$4{,}067
 \]</span></p>
 <p>The flaw of averages understated the cost of that decision by the entire cost of it. Notice that the two expectations came out equal, and that this is not a coincidence: <a href="07-Chapter7.html#eq-newsvendor-leftover" class="quarto-xref">Equation&nbsp;<span>7.9</span></a> says their difference is <span class="math inline">\(Q - E[X]\)</span>, which is zero at <span class="math inline">\(Q = E[X]\)</span>. That identity is worth using as an arithmetic check every time a loss function is evaluated at the mean.</p>
 </section>
-<section id="sec-appprobability-rv-conditioning" class="level3" data-number="B.1.3">
-<h3 data-number="B.1.3" class="anchored" data-anchor-id="sec-appprobability-rv-conditioning"><span class="header-section-number">B.1.3</span> Conditioning</h3>
+<section id="sec-appprobability-rv-factorial" class="level3" data-number="B.1.4">
+<h3 data-number="B.1.4" class="anchored" data-anchor-id="sec-appprobability-rv-factorial"><span class="header-section-number">B.1.4</span> Factorial Moments</h3>
+<p>When <span class="math inline">\(X\)</span> counts something, the expectation of <span class="math inline">\(X(X-1)\)</span> is often easier to obtain than the expectation of <span class="math inline">\(X^{2}\)</span>, and it carries the same information. The <strong>factorial moment</strong> of order <span class="math inline">\(n\)</span> is</p>
+<p><span id="eq-factorial-moment"><span class="math display">\[
+E\big[X(X-1)\cdots(X-n+1)\big]
+\tag{B.8}\]</span></span></p>
+<p>which is <a href="#eq-expectation-function" class="quarto-xref">Equation&nbsp;<span>B.6</span></a> with <span class="math inline">\(h(x) = x(x-1)\cdots(x-n+1)\)</span>. The first factorial moment is the mean. The second is <span class="math inline">\(E[X(X-1)] = E[X^{2}] - E[X]\)</span>, because an expectation is linear. Thus, the second form of <a href="#eq-variance" class="quarto-xref">Equation&nbsp;<span>B.3</span></a> becomes</p>
+<p><span id="eq-factorial-variance"><span class="math display">\[
+\mathit{Var}[X] = E\big[X(X-1)\big] + E[X] - \big(E[X]\big)^{2}
+\tag{B.9}\]</span></span></p>
+<p>The Poisson distribution shows why this is the easier route. With the mass function of <a href="14-AppDistributions.html#eq-poisson" class="quarto-xref">Equation&nbsp;<span>C.2</span></a>, we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+E\big[X(X-1)\big] &amp;= \sum_{x=0}^{\infty} x(x-1)\,\frac{\lambda^{x}e^{-\lambda}}{x!}
+  &amp;&amp;\text{the expectation of a function}\\
+&amp;= \sum_{x=2}^{\infty}\frac{\lambda^{x}e^{-\lambda}}{(x-2)!}
+  &amp;&amp;\text{terms 0 and 1 vanish; } x! = x(x-1)(x-2)!\\
+&amp;= \lambda^{2}\sum_{y=0}^{\infty}\frac{\lambda^{y}e^{-\lambda}}{y!}
+  &amp;&amp;\text{put } y = x - 2\\
+&amp;= \lambda^{2}
+  &amp;&amp;\text{the masses sum to one}
+\end{aligned}
+\]</span></p>
+<p>and <a href="#eq-factorial-variance" class="quarto-xref">Equation&nbsp;<span>B.9</span></a> gives <span class="math inline">\(\mathit{Var}[X] = \lambda^{2} + \lambda - \lambda^{2} = \lambda\)</span>. That is where the Poisson’s equal mean and variance come from. The same cancellation gives <span class="math inline">\(\lambda^{n}\)</span> for its factorial moment of order <span class="math inline">\(n\)</span>.</p>
+<p><strong>For example</strong>, the transformer’s lead time demand in <a href="08-Chapter8.html#tbl-basestock-handtable" class="quarto-xref">Table&nbsp;<span>8.5</span></a> is Poisson with a mean of 7.5 units. Its second factorial moment is <span class="math inline">\(7.5^{2} = 56.25\)</span>, so <span class="math inline">\(E[X^{2}] = 56.25 + 7.5 = 63.75\)</span> and the variance is <span class="math inline">\(63.75 - 7.5^{2} = 63.75 - 56.25 = 7.5\)</span> units squared, as it must be.</p>
+<p>The book uses factorial moments in two places, and in both the quantity is a count of units short.</p>
+<p>The discrete loss functions are factorial moments. For a whole-number demand and a whole-number stock level <span class="math inline">\(b\)</span>, the shortage <span class="math inline">\((X-b)^{+}\)</span> is a count, and the products in <a href="14-AppDistributions.html#eq-loss-order-n" class="quarto-xref">Equation&nbsp;<span>C.22</span></a> are its factorial moments. That is, <span class="math inline">\(G^{1}(b)\)</span> is the mean of the shortage and <span class="math inline">\(2G^{2}(b)\)</span> is its second factorial moment. Then <a href="#eq-factorial-variance" class="quarto-xref">Equation&nbsp;<span>B.9</span></a>, read for the shortage, is <a href="14-AppDistributions.html#eq-shortage-second-moment" class="quarto-xref">Equation&nbsp;<span>C.21</span></a> with its extra <span class="math inline">\(G^{1}\)</span>. For the transformer at <span class="math inline">\(b = 11\)</span>, <a href="08-Chapter8.html#tbl-basestock-handtable" class="quarto-xref">Table&nbsp;<span>8.5</span></a> gives <span class="math inline">\(G^{1}(11) = 0.1616\)</span> and <span class="math inline">\(G^{2}(11) = 0.1531\)</span>, so that</p>
+<p><span class="math display">\[
+\begin{aligned}
+E\Big[\big((X-11)^{+}\big)^{2}\Big] &amp;= 2(0.1531) + 0.1616 = 0.4678\\
+\mathit{Var}\big[(X-11)^{+}\big] &amp;= 0.4678 - 0.1616^{2} = 0.4678 - 0.0261 = 0.4417
+\end{aligned}
+\]</span></p>
+<p>The distributional form of Little’s law is a statement about them. <a href="#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> relates two means. When arrivals are Poisson and are served in the order they arrive, the relation extends to higher moments, and it is the factorial moments of the number waiting that match the ordinary moments of the wait. <a href="10-Chapter10.html#sec-batchedmultiechelon-delay-var" class="quarto-xref"><span>Section 10.5.3</span></a> uses the second of them, <span class="math inline">\(E[B(B-1)] = \lambda^{2}E[W^{2}]\)</span>. The mean that <a href="10-Chapter10.html#eq-batched-wait-var" class="quarto-xref">Equation&nbsp;<span>10.4</span></a> subtracts from the variance of the backorder level is the difference between a factorial moment and an ordinary one.</p>
+</section>
+<section id="sec-appprobability-rv-conditioning" class="level3" data-number="B.1.5">
+<h3 data-number="B.1.5" class="anchored" data-anchor-id="sec-appprobability-rv-conditioning"><span class="header-section-number">B.1.5</span> Conditioning</h3>
 <p>We derive most of the results in this book by conditioning on a second random variable and then averaging over it. Let <span class="math inline">\(Y\)</span> represent that second variable. The <strong>conditional expectation</strong> <span class="math inline">\(E[X \mid Y]\)</span> is the expectation of <span class="math inline">\(X\)</span> computed within each value of <span class="math inline">\(Y\)</span>, and it is itself a random variable, because it depends on which value <span class="math inline">\(Y\)</span> takes. Averaging it over <span class="math inline">\(Y\)</span> recovers the unconditional mean,</p>
 <p><span id="eq-total-expectation"><span class="math display">\[
 E[X] = E\big[E[X \mid Y]\big]
-\tag{B.7}\]</span></span></p>
-<p>which is the <strong>law of total expectation</strong>. <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> is <a href="#eq-total-expectation" class="quarto-xref">Equation&nbsp;<span>B.7</span></a> with <span class="math inline">\(Y\)</span> the number of terms in a sum, and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> conditions on the inventory position in the same way.</p>
+\tag{B.10}\]</span></span></p>
+<p>which is the <strong>law of total expectation</strong>. <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a> is <a href="#eq-total-expectation" class="quarto-xref">Equation&nbsp;<span>B.10</span></a> with <span class="math inline">\(Y\)</span> the number of terms in a sum, and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> conditions on the inventory position in the same way.</p>
 <p>The variance needs both a within and a between term. The <strong>law of total variance</strong> is</p>
 <p><span id="eq-law-total-variance"><span class="math display">\[
 \mathit{Var}[X] = E\big[\mathit{Var}[X \mid Y]\big] + \mathit{Var}\big[E[X \mid Y]\big]
-\tag{B.8}\]</span></span></p>
-<p>That is, the total variability is the average variability within a value of <span class="math inline">\(Y\)</span> plus the variability of the averages across values of <span class="math inline">\(Y\)</span>. Both terms are non-negative, so conditioning on anything can only reduce the first term at the price of raising the second. <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> is <a href="#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.8</span></a> worked through for a random sum, and the asymmetry that section makes so much of is visible here already: the first term averages a variance and the second takes the variance of a mean.</p>
+\tag{B.11}\]</span></span></p>
+<p>That is, the total variability is the average variability within a value of <span class="math inline">\(Y\)</span> plus the variability of the averages across values of <span class="math inline">\(Y\)</span>. Both terms are non-negative, so conditioning on anything can only reduce the first term at the price of raising the second. <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> is <a href="#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.11</span></a> worked through for a random sum, and the asymmetry that section makes so much of is visible here already: the first term averages a variance and the second takes the variance of a mean.</p>
+</section>
+<section id="sec-appprobability-rv-mixture" class="level3" data-number="B.1.6">
+<h3 data-number="B.1.6" class="anchored" data-anchor-id="sec-appprobability-rv-mixture"><span class="header-section-number">B.1.6</span> Mixtures</h3>
+<p>Conditioning also builds distributions. Suppose the distribution of <span class="math inline">\(X\)</span> depends on which of <span class="math inline">\(K\)</span> conditions holds. Let <span class="math inline">\(Y\)</span> represent the condition, with <span class="math inline">\(P\{Y = k\} = p_{k}\)</span>, and let <span class="math inline">\(F_{k}\)</span> represent the distribution function of <span class="math inline">\(X\)</span> given that <span class="math inline">\(Y = k\)</span>. Conditioning on <span class="math inline">\(Y\)</span>, we obtain</p>
+<p><span id="eq-mixture-cdf"><span class="math display">\[
+\begin{aligned}
+F(x) = P\{X \le x\} &amp;= \sum_{k=1}^{K} P\{X \le x \mid Y = k\}\,P\{Y = k\}
+  &amp;&amp;\text{total probability}\\
+&amp;= \sum_{k=1}^{K} p_{k}F_{k}(x)
+  &amp;&amp;\text{the definitions of } F_{k} \text{ and } p_{k}
+\end{aligned}
+\tag{B.12}\]</span></span></p>
+<p>A distribution of this form is a <strong>mixture</strong>. The <span class="math inline">\(F_{k}\)</span> are its <strong>components</strong> and the <span class="math inline">\(p_{k}\)</span> are its <strong>weights</strong>. The mass function or the density mixes the same way, and so does the expectation of any function of <span class="math inline">\(X\)</span>, since <a href="#eq-total-expectation" class="quarto-xref">Equation&nbsp;<span>B.10</span></a> applies to <span class="math inline">\(h(X)\)</span> as it does to <span class="math inline">\(X\)</span>. That is why the loss functions of a mixture are the weighted loss functions of its components, <a href="14-AppDistributions.html#eq-mixture-loss" class="quarto-xref">Equation&nbsp;<span>C.28</span></a>.</p>
+<p>Let <span class="math inline">\(\mu_{k}\)</span> and <span class="math inline">\(\sigma_{k}^{2}\)</span> represent the mean and the variance of component <span class="math inline">\(k\)</span>. The two laws above give the moments of the mixture:</p>
+<p><span id="eq-mixture-moments"><span class="math display">\[
+\mu = E[X] = \sum_{k=1}^{K}p_{k}\mu_{k}, \qquad
+\mathit{Var}[X] = \underbrace{\sum_{k=1}^{K}p_{k}\sigma_{k}^{2}}_{\text{within}}
++ \underbrace{\sum_{k=1}^{K}p_{k}(\mu_{k} - \mu)^{2}}_{\text{between}}
+\tag{B.13}\]</span></span></p>
+<p>The within term is <span class="math inline">\(E\big[\mathit{Var}[X \mid Y]\big]\)</span>. The between term is <span class="math inline">\(\mathit{Var}\big[E[X \mid Y]\big]\)</span>, since the conditional mean is a random variable that takes the value <span class="math inline">\(\mu_{k}\)</span> with probability <span class="math inline">\(p_{k}\)</span>. With two components, <span class="math inline">\(\mu_{1} - \mu = p_{2}(\mu_{1} - \mu_{2})\)</span> and <span class="math inline">\(\mu_{2} - \mu = -p_{1}(\mu_{1} - \mu_{2})\)</span>, so the between term collapses to <span class="math inline">\(p_{1}p_{2}(\mu_{1} - \mu_{2})^{2}\)</span>, which is how <a href="14-AppDistributions.html#eq-mixture-variance" class="quarto-xref">Equation&nbsp;<span>C.29</span></a> writes it.</p>
+<p>A mixture is not a weighted sum. <a href="#eq-mixture-cdf" class="quarto-xref">Equation&nbsp;<span>B.12</span></a> averages distributions. It does not average random variables. Under a mixture one condition holds, and <span class="math inline">\(X\)</span> is drawn from that component alone. Under a weighted sum <span class="math inline">\(p_{1}X_{1} + p_{2}X_{2}\)</span> both variables are drawn and blended. The two have the same mean and very different spreads, as the example shows.</p>
+<p><strong>For example</strong>, the transformer of <a href="08-Chapter8.html#exm-ltd-transformer" class="quarto-xref">Example&nbsp;<span>8.2</span></a> is demanded at 45 units a year, which is 3.75 units a month. Suppose that its supplier delivers in one month half the time and in three months the other half. Given the lead time, the lead time demand is Poisson, with a mean of 3.75 units if the lead time is one month and of <span class="math inline">\(3(3.75) = 11.25\)</span> units if it is three. A Poisson variance equals its mean, so by <a href="#eq-mixture-moments" class="quarto-xref">Equation&nbsp;<span>B.13</span></a></p>
+<p><span class="math display">\[
+\begin{aligned}
+\mu &amp;= 0.5(3.75) + 0.5(11.25) = 7.5 \text{ units}\\
+\mathit{Var}[X] &amp;= \big[0.5(3.75) + 0.5(11.25)\big]
++ \big[0.5(3.75 - 7.5)^{2} + 0.5(11.25 - 7.5)^{2}\big]\\
+&amp;= 7.5 + 14.0625 = 21.5625 \text{ units squared}
+\end{aligned}
+\]</span></p>
+<p><em>The check.</em> This lead time has a mean of 2 months and a variance of <span class="math inline">\(0.5(1-2)^{2} + 0.5(3-2)^{2} = 1\)</span> month squared, so <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> gives <span class="math inline">\(3.75(2) + 3.75^{2}(1) = 7.5 + 14.0625 = 21.5625\)</span> by a different route. The two agree. They also agree with the second row of <a href="08-Chapter8.html#tbl-rq-leadtime" class="quarto-xref">Table&nbsp;<span>8.9</span></a>, whose supplier has the same mean and the same standard deviation of one month.</p>
+<p>A weighted sum of the same two Poisson variables, taken as independent, would have a variance of <span class="math inline">\(0.5^{2}(3.75) + 0.5^{2}(11.25) = 3.75\)</span> by <a href="#eq-linear-transform" class="quarto-xref">Equation&nbsp;<span>B.4</span></a> and <a href="#eq-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.15</span></a>. That is less than a fifth of the mixture’s 21.5625. The between term is the whole of the difference, and it is there because the mixture does not know which lead time it has been dealt.</p>
+<p>The distribution function mixes as <a href="#eq-mixture-cdf" class="quarto-xref">Equation&nbsp;<span>B.12</span></a> says. The probability that the lead time demand is 11 units or fewer is 0.9995 when the lead time is one month and 0.5495 when it is three, both by the recursion of <a href="07-Chapter7.html#sec-newsvendor-discrete-hand" class="quarto-xref"><span>Section 7.8.1</span></a>, so that</p>
+<p><span class="math display">\[
+F(11) = 0.5(0.9995) + 0.5(0.5495) = 0.7745
+\]</span></p>
+<p>against the 0.9208 of <a href="08-Chapter8.html#tbl-basestock-handtable" class="quarto-xref">Table&nbsp;<span>8.5</span></a> for a lead time of exactly two months.</p>
+<p>Notice what the two moments do not settle. The negative binomial of <a href="08-Chapter8.html#sec-continuousreview-batch-leadtime" class="quarto-xref"><span>Section 8.5.4</span></a> has the same mean of 7.5 and the same variance of 21.5625, because by <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.25</span></a> it is the lead time demand of a supplier whose lead time is Erlang with that mean and standard deviation. It puts 0.8228 at or below 11 units, where the mixture puts 0.7745. Thus, two suppliers who agree on the mean and the standard deviation of the lead time can differ by nearly five points in the tail of the lead time demand, and the tail is where a stock level is set. Matching two moments chooses a convenient distribution. A mixture is the distribution the description itself implies.</p>
 <p>Almost every quantity the inventory models need is a sum of the quantities defined here, so the next section takes up what addition does to a mean, to a variance, and to a distribution.</p>
 </section>
 </section>
@@ -627,44 +741,44 @@ E[X] = E\big[E[X \mid Y]\big]
 <p>The mean of a sum is the sum of the means, <strong>always</strong>, whatever the dependence among the terms:</p>
 <p><span id="eq-sum-mean"><span class="math display">\[
 E[S_{n}] = \sum_{i=1}^{n} E[X_{i}]
-\tag{B.9}\]</span></span></p>
+\tag{B.14}\]</span></span></p>
 <p>The variance is not so obliging. In general we have</p>
 <p><span id="eq-sum-variance"><span class="math display">\[
 \mathit{Var}[S_{n}] = \sum_{i=1}^{n}\mathit{Var}[X_{i}]
 + 2\sum_{i&lt;j}\mathit{Cov}[X_{i}, X_{j}]
-\tag{B.10}\]</span></span></p>
-<p>and the covariance terms vanish only when the terms are uncorrelated. Thus, the familiar statement that variances add is a statement about <strong>independence</strong> and not about addition. Notice the direction of the error when independence is assumed wrongly. Demand that runs in streaks has positive covariances, so <a href="#eq-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.10</span></a> without its second term understates the spread, and understating the spread understates the safety stock. <a href="#sec-appprobability-randomsums-caution" class="quarto-xref"><span>Section B.5.5</span></a> makes the same point for random sums.</p>
+\tag{B.15}\]</span></span></p>
+<p>and the covariance terms vanish only when the terms are uncorrelated. Thus, the familiar statement that variances add is a statement about <strong>independence</strong> and not about addition. Notice the direction of the error when independence is assumed wrongly. Demand that runs in streaks has positive covariances, so <a href="#eq-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.15</span></a> without its second term understates the spread, and understating the spread understates the safety stock. <a href="#sec-appprobability-randomsums-caution" class="quarto-xref"><span>Section B.5.5</span></a> makes the same point for random sums.</p>
 <p>When the terms are independent and identically distributed, with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^{2}\)</span>,</p>
 <p><span id="eq-iid-sum"><span class="math display">\[
 E[S_{n}] = n\mu, \qquad \mathit{Var}[S_{n}] = n\sigma^{2},
 \qquad \sigma_{S_{n}} = \sigma\sqrt{n}
-\tag{B.11}\]</span></span></p>
+\tag{B.16}\]</span></span></p>
 <p><strong>Notice that the mean grows linearly and the standard deviation grows only as <span class="math inline">\(\sqrt{n}\)</span>.</strong> Thus, the coefficient of variation of a sum is</p>
 <p><span id="eq-cv-shrink"><span class="math display">\[
 c_{S_{n}} = \frac{\sigma\sqrt{n}}{n\mu} = \frac{c_{X}}{\sqrt{n}}
-\tag{B.12}\]</span></span></p>
+\tag{B.17}\]</span></span></p>
 <p>so aggregation makes a quantity <strong>relatively</strong> less variable even as it makes it absolutely more variable. That single fact is behind a great deal of inventory practice: it is why pooling stock across locations reduces the safety stock needed, which <a href="09-Chapter9.html" class="quarto-xref"><span>Chapter 9</span></a> takes up, and it is why a demand that is far too variable to model in one bucket can be tractable in a larger one.</p>
 <p><strong>For example</strong>, weekly demand for the belt of <a href="07-Chapter7.html#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> has a mean of 33.2404 belts and a standard deviation of 24.7596 belts, so <span class="math inline">\(c_{X} = 0.7449\)</span>. Over the fourteen remaining weeks,</p>
 <p><span class="math display">\[
 E[X] = 14(33.2404) = 465.37 \text{ belts}, \qquad
 \mathit{Var}[X] = 14(613.0387) = 8582.54 \text{ belts}^{2}
 \]</span></p>
-<p>so <span class="math inline">\(\sigma = 92.64\)</span> belts and <span class="math inline">\(c_{X} = 92.64/465.37 = 0.1991\)</span>. Let’s check that against <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.12</span></a>: <span class="math inline">\(0.7449/\sqrt{14} = 0.7449/3.7417 = 0.1991\)</span>. The two agree, and that check is worth performing every time, because it catches a variance that was added when it should have been multiplied.</p>
+<p>so <span class="math inline">\(\sigma = 92.64\)</span> belts and <span class="math inline">\(c_{X} = 92.64/465.37 = 0.1991\)</span>. Let’s check that against <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.17</span></a>: <span class="math inline">\(0.7449/\sqrt{14} = 0.7449/3.7417 = 0.1991\)</span>. The two agree, and that check is worth performing every time, because it catches a variance that was added when it should have been multiplied.</p>
 </section>
 <section id="sec-appprobability-sums-average" class="level3" data-number="B.2.2">
 <h3 data-number="B.2.2" class="anchored" data-anchor-id="sec-appprobability-sums-average"><span class="header-section-number">B.2.2</span> Averages, and Why Precision Is Expensive</h3>
-<p>The <strong>sample mean</strong> of <span class="math inline">\(n\)</span> independent observations is <span class="math inline">\(\bar{X} = S_{n}/n\)</span>. Applying <a href="#eq-linear-transform" class="quarto-xref">Equation&nbsp;<span>B.4</span></a> to <a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.11</span></a> with <span class="math inline">\(a = 1/n\)</span>,</p>
+<p>The <strong>sample mean</strong> of <span class="math inline">\(n\)</span> independent observations is <span class="math inline">\(\bar{X} = S_{n}/n\)</span>. Applying <a href="#eq-linear-transform" class="quarto-xref">Equation&nbsp;<span>B.4</span></a> to <a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.16</span></a> with <span class="math inline">\(a = 1/n\)</span>,</p>
 <p><span id="eq-standard-error"><span class="math display">\[
 E[\bar{X}] = \mu, \qquad
 \mathit{Var}[\bar{X}] = \frac{\sigma^{2}}{n}, \qquad
 \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}
-\tag{B.13}\]</span></span></p>
+\tag{B.18}\]</span></span></p>
 <p>The quantity <span class="math inline">\(\sigma_{\bar{X}}\)</span> is the <strong>standard error</strong> of the mean, and an approximate confidence interval for <span class="math inline">\(\mu\)</span> is <span class="math inline">\(\bar{X} \pm z\sigma/\sqrt{n}\)</span>, whose <strong>half-width</strong> is <span class="math inline">\(z\sigma/\sqrt{n}\)</span>.</p>
 <p>Read the exponent before using it. The half-width falls with <span class="math inline">\(\sqrt{n}\)</span>, so halving it costs four times the observations and dividing it by ten costs a hundred times. <a href="07-Chapter7.html#sec-newsvendor-simulation" class="quarto-xref"><span>Section 7.10</span></a> reports every simulated figure with its half-width for this reason, and the arithmetic above is why a simulated answer is expensive to sharpen and an exact one is not.</p>
 </section>
 <section id="sec-appprobability-sums-closure" class="level3" data-number="B.2.3">
 <h3 data-number="B.2.3" class="anchored" data-anchor-id="sec-appprobability-sums-closure"><span class="header-section-number">B.2.3</span> Families Closed Under Addition</h3>
-<p><a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.11</span></a> gives two moments and not a distribution. For a few families the distribution of the sum stays in the family, and those cases turn an approximation into an identity.</p>
+<p><a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.16</span></a> gives two moments and not a distribution. For a few families the distribution of the sum stays in the family, and those cases turn an approximation into an identity.</p>
 <div id="tbl-closure" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-closure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -709,22 +823,128 @@ Table&nbsp;B.1: Families closed under addition. In every row the parameter that 
 </figure>
 </div>
 <p>Three notes on <a href="#tbl-closure" class="quarto-xref">Table&nbsp;<span>B.1</span></a>. The normal row holds without the terms being identically distributed, which is the reason the normal is so often reached for. The gamma and negative binomial rows require the common parameter, so a sum of gammas with different scales is <strong>not</strong> a gamma and has to be approximated. And the exponential is the gamma with shape one, so a sum of <span class="math inline">\(n\)</span> independent exponentials with the same rate is the Erlang of <a href="14-AppDistributions.html#sec-appdistributions-gamma" class="quarto-xref"><span>Section C.2.2</span></a>, which is the fact <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> needs when a lead time is built from stages.</p>
-<p>Closure is the exception and not the rule. For every other combination the distribution of the sum has to be obtained by convolution, by a transform, by simulation, or by matching moments to a chosen family as <a href="14-AppDistributions.html#sec-appdistributions-matching" class="quarto-xref"><span>Section C.4.2</span></a> does.</p>
+<p>Closure is the exception and not the rule. For every other combination the distribution of the sum has to be obtained by convolution, by a transform, by simulation, or by matching moments to a chosen family as <a href="14-AppDistributions.html#sec-appdistributions-matching" class="quarto-xref"><span>Section C.4.2</span></a> does. The next section does the first of these by hand.</p>
 </section>
-<section id="sec-appprobability-sums-clt" class="level3" data-number="B.2.4">
-<h3 data-number="B.2.4" class="anchored" data-anchor-id="sec-appprobability-sums-clt"><span class="header-section-number">B.2.4</span> The Central Limit Theorem, and What It Does Not Say</h3>
+<section id="sec-appprobability-sums-convolution" class="level3" data-number="B.2.4">
+<h3 data-number="B.2.4" class="anchored" data-anchor-id="sec-appprobability-sums-convolution"><span class="header-section-number">B.2.4</span> The Distribution of a Sum</h3>
+<p><a href="#eq-sum-mean" class="quarto-xref">Equation&nbsp;<span>B.14</span></a> and <a href="#eq-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.15</span></a> give the moments of a sum without its distribution. The general tool for the distribution is conditioning once more. Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> represent independent random variables that take non-negative whole-number values, with mass functions <span class="math inline">\(g_{X}\)</span> and <span class="math inline">\(g_{Y}\)</span>, and let <span class="math inline">\(Z = X + Y\)</span>. The sum is <span class="math inline">\(z\)</span> when <span class="math inline">\(X\)</span> is some value <span class="math inline">\(x\)</span> and <span class="math inline">\(Y\)</span> supplies the remaining <span class="math inline">\(z - x\)</span>. Conditioning on <span class="math inline">\(X\)</span>, we obtain</p>
+<p><span id="eq-convolution"><span class="math display">\[
+\begin{aligned}
+P\{Z = z\} &amp;= \sum_{x} P\{X + Y = z \mid X = x\}\,P\{X = x\}
+  &amp;&amp;\text{total probability}\\
+&amp;= \sum_{x} P\{Y = z - x \mid X = x\}\,P\{X = x\}
+  &amp;&amp;\text{given } X = x,\ Y \text{ must be } z - x\\
+&amp;= \sum_{x=0}^{z} g_{Y}(z - x)\,g_{X}(x)
+  &amp;&amp;\text{independence, and } Y \ge 0
+\end{aligned}
+\tag{B.19}\]</span></span></p>
+<p>The last line is the <strong>convolution</strong> of the two mass functions. Notice where independence was used. It is what allowed <span class="math inline">\(P\{Y = z - x \mid X = x\}\)</span> to be replaced by <span class="math inline">\(g_{Y}(z - x)\)</span>. Without it the conditional distribution of <span class="math inline">\(Y\)</span> would have to be supplied for every <span class="math inline">\(x\)</span>.</p>
+<p>By hand a convolution is a grid. <strong>For example</strong>, the cutout of <a href="08-Chapter8.html#exm-lumpy-cutout" class="quarto-xref">Example&nbsp;<span>8.8</span></a> is demanded in lots of 1, 2 or 4 units with probabilities 0.40, 0.40 and 0.20. Let <span class="math inline">\(Y_{1}\)</span> and <span class="math inline">\(Y_{2}\)</span> represent the sizes of two lots, which are independent. <a href="#tbl-convolution-grid" class="quarto-xref">Table&nbsp;<span>B.2</span></a> lists every pair, with the total the pair makes and the probability of the pair.</p>
+<div id="tbl-convolution-grid" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-convolution-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.2: Every pair of lot sizes for the cutout. The probability of a pair is a product, because the two lots are independent.
+</figcaption>
+<div aria-describedby="tbl-convolution-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(Y_{2} = 1\)</span>, 0.40</th>
+<th><span class="math inline">\(Y_{2} = 2\)</span>, 0.40</th>
+<th><span class="math inline">\(Y_{2} = 4\)</span>, 0.20</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Y_{1} = 1\)</span>, 0.40</td>
+<td>total 2, 0.16</td>
+<td>total 3, 0.16</td>
+<td>total 5, 0.08</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Y_{1} = 2\)</span>, 0.40</td>
+<td>total 3, 0.16</td>
+<td>total 4, 0.16</td>
+<td>total 6, 0.08</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Y_{1} = 4\)</span>, 0.20</td>
+<td>total 5, 0.08</td>
+<td>total 6, 0.08</td>
+<td>total 8, 0.04</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Collecting the cells that share a total is the sum in <a href="#eq-convolution" class="quarto-xref">Equation&nbsp;<span>B.19</span></a>. A total of 3 arises two ways, a one and then a two or a two and then a one, so <span class="math inline">\(P\{Y_{1} + Y_{2} = 3\} = 0.40(0.40) + 0.40(0.40) = 0.32\)</span>. The other totals are collected the same way, and the result is <a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a>.</p>
+<div id="tbl-convolution-two" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-convolution-two-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.3: The size of two lots of the cutout taken together.
+</figcaption>
+<div aria-describedby="tbl-convolution-two-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Total <span class="math inline">\(z\)</span></th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P\{Y_{1} + Y_{2} = z\}\)</span></td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><em>The check.</em> Three things must hold, and each uses a result already in this section.</p>
+<ul>
+<li>The masses sum to one: <span class="math inline">\(0.16 + 0.32 + 0.16 + 0.16 + 0.16 + 0.04 = 1.00\)</span>.</li>
+<li>The mean is the sum of the means, by <a href="#eq-sum-mean" class="quarto-xref">Equation&nbsp;<span>B.14</span></a>. One lot averages <span class="math inline">\(1(0.40) + 2(0.40) + 4(0.20) = 2.0\)</span> units, and <a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a> gives <span class="math inline">\(2(0.16) + 3(0.32) + 4(0.16) + 5(0.16) + 6(0.16) + 8(0.04) = 4.00\)</span> units.</li>
+<li>The variance is the sum of the variances, by <a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.16</span></a>. One lot has <span class="math inline">\(E[Y^{2}] = 1(0.40) + 4(0.40) + 16(0.20) = 5.2\)</span> and a variance of <span class="math inline">\(5.2 - 2.0^{2} = 1.2\)</span>. <a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a> has a second moment of 18.40 and a variance of <span class="math inline">\(18.40 - 4.00^{2} = 2.40\)</span>.</li>
+</ul>
+<p>You should perform those checks every time a convolution is done by hand, because a pair left out of the grid breaks the first of them at once.</p>
+<p><a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a> is the term <span class="math inline">\(P\{Y_{1} + Y_{2} = d\}\)</span> that <a href="08-Chapter8.html#eq-lumpy-convolution" class="quarto-xref">Equation&nbsp;<span>8.52</span></a> needs when two lots arrive, and its 0.16 and 0.32 are the figures used there at two and three units. A sum of three lots is obtained by convolving <a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a> with one more lot, and so on, one term at a time.</p>
+<p><em>Validation against a closed form, and its limit.</em> <a href="#tbl-closure" class="quarto-xref">Table&nbsp;<span>B.1</span></a> says the sum of two independent Poisson variables is Poisson. Take means of 2 and 3 and a total of <span class="math inline">\(z = 2\)</span>. By <a href="#eq-convolution" class="quarto-xref">Equation&nbsp;<span>B.19</span></a>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+P\{Z = 2\} &amp;= g_{X}(0)g_{Y}(2) + g_{X}(1)g_{Y}(1) + g_{X}(2)g_{Y}(0)\\
+&amp;= 0.1353(0.2240) + 0.2707(0.1494) + 0.2707(0.0498)\\
+&amp;= 0.0303 + 0.0404 + 0.0135 = 0.0842
+\end{aligned}
+\]</span></p>
+<p>and a Poisson distribution with a mean of 5 puts <span class="math inline">\(25e^{-5}/2 = 0.0842\)</span> at 2. The convolution reproduces the family. However, the agreement is a property of the rows of <a href="#tbl-closure" class="quarto-xref">Table&nbsp;<span>B.1</span></a> and of nothing else. The cutout’s lots belong to no family and neither does their sum, so the grid is the only exact route to it. <a href="10-Chapter10.html#sec-batchedmultiechelon-hubgeneral" class="quarto-xref"><span>Section 10.9</span></a> builds a hub’s lead time demand the same way, where one of the two terms is a multiple of an order count (<a href="10-Chapter10.html#eq-hub-convolution-sum" class="quarto-xref">Equation&nbsp;<span>10.11</span></a>).</p>
+</section>
+<section id="sec-appprobability-sums-clt" class="level3" data-number="B.2.5">
+<h3 data-number="B.2.5" class="anchored" data-anchor-id="sec-appprobability-sums-clt"><span class="header-section-number">B.2.5</span> The Central Limit Theorem, and What It Does Not Say</h3>
 <p>If <span class="math inline">\(X_{1}, X_{2}, \ldots\)</span> are independent and identically distributed with mean <span class="math inline">\(\mu\)</span> and finite variance <span class="math inline">\(\sigma^{2}\)</span>, then</p>
 <p><span id="eq-clt"><span class="math display">\[
 \frac{S_{n} - n\mu}{\sigma\sqrt{n}} \;\longrightarrow\; \mathit{N}(0, 1)
 \qquad\text{as } n \to \infty
-\tag{B.14}\]</span></span></p>
+\tag{B.20}\]</span></span></p>
 <p>whatever the distribution of the terms. Thus, a quantity aggregated over many independent contributions tends toward the normal, which is the justification <a href="14-AppDistributions.html#sec-appdistributions-normal" class="quarto-xref"><span>Section C.2.3</span></a> gives for a family that is otherwise indefensible for demand.</p>
 <p>Three qualifications, and you should apply all three before treating an aggregate as normal.</p>
 <p>It is a statement about the limit, not about your <span class="math inline">\(n\)</span>. How large <span class="math inline">\(n\)</span> must be depends on how skewed the terms are. A symmetric term converges in a handful of observations and a heavily right-skewed one may need hundreds.</p>
 <p>The approximation is worst in the tail, which is where inventory lives. Recall from <a href="07-Chapter7.html#sec-newsvendor-criticalratio" class="quarto-xref"><span>Section 7.6</span></a> that the quantity of interest is a quantile, often far from the mean. A central limit argument is strongest at the center, so agreement of the means says nothing about agreement at the 95th percentile.</p>
-<p>The support is wrong. The normal puts mass below zero and demand cannot be negative. <a href="14-AppDistributions.html#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> prices that defect against <span class="math inline">\(c_{X}\)</span>, and combining it with <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.12</span></a> gives the practical test: aggregate until <span class="math inline">\(c_{X}\)</span> falls far enough that the mass below zero is negligible, then check rather than assume.</p>
-<p><strong>For example</strong>, the belt’s weekly demand at <span class="math inline">\(c_{X} = 0.7449\)</span> would put about 9% of a normal model below zero, which is not a small error in a tail but a model asserting that demand is frequently negative. Aggregated over fourteen weeks, <span class="math inline">\(c_{X} = 0.1991\)</span> and the mass below zero is about one in four million. Notice that the family did not change and the aggregation did. The normal was wrong weekly and safe over fourteen weeks for the reason <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.12</span></a> gives, and the test that settles it is the coefficient of variation of the quantity actually being modeled.</p>
-<p><a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.11</span></a> assumed a fixed number of terms. In an inventory system the number of terms is usually random, because demands arrive at random times, so the next two sections build the process that counts them before <a href="#sec-appprobability-5" class="quarto-xref"><span>Section B.5</span></a> sums over it.</p>
+<p>The support is wrong. The normal puts mass below zero and demand cannot be negative. <a href="14-AppDistributions.html#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> prices that defect against <span class="math inline">\(c_{X}\)</span>, and combining it with <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.17</span></a> gives the practical test: aggregate until <span class="math inline">\(c_{X}\)</span> falls far enough that the mass below zero is negligible, then check rather than assume.</p>
+<p><strong>For example</strong>, the belt’s weekly demand at <span class="math inline">\(c_{X} = 0.7449\)</span> would put about 9% of a normal model below zero, which is not a small error in a tail but a model asserting that demand is frequently negative. Aggregated over fourteen weeks, <span class="math inline">\(c_{X} = 0.1991\)</span> and the mass below zero is about one in four million. Notice that the family did not change and the aggregation did. The normal was wrong weekly and safe over fourteen weeks for the reason <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.17</span></a> gives, and the test that settles it is the coefficient of variation of the quantity actually being modeled.</p>
+<p><a href="#eq-iid-sum" class="quarto-xref">Equation&nbsp;<span>B.16</span></a> assumed a fixed number of terms. In an inventory system the number of terms is usually random, because demands arrive at random times, so the next two sections build the process that counts them before <a href="#sec-appprobability-5" class="quarto-xref"><span>Section B.5</span></a> sums over it.</p>
 </section>
 </section>
 <section id="sec-appprobability-3" class="level2" data-number="B.3">
@@ -740,7 +960,7 @@ Table&nbsp;B.1: Families closed under addition. In every row the parameter that 
 <p><span id="eq-poisson-process"><span class="math display">\[
 P\{N(t) = x\} = \frac{e^{-\lambda t}(\lambda t)^{x}}{x!}, \qquad
 E[N(t)] = \mathit{Var}[N(t)] = \lambda t
-\tag{B.15}\]</span></span></p>
+\tag{B.21}\]</span></span></p>
 <p>so the count over any interval is the Poisson distribution of <a href="14-AppDistributions.html#sec-appdistributions-poisson" class="quarto-xref"><span>Section C.1.1</span></a> with mean <span class="math inline">\(\lambda t\)</span>. Notice that the mean and the variance are equal, which is <a href="14-AppDistributions.html#eq-vmr" class="quarto-xref">Equation&nbsp;<span>C.1</span></a> equal to one, and that this is forced by the three properties rather than assumed separately.</p>
 <p>You should read the three properties as assumptions to be checked and not as technical preliminaries. Independent increments is the one that fails most often in demand data, because a promotion, a shortage at a competitor, or a shared weather event correlates one interval with the next. <a href="07-Chapter7.html#fig-ch7-demand-acf" class="quarto-xref">Figure&nbsp;<span>7.3</span></a> is that check performed on a real series.</p>
 <section id="sec-appprobability-poisson-interarrival" class="level3" data-number="B.3.1">
@@ -748,7 +968,7 @@ E[N(t)] = \mathit{Var}[N(t)] = \lambda t
 <p>Let <span class="math inline">\(T_{i}\)</span> represent the time between the <span class="math inline">\((i-1)\)</span>st and <span class="math inline">\(i\)</span>th events. The interarrival times of a Poisson process are independent and exponentially distributed with rate <span class="math inline">\(\lambda\)</span>, and the converse holds as well, so the two characterizations are the same process described from different ends. Thus, a mean interarrival time of <span class="math inline">\(1/\lambda\)</span> and a mean rate of <span class="math inline">\(\lambda\)</span> carry the same information, and which one to work with is a matter of convenience.</p>
 <p>For example, a spare part demanded on average once every 5 weeks has <span class="math display">\[
 \lambda = \frac{1 \text{ demand}}{5 \text{ weeks}} = 0.2 \text{ demands per week}
-\]</span> and over a lead time of 3 weeks the demand count is Poisson with mean <span class="math inline">\(0.2(3) = 0.6\)</span> demands. Notice that the rate and the interval must be measured in the same time unit, which is the same caution <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> carries.</p>
+\]</span> and over a lead time of 3 weeks the demand count is Poisson with mean <span class="math inline">\(0.2(3) = 0.6\)</span> demands. Notice that the rate and the interval must be measured in the same time unit, which is the same caution <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> carries.</p>
 <p>The exponential is <strong>memoryless</strong>, so the time until the next demand does not depend on how long we have already waited. That is, a Poisson process has no notion of being overdue. It is the strongest statement in this appendix and the reason the Poisson process is both tractable and often wrong.</p>
 </section>
 <section id="sec-appprobability-poisson-ops" class="level3" data-number="B.3.2">
@@ -763,17 +983,17 @@ E[N(t)] = \mathit{Var}[N(t)] = \lambda t
 <p>Suppose events occur in a Poisson process at rate <span class="math inline">\(\lambda\)</span>, and each event starts an activity whose duration is drawn independently from a distribution with mean <span class="math inline">\(E[L]\)</span>. Let <span class="math inline">\(\mathit{IO}\)</span> represent the number of activities in progress at a random instant in steady state. Then</p>
 <p><span id="eq-palm"><span class="math display">\[
 P\{\mathit{IO} = x\} = \frac{e^{-\lambda E[L]}\left(\lambda E[L]\right)^{x}}{x!}
-\tag{B.16}\]</span></span></p>
+\tag{B.22}\]</span></span></p>
 <p><strong>Poisson with mean <span class="math inline">\(\lambda E[L]\)</span>, whatever the distribution of the duration is.</strong> Only its mean enters. That is <strong>Palm’s theorem</strong>, and the same result is known as the <span class="math inline">\(M/G/\infty\)</span> occupancy distribution.</p>
 <p>The argument uses the two properties above and nothing else. Condition on the number of events in <span class="math inline">\((0, t]\)</span>. Given that there were <span class="math inline">\(n\)</span>, their times are independent and uniform on <span class="math inline">\((0, t)\)</span> by conditional uniformity. An event at time <span class="math inline">\(u\)</span> is still in progress at <span class="math inline">\(t\)</span> with probability <span class="math inline">\(1 - G_{L}(t-u)\)</span>, and those outcomes are independent across events, so the events still in progress are a <strong>thinning</strong> of the <span class="math inline">\(n\)</span> with retention probability</p>
 <p><span id="eq-palm-thinning"><span class="math display">\[
 q = \frac{1}{t}\int_{0}^{t}\left[1 - G_{L}(v)\right]dv
-\tag{B.17}\]</span></span></p>
-<p>A thinned Poisson count is Poisson with mean <span class="math inline">\(\lambda t q\)</span>, and as <span class="math inline">\(t \to \infty\)</span> the integral in <a href="#eq-palm-thinning" class="quarto-xref">Equation&nbsp;<span>B.17</span></a> tends to <span class="math inline">\(E[L]\)</span>, which gives <a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.16</span></a>. For a compound process in which each event carries a quantity, the mean becomes <span class="math inline">\(\lambda E[L] E[Y]\)</span> by <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.27</span></a>.</p>
-<p>Read <a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.16</span></a> against <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> before using either. They appear to contradict one another. <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> says that when the duration is random its variance inflates the total, through the term <span class="math inline">\(\mathit{Var}[L](E[D])^{2}\)</span>, and <a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.16</span></a> says the variance does not matter at all. Both are correct, and they describe two different kinds of randomness.</p>
+\tag{B.23}\]</span></span></p>
+<p>A thinned Poisson count is Poisson with mean <span class="math inline">\(\lambda t q\)</span>, and as <span class="math inline">\(t \to \infty\)</span> the integral in <a href="#eq-palm-thinning" class="quarto-xref">Equation&nbsp;<span>B.23</span></a> tends to <span class="math inline">\(E[L]\)</span>, which gives <a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.22</span></a>. For a compound process in which each event carries a quantity, the mean becomes <span class="math inline">\(\lambda E[L] E[Y]\)</span> by <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a>.</p>
+<p>Read <a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.22</span></a> against <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> before using either. They appear to contradict one another. <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> says that when the duration is random its variance inflates the total, through the term <span class="math inline">\(\mathit{Var}[L](E[D])^{2}\)</span>, and <a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.22</span></a> says the variance does not matter at all. Both are correct, and they describe two different kinds of randomness.</p>
 <ul>
-<li><a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.16</span></a> is about <strong>variability between activities</strong>. Each draws its own duration independently, so a long one and a short one overlap, and the long one delays nothing. Averaged over many, only the mean survives.</li>
-<li><a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> is about the total accumulated over <strong>one</strong> duration. If that duration is a single unknown common to everything in progress, then a long draw stretches all of it at once and the variance is not averaged away.</li>
+<li><a href="#eq-palm" class="quarto-xref">Equation&nbsp;<span>B.22</span></a> is about <strong>variability between activities</strong>. Each draws its own duration independently, so a long one and a short one overlap, and the long one delays nothing. Averaged over many, only the mean survives.</li>
+<li><a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> is about the total accumulated over <strong>one</strong> duration. If that duration is a single unknown common to everything in progress, then a long draw stretches all of it at once and the variance is not averaged away.</li>
 </ul>
 <p>Notice that the two are not alternative analyses of one situation. They are analyses of two situations, and the question that separates them is whether activities started later can finish earlier. <a href="08-Chapter8.html#sec-continuousreview-batch-leadtime" class="quarto-xref"><span>Section 8.5.4</span></a> applies this distinction to a replenishment system, where the answer decides which formula is the right one.</p>
 </section>
@@ -786,20 +1006,20 @@ q = \frac{1}{t}\int_{0}^{t}\left[1 - G_{L}(v)\right]dv
 <section id="sec-appprobability-poisson-erlang" class="level3" data-number="B.3.5">
 <h3 data-number="B.3.5" class="anchored" data-anchor-id="sec-appprobability-poisson-erlang"><span class="header-section-number">B.3.5</span> Demand Over a Random Lead Time</h3>
 <p>We can now settle a question <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> will ask directly: if demand is Poisson and the lead time is itself random, what distribution does the lead time demand have?</p>
-<p>Let <span class="math inline">\(D\)</span> represent the demand over a lead time <span class="math inline">\(L\)</span>, where <span class="math inline">\(L\)</span> is independent of the demand process. Conditioning on <span class="math inline">\(L = \ell\)</span> in the manner of <a href="#eq-total-expectation" class="quarto-xref">Equation&nbsp;<span>B.7</span></a>, the demand is Poisson with mean <span class="math inline">\(\lambda\ell\)</span>, so the probability generating function of <span class="math inline">\(D\)</span> is</p>
+<p>Let <span class="math inline">\(D\)</span> represent the demand over a lead time <span class="math inline">\(L\)</span>, where <span class="math inline">\(L\)</span> is independent of the demand process. Conditioning on <span class="math inline">\(L = \ell\)</span> in the manner of <a href="#eq-total-expectation" class="quarto-xref">Equation&nbsp;<span>B.10</span></a>, the demand is Poisson with mean <span class="math inline">\(\lambda\ell\)</span>, so the probability generating function of <span class="math inline">\(D\)</span> is</p>
 <p><span id="eq-ltd-transform"><span class="math display">\[
 \tilde{g}_{D}(z) = E\left[e^{-\lambda L(1-z)}\right] = \tilde{f}_{L}\big(\lambda(1-z)\big)
-\tag{B.18}\]</span></span></p>
+\tag{B.24}\]</span></span></p>
 <p>where <span class="math inline">\(\tilde{f}_{L}\)</span> is the Laplace transform of the lead time. That is, the lead time demand is obtained by evaluating the lead time’s own transform at <span class="math inline">\(\lambda(1-z)\)</span>, and no new machinery is needed.</p>
 <p>Take <span class="math inline">\(L\)</span> to be Erlang with shape <span class="math inline">\(n\)</span> and rate <span class="math inline">\(\mu\)</span>, which by <a href="14-AppDistributions.html#sec-appdistributions-gamma" class="quarto-xref"><span>Section C.2.2</span></a> is the sum of <span class="math inline">\(n\)</span> independent exponential stages. Its transform is <span class="math inline">\(\tilde{f}_{L}(s) = \left(\mu/(\mu+s)\right)^{n}\)</span>, so</p>
 <p><span id="eq-poisson-erlang-negbin"><span class="math display">\[
 \tilde{g}_{D}(z) = \left(\frac{\mu}{\mu + \lambda(1-z)}\right)^{n}
 = \left(\frac{p}{1 - (1-p)z}\right)^{n}, \qquad p = \frac{\mu}{\lambda + \mu}
-\tag{B.19}\]</span></span></p>
-<p>which is the generating function of the negative binomial of <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> with <span class="math inline">\(r = n\)</span> and that <span class="math inline">\(p\)</span>. <strong>Thus, Poisson demand over an Erlang lead time is exactly negative binomial.</strong> <a href="14-AppDistributions.html#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a> reaches for the negative binomial because real demand has <span class="math inline">\(\mathit{VMR} &gt; 1\)</span>; <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.19</span></a> says where that extra variability comes from when the lead time is the source of it.</p>
-<p><strong>A warning about <span class="math inline">\(p\)</span>.</strong> Recall from <a href="14-AppDistributions.html#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a> that two conventions are in circulation. <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.19</span></a> is in the convention of <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, where <span class="math inline">\(p\)</span> is the probability of success, so <span class="math inline">\(p =
+\tag{B.25}\]</span></span></p>
+<p>which is the generating function of the negative binomial of <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> with <span class="math inline">\(r = n\)</span> and that <span class="math inline">\(p\)</span>. <strong>Thus, Poisson demand over an Erlang lead time is exactly negative binomial.</strong> <a href="14-AppDistributions.html#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a> reaches for the negative binomial because real demand has <span class="math inline">\(\mathit{VMR} &gt; 1\)</span>; <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.25</span></a> says where that extra variability comes from when the lead time is the source of it.</p>
+<p><strong>A warning about <span class="math inline">\(p\)</span>.</strong> Recall from <a href="14-AppDistributions.html#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a> that two conventions are in circulation. <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.25</span></a> is in the convention of <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, where <span class="math inline">\(p\)</span> is the probability of success, so <span class="math inline">\(p =
 \mu/(\lambda+\mu)\)</span>. The failure convention gives <span class="math inline">\(\lambda/(\lambda+\mu)\)</span> instead, and at <span class="math inline">\(\lambda = 3\)</span> and <span class="math inline">\(\mu = 2\)</span> those are 0.400 and 0.600. Notice that both are admissible values, so a routine handed the wrong one returns an answer rather than an error.</p>
-<p><strong>The arithmetic check.</strong> Take <span class="math inline">\(\lambda = 3\)</span> demands per week, <span class="math inline">\(n = 4\)</span> and <span class="math inline">\(\mu = 2\)</span> per week, so <span class="math inline">\(p = 2/5 = 0.400\)</span> and <span class="math inline">\(r = 4\)</span>. From <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, <span class="math inline">\(\beta = (1-p)/p = 1.5\)</span>, so <span class="math inline">\(E[D] = 4(1.5) = 6\)</span> units and <span class="math inline">\(\mathit{Var}[D] = 4(1.5)/0.4 = 15\)</span> units squared. Now compute the same two moments from <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a>, using <span class="math inline">\(E[L] = n/\mu = 2\)</span> weeks and <span class="math inline">\(\mathit{Var}[L] = n/\mu^{2} = 1\)</span> week squared:</p>
+<p><strong>The arithmetic check.</strong> Take <span class="math inline">\(\lambda = 3\)</span> demands per week, <span class="math inline">\(n = 4\)</span> and <span class="math inline">\(\mu = 2\)</span> per week, so <span class="math inline">\(p = 2/5 = 0.400\)</span> and <span class="math inline">\(r = 4\)</span>. From <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, <span class="math inline">\(\beta = (1-p)/p = 1.5\)</span>, so <span class="math inline">\(E[D] = 4(1.5) = 6\)</span> units and <span class="math inline">\(\mathit{Var}[D] = 4(1.5)/0.4 = 15\)</span> units squared. Now compute the same two moments from <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a>, using <span class="math inline">\(E[L] = n/\mu = 2\)</span> weeks and <span class="math inline">\(\mathit{Var}[L] = n/\mu^{2} = 1\)</span> week squared:</p>
 <p><span class="math display">\[
 E[D] = 3(2) = 6, \qquad \mathit{Var}[D] = 3(2) + 3^{2}(1) = 6 + 9 = 15
 \]</span></p>
@@ -812,54 +1032,55 @@ E[D] = 3(2) = 6, \qquad \mathit{Var}[D] = 3(2) + 3^{2}(1) = 6 + 9 = 15
 <p>A renewal process keeps the counting of <a href="#sec-appprobability-3" class="quarto-xref"><span>Section B.3</span></a> and drops the exponential interarrival time. Let <span class="math inline">\(T_{1}, T_{2}, \ldots\)</span> represent independent and identically distributed positive interarrival times with mean <span class="math inline">\(\mu_{T} = E[T]\)</span> and variance <span class="math inline">\(\sigma_{T}^{2}\)</span>, let <span class="math inline">\(S_{n} = T_{1} + \cdots + T_{n}\)</span> be the time of the <span class="math inline">\(n\)</span>th event, and let</p>
 <p><span id="eq-renewal-count"><span class="math display">\[
 N(t) = \max\{n : S_{n} \le t\}
-\tag{B.20}\]</span></span></p>
-<p>count the events in <span class="math inline">\((0, t]\)</span>. The Poisson process is the special case in which <span class="math inline">\(T\)</span> is exponential. Thus, everything below specializes to <a href="#eq-poisson-process" class="quarto-xref">Equation&nbsp;<span>B.15</span></a>, and we use that as the check on each result.</p>
-<p>Notice the relationship <a href="#eq-renewal-count" class="quarto-xref">Equation&nbsp;<span>B.20</span></a> encodes: <span class="math inline">\(N(t) \ge n\)</span> exactly when <span class="math inline">\(S_{n} \le t\)</span>. That is, a statement about a count is a statement about a sum, so <a href="#sec-appprobability-2" class="quarto-xref"><span>Section B.2</span></a> supplies the distribution of <span class="math inline">\(S_{n}\)</span> and this section translates it into statements about <span class="math inline">\(N(t)\)</span>.</p>
+\tag{B.26}\]</span></span></p>
+<p>count the events in <span class="math inline">\((0, t]\)</span>. The Poisson process is the special case in which <span class="math inline">\(T\)</span> is exponential. Thus, everything below specializes to <a href="#eq-poisson-process" class="quarto-xref">Equation&nbsp;<span>B.21</span></a>, and we use that as the check on each result.</p>
+<p>Notice the relationship <a href="#eq-renewal-count" class="quarto-xref">Equation&nbsp;<span>B.26</span></a> encodes: <span class="math inline">\(N(t) \ge n\)</span> exactly when <span class="math inline">\(S_{n} \le t\)</span>. That is, a statement about a count is a statement about a sum, so <a href="#sec-appprobability-2" class="quarto-xref"><span>Section B.2</span></a> supplies the distribution of <span class="math inline">\(S_{n}\)</span> and this section translates it into statements about <span class="math inline">\(N(t)\)</span>.</p>
 <section id="sec-appprobability-renewal-moments" class="level3" data-number="B.4.1">
 <h3 data-number="B.4.1" class="anchored" data-anchor-id="sec-appprobability-renewal-moments"><span class="header-section-number">B.4.1</span> How Many Events, and How Variable</h3>
 <p>The <strong>renewal function</strong> <span class="math inline">\(m(t) = E[N(t)]\)</span> has no convenient closed form for most interarrival distributions, and for large <span class="math inline">\(t\)</span> it does not need one. The <strong>elementary renewal theorem</strong> states</p>
 <p><span id="eq-elementary-renewal"><span class="math display">\[
 \lim_{t \to \infty}\frac{m(t)}{t} = \frac{1}{\mu_{T}}
-\tag{B.21}\]</span></span></p>
-<p>so events accumulate at the reciprocal of the mean interarrival time. For example, a part demanded on average once every 5 weeks generates about <span class="math inline">\(t/5\)</span> demands in <span class="math inline">\(t\)</span> weeks, which is the statement a planner would have made without any of this machinery. <a href="#eq-elementary-renewal" class="quarto-xref">Equation&nbsp;<span>B.21</span></a> is the guarantee that the obvious statement is correct, and that only the <strong>mean</strong> of the interarrival time enters it.</p>
+\tag{B.27}\]</span></span></p>
+<p>so events accumulate at the reciprocal of the mean interarrival time. For example, a part demanded on average once every 5 weeks generates about <span class="math inline">\(t/5\)</span> demands in <span class="math inline">\(t\)</span> weeks, which is the statement a planner would have made without any of this machinery. <a href="#eq-elementary-renewal" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> is the guarantee that the obvious statement is correct, and that only the <strong>mean</strong> of the interarrival time enters it.</p>
 <p>The variance is where the interarrival distribution reappears. For large <span class="math inline">\(t\)</span>,</p>
 <p><span id="eq-renewal-variance"><span class="math display">\[
 \mathit{Var}[N(t)] \approx \frac{\sigma_{T}^{2}}{\mu_{T}^{3}}\,t
-\tag{B.22}\]</span></span></p>
-<p>Check it against the Poisson process, where <span class="math inline">\(T\)</span> is exponential with <span class="math inline">\(\mu_{T} = 1/\lambda\)</span> and <span class="math inline">\(\sigma_{T}^{2} = 1/\lambda^{2}\)</span>. Then <a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.22</span></a> gives <span class="math inline">\((1/\lambda^{2})(\lambda^{3})t = \lambda t\)</span>, which is <a href="#eq-poisson-process" class="quarto-xref">Equation&nbsp;<span>B.15</span></a> exactly. That agreement is the check worth performing on any renewal formula, because the Poisson case is the one whose answer is already known.</p>
-<p><a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.22</span></a> is a rate and not the whole answer. The exact variance differs from it by a bounded amount that does not grow with <span class="math inline">\(t\)</span>, and that correction depends on the <strong>third</strong> moment of the interarrival time and not only on its first two. That is why a routine that computes the variance of the number of demands in an interval asks for three moments of the time between demands, which will look like an error to a reader who has only seen <a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.22</span></a>. For a Poisson process the correction is exactly zero, which is another way of saying the exponential is the case in which two moments suffice.</p>
+\tag{B.28}\]</span></span></p>
+<p>Check it against the Poisson process, where <span class="math inline">\(T\)</span> is exponential with <span class="math inline">\(\mu_{T} = 1/\lambda\)</span> and <span class="math inline">\(\sigma_{T}^{2} = 1/\lambda^{2}\)</span>. Then <a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.28</span></a> gives <span class="math inline">\((1/\lambda^{2})(\lambda^{3})t = \lambda t\)</span>, which is <a href="#eq-poisson-process" class="quarto-xref">Equation&nbsp;<span>B.21</span></a> exactly. That agreement is the check worth performing on any renewal formula, because the Poisson case is the one whose answer is already known.</p>
+<p><a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.28</span></a> is a rate and not the whole answer. The exact variance differs from it by a bounded amount that does not grow with <span class="math inline">\(t\)</span>, and that correction depends on the <strong>third</strong> moment of the interarrival time and not only on its first two. That is why a routine that computes the variance of the number of demands in an interval asks for three moments of the time between demands, which will look like an error to a reader who has only seen <a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.28</span></a>. For a Poisson process the correction is exactly zero, which is another way of saying the exponential is the case in which two moments suffice.</p>
 </section>
 <section id="sec-appprobability-renewal-random" class="level3" data-number="B.4.2">
 <h3 data-number="B.4.2" class="anchored" data-anchor-id="sec-appprobability-renewal-random"><span class="header-section-number">B.4.2</span> A Random Horizon</h3>
-<p><a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> counts demands over a <strong>lead time</strong>, which is itself random. Let <span class="math inline">\(L\)</span> represent the lead time, independent of the demand process. Applying <a href="#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.8</span></a> to <span class="math inline">\(N(L)\)</span>, with <a href="#eq-elementary-renewal" class="quarto-xref">Equation&nbsp;<span>B.21</span></a> for the conditional mean and <a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.22</span></a> for the conditional variance,</p>
+<p><a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> counts demands over a <strong>lead time</strong>, which is itself random. Let <span class="math inline">\(L\)</span> represent the lead time, independent of the demand process. Applying <a href="#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.11</span></a> to <span class="math inline">\(N(L)\)</span>, with <a href="#eq-elementary-renewal" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> for the conditional mean and <a href="#eq-renewal-variance" class="quarto-xref">Equation&nbsp;<span>B.28</span></a> for the conditional variance,</p>
 <p><span id="eq-renewal-random-horizon"><span class="math display">\[
 E[N(L)] \approx \frac{E[L]}{\mu_{T}}, \qquad
 \mathit{Var}[N(L)] \approx \frac{\sigma_{T}^{2}}{\mu_{T}^{3}}E[L] + \frac{\mathit{Var}[L]}{\mu_{T}^{2}}
-\tag{B.23}\]</span></span></p>
+\tag{B.29}\]</span></span></p>
 <p>Read the two variance terms the way <a href="#sec-appprobability-randomsums-variance" class="quarto-xref"><span>Section B.5.2</span></a> reads its own. The first is the variability of the demand <strong>stream</strong>, accumulated over the expected length of the lead time. The second is the variability of the <strong>lead time</strong>, converted into a count by dividing by the mean interarrival time twice. Thus, a supplier who is unreliable and a demand stream that is erratic enter the same expression through different doors, and computing the two terms separately tells you which door to close.</p>
-<p><strong>The check.</strong> Take demand Poisson at rate <span class="math inline">\(\lambda\)</span>, so <span class="math inline">\(\mu_{T} = 1/\lambda\)</span> and <span class="math inline">\(\sigma_{T}^{2} = 1/\lambda^{2}\)</span>. Then <a href="#eq-renewal-random-horizon" class="quarto-xref">Equation&nbsp;<span>B.23</span></a> gives</p>
+<p><strong>The check.</strong> Take demand Poisson at rate <span class="math inline">\(\lambda\)</span>, so <span class="math inline">\(\mu_{T} = 1/\lambda\)</span> and <span class="math inline">\(\sigma_{T}^{2} = 1/\lambda^{2}\)</span>. Then <a href="#eq-renewal-random-horizon" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> gives</p>
 <p><span class="math display">\[
 \mathit{Var}[N(L)] \approx \lambda E[L] + \lambda^{2}\mathit{Var}[L]
 \]</span></p>
-<p>which is <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> for demands of one unit each. For example, at <span class="math inline">\(\lambda = 3\)</span> per week and an Erlang lead time with <span class="math inline">\(E[L] = 2\)</span> weeks and <span class="math inline">\(\mathit{Var}[L] = 1\)</span> week squared, the variance is <span class="math inline">\(3(2) + 9(1) = 15\)</span>, which is the figure <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.19</span></a> produced exactly. Three routes, one answer.</p>
+<p>which is <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> for demands of one unit each. For example, at <span class="math inline">\(\lambda = 3\)</span> per week and an Erlang lead time with <span class="math inline">\(E[L] = 2\)</span> weeks and <span class="math inline">\(\mathit{Var}[L] = 1\)</span> week squared, the variance is <span class="math inline">\(3(2) + 9(1) = 15\)</span>, which is the figure <a href="#eq-poisson-erlang-negbin" class="quarto-xref">Equation&nbsp;<span>B.25</span></a> produced exactly. Three routes, one answer.</p>
 </section>
 <section id="sec-appprobability-renewal-littles" class="level3" data-number="B.4.3">
 <h3 data-number="B.4.3" class="anchored" data-anchor-id="sec-appprobability-renewal-littles"><span class="header-section-number">B.4.3</span> Little’s Law</h3>
 <p>One result about long-run averages holds with almost no assumptions and is used throughout <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a>. Let <span class="math inline">\(\lambda\)</span> represent the long-run arrival rate into a system, let <span class="math inline">\(\overline{W}\)</span> represent the average time an arrival spends in it, and let <span class="math inline">\(\overline{L}\)</span> represent the average number in it. Then</p>
 <p><span id="eq-littles-law"><span class="math display">\[
 \overline{L} = \lambda\overline{W}
-\tag{B.24}\]</span></span></p>
+\tag{B.30}\]</span></span></p>
 <p><strong>Little’s Law</strong> requires only that the averages exist and that the system is in steady state. It does not require Poisson arrivals, independence, or any distributional assumption, and that generality is what makes it useful.</p>
 <p>Its inventory reading is <a href="01-Chapter1.html#eq-backorder-wait" class="quarto-xref">Equation&nbsp;<span>1.6</span></a>, which <a href="01-Chapter1.html#sec-performance" class="quarto-xref"><span>Section 1.6</span></a> obtained by this argument before the machinery for it existed. Take the system to be the set of backordered demands. Then <span class="math inline">\(\overline{L}\)</span> is the average backorder level <span class="math inline">\(\overline{B}\)</span>, <span class="math inline">\(\lambda\)</span> is the demand rate, and <span class="math inline">\(\overline{W}\)</span> is the average time a demanded unit waits. Thus, a constraint on the average number of units backordered is the same constraint as one on how long a customer waits, and two service targets an organization would argue about separately are one target in two units. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> uses <a href="01-Chapter1.html#eq-backorder-wait" class="quarto-xref">Equation&nbsp;<span>1.6</span></a> in both directions.</p>
+<p><a href="#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> relates means and says nothing about spread. A second relation does, under the stronger assumptions that arrivals are Poisson and are served in the order they arrive. It matches the factorial moments of <a href="#sec-appprobability-rv-factorial" class="quarto-xref"><span>Section B.1.4</span></a> to the moments of the wait, and <a href="10-Chapter10.html#sec-batchedmultiechelon-delay-var" class="quarto-xref"><span>Section 10.5.3</span></a> uses it for the variance of a storeroom’s wait at a hub.</p>
 </section>
 <section id="sec-appprobability-renewal-compound" class="level3" data-number="B.4.4">
 <h3 data-number="B.4.4" class="anchored" data-anchor-id="sec-appprobability-renewal-compound"><span class="header-section-number">B.4.4</span> Demands That Arrive in Batches</h3>
 <p>Nothing so far has said how <strong>much</strong> is demanded at an event. Let <span class="math inline">\(D_{i}\)</span> represent the size of the <span class="math inline">\(i\)</span>th demand. The total demand over an interval of length <span class="math inline">\(t\)</span> is</p>
 <p><span id="eq-compound-renewal"><span class="math display">\[
 \sum_{i=1}^{N(t)} D_{i}
-\tag{B.25}\]</span></span></p>
-<p>a <strong>compound renewal process</strong>, and a random sum in which the count comes from <a href="#eq-renewal-count" class="quarto-xref">Equation&nbsp;<span>B.20</span></a>. When the counting process is Poisson this is the compound Poisson of <a href="14-AppDistributions.html#sec-appdistributions-intermittent" class="quarto-xref"><span>Section C.4.3</span></a>.</p>
-<p><a href="#eq-compound-renewal" class="quarto-xref">Equation&nbsp;<span>B.25</span></a> is the object <a href="#sec-appprobability-5" class="quarto-xref"><span>Section B.5</span></a> takes up, and it now has both of its ingredients: this section supplies <span class="math inline">\(E[N(t)]\)</span> and <span class="math inline">\(\mathit{Var}[N(t)]\)</span>, and the next supplies what to do with them once the sizes are random too.</p>
+\tag{B.31}\]</span></span></p>
+<p>a <strong>compound renewal process</strong>, and a random sum in which the count comes from <a href="#eq-renewal-count" class="quarto-xref">Equation&nbsp;<span>B.26</span></a>. When the counting process is Poisson this is the compound Poisson of <a href="14-AppDistributions.html#sec-appdistributions-intermittent" class="quarto-xref"><span>Section C.4.3</span></a>.</p>
+<p><a href="#eq-compound-renewal" class="quarto-xref">Equation&nbsp;<span>B.31</span></a> is the object <a href="#sec-appprobability-5" class="quarto-xref"><span>Section B.5</span></a> takes up, and it now has both of its ingredients: this section supplies <span class="math inline">\(E[N(t)]\)</span> and <span class="math inline">\(\mathit{Var}[N(t)]\)</span>, and the next supplies what to do with them once the sizes are random too.</p>
 </section>
 </section>
 <section id="sec-appprobability-5" class="level2" data-number="B.5">
@@ -867,7 +1088,7 @@ E[N(L)] \approx \frac{E[L]}{\mu_{T}}, \qquad
 <p>A <strong>random sum</strong> adds up a random number of random quantities. Let <span class="math inline">\(N\)</span> represent a non-negative integer random variable, let <span class="math inline">\(X_{1}, X_{2}, \ldots\)</span> represent identically distributed random variables with the same distribution as some <span class="math inline">\(X\)</span>, and let</p>
 <p><span id="eq-random-sum"><span class="math display">\[
 S = \sum_{i=1}^{N} X_{i}, \qquad S = 0 \text{ when } N = 0
-\tag{B.26}\]</span></span></p>
+\tag{B.32}\]</span></span></p>
 <p>Assume throughout that the <span class="math inline">\(X_{i}\)</span> are independent of one another <strong>and of <span class="math inline">\(N\)</span></strong>. That last requirement is the one that fails in practice, and <a href="#sec-appprobability-randomsums-caution" class="quarto-xref"><span>Section B.5.5</span></a> says what it costs.</p>
 <p>Random sums appear twice in this book, and both times the quantity being summed is demand.</p>
 <p>Demand over a random lead time. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> needs the demand that occurs while a replenishment order is outstanding. Let <span class="math inline">\(D_{i}\)</span> represent the demand in period <span class="math inline">\(i\)</span> and let <span class="math inline">\(L\)</span> represent the lead time measured in whole periods. Then the lead time demand is <span class="math inline">\(D(L) = \sum_{i=1}^{L}D_{i}\)</span>, a random sum in which <span class="math inline">\(N\)</span> is the lead time.</p>
@@ -877,30 +1098,30 @@ S = \sum_{i=1}^{N} X_{i}, \qquad S = 0 \text{ when } N = 0
 <p>Condition on <span class="math inline">\(N\)</span>. Given <span class="math inline">\(N = n\)</span> the sum has exactly <span class="math inline">\(n\)</span> terms, so <span class="math inline">\(E[S \mid N = n] = nE[X]\)</span>. Thus, <span class="math inline">\(E[S \mid N] = NE[X]\)</span>, and taking the expectation of both sides,</p>
 <p><span id="eq-wald"><span class="math display">\[
 E[S] = E\big[E[S \mid N]\big] = E\big[NE[X]\big] = E[N]\,E[X]
-\tag{B.27}\]</span></span></p>
-<p><a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> is Wald’s equation, and it says the obvious thing: the expected total is the expected count times the expected size. Notice that it needs only the <em>means</em> of <span class="math inline">\(N\)</span> and <span class="math inline">\(X\)</span>, which is why it is the one result in this section that survives almost any weakening of the assumptions.</p>
+\tag{B.33}\]</span></span></p>
+<p><a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a> is Wald’s equation, and it says the obvious thing: the expected total is the expected count times the expected size. Notice that it needs only the <em>means</em> of <span class="math inline">\(N\)</span> and <span class="math inline">\(X\)</span>, which is why it is the one result in this section that survives almost any weakening of the assumptions.</p>
 </section>
 <section id="sec-appprobability-randomsums-variance" class="level3" data-number="B.5.2">
 <h3 data-number="B.5.2" class="anchored" data-anchor-id="sec-appprobability-randomsums-variance"><span class="header-section-number">B.5.2</span> The Variance</h3>
 <p>The variance is where the interesting behavior is, and the obvious guess is wrong. Conditioning again, and using the law of total variance,</p>
 <p><span id="eq-total-variance"><span class="math display">\[
 \mathit{Var}[S] = E\big[\mathit{Var}[S \mid N]\big] + \mathit{Var}\big[E[S \mid N]\big]
-\tag{B.28}\]</span></span></p>
+\tag{B.34}\]</span></span></p>
 <p>Take the two terms in turn. Given <span class="math inline">\(N = n\)</span> the sum is of <span class="math inline">\(n\)</span> independent terms, so <span class="math inline">\(\mathit{Var}[S \mid N] = N\mathit{Var}[X]\)</span> and the first term is <span class="math inline">\(E[N]\mathit{Var}[X]\)</span>. And <span class="math inline">\(E[S \mid N] = NE[X]\)</span>, so the second term is <span class="math inline">\(\mathit{Var}[NE[X]] = (E[X])^{2}\mathit{Var}[N]\)</span>. Thus,</p>
 <p><span id="eq-random-sum-variance"><span class="math display">\[
 \mathit{Var}[S] = E[N]\,\mathit{Var}[X] + \mathit{Var}[N]\,\big(E[X]\big)^{2}
-\tag{B.29}\]</span></span></p>
+\tag{B.35}\]</span></span></p>
 <p>The two terms are not symmetric, and that asymmetry is the point. The variability of the <em>sizes</em> enters multiplied by the expected count. The variability of the <em>count</em> enters multiplied by the square of the expected size. That is, uncertainty in how many contributes a term that grows quadratically in the typical size, while uncertainty in how much contributes only linearly in the typical count.</p>
-<p>For example, an item demanded five units at a time is four times as exposed to uncertainty in the number of demands as an item demanded two and a half units at a time, all else equal. Recall from <a href="08-Chapter8.html#sec-continuousreview-ltd-moments" class="quarto-xref"><span>Section 8.3.2</span></a> that a supplier’s reliability and a customer’s predictability are different problems. <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> is why they are also different sizes of problem.</p>
+<p>For example, an item demanded five units at a time is four times as exposed to uncertainty in the number of demands as an item demanded two and a half units at a time, all else equal. Recall from <a href="08-Chapter8.html#sec-continuousreview-ltd-moments" class="quarto-xref"><span>Section 8.3.2</span></a> that a supplier’s reliability and a customer’s predictability are different problems. <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> is why they are also different sizes of problem.</p>
 </section>
 <section id="sec-appprobability-randomsums-ltd" class="level3" data-number="B.5.3">
 <h3 data-number="B.5.3" class="anchored" data-anchor-id="sec-appprobability-randomsums-ltd"><span class="header-section-number">B.5.3</span> Lead Time Demand</h3>
-<p>Specializing <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> and <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> to <span class="math inline">\(D(L) = \sum_{i=1}^{L}D_{i}\)</span> gives the two results <a href="14-AppDistributions.html#sec-appdistributions-matching" class="quarto-xref"><span>Section C.4.2</span></a> and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> both use:</p>
+<p>Specializing <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a> and <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> to <span class="math inline">\(D(L) = \sum_{i=1}^{L}D_{i}\)</span> gives the two results <a href="14-AppDistributions.html#sec-appdistributions-matching" class="quarto-xref"><span>Section C.4.2</span></a> and <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> both use:</p>
 <p><span id="eq-ltd-moments"><span class="math display">\[
 E[D(L)] = E[L]\,E[D], \qquad
 \mathit{Var}[D(L)] = E[L]\,\mathit{Var}[D] + \mathit{Var}[L]\,\big(E[D]\big)^{2}
-\tag{B.30}\]</span></span></p>
-<p>Notice the units. <span class="math inline">\(E[L]\)</span> is in periods and <span class="math inline">\(E[D]\)</span> in units per period, so the product is in units. In the variance, <span class="math inline">\(E[L]\mathit{Var}[D]\)</span> is periods times units squared per period squared, and <span class="math inline">\(\mathit{Var}[L](E[D])^{2}\)</span> is periods squared times units squared per period squared. Both come to units squared, which is the check that the two terms belong in the same sum. Notice also that <span class="math inline">\(L\)</span> and <span class="math inline">\(D\)</span> must be measured in the <em>same</em> period. A lead time in days and a demand per week is the most common error in applying <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a>, and it is invisible in the answer.</p>
+\tag{B.36}\]</span></span></p>
+<p>Notice the units. <span class="math inline">\(E[L]\)</span> is in periods and <span class="math inline">\(E[D]\)</span> in units per period, so the product is in units. In the variance, <span class="math inline">\(E[L]\mathit{Var}[D]\)</span> is periods times units squared per period squared, and <span class="math inline">\(\mathit{Var}[L](E[D])^{2}\)</span> is periods squared times units squared per period squared. Both come to units squared, which is the check that the two terms belong in the same sum. Notice also that <span class="math inline">\(L\)</span> and <span class="math inline">\(D\)</span> must be measured in the <em>same</em> period. A lead time in days and a demand per week is the most common error in applying <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a>, and it is invisible in the answer.</p>
 <p><strong>For example</strong>, take an item averaging 5 units a week with a variance of 16, and a supplier whose lead time averages 10 weeks with a variance of 25. Then</p>
 <p><span class="math display">\[
 E[D(L)] = 10(5) = 50 \text{ units}
@@ -913,23 +1134,146 @@ E[D(L)] = 10(5) = 50 \text{ units}
 </section>
 <section id="sec-appprobability-randomsums-compound" class="level3" data-number="B.5.4">
 <h3 data-number="B.5.4" class="anchored" data-anchor-id="sec-appprobability-randomsums-compound"><span class="header-section-number">B.5.4</span> Batches, and the Compound Poisson</h3>
-<p>When <span class="math inline">\(N\)</span> counts demand <em>occurrences</em> rather than periods, <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> applies unchanged with <span class="math inline">\(N = N(t)\)</span>. What changes is that <span class="math inline">\(E[N(t)]\)</span> and <span class="math inline">\(\mathit{Var}[N(t)]\)</span> now have to come from somewhere, and <a href="#sec-appprobability-4" class="quarto-xref"><span>Section B.4</span></a> is where.</p>
-<p>One case is clean enough to state here. If demands occur according to a Poisson process with rate <span class="math inline">\(\lambda\)</span>, then <span class="math inline">\(N(t)\)</span> is Poisson with <span class="math inline">\(E[N(t)] = \mathit{Var}[N(t)] = \lambda t\)</span>, and the two terms of <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> collapse:</p>
+<p>When <span class="math inline">\(N\)</span> counts demand <em>occurrences</em> rather than periods, <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> applies unchanged with <span class="math inline">\(N = N(t)\)</span>. What changes is that <span class="math inline">\(E[N(t)]\)</span> and <span class="math inline">\(\mathit{Var}[N(t)]\)</span> now have to come from somewhere, and <a href="#sec-appprobability-4" class="quarto-xref"><span>Section B.4</span></a> is where.</p>
+<p>One case is clean enough to state here. If demands occur according to a Poisson process with rate <span class="math inline">\(\lambda\)</span>, then <span class="math inline">\(N(t)\)</span> is Poisson with <span class="math inline">\(E[N(t)] = \mathit{Var}[N(t)] = \lambda t\)</span>, and the two terms of <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> collapse:</p>
 <p><span id="eq-compound-poisson-variance"><span class="math display">\[
 \mathit{Var}[S] = \lambda t\left(\mathit{Var}[X] + (E[X])^{2}\right) = \lambda t\,E\big[X^{2}\big]
-\tag{B.31}\]</span></span></p>
-<p>Thus, a compound Poisson demand needs only the <em>second moment</em> of the batch size, not its variance and mean separately. For example, at three demand occurrences on average, each averaging 5 units with a variance of 16, the total averages <span class="math inline">\(3(5) = 15\)</span> units with a variance of <span class="math inline">\(3(16) + 3(25) = 123\)</span>, which <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.31</span></a> gives directly as <span class="math inline">\(3(41) = 123\)</span>. The two routes agree, and that agreement is the arithmetic check for this section.</p>
-<p>Notice what <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.31</span></a> implies. The variance to mean ratio of a compound Poisson demand is <span class="math inline">\(E[X^{2}]/E[X]\)</span>, which exceeds one whenever the batch size is ever larger than one unit. That is the reason <a href="14-AppDistributions.html#sec-appdistributions-1" class="quarto-xref"><span>Section C.1</span></a> sends batched demand to the negative binomial rather than the Poisson, and it is why a Poisson <em>process</em> does not produce Poisson <em>period demand</em> unless every demand is for a single unit.</p>
+\tag{B.37}\]</span></span></p>
+<p>Thus, a compound Poisson demand needs only the <em>second moment</em> of the batch size, not its variance and mean separately. For example, at three demand occurrences on average, each averaging 5 units with a variance of 16, the total averages <span class="math inline">\(3(5) = 15\)</span> units with a variance of <span class="math inline">\(3(16) + 3(25) = 123\)</span>, which <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.37</span></a> gives directly as <span class="math inline">\(3(41) = 123\)</span>. The two routes agree, and that agreement is the arithmetic check for this section.</p>
+<p>Notice what <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.37</span></a> implies. The variance to mean ratio of a compound Poisson demand is <span class="math inline">\(E[X^{2}]/E[X]\)</span>, which exceeds one whenever the batch size is ever larger than one unit. That is the reason <a href="14-AppDistributions.html#sec-appdistributions-1" class="quarto-xref"><span>Section C.1</span></a> sends batched demand to the negative binomial rather than the Poisson, and it is why a Poisson <em>process</em> does not produce Poisson <em>period demand</em> unless every demand is for a single unit.</p>
 </section>
 <section id="sec-appprobability-randomsums-caution" class="level3" data-number="B.5.5">
 <h3 data-number="B.5.5" class="anchored" data-anchor-id="sec-appprobability-randomsums-caution"><span class="header-section-number">B.5.5</span> What This Does and Does Not Give You</h3>
-<p><a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> and <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> give two moments. They do not give a distribution, and the inventory models of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> onward need one. <a href="14-AppDistributions.html#sec-appdistributions-4" class="quarto-xref"><span>Section C.4</span></a> is the bridge, and it is an assumption rather than a derivation: two numbers do not determine a distribution, so a family has to be chosen.</p>
+<p><a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a> and <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> give two moments. They do not give a distribution, and the inventory models of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> onward need one. <a href="14-AppDistributions.html#sec-appdistributions-4" class="quarto-xref"><span>Section C.4</span></a> is the bridge, and it is an assumption rather than a derivation: two numbers do not determine a distribution, so a family has to be chosen.</p>
 <p>Two assumptions stand behind the results above, and both fail in real data.</p>
-<p>The count must not depend on the sizes. Suppose a large demand triggers an expedite that shortens the lead time. Then <span class="math inline">\(L\)</span> and the <span class="math inline">\(D_{i}\)</span> are dependent. <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.27</span></a> survives that under weaker conditions; <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> does not, and the true variance is usually smaller than it gives.</p>
-<p>The sizes must not depend on one another. Demand that is autocorrelated, a run of heavy weeks followed by a run of light ones, breaks the first term of <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a>. Recall from <a href="02-Chapter2.html#sec-managing-grouping-demandpattern" class="quarto-xref"><span>Section 2.2.6</span></a> that burstiness is one of the things a demand history is characterized for. An item that tests as bursty is an item for which <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.29</span></a> understates the spread, and understating the spread understates the safety stock.</p>
-
-
+<p>The count must not depend on the sizes. Suppose a large demand triggers an expedite that shortens the lead time. Then <span class="math inline">\(L\)</span> and the <span class="math inline">\(D_{i}\)</span> are dependent. <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a> survives that under weaker conditions; <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> does not, and the true variance is usually smaller than it gives.</p>
+<p>The sizes must not depend on one another. Demand that is autocorrelated, a run of heavy weeks followed by a run of light ones, breaks the first term of <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a>. Recall from <a href="02-Chapter2.html#sec-managing-grouping-demandpattern" class="quarto-xref"><span>Section 2.2.6</span></a> that burstiness is one of the things a demand history is characterized for. An item that tests as bursty is an item for which <a href="#eq-random-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.35</span></a> understates the spread, and understating the spread understates the safety stock.</p>
 </section>
+</section>
+<section id="sec-appprobability-exercises" class="level2" data-number="B.6">
+<h2 data-number="B.6" class="anchored" data-anchor-id="sec-appprobability-exercises"><span class="header-section-number">B.6</span> Exercises</h2>
+<p>These exercises are a diagnostic. Each takes a few minutes, uses an item the chapters use, and tests one result of this appendix. Thus, a difficulty with one of them says which section to reread before the chapter that depends on it.</p>
+<p>Unless an exercise says otherwise, use these conventions so that your answer and the instructor’s agree. Report probabilities, means, variances and standard deviations to four decimal places, and carry every digit until the last step. Read a Poisson probability from <a href="15-AppTables.html#tbl-poisson-cdf" class="quarto-xref">Table&nbsp;<span>D.3</span></a> where the mean is one of its columns, and compute it from <a href="14-AppDistributions.html#eq-poisson" class="quarto-xref">Equation&nbsp;<span>C.2</span></a> or with a worksheet otherwise.</p>
+<div id="exr-appb-truefalse" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.1</strong></span> State whether each statement is true or false. Correct each false statement in one sentence, and name the equation or the section of this appendix that settles it.</p>
+<ol type="a">
+<li>The mean of a sum is the sum of the means only when the terms are independent.</li>
+<li>The variance of a sum is the sum of the variances whenever the terms are identically distributed.</li>
+<li>A storeroom that stocks the average demand has an expected shortage of zero.</li>
+<li>Under Poisson demand, the fraction of demands filled from the shelf equals the fraction of time the shelf has stock.</li>
+<li>Demand occurrences that follow a Poisson process give a Poisson period demand, whatever the sizes of the demands are.</li>
+<li>When each repair starts as soon as its unit fails, the distribution of the number of units in repair does not depend on the variance of the repair time.</li>
+<li>A mixture of two distributions that have the same variance has that variance.</li>
+<li>Little’s law holds only when arrivals are Poisson.</li>
+</ol>
+</div>
+<div id="exr-appb-moments" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.2</strong></span> A small substation storeroom issues the meter socket of <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.9</span></a>, which costs $48. Let <span class="math inline">\(X\)</span> represent the number issued in a week, with the distribution below.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P\{X = x\}\)</span></td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>Compute <span class="math inline">\(E[X]\)</span>, and compute <span class="math inline">\(\mathit{Var}[X]\)</span> by both forms of <a href="#eq-variance" class="quarto-xref">Equation&nbsp;<span>B.3</span></a>. Report the standard deviation, the coefficient of variation and the variance to mean ratio, with the units of each.</li>
+<li>Let <span class="math inline">\(V = 48X\)</span> represent the value issued in a week. Obtain its mean and its standard deviation from <a href="#eq-linear-transform" class="quarto-xref">Equation&nbsp;<span>B.4</span></a>.</li>
+<li>Compute the second factorial moment <span class="math inline">\(E[X(X-1)]\)</span> directly from the table, and confirm that <a href="#eq-factorial-variance" class="quarto-xref">Equation&nbsp;<span>B.9</span></a> returns the variance of part (a).</li>
+<li>The storeroom starts each week with one socket, which is the mean demand. Compute the expected shortage <span class="math inline">\(E[(X-1)^{+}]\)</span> and the expected leftover <span class="math inline">\(E[(1-X)^{+}]\)</span>. What does substituting the mean demand for <span class="math inline">\(X\)</span> give for each, and which result of this appendix names the error?</li>
+<li>The variance to mean ratio of part (a) is the Poisson’s. Give two reasons, one of them numerical, why <span class="math inline">\(X\)</span> is nevertheless not Poisson.</li>
+</ol>
+</div>
+<div id="exr-appb-uniform" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.3</strong></span> A storeroom runs the policy <span class="math inline">\((r, Q) = (4, 6)\)</span> on an item demanded one unit at a time, so that by <a href="08-Chapter8.html#eq-ip-uniform" class="quarto-xref">Equation&nbsp;<span>8.18</span></a> its inventory position is equally likely to be each of six values.</p>
+<ol type="a">
+<li>List the six values. Compute the mean and the variance of the position from the definitions, <a href="#eq-expectation" class="quarto-xref">Equation&nbsp;<span>B.2</span></a> and <a href="#eq-variance" class="quarto-xref">Equation&nbsp;<span>B.3</span></a>.</li>
+<li>Confirm both with <a href="#eq-discrete-uniform" class="quarto-xref">Equation&nbsp;<span>B.5</span></a>.</li>
+<li>Find the smallest batch size <span class="math inline">\(Q\)</span> at which the standard deviation of the position is at least 3 units. Report the standard deviation at that <span class="math inline">\(Q\)</span> and at the next smaller one.</li>
+<li>Explain why the reorder point does not appear in the variance. Then say what <a href="#eq-discrete-uniform" class="quarto-xref">Equation&nbsp;<span>B.5</span></a> gives at <span class="math inline">\(Q = 1\)</span> and which policy that is.</li>
+</ol>
+</div>
+<div id="exr-appb-mixture" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.4</strong></span> The transformer of <a href="08-Chapter8.html#exm-ltd-transformer" class="quarto-xref">Example&nbsp;<span>8.2</span></a> is demanded in a Poisson process at 45 units a year, which is 3.75 units a month. Its supplier delivers in one month with probability 0.75 and in five months with probability 0.25, and orders do not cross.</p>
+<ol type="a">
+<li>Compute the mean and the variance of the lead time, in months and months squared.</li>
+<li>Give the distribution of the lead time demand under each of the two lead times. Then obtain the mean and the variance of the lead time demand from <a href="#eq-mixture-moments" class="quarto-xref">Equation&nbsp;<span>B.13</span></a>, reporting the within term and the between term separately.</li>
+<li>Check the variance of part (b) with <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a>.</li>
+<li>Compute the probability of no demand during a lead time, and the probability that the lead time demand is 11 units or fewer. Compare each with its value under a lead time of exactly two months, for which <a href="08-Chapter8.html#tbl-basestock-handtable" class="quarto-xref">Table&nbsp;<span>8.5</span></a> gives <span class="math inline">\(P\{D(L) = 0\} = 0.0006\)</span> and <span class="math inline">\(P\{D(L) \le 11\} = 0.9208\)</span>.</li>
+<li>A colleague models the lead time demand as <span class="math inline">\(0.75X_{1} + 0.25X_{2}\)</span>, where <span class="math inline">\(X_{1}\)</span> and <span class="math inline">\(X_{2}\)</span> are independent Poisson variables with the two means of part (b). Compute the variance of that quantity, and explain what the colleague has confused.</li>
+</ol>
+</div>
+<div id="exr-appb-sums" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.5</strong></span> Weekly demand for the belt of <a href="07-Chapter7.html#sec-newsvendor-fitting" class="quarto-xref"><span>Section 7.3</span></a> has a mean of 33.2404 belts and a variance of 613.0387 belts squared.</p>
+<ol type="a">
+<li>Assuming the weeks are independent, compute the mean, the variance, the standard deviation and the coefficient of variation of the demand over four weeks.</li>
+<li><a href="14-AppDistributions.html#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> calls a normal model safe when the coefficient of variation is below roughly 0.3. Use <a href="#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.17</span></a> to find the smallest whole number of weeks over which the belt’s demand has a coefficient of variation of 0.30 or less, and report the coefficient of variation there.</li>
+<li>Suppose instead that the demands of adjacent weeks have a correlation of 0.30, so that their covariance is 0.30 times the weekly variance, and that weeks further apart are uncorrelated. Recompute the mean and the standard deviation of the four-week demand with <a href="#eq-sum-variance" class="quarto-xref">Equation&nbsp;<span>B.15</span></a>.</li>
+<li>By what percentage does the independence assumption understate the standard deviation of part (c)? Say which of the two moments the correlation left alone, and why.</li>
+</ol>
+</div>
+<div id="exr-appb-convolution" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.6</strong></span> <a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a> gives the distribution of the size of two lots of the cutout of <a href="08-Chapter8.html#exm-lumpy-cutout" class="quarto-xref">Example&nbsp;<span>8.8</span></a>, whose lots are of 1, 2 or 4 units with probabilities 0.40, 0.40 and 0.20.</p>
+<ol type="a">
+<li>Convolve <a href="#tbl-convolution-two" class="quarto-xref">Table&nbsp;<span>B.3</span></a> with one more lot to obtain the distribution of the size of three lots taken together. Lay the work out as a grid.</li>
+<li>Perform the three checks of <a href="#sec-appprobability-sums-convolution" class="quarto-xref"><span>Section B.2.4</span></a> on your answer.</li>
+<li>In an interval that expects one lot, the number of lots is Poisson with a mean of 1. Use <a href="08-Chapter8.html#eq-lumpy-convolution" class="quarto-xref">Equation&nbsp;<span>8.52</span></a> to compute the probability that exactly 4 units are demanded, showing the term for each number of lots that can make 4 units.</li>
+</ol>
+</div>
+<div id="exr-appb-poisson" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.7</strong></span> The meter socket of <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.9</span></a> is issued one at a time. At a small substation storeroom the issues follow a Poisson process and average one every 5 working days, and the supplier’s lead time is 10 working days.</p>
+<ol type="a">
+<li>State the rate with its units. Give the distribution of the demand over a lead time, and compute the probability of no demand and the probability of four units or more.</li>
+<li>Compute the probability that the next issue is more than 10 working days away. The storeroom has now gone 7 working days without an issue. Compute the probability that the next 10 working days pass without one as well, and name the property you used.</li>
+<li>One issue in four is for an emergency repair, independently of the others. Give the rates of the emergency stream and of the routine stream, and compute the probability of at least one emergency issue in a lead time.</li>
+<li>A second storeroom issues the same socket in an independent Poisson process at one every 10 working days, and both are replenished from one depot. Give the distribution of the depot’s demand over 10 working days, and the probability that it is 2 units or fewer.</li>
+</ol>
+</div>
+<div id="exr-appb-palm" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.8</strong></span> Failed regulators reach a repair shop in a Poisson process at 26 a year. A repair takes 4 weeks on average with a standard deviation of 3 weeks, and the shop starts on each unit as it arrives, so that units do not wait for one another. Take a year as 52 weeks.</p>
+<ol type="a">
+<li>Give the distribution of the number of units in repair, with its mean and its variance.</li>
+<li>Compute the probability that more than 4 units are in repair.</li>
+<li>The standard deviation of the repair time rises to 6 weeks with the mean unchanged. What happens to your answers to parts (a) and (b)?</li>
+<li>Now consider a different arrangement with the same figures. A storeroom’s demand is Poisson at 26 units a year. One supplier fills its orders in the sequence they were placed, with a lead time that averages 4 weeks with a standard deviation of 3 weeks. Compute the mean and the variance of the demand over a lead time, and recompute the variance at a standard deviation of 6 weeks.</li>
+<li>In two or three sentences, explain why the spread of the duration matters in part (d) and not in part (a).</li>
+</ol>
+</div>
+<div id="exr-appb-randomsum" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.9</strong></span> A regional storeroom issues a splice kit whose weekly demand has a mean of 12 kits and a variance of 30 kits squared, and successive weeks are independent. The supplier’s lead time averages 42 days with a standard deviation of 14 days and is independent of the demand. Take a week as 7 days.</p>
+<ol type="a">
+<li>Put the lead time in weeks, and compute the mean, the variance and the standard deviation of the lead time demand from <a href="#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a>.</li>
+<li>What share of the variance comes from the supplier?</li>
+<li>Find the standard deviation of the lead time, in days, at which the supplier and the demand would contribute equally to the variance.</li>
+<li>A student leaves the lead time in days and reports a mean of 504 kits. Reproduce the student’s variance, and say what in <a href="#sec-appprobability-randomsums-ltd" class="quarto-xref"><span>Section B.5.3</span></a> would have caught the error.</li>
+<li>The cutout of <a href="08-Chapter8.html#exm-lumpy-cutout" class="quarto-xref">Example&nbsp;<span>8.8</span></a> is drawn in lots of 1, 2 or 4 units with probabilities 0.40, 0.40 and 0.20. Suppose that lots are drawn in a Poisson process at 2 a week. Compute the mean, the variance and the variance to mean ratio of the demand over 3 weeks from <a href="#eq-wald" class="quarto-xref">Equation&nbsp;<span>B.33</span></a> and <a href="#eq-compound-poisson-variance" class="quarto-xref">Equation&nbsp;<span>B.37</span></a>, and say why that demand cannot be Poisson.</li>
+</ol>
+</div>
+<div id="exr-appb-wait" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise B.10</strong></span> The transformer of <a href="08-Chapter8.html#tbl-basestock-handtable" class="quarto-xref">Table&nbsp;<span>8.5</span></a> is demanded in a Poisson process at 45 units a year and is run under a base-stock policy with <span class="math inline">\(S = 10\)</span>. From that table, <span class="math inline">\(G(9) = 0.7764\)</span>, <span class="math inline">\(G^{1}(10) = 0.2993\)</span> and <span class="math inline">\(G^{2}(10) = 0.3147\)</span>, and by <a href="08-Chapter8.html#eq-basestock-backorders" class="quarto-xref">Equation&nbsp;<span>8.10</span></a> the average backorder level is <span class="math inline">\(\bar{B} = G^{1}(10)\)</span>. Take a year as 365 days, and report times in days to two decimal places.</p>
+<ol type="a">
+<li>Use <a href="#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> to find the average time a demand waits, counting the demands that do not wait at all.</li>
+<li>By <a href="08-Chapter8.html#eq-basestock-readyrate" class="quarto-xref">Equation&nbsp;<span>8.13</span></a> the shelf has stock a fraction <span class="math inline">\(G(9)\)</span> of the time. What fraction of the demands wait, and which result lets you say so? Find the average wait of the demands that do wait.</li>
+<li>Compute the second factorial moment of the backorder level, its second moment and its variance, using <a href="#sec-appprobability-rv-factorial" class="quarto-xref"><span>Section B.1.4</span></a>.</li>
+<li>The distributional form of Little’s law gives <span class="math inline">\(E[B(B-1)] = \lambda^{2}E[W^{2}]\)</span>. Compute the standard deviation of the wait.</li>
+<li>Management wants the average wait of part (a) to be one day or less. State the target as a limit on <span class="math inline">\(\bar{B}\)</span>, and find the smallest base-stock level that meets it, given that <span class="math inline">\(G^{1}(11) = 0.1616\)</span> and <span class="math inline">\(G^{1}(12) = 0.0823\)</span>.</li>
+</ol>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

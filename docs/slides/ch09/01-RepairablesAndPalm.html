@@ -1475,6 +1475,120 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="the-storerooms-table-by-hand" class="slide level2">
+<h2>The Storeroom’s Table, by Hand</h2>
+<p>The pipeline is Poisson with <span class="math inline">\(\mu_j = 1.9726\)</span>, which is not a column of any printed table, so we build it with the four recursions of the newsvendor session.</p>
+<table style="font-size:0.85em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+<span class="math inline">\(x\)</span>
+</th>
+<th>
+<span class="math inline">\(g(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{0}(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{1}(x)\)</span>
+</th>
+<th style="text-align:left">
+What happened
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+0
+</td>
+<td>
+0.1391
+</td>
+<td>
+0.1391
+</td>
+<td>
+0.8609
+</td>
+<td>
+1.9726
+</td>
+<td style="text-align:left">
+<span class="math inline">\(g(0) = e^{-1.9726}\)</span>; the loss column starts at the mean
+</td>
+</tr>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0.2744
+</td>
+<td>
+0.4135
+</td>
+<td>
+0.5865
+</td>
+<td>
+1.1117
+</td>
+<td style="text-align:left">
+<span class="math inline">\(0.1391(1.9726/1)\)</span>; <span class="math inline">\(\;1.9726 - 0.8609\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+0.2706
+</td>
+<td>
+0.6841
+</td>
+<td>
+0.3159
+</td>
+<td>
+0.5252
+</td>
+<td style="text-align:left">
+<span class="math inline">\(0.2744(1.9726/2)\)</span>; <span class="math inline">\(\;1.1117 - 0.5865\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Each row of the next slide is then four readings. At <span class="math inline">\(S_j = 2\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{B}_j(2) &amp;= G^{1}(2) = 0.5252, \qquad \bar{I}_j(2) = 2 - 1.9726 + 0.5252 = 0.5526
+  &amp;&amp;\text{owed; on hand}\\
+\overline{\mathit{RR}}_j(2) &amp;= G(1) = 0.4135, \qquad \Delta_j(2) = G^{0}(2) = 0.3159
+  &amp;&amp;\text{one row up; a third unit}
+\end{aligned}
+\]</span></p>
+</div>
+<aside class="notes">
+<p>The mass recursion multiplies by the mean over x, so no factorial is computed. The loss column subtracts the G0 of the row above. The ready rate reads the distribution function one row up, because the shelf has stock when the pipeline is at most S less one. Rows 3 to 6 repeat the three steps and the four readings.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="stocking-one-storeroom-with-transformers" class="slide level2">
 <h2>Stocking One Storeroom with Transformers</h2>
 <p><span class="math inline">\(\mu_j = 1.9726\)</span>, a generous depot. How many should the storeroom hold?</p>

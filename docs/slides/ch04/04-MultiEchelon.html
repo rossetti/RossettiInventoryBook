@@ -1537,14 +1537,16 @@ T(2) &amp;= \sqrt{34/87.5} = 0.6234 \text{ yr} = 32.4 \text{ weeks}
   &amp;&amp;\text{block } \{3,4,5\}\text{: nondecreasing}\\
 \text{cost} &amp;= 2\sqrt{22(62.5)} + 2\sqrt{34(87.5)} = 74.16 + 109.09 = \$183.25
   &amp;&amp;\text{each block is an EOQ: } 2\sqrt{kg}\\
-\text{alone} &amp;= \textstyle\sum_i 2\sqrt{k_ig_i} = \$181.81
-  &amp;&amp;\text{infeasible; nesting costs 0.8}\%\\
+\text{alone} &amp;= 2(15.811 + 21.213 + 39.528 + 9.354 + 5.000) = \$181.81
+  &amp;&amp;\text{nesting costs 0.8}\%\\
 2^{\ell} &amp;\ge 30.9/\sqrt{2} = 21.8 \Rightarrow \ell^{*} = 5;
 \quad 2^{\ell} \ge 32.4/\sqrt{2} = 22.9 \Rightarrow \ell^{*} = 5
-  &amp;&amp;\text{both blocks: 32 weeks}
+  &amp;&amp;\text{32 weeks}\\
+\text{rounded} &amp;= 56\left(\tfrac{52}{32}\right) + 150\left(\tfrac{32}{52}\right) = \$183.31
+  &amp;&amp;\textstyle\sum k_i = 56,\ \sum g_i = 150
 \end{aligned}
 \]</span></p>
-<p>Both blocks land on <span class="math inline">\(2^{5} = 32\)</span> weeks, at $183.31, 0.03% above the relaxed solution.</p>
+<p>Both blocks land on <span class="math inline">\(2^{5} = 32\)</span> weeks, 0.03% above the relaxed solution.</p>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -1556,7 +1558,7 @@ T(2) &amp;= \sqrt{34/87.5} = 0.6234 \text{ yr} = 32.4 \text{ weeks}
 </div>
 </div>
 <aside class="notes">
-<p>log base 2 of 21.8 is 4.45 and of 22.9 is 4.52, both rounding up to 5.</p>
+<p>The five square roots are of the products k_i g_i: 250, 450, 1,562.5, 87.5 and 25. log base 2 of 21.8 is 4.45 and of 22.9 is 4.52, both rounding up to 5. At 32 weeks every stage shares the interval 32/52 years, so the objective needs only the two totals.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1798,7 +1800,9 @@ smaller: stop
 \begin{aligned}
 T_0 &amp;= \sqrt{965/8{,}200} = 0.3430 \text{ yr} = 17.8 \text{ weeks}
   &amp;&amp;\text{center and four pinned regions}\\
-T_{(2)} &amp;= \sqrt{.110} = 0.3317 \text{ yr} = 17.2 \text{ weeks}, \quad T_{(1)} = \sqrt{.075} = 0.2739 \text{ yr} = 14.2 \text{ weeks}
+T_{(2)} &amp;= \sqrt{.110} = 0.3317 \text{ yr} = 17.2 \text{ weeks}
+  &amp;&amp;\text{left alone}\\
+T_{(1)} &amp;= \sqrt{.075} = 0.2739 \text{ yr} = 14.2 \text{ weeks}
   &amp;&amp;\text{left alone}
 \end{aligned}
 \]</span></p>

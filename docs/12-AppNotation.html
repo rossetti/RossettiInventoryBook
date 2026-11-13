@@ -811,19 +811,19 @@ Table&nbsp;A.3: Demand and timing quantities.
 <td><span class="math inline">\(\hat{D}_{t}\)</span></td>
 <td>Forecast of <span class="math inline">\(D_{t}\)</span>, the demand in one forecast period, revised at the end of period <span class="math inline">\(t\)</span></td>
 <td>units</td>
-<td><a href="08-Chapter8.html#eq-updating-rate" class="quarto-xref">Equation&nbsp;<span>8.79</span></a></td>
+<td><a href="08-Chapter8.html#eq-updating-rate" class="quarto-xref">Equation&nbsp;<span>8.82</span></a></td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\mathit{MAD}_{t}\)</span></td>
 <td>Smoothed mean absolute deviation of the one period ahead forecast error</td>
 <td>units</td>
-<td><a href="08-Chapter8.html#eq-updating-sigma" class="quarto-xref">Equation&nbsp;<span>8.80</span></a></td>
+<td><a href="08-Chapter8.html#eq-updating-sigma" class="quarto-xref">Equation&nbsp;<span>8.83</span></a></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(\eta\)</span></td>
 <td>Scaling exponent carrying a period standard deviation over a lead time, <span class="math inline">\(\tfrac{1}{2} \le \eta \le 1\)</span></td>
 <td>dimensionless</td>
-<td><a href="08-Chapter8.html#eq-updating-ltd" class="quarto-xref">Equation&nbsp;<span>8.81</span></a></td>
+<td><a href="08-Chapter8.html#eq-updating-ltd" class="quarto-xref">Equation&nbsp;<span>8.84</span></a></td>
 </tr>
 </tbody>
 </table>
@@ -1749,7 +1749,7 @@ Table&nbsp;A.13: Quantities for a fixed population of repairable units circulati
 </tr>
 <tr class="even">
 <td><span class="math inline">\(E[B^{2}(s)]\)</span></td>
-<td>Second moment of the backorder function at stock level <span class="math inline">\(s\)</span>. Not a loss function, though <a href="09-Chapter9.html#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> builds it from two</td>
+<td>Second moment of the backorder function at stock level <span class="math inline">\(s\)</span>. Not a loss function, though <a href="09-Chapter9.html#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.26</span></a> builds it from two</td>
 <td>units squared</td>
 <td><a href="09-Chapter9.html#sec-multiechelon-varimetric-depotvar" class="quarto-xref"><span>Section 9.8.3</span></a></td>
 </tr>
@@ -2086,7 +2086,7 @@ Table&nbsp;A.16: Quantities that appear once demand is random.
 <td><span class="math inline">\(S\)</span></td>
 <td>A random sum, <span class="math inline">\(\sum_{i=1}^{N}X_{i}\)</span>, of a random number of random quantities</td>
 <td>units</td>
-<td><a href="13-AppProbability.html#eq-random-sum" class="quarto-xref">Equation&nbsp;<span>B.26</span></a></td>
+<td><a href="13-AppProbability.html#eq-random-sum" class="quarto-xref">Equation&nbsp;<span>B.32</span></a></td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(N\)</span>, <span class="math inline">\(N(t)\)</span></td>
@@ -2098,7 +2098,7 @@ Table&nbsp;A.16: Quantities that appear once demand is random.
 <td><span class="math inline">\(D(L)\)</span></td>
 <td>Demand over a lead time, the random sum <span class="math inline">\(\sum_{i=1}^{L}D_{i}\)</span>. Written <span class="math inline">\(\mathit{LTD}\)</span> in much of the literature</td>
 <td>units</td>
-<td><a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a></td>
+<td><a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a></td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\phi(z)\)</span>, <span class="math inline">\(\Phi(z)\)</span></td>
@@ -2148,7 +2148,7 @@ Table&nbsp;A.17: Quantities for demand modeled as a stream of events. Notice tha
 <td><span class="math inline">\(N(t)\)</span></td>
 <td>Number of demand events in an interval of length <span class="math inline">\(t\)</span></td>
 <td>events</td>
-<td><a href="13-AppProbability.html#eq-poisson-process" class="quarto-xref">Equation&nbsp;<span>B.15</span></a></td>
+<td><a href="13-AppProbability.html#eq-poisson-process" class="quarto-xref">Equation&nbsp;<span>B.21</span></a></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(T_{i}\)</span></td>
@@ -2166,19 +2166,19 @@ Table&nbsp;A.17: Quantities for demand modeled as a stream of events. Notice tha
 <td><span class="math inline">\(m(t)\)</span></td>
 <td>Renewal function, <span class="math inline">\(E[N(t)]\)</span></td>
 <td>events</td>
-<td><a href="13-AppProbability.html#eq-elementary-renewal" class="quarto-xref">Equation&nbsp;<span>B.21</span></a></td>
+<td><a href="13-AppProbability.html#eq-elementary-renewal" class="quarto-xref">Equation&nbsp;<span>B.27</span></a></td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(S_{n}\)</span></td>
 <td>Time of the <span class="math inline">\(n\)</span>th event, <span class="math inline">\(T_{1} + \cdots + T_{n}\)</span></td>
 <td>time</td>
-<td><a href="13-AppProbability.html#eq-renewal-count" class="quarto-xref">Equation&nbsp;<span>B.20</span></a></td>
+<td><a href="13-AppProbability.html#eq-renewal-count" class="quarto-xref">Equation&nbsp;<span>B.26</span></a></td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(D(L)\)</span></td>
 <td>Demand over a lead time. Written <span class="math inline">\(\mathit{LTD}\)</span> in much of the literature</td>
 <td>units</td>
-<td><a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a></td>
+<td><a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a></td>
 </tr>
 </tbody>
 </table>

@@ -1906,12 +1906,38 @@ display:block!important;
 <section id="the-wait-by-the-lead-time-shift" class="slide level2">
 <h2>The Wait, by the Lead-Time Shift</h2>
 <p>Little’s Law gives the mean: <span class="math inline">\(\bar{W} = \bar{B}_0/\lambda_0 = 1.0273/4 = 0.2568\)</span> weeks, which is <span class="math inline">\(0.2568 \times 7 = 1.80\)</span> days, over every request. A random lead time needs more than its mean.</p>
-<p><strong>The lead-time shift</strong> (van der Wal). If the hub’s supplier were <span class="math inline">\(w\)</span> weeks faster, a request waiting at most <span class="math inline">\(w\)</span> in the real system is one filled at once in the faster one: the position one lead time earlier covered all the demand since.</p>
+<p><strong>The lead-time shift</strong> (van der Wal). Fix a request that reaches the hub at time <span class="math inline">\(t\)</span>, and a wait <span class="math inline">\(w\)</span> with <span class="math inline">\(0 \le w &lt; L_0\)</span>. Three steps:</p>
+<ol type="1">
+<li><strong>Look back</strong> to the moment <span class="math inline">\(L_0 - w\)</span> weeks before the request. Let <span class="math inline">\(u\)</span> represent the hub’s position then. Everything that position counts as on order has arrived <span class="math inline">\(L_0\)</span> weeks later, which is time <span class="math inline">\(t + w\)</span>, and nothing ordered later has.</li>
+<li><strong>Count the demand since.</strong> Requests are filled first come first served, so those <span class="math inline">\(u\)</span> units go to the first <span class="math inline">\(u\)</span> requests after the look-back. Our request is number <span class="math inline">\(D_0(L_0 - w) + 1\)</span> in that line.</li>
+<li><strong>Compare.</strong> Our request has its unit by <span class="math inline">\(t + w\)</span> when its place in line is at most <span class="math inline">\(u\)</span>. That is, <span class="math inline">\(W \le w\)</span> exactly when <span class="math inline">\(D_0(L_0 - w) \le u - 1\)</span>.</li>
+</ol>
+<aside class="notes">
+<p>Suppose the supplier were w weeks faster: a request waiting at most w in the real system is one filled at once in the faster one. The first ledger agrees. The request of week 10 waited one week: with w = 1 the look-back is to week 8, where the position was 3, and one request arrived ahead of ours, so ours is second and 2 is at most 3. With w = 0 the look-back is to week 7, position 2, and ours is fifth in line, so it does not ship at once.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-shift-as-a-formula" class="slide level2">
+<h2>The Shift as a Formula</h2>
+<p>The position is equally likely to be each of <span class="math inline">\(r_0 + 1, \ldots, r_0 + Q_0\)</span> and is independent of the demand after it. Condition on it, then average:</p>
 <p><span class="math display">\[
-P(W \le w) = \frac{1}{Q_0}\sum_{u=r_0+1}^{r_0+Q_0} P\big(D_0(L_0 - w) \le u - 1\big),
-\qquad 0 \le w &lt; L_0
+\begin{aligned}
+P(W \le w) &amp;= \sum_{u=r_0+1}^{r_0+Q_0} P(W \le w \mid \mathit{IP}_0 = u)\,P(\mathit{IP}_0 = u)
+  &amp;&amp;\text{condition on the position}\\
+&amp;= \frac{1}{Q_0}\sum_{u=r_0+1}^{r_0+Q_0} P\big(D_0(L_0 - w) \le u - 1\big)
+  &amp;&amp;\text{step 3, and uniform}
+\end{aligned}
 \]</span></p>
-<p>and <span class="math inline">\(P(W \le L_0) = 1\)</span>. <strong>At <span class="math inline">\(w = 0\)</span> it is the ready rate. At any other <span class="math inline">\(w\)</span> it is the ready rate the hub would have with a lead time <span class="math inline">\(w\)</span> shorter.</strong></p>
+<p>for <span class="math inline">\(0 \le w &lt; L_0\)</span>, and <span class="math inline">\(P(W \le L_0) = 1\)</span>. <strong>At <span class="math inline">\(w = 0\)</span> it is the ready rate. At any other <span class="math inline">\(w\)</span> it is the ready rate the hub would have with a lead time <span class="math inline">\(w\)</span> shorter.</strong></p>
 <div title="Three conditions, each of which can fail">
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -1928,7 +1954,7 @@ P(W \le w) = \frac{1}{Q_0}\sum_{u=r_0+1}^{r_0+Q_0} P\big(D_0(L_0 - w) \le u - 1\
 </div>
 </div>
 <aside class="notes">
-<p>The position is uniform on r_0 + 1 through r_0 + Q_0 and independent of the demand after it: condition on the position, then average, a third time if you count the hub’s measures. The workbook computes the whole distribution one formula to a row, using exactly this reading.</p>
+<p>Condition on the position, then average: the chapter’s move, here applied to a probability. The workbook computes the whole distribution one formula to a row, using exactly this reading.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1959,10 +1985,10 @@ display:block!important;
 <p><span class="math display">\[
 \begin{aligned}
 P(W = 0) &amp;= \tfrac{1}{8}(0.2424 + 0.3472 + \cdots + 0.8987)\\
-&amp;= 0.6030
+&amp;= 4.8238/8 = 0.6030
 \end{aligned}
 \]</span></p>
-<p>At <span class="math inline">\(w = 1\)</span> the mean is 8 and the same eight entries average to <strong>0.9117</strong>; at <span class="math inline">\(w = 2\)</span> the mean is 4, giving <strong>0.9985</strong>.</p>
+<p>At <span class="math inline">\(w = 1\)</span> the mean is 8 and the same eight entries sum to 7.2934, so <span class="math inline">\(7.2934/8 =\)</span> <strong>0.9117</strong>; at <span class="math inline">\(w = 2\)</span> the mean is 4, and <span class="math inline">\(7.9878/8 =\)</span> <strong>0.9985</strong>.</p>
 <p><em>The check.</em> <span class="math inline">\(P(W = 0)\)</span> is the ready rate. The area under <span class="math inline">\(P(W &gt; w)\)</span> is 0.2575 on a day grid, against 0.2568.</p>
 </div></div>
 <p>Six requests in ten ship at once, nine in ten within a week, almost none past two weeks. <strong>The mean of 1.8 days hides that shape.</strong></p>
@@ -1996,9 +2022,38 @@ E[W^{2}] &amp;= \frac{E[B_0^{2}] - \bar{B}_0}{\lambda_0^{2}}
 \]</span></p>
 <p><span class="math inline">\(\mathit{Var}[B_0]\)</span> is chapter 8’s second moment of the backorder level, built for this use.</p>
 <p><strong>Notice the subtraction.</strong> The variance of the wait is not the variance of the backorder level scaled; it is that variance less the mean.</p>
-<p>For the running example, <span class="math inline">\(\mathit{Var}[W] = 0.1825\)</span> weeks squared, and integrating <span class="math inline">\(2wP(W &gt; w)\)</span> from the distribution gives the same figure to nine decimals.</p>
 <aside class="notes">
-<p>Two routes again, checking each other: one from the backorder moments, one from the wait’s distribution.</p>
+<p>The left side is a second factorial moment, and it differs from the ordinary second moment by the mean. The probability appendix defines factorial moments and derives the Poisson’s.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-spread-of-the-wait-computed" class="slide level2">
+<h2>The Spread of the Wait, Computed</h2>
+<p>The running example’s hub runs <span class="math inline">\((r_0, Q_0) = (9, 8)\)</span> against Poisson demand with mean 12, so its positions are <span class="math inline">\(10, \ldots, 17\)</span> and <span class="math inline">\(\bar{B}_0 = 1.0273\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\textstyle\sum_{j=10}^{17} G^{1}(j) &amp;= 8.2185, \qquad \sum_{j=10}^{17} G^{2}(j) = 15.9041
+  &amp;&amp;\text{the two loss columns at mean 12}\\
+E[B_0^{2}] &amp;= \tfrac{1}{8}\left[2(15.9041) + 8.2185\right] = 5.0033
+  &amp;&amp;\text{average } 2G^{2}(j) + G^{1}(j)\\
+\mathit{Var}[B_0] &amp;= 5.0033 - 1.0273^{2} = 3.9480
+  &amp;&amp;\text{second moment less squared mean}\\
+\mathit{Var}[W] &amp;= \frac{3.9480 - 1.0273}{4^{2}} = 0.1825 \text{ weeks}^{2}
+  &amp;&amp;\text{the relation above}
+\end{aligned}
+\]</span></p>
+<p>The standard deviation is <span class="math inline">\(\sqrt{0.1825} = 0.427\)</span> weeks, which is 3.0 days, against a mean of 1.8 days.</p>
+<aside class="notes">
+<p>Two routes check each other: integrating 2 w P(W &gt; w) from the distribution gives the same 0.1825 to nine decimals. The first sum over eight is 8 times the mean backorder level, 8.2185 over 8 is 1.0273. A spread larger than the mean is the mark of a wait that is usually zero and occasionally long.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -2026,6 +2081,253 @@ display:block!important;
 <p><strong>The costs give the stock levels too.</strong> Every term is linear in the cost rates: set shortage to one and holding to zero, and the “cost” is expected backorders.</p>
 <aside class="notes">
 <p>The workbook’s Exact sheet runs this recursion down a column. The closed forms at S_j &lt;= 0 start the other boundary; Axsater (1993) extends it to negative positions in an appendix.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-recursions-inputs-are-chapter-8-quantities" class="slide level2">
+<h2>The Recursion’s Inputs Are Chapter 8 Quantities</h2>
+<p>Three of its inputs are base-stock measures you can already compute:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\pi^{S_j} &amp;= \frac{h\,\bar{I}_j(S_j) + b\,\bar{B}_j(S_j)}{\lambda_j}
+  &amp;&amp;\text{the storeroom alone, lead time } O_j\\
+\Pi^{0}(S_0) &amp;= b\left(O_j + \frac{\bar{B}_0(S_0)}{\lambda_0}\right)
+  &amp;&amp;\text{a storeroom holding nothing: transit plus the wait}\\
+\gamma(S_0) &amp;= \frac{h\,\bar{I}_0(S_0)}{\lambda_0}
+  &amp;&amp;\text{the hub&#39;s holding, per unit passing through}
+\end{aligned}
+\]</span></p>
+<p><em>A small system.</em> Two storerooms, <span class="math inline">\(\lambda_j = 1\)</span> a week each, so <span class="math inline">\(\lambda_0 = 2\)</span>; <span class="math inline">\(O_j = 1\)</span> and <span class="math inline">\(L_0 = 1\)</span> week; <span class="math inline">\(h = \$0.5529\)</span> and <span class="math inline">\(b = \$5.5288\)</span> per unit per week.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(S_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\bar{B}_j(S_j)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\bar{I}_j(S_j)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\pi^{S_j}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">5.5288</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.3679</td>
+<td style="text-align: right;">0.3679</td>
+<td style="text-align: right;">2.2373</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.1036</td>
+<td style="text-align: right;">1.1036</td>
+<td style="text-align: right;">1.1832</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.0233</td>
+<td style="text-align: right;">2.0233</td>
+<td style="text-align: right;">1.2477</td>
+</tr>
+</tbody>
+</table>
+<p>For example, <span class="math inline">\(\pi^{1} = 0.55288(0.36788) + 5.52885(0.36788) = 0.20339 + 2.03395 = 2.2373\)</span>.</p>
+<aside class="notes">
+<p>The storeroom’s demand over the transit is Poisson with mean 1, so its loss column is 1, 0.3679, 0.1036, 0.0233. Notice that pi is smallest at S_j = 2: a storeroom whose hub never kept it waiting would hold two cutouts. What the recursion adds is the one thing these three cannot give: the cost at a storeroom that does hold stock, behind a hub that sometimes runs out.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-recursion-run-by-hand" class="slide level2">
+<h2>The Recursion, Run by Hand</h2>
+<p>For <span class="math inline">\(S_j = 1\)</span> the share is <span class="math inline">\(\tfrac{1}{2}\)</span> and <span class="math inline">\(\pi^{1} - \pi^{0} = 2.2373 - 5.5288 = -3.2915\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Pi^{1}(S_0 - 1) &amp;= \tfrac{1}{2}\,\Pi^{0}(S_0) + \tfrac{1}{2}\,\Pi^{1}(S_0)
++ \tfrac{1}{2}\big(1 - P(D_0 \ge S_0)\big)(-3.2915)
+  &amp;&amp;\text{this system}\\
+\Pi^{1}(11) &amp;= \tfrac{1}{2}(5.5288) + \tfrac{1}{2}(2.2373) + \tfrac{1}{2}(1 - 0.0000)(-3.2915) = 2.2373
+  &amp;&amp;\text{no tail: nothing moves}\\
+\Pi^{1}(2) &amp;= \tfrac{1}{2}(6.1315) + \tfrac{1}{2}(2.6454) + \tfrac{1}{2}(1 - 0.3233)(-3.2915) = 3.2748
+  &amp;&amp;\text{from } S_0 = 3
+\end{aligned}
+\]</span></p>
+<table style="font-size:0.8em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+<span class="math inline">\(S_0\)</span>
+</th>
+<th>
+<span class="math inline">\(P(D_0 \ge S_0)\)</span>
+</th>
+<th>
+<span class="math inline">\(\bar{B}_0\)</span>
+</th>
+<th>
+<span class="math inline">\(\Pi^{0}\)</span>
+</th>
+<th>
+<span class="math inline">\(\Pi^{1}\)</span>
+</th>
+<th>
+<span class="math inline">\(\Pi^{2}\)</span>
+</th>
+<th>
+<span class="math inline">\(\Pi^{3}\)</span>
+</th>
+<th>
+<span class="math inline">\(\gamma\)</span>
+</th>
+<th>
+<span class="math inline">\(C(S_0, 3)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+0.1429
+</td>
+<td>
+0.0751
+</td>
+<td>
+5.7366
+</td>
+<td>
+2.3755
+</td>
+<td>
+1.2394
+</td>
+<td>
+1.2549
+</td>
+<td>
+0.5737
+</td>
+<td>
+3.6571
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+0.3233
+</td>
+<td>
+0.2180
+</td>
+<td>
+6.1315
+</td>
+<td>
+2.6454
+</td>
+<td>
+1.3556
+</td>
+<td>
+1.2748
+</td>
+<td>
+0.3367
+</td>
+<td>
+3.2230
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+0.5940
+</td>
+<td>
+0.5413
+</td>
+<td>
+7.0253
+</td>
+<td>
+3.2748
+</td>
+<td>
+1.6439
+</td>
+<td>
+1.3370
+</td>
+<td>
+0.1496
+</td>
+<td>
+<b>2.9734</b>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0.8647
+</td>
+<td>
+1.1353
+</td>
+<td>
+8.6674
+</td>
+<td>
+4.4819
+</td>
+<td>
+2.2453
+</td>
+<td>
+1.5035
+</td>
+<td>
+0.0374
+</td>
+<td>
+3.0819
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Each column is built from the one to its left. Lowering the hub from 3 to 2 raised the storeroom’s cost per unit from $2.65 to $3.27, and <span class="math inline">\(C(2, 3) = 2(1.33703 + 0.14965) = \$2.9734\)</span> a week is the cheapest pair.</p>
+</div>
+<aside class="notes">
+<p>The recursion starts where the hub never runs out, at S_0 = 12, where the columns equal the storeroom’s own costs. For the hub alone at S_0 = 2: the tail is 0.5940, Bbar_0 is 2 less (0.8647 + 0.5940), or 0.5413, so Pi^0(2) is 5.52885 times 1.27067, or 7.0253, and gamma(2) is 0.55288 times 0.54134 over 2. The check: with shortage at one and holding at zero the recursion returns the storerooms’ backorders, 0.12526; with their holding at one it returns their on-hand, 3.58392; and 3.58392 less 0.12526 is 4 less 0.54134. Alone the storeroom would hold two; behind a hub that is empty nearly six times in ten it holds three.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -2085,7 +2387,7 @@ C = \frac{1}{Q_0}\sum_{S_0 = r_0+1}^{r_0+Q_0} C(S_0, S_j)
 </tr>
 </tbody>
 </table>
-<p>Average: <span class="math inline">\(56.1559/8 = \$7.0195\)</span> a week. With the backorder-only rates the same recursion gives 0.2906 backorders across four storerooms, <strong>0.0726 at each</strong>.</p>
+<p>Each is <span class="math inline">\(\lambda_0(\Pi^{3} + \gamma)\)</span>: at <span class="math inline">\(S_0 = 12\)</span> the hub’s part is <span class="math inline">\(\gamma = 0.5529(1.3724)/4 = 0.1897\)</span>. Average: <span class="math inline">\(56.1559/8 = \$7.0195\)</span> a week. With the backorder-only rates the same recursion gives 0.2906 backorders across four storerooms, <strong>0.0726 at each</strong>.</p>
 <p><em>The check.</em> The recursion’s hub on-hand is 2.5273, the <span class="math inline">\(\bar{I}_0\)</span> computed from chapter 8 by an entirely different route.</p>
 <aside class="notes">
 <p>Searching every r_0 from -4 to 16 and every S_j from 0 to 6 with Q_0 = 8 finds (9, 3) cheapest, which is why the running example was set there. Each storeroom owes 0.07 of a cutout on average, about one crew-week of waiting in fourteen weeks at one failure a week.</p>

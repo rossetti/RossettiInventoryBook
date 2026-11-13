@@ -1174,11 +1174,12 @@ display:block!important;
 <p><span class="math inline">\(D(L)\)</span> is Poisson, so <span class="math inline">\(\mathit{Var}[D(L)] = 7.5\)</span> and the standard deviation is <span class="math inline">\(\sqrt{7.5} = 2.74\)</span> units.</p>
 </div><div class="column" style="width:52%;">
 <p><em>Case 3, two months on average, standard deviation one month.</em> <span class="math inline">\(E[L] = 1/6\)</span> year and <span class="math inline">\(\mathit{Var}[L] = (1/12)^{2} = 1/144\)</span>.</p>
+<p>Condition on the lead time: given <span class="math inline">\(L\)</span>, demand is Poisson with mean and variance <span class="math inline">\(\lambda L\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
-\mathit{Var}[D(L)] &amp;= \lambda E[L] + \lambda^{2}\mathit{Var}[L]\\
-&amp;= 7.5 + 2025\left(\tfrac{1}{144}\right)\\
-&amp;= 7.5 + 14.0625 = 21.5625
+\mathit{Var}[D(L)] &amp;= E\big[\mathit{Var}[D(L) \mid L]\big] + \mathit{Var}\big[E[D(L) \mid L]\big]\\
+&amp;= \lambda E[L] + \lambda^{2}\mathit{Var}[L]\\
+&amp;= 7.5 + 2025\left(\tfrac{1}{144}\right) = 21.5625
 \end{aligned}
 \]</span></p>
 <p>The mean is still 7.5; the standard deviation is 4.64 units.</p>
@@ -1347,6 +1348,273 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="the-table-the-examples-read-from" class="slide level2">
+<h2>The Table the Examples Read From</h2>
+<p>Every formula is a function of <span class="math inline">\(G\)</span>, <span class="math inline">\(G^{0}\)</span> and <span class="math inline">\(G^{1}\)</span>, and batches will add <span class="math inline">\(G^{2}\)</span>. The first four columns are built as for the newsvendor, and one line is new: <span class="math inline">\(G^{2}(x) = G^{2}(x-1) - G^{1}(x)\)</span>, started from <span class="math inline">\(G^{2}(0) = \theta^{2}/2\)</span>.</p>
+<table style="font-size:0.8em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+<span class="math inline">\(x\)</span>
+</th>
+<th>
+<span class="math inline">\(g(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{0}(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{1}(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{2}(x)\)</span>
+</th>
+<th style="text-align:left">
+What happened
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+0
+</td>
+<td>
+0.0006
+</td>
+<td>
+0.0006
+</td>
+<td>
+0.9994
+</td>
+<td>
+7.5000
+</td>
+<td>
+28.1250
+</td>
+<td style="text-align:left">
+<span class="math inline">\(g(0) = e^{-7.5}\)</span>; <span class="math inline">\(\;G^{1}(0) = 7.5\)</span>; <span class="math inline">\(\;G^{2}(0) = 7.5^{2}/2\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0.0041
+</td>
+<td>
+0.0047
+</td>
+<td>
+0.9953
+</td>
+<td>
+6.5006
+</td>
+<td>
+21.6244
+</td>
+<td style="text-align:left">
+<span class="math inline">\(7.5000 - 0.9994\)</span>; <span class="math inline">\(\;28.1250 - 6.5006\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+0.0156
+</td>
+<td>
+0.0203
+</td>
+<td>
+0.9797
+</td>
+<td>
+5.5053
+</td>
+<td>
+16.1192
+</td>
+<td style="text-align:left">
+the same five steps
+</td>
+</tr>
+<tr class="fragment">
+<td>
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+9
+</td>
+<td>
+0.1144
+</td>
+<td>
+0.7764
+</td>
+<td>
+0.2236
+</td>
+<td>
+0.5229
+</td>
+<td>
+0.6140
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+10
+</td>
+<td>
+0.0858
+</td>
+<td>
+0.8622
+</td>
+<td>
+0.1378
+</td>
+<td>
+0.2993
+</td>
+<td>
+0.3147
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+11
+</td>
+<td>
+0.0585
+</td>
+<td>
+0.9208
+</td>
+<td>
+0.0792
+</td>
+<td>
+0.1616
+</td>
+<td>
+0.1531
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+12
+</td>
+<td>
+0.0366
+</td>
+<td>
+0.9573
+</td>
+<td>
+0.0427
+</td>
+<td>
+0.0823
+</td>
+<td>
+0.0708
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+13
+</td>
+<td>
+0.0211
+</td>
+<td>
+0.9784
+</td>
+<td>
+0.0216
+</td>
+<td>
+0.0397
+</td>
+<td>
+0.0311
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+14
+</td>
+<td>
+0.0113
+</td>
+<td>
+0.9897
+</td>
+<td>
+0.0103
+</td>
+<td>
+0.0181
+</td>
+<td>
+0.0130
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>The check.</em> At <span class="math inline">\(S = 1\)</span> a unit is on the shelf only when nothing is outstanding: <span class="math inline">\(\bar{I}(1) = 1 \times g(0) = 0.0006\)</span>, and the formula gives <span class="math inline">\(1 - 7.5 + 6.5006 = 0.0006\)</span>.</p>
+</div>
+<aside class="notes">
+<p>Notice the one difference between the two loss columns. The first order column subtracts the entry of the row above, G0(x - 1), and the second order column subtracts the entry of its own row, G1(x). The G, G1 and G2 columns are the 7.5 columns of the Poisson tables in the appendix, which is where those tables come from. Every transformer example in the chapter reads its inputs from this table.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="the-hand-form-and-its-upper-limit" class="slide level2">
 <h2>The Hand Form, and Its Upper Limit</h2>
 <p>From a table of the distribution function, with <span class="math inline">\(G^{0}(x) = P\{D(L) &gt; x\}\)</span>:</p>
@@ -1491,7 +1759,15 @@ display:block!important;
 </section>
 <section id="the-check-cost-the-neighbors" class="slide level2">
 <h2>The Check: Cost the Neighbors</h2>
-<p>The critical ratio is a shortcut, so we cost the neighbors directly.</p>
+<p>The critical ratio is a shortcut, so we cost the neighbors directly. At <span class="math inline">\(S = 10\)</span> the table gives <span class="math inline">\(G^{1}(10) = 0.2993\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{I}(10) &amp;= 10 - 7.5 + 0.2993 = 2.7993
+  &amp;&amp;S - \theta + \bar{B}\\
+C(10) &amp;= 950(2.7993) + 8550(0.2993) = 2659.36 + 2559.21 = \$5{,}218.57
+  &amp;&amp;\text{before rounding}
+\end{aligned}
+\]</span></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 13%">
@@ -1538,9 +1814,9 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p>Notice that the minimum is at 11, where the critical ratio pointed, and that the curve is flat near it: levels 10 and 12 cost 7.4% and 4.1% more. Two routes, one answer.</p>
+<p>The minimum is at 11, and the curve is flat near it: levels 10 and 12 cost 7.4% and 4.1% more. A third route costs nothing: the eleventh unit pays because <span class="math inline">\(G^{0}(10) = 0.1378 &gt; h/(h+b) = 0.10\)</span>, and the twelfth does not, since <span class="math inline">\(G^{0}(11) = 0.0792\)</span>. Three routes, one answer.</p>
 <aside class="notes">
-<p>Every column is S - 7.5 + Bbar for the on-hand row, which is a quick check on the table itself. The flatness is the same lesson as the EOQ: near the optimum, being off by one costs a few percent.</p>
+<p>Every column is S - 7.5 + Bbar for the on-hand row, which is a quick check on the table itself. The marginal test says the next unit is worth holding while the chance it is used, G0 of the level below, exceeds h over h plus b. The flatness is the same lesson as the EOQ: near the optimum, being off by one costs a few percent.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

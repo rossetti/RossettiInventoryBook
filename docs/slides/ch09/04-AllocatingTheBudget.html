@@ -1249,6 +1249,79 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="thirteen-transformers-six-ways" class="slide level2">
+<h2>Thirteen Transformers, Six Ways</h2>
+<p>Each row of the last table is the smallest entry of a comparison like this one.</p>
+<div class="columns">
+<div class="column" style="width:34%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(S_0\)</span></th>
+<th style="text-align: right;">Forward</th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{EBO}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15.6584</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15.6519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15.6485</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">15.6461</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;"><strong>15.6433</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15.6744</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:66%;">
+<p><em>No forward stock.</em> A storeroom holding nothing owes its whole pipeline, so <span class="math inline">\(\mathit{EBO} = 4(1.9726) + \bar{B}_0(S_0) = 7.8904 + G^{1}(13) = 7.8904 + 7.7680 = 15.6584\)</span>.</p>
+<p><em>Nine at the depot, one at each storeroom.</em> <span class="math inline">\(\bar{B}_0(9) = 11.7143\)</span> and <span class="math inline">\(\mathit{Var}[B_0] = 20.6612\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mu_j &amp;= 1.9726 + 0.25(11.7143) = 4.9012\\
+\sigma_j^{2} &amp;= 1.9726 + (0.25)(0.75)(11.7143) + (0.25)^{2}(20.6612) = 5.4604\\
+p &amp;= 4.9012/5.4604 = 0.8976, \quad r = 42.959, \quad g(0) = p^{r} = 0.0096\\
+\bar{B}_j(1) &amp;= \mu_j - G^{0}(0) = 4.9012 - 0.9904 = 3.9108
+\end{aligned}
+\]</span></p>
+<p>Four storerooms owe <span class="math inline">\(4(3.9108) = 15.6433\)</span>.</p>
+</div></div>
+<aside class="notes">
+<p>A total of thirteen can be held fourteen ways; these are the first six, with the forward units spread as evenly as the count allows. Moving four forward beats holding all thirteen at the depot by 0.0151 backorders, and a fifth forward unit gives the advantage back. The depot figures come from the recursion table of the last session, read at nine units. The 15.6433 is the product taken before rounding.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="convexification-and-flushout" class="slide level2">
 <h2>Convexification, and Flushout</h2>
 <p><strong>Convexification.</strong> Strike out 12 and 20. The procedure moves from 11 straight to 13 and from 19 straight to 21, buying two at a time and quoting the average of the two reductions as its delta value.</p>
@@ -1383,6 +1456,35 @@ display:block!important;
 <p><strong>No regulator until $114,000</strong> has gone into transformers. The transformer fails nearly four times as often and costs less than half as much, so it removes about a quarter of a backorder per thousand dollars against a tenth.</p>
 <aside class="notes">
 <p>Selected steps only. A planner reasoning by unit price alone would have bought regulators first, on the grounds that they are the expensive item and therefore the important one. Without convexification, steps 12 and 19 would have quoted understated deltas and the regulator would have been bought too early.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="three-delta-values-worked" class="slide level2">
+<h2>Three Delta Values, Worked</h2>
+<p><span class="math display">\[
+\begin{aligned}
+\mathit{EBO} &amp;= 7.8904 + G^{1}(0) = 7.8904 + 20.7123 = 28.6027
+  &amp;&amp;\text{the transformer with no stock anywhere}\\
+\delta_{1} &amp;= \frac{G^{0}(0)}{3{,}800} = \frac{1.0000}{3{,}800} = 0.2632 \text{ per } \$1{,}000
+  &amp;&amp;\text{step 1: the first unit, at the depot}\\
+\delta_{12} &amp;= \frac{17.6154 - 15.6433}{2 \times 3{,}800} = \frac{1.9721}{7{,}600} = 0.2595 \text{ per } \$1{,}000
+  &amp;&amp;\text{step 12: two units, over total 12}\\
+\delta_{29} &amp;= \frac{0.9999}{9{,}500} = 0.1053 \text{ per } \$1{,}000
+  &amp;&amp;\text{step 29: the regulator&#39;s first unit}
+\end{aligned}
+\]</span></p>
+<p>A jump over a struck-out total buys two units, so its reduction is the fall across both and its cost is two units. That average is what keeps the delta column from rising.</p>
+<aside class="notes">
+<p>Step 1 leaves 27.6027 backorders, the figure in the table. The regulator’s first unit goes to its own depot and removes that depot’s G0(0), which is 0.9999. Every other row of the merged sequence is computed the same way and then sorted.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

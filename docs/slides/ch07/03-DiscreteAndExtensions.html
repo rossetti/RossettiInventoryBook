@@ -1104,6 +1104,268 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="four-recursions-build-the-table" class="slide level2">
+<h2>Four Recursions Build the Table</h2>
+<p>The rule reads <span class="math inline">\(F(Q)\)</span>, and pricing the answer needs the expected shortage <span class="math inline">\(G^{1}(Q) = E[(X - Q)^{+}]\)</span>. A worksheet supplies both. Before we let one, we build the columns by hand, a row at a time:</p>
+<p><span class="math display">\[
+\begin{aligned}
+g(x) &amp;= g(x-1)\,\frac{\lambda}{x}, \qquad g(0) = e^{-\lambda}
+  &amp;&amp;\text{each Poisson mass from the one before}\\
+F(x) &amp;= F(x-1) + g(x)
+  &amp;&amp;\text{a running sum}\\
+G^{0}(x) &amp;= 1 - F(x)
+  &amp;&amp;P\{X &gt; x\}\\
+G^{1}(x) &amp;= G^{1}(x-1) - G^{0}(x-1), \qquad G^{1}(0) = E[X]
+  &amp;&amp;\text{the } x\text{th unit removes a shortage when } X &gt; x - 1
+\end{aligned}
+\]</span></p>
+<p>Only the first line is special to the Poisson: dividing <span class="math inline">\(g(x)\)</span> by <span class="math inline">\(g(x-1)\)</span> cancels everything except <span class="math inline">\(\lambda/x\)</span>, so no factorial is ever computed. A different family changes how <span class="math inline">\(g\)</span> is obtained and leaves the other three lines alone.</p>
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>The fourth line has a plain reading. Raising the stock from <span class="math inline">\(x - 1\)</span> to <span class="math inline">\(x\)</span> adds one unit, and that unit is used only when demand is at least <span class="math inline">\(x\)</span>, which has probability <span class="math inline">\(G^{0}(x-1)\)</span>. Against a stock of zero every unit demanded is short, so the column starts at the mean.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>You should be able to perform by hand the bookkeeping that a worksheet would otherwise perform for you. The same columns are the input to every example of the next two chapters, so the method is worth learning here, on a small case.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-table-a-row-at-a-time" class="slide level2">
+<h2>The Table, a Row at a Time</h2>
+<p>Poisson demand with <span class="math inline">\(\lambda = 6\)</span>. Each row uses the row above it.</p>
+<table style="font-size:0.82em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+<span class="math inline">\(x\)</span>
+</th>
+<th>
+<span class="math inline">\(g(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(F(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{0}(x)\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{1}(x)\)</span>
+</th>
+<th style="text-align:left">
+What happened
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+0
+</td>
+<td>
+0.0025
+</td>
+<td>
+0.0025
+</td>
+<td>
+0.9975
+</td>
+<td>
+6.0000
+</td>
+<td style="text-align:left">
+<span class="math inline">\(g(0) = e^{-6} = 0.002479\)</span>; <span class="math inline">\(G^{1}\)</span> starts at the mean
+</td>
+</tr>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+0.0149
+</td>
+<td>
+0.0174
+</td>
+<td>
+0.9826
+</td>
+<td>
+5.0025
+</td>
+<td style="text-align:left">
+<span class="math inline">\(0.002479(6/1)\)</span>; <span class="math inline">\(\;6.0000 - 0.9975\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+0.0446
+</td>
+<td>
+0.0620
+</td>
+<td>
+0.9380
+</td>
+<td>
+4.0198
+</td>
+<td style="text-align:left">
+<span class="math inline">\(0.014873(6/2)\)</span>; <span class="math inline">\(\;5.0025 - 0.9826\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+0.0892
+</td>
+<td>
+0.1512
+</td>
+<td>
+0.8488
+</td>
+<td>
+3.0818
+</td>
+<td style="text-align:left">
+<span class="math inline">\(0.044618(6/3)\)</span>; <span class="math inline">\(\;4.0198 - 0.9380\)</span>
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+0.1339
+</td>
+<td>
+0.2851
+</td>
+<td>
+0.7149
+</td>
+<td>
+2.2330
+</td>
+<td style="text-align:left">
+the same four steps
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+0.1606
+</td>
+<td>
+0.4457
+</td>
+<td>
+0.5543
+</td>
+<td>
+1.5181
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+0.1606
+</td>
+<td>
+0.6063
+</td>
+<td>
+0.3937
+</td>
+<td>
+0.9637
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+7
+</td>
+<td>
+0.1377
+</td>
+<td>
+0.7440
+</td>
+<td>
+0.2560
+</td>
+<td>
+0.5700
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+<tr class="fragment">
+<td>
+8
+</td>
+<td>
+0.1033
+</td>
+<td>
+0.8472
+</td>
+<td>
+0.1528
+</td>
+<td>
+0.3140
+</td>
+<td style="text-align:left">
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>The check.</em> With one unit stocked, it is left over only when nothing is demanded: <span class="math inline">\(1 \times g(0) = 0.0025\)</span>. The leftover identity gives the same, <span class="math inline">\(G^{1}(1) + 1 - E[X] = 5.0025 + 1 - 6 = 0.0025\)</span>.</p>
+</div>
+<aside class="notes">
+<p>Carry every digit and round only what is written down. The printed figures in row 2 give 4.0199 and the row says 4.0198, because the working is 5.002479 less 0.982649. Starting from g(0) = 0.0025 instead of 0.002479 puts every mass 0.9% high and reports F(7) = 0.7504 where the answer is 0.7440. In a worksheet the first two columns are POISSON.DIST and the last two are subtractions filled down. The check catches a loss column started from the wrong row.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="a-one-time-buy-of-spare-transformers" class="slide level2">
 <h2>A One-Time Buy of Spare Transformers</h2>
 <p>The utility storeroom’s pad-mount transformer, $3,800. A capital project will change the specification, so transformers not used become obsolete. Failures over the project window: Poisson with <span class="math inline">\(\lambda = 6\)</span>.</p>
@@ -1226,7 +1488,7 @@ the check: cost rises
 </tbody>
 </table>
 <aside class="notes">
-<p>The rule reads only the F(Q) column. The cost column confirms it rather than being used by it; each cost is (c_u + c_o) G1(Q) + c_o (Q - 6) with the Poisson loss function. The answer: buy 7 spares, 26,600 dollars, with an expected 7,802 in obsolescence and emergency purchases.</p>
+<p>The F and G1 columns are read from the table just built. The rule reads only the F(Q) column. The cost column confirms it rather than being used by it; each cost is (c_u + c_o) G1(Q) + c_o (Q - 6). At Q = 7 that is 8,600 times 0.5700 plus 2,900 times 1, or 4,902 plus 2,900, which is $7,802. The answer: buy 7 spares, 26,600 dollars, with an expected 7,802 in obsolescence and emergency purchases.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

@@ -880,7 +880,7 @@ Table&nbsp;5.2: The periodic order quantity plan at a two month time supply.
 </div>
 </figure>
 </div>
-<p>Six orders cost $1,800. The ending balances sum to 960 belt-months, which at $1.00 a belt-month costs $960. The relevant cost is $2,760.</p>
+<p>Six orders cost $1,800. The ending balances sum to <span class="math inline">\(60 + 300 + 260 + 40 + 80 + 220 = 960\)</span> belt-months, which at $1.00 a belt-month costs $960. The relevant cost is <span class="math inline">\(1{,}800 + 960 = \$2{,}760\)</span>.</p>
 <p>Notice that the periodic rule pays $960 to save $1,500 of setup against lot-for-lot. That is a good trade on this item. Look also at where the money goes. Month 5 needs 420 belts and month 6 needs 260, so the order in month 5 carries 260 belts for a month, which alone costs $260. An order in month 6 would have avoided that and cost $300. The two are close, and that hints that the best plan lies near this one.</p>
 <p>The adjusted economic order quantity is costed the same way once we know its plan, and the plan comes from comparing running totals with <span class="math inline">\(Q^{*} = 303.3\)</span>. From month 1 the totals are 40, 100, 220 and 520, and 220 is the closest, so the first order covers months 1 through 3. From month 4, 300 is closer than 720. From month 5, 420 is closer than 680. From month 6, 260 is closer than 380. From month 7 the totals run 120, 160, 160, 240 and 420, and 240 is the closest, so that order covers months 7 through 10. From month 11, 400 is closer than 180. Thus, the orders fall in months 1, 4, 5, 6, 7 and 11. The order in month 1 leaves <span class="math inline">\(180 + 120 = 300\)</span> belt-months, the order in month 7 leaves <span class="math inline">\(120 + 80 + 80 = 280\)</span>, and the order in month 11 leaves 220, so the relevant cost is <span class="math inline">\(\$1,800 + \$800 = \$2,600\)</span>.</p>
 </div>
@@ -964,8 +964,10 @@ w(t,u) = k + h \sum_{s=t}^{u} (s - t) d_s ,
 \tag{5.7}\]</span></span> where the purchase term has been dropped as <a href="#sec-dls-purchase" class="quarto-xref"><span>Section 5.2.1</span></a> allows. The coefficient <span class="math inline">\(s - t\)</span> counts the periods a unit for period <span class="math inline">\(s\)</span> waits. Every window cost quoted in this chapter is computed from <a href="#eq-dls-windowcost3" class="quarto-xref">Equation&nbsp;<span>5.7</span></a>.</p>
 <div id="exm-dls-window" class="theorem example">
 <p><span class="theorem-title"><strong>Example 5.2 (The window costs of the first half year)</strong></span> Take the first six months of the belt, so that the table fits on a page. With <span class="math inline">\(k = \$300\)</span> and <span class="math inline">\(h = \$1.00\)</span>, <span class="math display">\[
-w(1,3) = 300 + 1.00\left[0(40) + 1(60) + 2(120)\right] = 300 + 300 = \$600 ,
-\]</span> and the full table of windows is <a href="#tbl-dls-windows" class="quarto-xref">Table&nbsp;<span>5.4</span></a>.</p>
+w(1,3) = 300 + 1.00\left[0(40) + 1(60) + 2(120)\right] = 300 + 300 = \$600 .
+\]</span> The 40 belts of month 1 wait no months, the 60 of month 2 wait one, and the 120 of month 3 wait two. A window that starts later is computed the same way, with the count of months waited starting again from zero at its own first month: <span class="math display">\[
+w(2,4) = 300 + 1.00\left[0(60) + 1(120) + 2(300)\right] = 300 + 720 = \$1{,}020 .
+\]</span> The other entries repeat the computation, and the full table of windows is <a href="#tbl-dls-windows" class="quarto-xref">Table&nbsp;<span>5.4</span></a>.</p>
 <div id="tbl-dls-windows" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-windows-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1045,6 +1047,9 @@ Table&nbsp;5.4: Window costs for the first six months of the belt. A blank cell 
 </figure>
 </div>
 <p>Every diagonal entry is $300, because a window covering one period carries nothing. Read across row 1 and the increments are 60, 240, 900, 1,680 and 1,300, which grow until month 6, whose requirement is smaller than month 5’s. The increment from <span class="math inline">\(u\)</span> to <span class="math inline">\(u+1\)</span> is <span class="math inline">\(h(u+1-t)d_{u+1}\)</span>, so it grows with the distance and with the requirement, and either can dominate.</p>
+<p>Thus, a row can be built from left to right by adding one term at a time. For example, the 300 belts of month 4 wait three months when they are bought in month 1, so that <span class="math display">\[
+w(1,4) = w(1,3) + 1.00(3)(300) = 600 + 900 = \$1{,}500 .
+\]</span> That is how the table is filled by hand, and it is how a row is extended when the horizon grows.</p>
 </div>
 </section>
 <section id="sec-dls-property2" class="level3" data-number="5.3.3">
@@ -1228,7 +1233,8 @@ Table&nbsp;5.5: The recursion on the six month instance. Each entry is <span cla
 </div>
 </figure>
 </div>
-<p>Consider column 4. Covering periods 1 through 4 with one order costs <span class="math inline">\(w(1,4) = 1{,}500\)</span>. Ordering in period 2 costs <span class="math inline">\(V(1) + w(2,4) = 300 + 1{,}020 = 1{,}320\)</span>. Ordering in period 3 costs <span class="math inline">\(V(2) + w(3,4) = 360 + 600 = 960\)</span>. Ordering in period 4 costs <span class="math inline">\(V(3) + w(4,4) = 600 + 300 = 900\)</span>, the least of the four, so <span class="math inline">\(V(4) = 900\)</span> and <span class="math inline">\(S(4) = 4\)</span>.</p>
+<p>The first column has one entry, <span class="math inline">\(V(0) + w(1,1) = 0 + 300 = 300\)</span>, so <span class="math inline">\(V(1) = 300\)</span> and <span class="math inline">\(S(1) = 1\)</span>. The second has two. One order covering both months costs <span class="math inline">\(V(0) + w(1,2) = 360\)</span>, and a second order in period 2 costs <span class="math inline">\(V(1) + w(2,2) = 300 + 300 = 600\)</span>, so <span class="math inline">\(V(2) = 360\)</span> and <span class="math inline">\(S(2) = 1\)</span>. Notice that the second entry used the <span class="math inline">\(V(1)\)</span> just found. Every column after the first reads the columns before it.</p>
+<p>Consider column 4. Covering periods 1 through 4 with one order costs <span class="math inline">\(w(1,4) = 1{,}500\)</span>. Ordering in period 2 costs <span class="math inline">\(V(1) + w(2,4) = 300 + 1{,}020 = 1{,}320\)</span>. Ordering in period 3 costs <span class="math inline">\(V(2) + w(3,4) = 360 + 600 = 960\)</span>. Ordering in period 4 costs <span class="math inline">\(V(3) + w(4,4) = 600 + 300 = 900\)</span>, the least of the four, so <span class="math inline">\(V(4) = 900\)</span> and <span class="math inline">\(S(4) = 4\)</span>. Columns 5 and 6 repeat the computation with five and six candidates, and the least entry of the last column is <span class="math inline">\(V(4) + w(5,6) = 900 + 560 = 1{,}460\)</span>.</p>
 <p>The optimum is <span class="math inline">\(V(6) = \$1,460\)</span>. The traceback starts at <span class="math inline">\(u = 6\)</span>: <span class="math inline">\(S(6) = 5\)</span>, so the last order falls in period 5 and covers periods 5 and 6, or <span class="math inline">\(d[5,6] = 420 + 260 = 680\)</span> belts. Now <span class="math inline">\(u = 4\)</span>. Since <span class="math inline">\(S(4) = 4\)</span>, the next order back falls in period 4 and covers period 4 alone, 300 belts. Now <span class="math inline">\(u = 3\)</span>, and <span class="math inline">\(S(3) = 1\)</span>, so the first order falls in period 1 and covers periods 1 through 3, 220 belts.</p>
 <div id="tbl-dls-optimalsix" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1360,11 +1366,100 @@ Table&nbsp;5.7: The recursion over the full horizon.
 </div>
 </figure>
 </div>
-<p>The optimum is $2,480. Tracing back from <span class="math inline">\(u = 12\)</span> gives orders in months 12, 10, 6, 5, 4 and 1, so the plan is</p>
+<p>The first six columns are those of <a href="#tbl-dls-recursion" class="quarto-xref">Table&nbsp;<span>5.5</span></a>, because <span class="math inline">\(V(u)\)</span> depends only on the requirements through month <span class="math inline">\(u\)</span>. Each later column needs window costs that <a href="#tbl-dls-windows" class="quarto-xref">Table&nbsp;<span>5.4</span></a> does not hold, and they come from extending its rows one term at a time, as <a href="#exm-dls-window" class="quarto-xref">Example&nbsp;<span>5.2</span></a> showed. Month 7 requires 120 belts, so that <span class="math inline">\(w(t,7) = w(t,6) + 1.00(7 - t)(120)\)</span>. Column 7 then has seven candidates.</p>
+<div id="tbl-dls-column7" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-column7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.8: Column 7 of the recursion. The second column is read from <a href="#tbl-dls-recursion12" class="quarto-xref">Table&nbsp;<span>5.7</span></a> and the third from the last column of <a href="#tbl-dls-windows" class="quarto-xref">Table&nbsp;<span>5.4</span></a>.
+</figcaption>
+<div aria-describedby="tbl-dls-column7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Last order in period <span class="math inline">\(t\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(V(t-1)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(w(t,6)\)</span></th>
+<th style="text-align: right;">Added, <span class="math inline">\((7-t)(120)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(w(t,7)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(V(t-1) + w(t,7)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4,480</td>
+<td style="text-align: right;">720</td>
+<td style="text-align: right;">5,200</td>
+<td style="text-align: right;">5,200</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">3,320</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">3,920</td>
+<td style="text-align: right;">4,220</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">2,220</td>
+<td style="text-align: right;">480</td>
+<td style="text-align: right;">2,700</td>
+<td style="text-align: right;">3,060</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">1,240</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">1,600</td>
+<td style="text-align: right;">2,200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">900</td>
+<td style="text-align: right;">560</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">1,700</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;"><strong>1,620</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1,460</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">1,760</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The least entry of <a href="#tbl-dls-column7" class="quarto-xref">Table&nbsp;<span>5.8</span></a> is 1,620, with the last order in month 6, so <span class="math inline">\(V(7) = 1{,}620\)</span> and <span class="math inline">\(S(7) = 6\)</span>. That is, the cheapest way to cover seven months is to cover the first five as cheaply as possible, for $1,200, and then to order in month 6 for months 6 and 7. Columns 8 through 12 repeat the computation, each with one more candidate than the last. That is the page of arithmetic the <code>WagnerWhitin</code> sheet does in <a href="#sec-dls-build-wagner" class="quarto-xref"><span>Section 5.8.3</span></a>.</p>
+<p>The optimum is <span class="math inline">\(V(12) = \$2{,}480\)</span>. The traceback reads the bottom row of <a href="#tbl-dls-recursion12" class="quarto-xref">Table&nbsp;<span>5.7</span></a> from the right. <span class="math inline">\(S(12) = 12\)</span>, so the last order falls in month 12 and covers that month alone, 220 belts. Now <span class="math inline">\(u = 11\)</span>, and <span class="math inline">\(S(11) = 10\)</span>, so the order before it falls in month 10 and covers months 10 and 11, or <span class="math inline">\(80 + 180 = 260\)</span> belts. Now <span class="math inline">\(u = 9\)</span>, and <span class="math inline">\(S(9) = 6\)</span>, so an order in month 6 covers months 6 through 9, or <span class="math inline">\(260 + 120 + 40 + 0 = 420\)</span> belts. Then <span class="math inline">\(S(5) = 5\)</span>, <span class="math inline">\(S(4) = 4\)</span> and <span class="math inline">\(S(3) = 1\)</span> give orders of 420, 300 and 220 belts, exactly as in <a href="#exm-dls-recursion" class="quarto-xref">Example&nbsp;<span>5.3</span></a>. The orders fall in months 1, 4, 5, 6, 10 and 12, so the plan is</p>
 <div id="tbl-dls-optimal12" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-optimal12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.8: The optimal plan for the year.
+Table&nbsp;5.9: The optimal plan for the year.
 </figcaption>
 <div aria-describedby="tbl-dls-optimal12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1451,7 +1546,7 @@ Table&nbsp;5.8: The optimal plan for the year.
 </div>
 </figure>
 </div>
-<p>Six orders cost $1,800 and 680 belt-months of stock cost $680. Notice that <span class="math inline">\(V(9) = V(8)\)</span>. Month 9 has no requirement, so covering through month 9 costs exactly what covering through month 8 costs, and the recursion is indifferent to where the next order falls. Notice also that month 5 holds an order, as <a href="#sec-dls-property2" class="quarto-xref"><span>Section 5.3.3</span></a> promised it would.</p>
+<p>Six orders cost $1,800, and the ending balances sum to <span class="math inline">\(180 + 120 + 160 + 40 + 180 = 680\)</span> belt-months, which cost $680. The two total $2,480, which is <span class="math inline">\(V(12)\)</span>, as the check of <a href="#exm-dls-recursion" class="quarto-xref">Example&nbsp;<span>5.3</span></a> requires. Notice that <span class="math inline">\(V(9) = V(8)\)</span>. Month 9 has no requirement, so covering through month 9 costs exactly what covering through month 8 costs, and the recursion is indifferent to where the next order falls. Notice also that month 5 holds an order, as <a href="#sec-dls-property2" class="quarto-xref"><span>Section 5.3.3</span></a> promised it would.</p>
 <p>Against the three plans of <a href="#tbl-dls-simple" class="quarto-xref">Table&nbsp;<span>5.3</span></a>, the optimum saves $820 on lot-for-lot and $120 on the adjusted economic order quantity, which was within 4.84% of optimal. Thus, there is a real question about how much the rest of this chapter buys, and <a href="#sec-dls-performance" class="quarto-xref"><span>Section 5.6</span></a> takes it up directly.</p>
 </div>
 </section>
@@ -1493,7 +1588,7 @@ Table&nbsp;5.8: The optimal plan for the year.
 <div id="tbl-dls-rules" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-rules-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.9: Three stopping rules on one procedure.
+Table&nbsp;5.10: Three stopping rules on one procedure.
 </figcaption>
 <div aria-describedby="tbl-dls-rules-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1533,14 +1628,14 @@ Table&nbsp;5.9: Three stopping rules on one procedure.
 <p>All three use the window costs of <a href="#sec-dls-window" class="quarto-xref"><span>Section 5.3.2</span></a>, which were computed once and are the same numbers the recursion used. That is what makes the comparison in <a href="#sec-dls-performance" class="quarto-xref"><span>Section 5.6</span></a> a comparison and not an accident of arithmetic.</p>
 <p><strong>Silver-Meal</strong> minimizes cost per period. The reasoning is an appeal to <a href="03-Chapter3.html#sec-eoq-classic" class="quarto-xref"><span>Section 3.5.4</span></a>, where the quantity that minimizes cost per unit time is optimal because every cycle is identical. Here the cycles are not identical, so minimizing cost per period over one window is a local imitation of that argument and not a consequence of it.</p>
 <p><strong>Least unit cost</strong> minimizes cost per unit instead. It is the older rule and the more intuitive one, since a buyer thinks in dollars per piece. It tends to order larger quantities than Silver-Meal, because adding a period to the window always adds units to the denominator. That is, a long window is flattered by the arithmetic.</p>
-<p><strong>Part-period balancing</strong> looks different and is not. In <a href="03-Chapter3.html#sec-eoq-classic" class="quarto-xref"><span>Section 3.5.4</span></a> the optimum sets the setup cost equal to the holding cost, so this rule extends the window until the carrying it has accumulated is as close as it can get to <span class="math inline">\(k_t\)</span>. Two versions are in circulation. The original, due to DeMatteis and Mendoza and given in <span class="citation" data-cites="silver2016">Silver et al. (<a href="references.html#ref-silver2016" role="doc-biblioref">2016</a>)</span>, takes the largest window whose carrying is at or under <span class="math inline">\(k_t\)</span> and so never overshoots. The modification in <span class="citation" data-cites="nahmias2015">Nahmias and Olsen (<a href="references.html#ref-nahmias2015" role="doc-biblioref">2015</a>)</span>, which is the one used here and in <a href="#tbl-dls-rules" class="quarto-xref">Table&nbsp;<span>5.9</span></a>, compares the two windows either side of <span class="math inline">\(k_t\)</span> and keeps whichever comes closer. <a href="#exr-ch5-ppb-original" class="quarto-xref">Exercise&nbsp;<span>5.12</span></a> works both. Dividing through by <span class="math inline">\(h\)</span> turns the accumulated carrying into a count of unit-periods, or <em>part-periods</em>, and that is where the name comes from. For the belt, <span class="math inline">\(k/h = 300\)</span>, so the rule extends until the window carries about 300 belt-months.</p>
+<p><strong>Part-period balancing</strong> looks different and is not. In <a href="03-Chapter3.html#sec-eoq-classic" class="quarto-xref"><span>Section 3.5.4</span></a> the optimum sets the setup cost equal to the holding cost, so this rule extends the window until the carrying it has accumulated is as close as it can get to <span class="math inline">\(k_t\)</span>. Two versions are in circulation. The original, due to DeMatteis and Mendoza and given in <span class="citation" data-cites="silver2016">Silver et al. (<a href="references.html#ref-silver2016" role="doc-biblioref">2016</a>)</span>, takes the largest window whose carrying is at or under <span class="math inline">\(k_t\)</span> and so never overshoots. The modification in <span class="citation" data-cites="nahmias2015">Nahmias and Olsen (<a href="references.html#ref-nahmias2015" role="doc-biblioref">2015</a>)</span>, which is the one used here and in <a href="#tbl-dls-rules" class="quarto-xref">Table&nbsp;<span>5.10</span></a>, compares the two windows either side of <span class="math inline">\(k_t\)</span> and keeps whichever comes closer. <a href="#exr-ch5-ppb-original" class="quarto-xref">Exercise&nbsp;<span>5.12</span></a> works both. Dividing through by <span class="math inline">\(h\)</span> turns the accumulated carrying into a count of unit-periods, or <em>part-periods</em>, and that is where the name comes from. For the belt, <span class="math inline">\(k/h = 300\)</span>, so the rule extends until the window carries about 300 belt-months.</p>
 <p>One difference in the last rule matters when it is implemented. Silver-Meal and least unit cost walk a number to a minimum and keep the period before the first rise. Part-period balancing walks a number past a target, and then keeps whichever of the last two periods came closer. It can step back.</p>
 <div id="exm-dls-heuristics" class="theorem example">
 <p><span class="theorem-title"><strong>Example 5.5 (The three rules on the belt)</strong></span> Start all three in month 1 and extend. The window costs come from <a href="#eq-dls-windowcost3" class="quarto-xref">Equation&nbsp;<span>5.7</span></a>.</p>
 <div id="tbl-dls-firstwindow" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-firstwindow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.10: The first window under each of the three rules.
+Table&nbsp;5.11: The first window under each of the three rules.
 </figcaption>
 <div aria-describedby="tbl-dls-firstwindow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1594,14 +1689,81 @@ Table&nbsp;5.10: The first window under each of the three rules.
 </div>
 </figure>
 </div>
-<p>Silver-Meal stops at <span class="math inline">\(u = 2\)</span>, because the cost per period rises from $180.00 to $200.00 when month 3 is added. It orders 100 belts.</p>
+<p>Each row of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.11</span></a> divides one window cost three ways. At <span class="math inline">\(u = 3\)</span> the window costs $600, spans three months, and covers <span class="math inline">\(d[1,3] = 220\)</span> belts, so that <span class="math display">\[
+\frac{600}{3} = \$200.00 \text{ a month}, \qquad
+\frac{600}{220} = \$2.727 \text{ a belt}, \qquad
+600 - 300 = \$300 \text{ carried} .
+\]</span></p>
+<p>Silver-Meal stops at <span class="math inline">\(u = 2\)</span>, because the cost per period rises from $180.00 to $200.00 when month 3 is added. It orders <span class="math inline">\(40 + 60 = 100\)</span> belts.</p>
 <p>Least unit cost keeps going to <span class="math inline">\(u = 3\)</span>, where $2.727 a belt is the least, and rises to $2.885 at <span class="math inline">\(u = 4\)</span>. It orders 220 belts.</p>
 <p>Part-period balancing extends until the carrying passes <span class="math inline">\(k = \$300\)</span>. At <span class="math inline">\(u = 3\)</span> it carries exactly $300. Nothing can come closer, so it stops there and also orders 220 belts.</p>
-<p>Continuing each rule to the end of the horizon gives the three plans in <a href="#tbl-dls-heuristicplans" class="quarto-xref">Table&nbsp;<span>5.11</span></a>.</p>
+<p>Each rule then starts again in the month after its window ended. Silver-Meal’s second order falls in month 3, and the window costs it needs are in row 3 of <a href="#tbl-dls-windows" class="quarto-xref">Table&nbsp;<span>5.4</span></a>: <span class="math display">\[
+\frac{w(3,3)}{1} = \frac{300}{1} = \$300.00, \qquad
+\frac{w(3,4)}{2} = \frac{600}{2} = \$300.00, \qquad
+\frac{w(3,5)}{3} = \frac{1{,}440}{3} = \$480.00 .
+\]</span> The cost per period does not rise when month 4 is added. It stays at $300.00, and the rule stops only on a rise, so the window is extended. It does rise at month 5, so the order in month 3 covers months 3 and 4, which is <span class="math inline">\(120 + 300 = 420\)</span> belts, and the next order starts in month 5. The table has been updated as follows.</p>
+<div id="tbl-dls-silvermealchain" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-silvermealchain-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.12: Silver-Meal on the belt, one row per order. The last figure in each list is the rise that stops the window, except in the last row, where the horizon ends first.
+</figcaption>
+<div aria-describedby="tbl-dls-silvermealchain-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 60%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Order in month</th>
+<th>Cost per period as the window extends</th>
+<th style="text-align: right;">Stops at</th>
+<th style="text-align: right;">Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td>300.00, 180.00, 200.00</td>
+<td style="text-align: right;">month 2</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td>300.00, 300.00, 480.00</td>
+<td style="text-align: right;">month 4</td>
+<td style="text-align: right;">420</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td>300.00, 280.00, 266.67, 230.00, 184.00, 220.00</td>
+<td style="text-align: right;">month 9</td>
+<td style="text-align: right;">840</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td>300.00, 240.00, 306.67</td>
+<td style="text-align: right;">month 11</td>
+<td style="text-align: right;">260</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td>300.00</td>
+<td style="text-align: right;">month 12</td>
+<td style="text-align: right;">220</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Least unit cost and part-period balancing are continued the same way, each with its own figure of merit. Continuing each rule to the end of the horizon gives the three plans in <a href="#tbl-dls-heuristicplans" class="quarto-xref">Table&nbsp;<span>5.13</span></a>.</p>
 <div id="tbl-dls-heuristicplans" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-heuristicplans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.11: The three heuristic plans and the optimum.
+Table&nbsp;5.13: The three heuristic plans and the optimum.
 </figcaption>
 <div aria-describedby="tbl-dls-heuristicplans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1718,6 +1880,106 @@ Table&nbsp;5.11: The three heuristic plans and the optimum.
 </div>
 </figure>
 </div>
+<p>The plans are costed in a ledger, as in <a href="#exm-dls-lotforlot" class="quarto-xref">Example&nbsp;<span>5.1</span></a>. <a href="#tbl-dls-heuristicledgers" class="quarto-xref">Table&nbsp;<span>5.14</span></a> gives the ending balance in each month under each plan.</p>
+<div id="tbl-dls-heuristicledgers" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-heuristicledgers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.14: The ending balance <span class="math inline">\(I_t\)</span> in each month under the three heuristic plans, in belts.
+</figcaption>
+<div aria-describedby="tbl-dls-heuristicledgers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(t\)</span></th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+<th style="text-align: right;">11</th>
+<th style="text-align: right;">12</th>
+<th style="text-align: right;">Sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Silver-Meal</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1,160</td>
+</tr>
+<tr class="even">
+<td>Least unit cost</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">260</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1,540</td>
+</tr>
+<tr class="odd">
+<td>Part-period balancing</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">420</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1,100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Take the Silver-Meal row. The order of 840 belts in month 5 leaves <span class="math inline">\(840 - 420 = 420\)</span> at the end of that month, <span class="math inline">\(420 - 260 = 160\)</span> at the end of month 6, and <span class="math inline">\(160 - 120 = 40\)</span> at the end of month 7. The balances sum to 1,160 belt-months, so the plan costs <span class="math inline">\(5(300) + 1.00(1{,}160) = \$2{,}660\)</span>.</p>
+<p><em>The check.</em> A plan costs the sum of its windows, so the same figure can be reached with no ledger at all. From <a href="#tbl-dls-silvermealchain" class="quarto-xref">Table&nbsp;<span>5.12</span></a>, <span class="math inline">\(w(5,9) = 5(184.00) = 920\)</span> and <span class="math inline">\(w(10,11) = 2(240.00) = 480\)</span>, and we have <span class="math display">\[
+w(1,2) + w(3,4) + w(5,9) + w(10,11) + w(12,12) = 360 + 600 + 920 + 480 + 300 = \$2{,}660 .
+\]</span> You should perform that check every time a heuristic plan is costed, because the two computations share no arithmetic. The other two rows of <a href="#tbl-dls-heuristicledgers" class="quarto-xref">Table&nbsp;<span>5.14</span></a> give <span class="math inline">\(5(300) + 1{,}540 = \$3{,}040\)</span> for least unit cost and <span class="math inline">\(5(300) + 1{,}100 = \$2{,}600\)</span> for part-period balancing.</p>
 <p>All three place five orders and the optimum places six. That is the first surprise. The heuristics are not ordering too often. They are ordering too seldom, and the carrying that buys is what costs them.</p>
 <p>The 840 in month 5 is where Silver-Meal loses its money. Extending from month 5, the cost per period runs $300.00, $280.00, $266.67, $230.00, $184.00, and only then rises to $220.00 at month 10. It never rises through the whole run, so the rule never stops. Months 6 through 8 have falling requirements and month 9 has none at all, so each additional period adds almost nothing to the numerator while adding a full period to the denominator. The average keeps falling because the window is getting longer, not because the plan is getting better. That is the failure mode of a cost-per-period rule. Notice that it is triggered by a declining tail and a dead period, the shape of a seasonal item going into its off season.</p>
 </div>
@@ -1725,11 +1987,11 @@ Table&nbsp;5.11: The three heuristic plans and the optimum.
 </section>
 <section id="sec-dls-performance" class="level2" data-number="5.6">
 <h2 data-number="5.6" class="anchored" data-anchor-id="sec-dls-performance"><span class="header-section-number">5.6</span> What a Heuristic Costs</h2>
-<p><a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> collects every method in this chapter on the belt.</p>
+<p><a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> collects every method in this chapter on the belt.</p>
 <div id="tbl-dls-comparison" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.12: Every method of this chapter on the mower deck belt.
+Table&nbsp;5.15: Every method of this chapter on the mower deck belt.
 </figcaption>
 <div aria-describedby="tbl-dls-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1822,18 +2084,18 @@ VC = \frac{\frac{1}{N}\sum_{t=1}^{N}\left(d_t - \bar{d}\right)^2}{\bar{d}^2}
    \quad \text{where} \quad \bar{d} = \frac{1}{N}\sum_{t=1}^{N} d_t .
 \tag{5.10}\]</span></span></p>
 <p>Dividing by <span class="math inline">\(\bar{d}^2\)</span> makes it dimensionless, so it does not matter whether the item is counted in belts or in pallets. A perfectly level requirement gives <span class="math inline">\(VC = 0\)</span>.</p>
-<p>Thus, the rule of thumb is that <span class="math inline">\(VC &lt; 0.2\)</span> calls for an economic order quantity and <span class="math inline">\(VC \geq 0.2\)</span> calls for one of the methods of this chapter. For the belt, <span class="math inline">\(\bar{d} = 153.33\)</span> and the variance is 14,555.6, so <span class="math display">\[
+<p>Thus, the rule of thumb is that <span class="math inline">\(VC &lt; 0.2\)</span> calls for an economic order quantity and <span class="math inline">\(VC \geq 0.2\)</span> calls for one of the methods of this chapter. For the belt, <span class="math inline">\(\bar{d} = 1{,}840/12 = 153.33\)</span>. The numerator of <a href="#eq-dls-vc" class="quarto-xref">Equation&nbsp;<span>5.10</span></a> is a variance, and a variance is the mean of the squares less the square of the mean, which is the second form of <a href="13-AppProbability.html#eq-variance" class="quarto-xref">Equation&nbsp;<span>B.3</span></a>. The squares of the twelve requirements sum to 456,800, so the variance is <span class="math inline">\(456{,}800/12 - (1{,}840/12)^{2} = 38{,}066.7 - 23{,}511.1 = 14{,}555.6\)</span>, and we have <span class="math display">\[
 VC = \frac{14{,}555.6}{153.33^2} = 0.619 ,
-\]</span> well past the threshold. Notice that the threshold is a rule of thumb and not a theorem. <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> shows the adjusted economic order quantity within 4.84% of optimal at <span class="math inline">\(VC = 0.619\)</span>, which is better than the rule would lead you to expect.</p>
+\]</span> well past the threshold. Notice that the threshold is a rule of thumb and not a theorem. <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> shows the adjusted economic order quantity within 4.84% of optimal at <span class="math inline">\(VC = 0.619\)</span>, which is better than the rule would lead you to expect.</p>
 </section>
 <section id="sec-dls-sensitivity" class="level3" data-number="5.6.2">
 <h3 data-number="5.6.2" class="anchored" data-anchor-id="sec-dls-sensitivity"><span class="header-section-number">5.6.2</span> Sensitivity to the Cost Ratio</h3>
 <p><a href="03-Chapter3.html#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> showed that the economic order quantity is forgiving: getting <span class="math inline">\(k/h\)</span> wrong by a factor of two costs about 6% of the relevant cost. We can ask the same question here, and the answer has the same shape.</p>
-<p>Solve the belt with a ratio <span class="math inline">\(k/h\)</span> that is wrong by a factor <span class="math inline">\(m\)</span>, then charge the resulting plan at the true costs. <a href="#tbl-dls-sensitivity" class="quarto-xref">Table&nbsp;<span>5.13</span></a> gives the result.</p>
+<p>Solve the belt with a ratio <span class="math inline">\(k/h\)</span> that is wrong by a factor <span class="math inline">\(m\)</span>, then charge the resulting plan at the true costs. <a href="#tbl-dls-sensitivity" class="quarto-xref">Table&nbsp;<span>5.16</span></a> gives the result.</p>
 <div id="tbl-dls-sensitivity" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.13: The cost of solving the belt with the wrong ratio <span class="math inline">\(k/h\)</span>.
+Table&nbsp;5.16: The cost of solving the belt with the wrong ratio <span class="math inline">\(k/h\)</span>.
 </figcaption>
 <div aria-describedby="tbl-dls-sensitivity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1895,8 +2157,9 @@ Table&nbsp;5.13: The cost of solving the belt with the wrong ratio <span class="
 </div>
 </figure>
 </div>
+<p>Each column is one run of the recursion and one ledger. For example, at <span class="math inline">\(m = 2\)</span> the recursion is run with an order cost of $600 in place of $300. The plan it returns orders in months 1, 4, 6 and 11, and its ending balances sum to 1,460 belt-months. Charged at the true costs, that plan costs <span class="math inline">\(4(300) + 1.00(1{,}460) = \$2{,}660\)</span>, which is <span class="math inline">\(2{,}660/2{,}480 - 1 = 7.26\%\)</span> above the optimum. The other columns repeat the two steps. Seven runs of the recursion are too many to do by hand, so the plans come from <code>WagnerWhitin.plan</code> in the code, or from the <code>WagnerWhitin</code> sheet with the order cost on the <code>Data</code> sheet changed.</p>
 <p>A factor of two in either direction costs less than 13%. Thus, the flatness <a href="03-Chapter3.html#sec-eoq-sensitivity" class="quarto-xref"><span>Section 3.7</span></a> found survives the move to discrete periods. The curve is not smooth here, because the number of orders is an integer and the plan does not change at all over a range of <span class="math inline">\(m\)</span>. Doubling and halving are not symmetric either: at <span class="math inline">\(m = 2\)</span> the plan has four orders and costs 7.26% extra, and at <span class="math inline">\(m = 0.5\)</span> it has nine and costs 12.90%. Ordering too often is the more expensive mistake on this item, since every extra order costs a full $300 while the carrying it saves is spread thin.</p>
-<p>Put <a href="#tbl-dls-sensitivity" class="quarto-xref">Table&nbsp;<span>5.13</span></a> beside <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> and something follows. The penalty for using Silver-Meal instead of the optimum is 7.26%. The penalty for getting the cost ratio wrong by a factor of two is also 7.26%. An organization that has not measured <span class="math inline">\(k\)</span> to within a factor of two, and most have not, is not in a position to care which method it uses.</p>
+<p>Put <a href="#tbl-dls-sensitivity" class="quarto-xref">Table&nbsp;<span>5.16</span></a> beside <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> and something follows. The penalty for using Silver-Meal instead of the optimum is 7.26%. The penalty for getting the cost ratio wrong by a factor of two is also 7.26%. An organization that has not measured <span class="math inline">\(k\)</span> to within a factor of two, and most have not, is not in a position to care which method it uses.</p>
 </section>
 <section id="sec-dls-aggregate" class="level3" data-number="5.6.3">
 <h3 data-number="5.6.3" class="anchored" data-anchor-id="sec-dls-aggregate"><span class="header-section-number">5.6.3</span> What the Aggregate Studies Say</h3>
@@ -1911,11 +2174,11 @@ Table&nbsp;5.13: The cost of solving the belt with the wrong ratio <span class="
 <p>Two things follow immediately. The first is that only the first decision matters. Thus, the quality of a method is the quality of the sequence of first decisions it produces, and not the quality of the plans it produces. The second is that Wagner-Whitin is no longer optimal. It is optimal for the problem it was handed, and the problem it was handed is a truncation of the real one.</p>
 <section id="sec-dls-truncation" class="level3" data-number="5.7.1">
 <h3 data-number="5.7.1" class="anchored" data-anchor-id="sec-dls-truncation"><span class="header-section-number">5.7.1</span> What the Truncation Costs</h3>
-<p>Let’s run the belt through a rolling horizon. At each month the planner solves over the next <span class="math inline">\(W\)</span> months, places that month’s order, and moves on. The realized cost of the twelve months of orders that actually get placed is <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a>.</p>
+<p>Let’s run the belt through a rolling horizon. At each month the planner solves over the next <span class="math inline">\(W\)</span> months, places that month’s order, and moves on. The realized cost of the twelve months of orders that actually get placed is <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a>.</p>
 <div id="tbl-dls-rolling" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-rolling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.14: What the belt actually costs when the horizon rolls, one month committed at a time. The full-horizon optimum is $2,480.
+Table&nbsp;5.17: What the belt actually costs when the horizon rolls, one month committed at a time. The full-horizon optimum is $2,480.
 </figcaption>
 <div aria-describedby="tbl-dls-rolling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1951,6 +2214,136 @@ Table&nbsp;5.14: What the belt actually costs when the horizon rolls, one month 
 </div>
 </figure>
 </div>
+<p>Let’s follow the first column, where the planner sees two months. In month 1 nothing is on hand and the window holds months 1 and 2, which require 40 and 60 belts. One order for both costs <span class="math inline">\(w(1,2) = \$360\)</span> and two orders cost $600, so the plan is to order 100 belts now, and 100 belts are ordered. In month 2 the planner is holding the 60 belts left from that order, which cover month 2. The only requirement in view that is not covered is month 3’s, so the plan is an order of 120 belts in month 3, and nothing is ordered in month 2.</p>
+<p>In month 3 nothing is on hand and the window holds months 3 and 4, which require 120 and 300 belts. One order for both costs <span class="math inline">\(300 + 1.00(300) = \$600\)</span>, and two orders also cost $600. Both rules resolve the tie the same way, by keeping the longer window, so 420 belts are ordered. Notice that the plan made in month 2 called for 120 belts in month 3. It was never executed. The table has been updated as follows.</p>
+<div id="tbl-dls-roll2" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-roll2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.18: The belt rolled with a two-month window. On hand is the stock at the start of the month, and the months planned are those in view whose requirements that stock does not cover. Both rules place the same twelve orders.
+</figcaption>
+<div aria-describedby="tbl-dls-roll2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Month</th>
+<th style="text-align: right;">On hand</th>
+<th>Months planned</th>
+<th>Requirements</th>
+<th>Plan</th>
+<th style="text-align: right;">Order placed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>1, 2</td>
+<td>40, 60</td>
+<td>100, 0</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">60</td>
+<td>3</td>
+<td>120</td>
+<td>120</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td>3, 4</td>
+<td>120, 300</td>
+<td>420, 0</td>
+<td style="text-align: right;">420</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">300</td>
+<td>5</td>
+<td>420</td>
+<td>420</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td>5, 6</td>
+<td>420, 260</td>
+<td>680, 0</td>
+<td style="text-align: right;">680</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">260</td>
+<td>7</td>
+<td>120</td>
+<td>120</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td>7, 8</td>
+<td>120, 40</td>
+<td>160, 0</td>
+<td style="text-align: right;">160</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">40</td>
+<td>none</td>
+<td></td>
+<td></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td>10</td>
+<td>80</td>
+<td>80</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td>10, 11</td>
+<td>80, 180</td>
+<td>260, 0</td>
+<td style="text-align: right;">260</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">180</td>
+<td>12</td>
+<td>220</td>
+<td>220</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>12</td>
+<td>220</td>
+<td>220</td>
+<td style="text-align: right;">220</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Notice month 8 in <a href="#tbl-dls-roll2" class="quarto-xref">Table&nbsp;<span>5.18</span></a>. The 40 belts on hand cover it, month 9 requires nothing, and so there is nothing in view to plan. Six orders are placed. The ending balances are 60, 300, 260, 40 and 180 belts in months 1, 3, 5, 7 and 10, which sum to 840 belt-months, so the realized cost is <span class="math inline">\(6(300) + 1.00(840) = \$2{,}640\)</span>, the first column of <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a>. The other columns repeat the roll with a longer window, where each month’s plan is a full run of the rule. That is the work <code>RollingHorizon</code> does in <a href="#sec-dls-design-rolling" class="quarto-xref"><span>Section 5.9.8</span></a>, and <a href="#exr-ch5-rolling" class="quarto-xref">Exercise&nbsp;<span>5.18</span></a> asks for the three-month roll by hand.</p>
 <p>Wagner-Whitin reaches the full-horizon optimum at a window of three months and stays there. That is <a href="#sec-dls-property2" class="quarto-xref"><span>Section 5.3.3</span></a> doing its work. Month 5 forces an order, so the decision for month 4 cannot be improved by anything beyond month 5, and the three-month window already sees far enough.</p>
 <p>Silver-Meal never reaches it, and its cost is not even monotone in the window. A three-month window costs it $200 more than a two-month window does. Let’s understand that instead of explaining it away. Lengthening the window gives the rule more periods to average over, and averaging over more periods is precisely what drives its cost-per-period down and its windows too long. A longer horizon is not always better information for a rule that was not built to use it.</p>
 </section>
@@ -1961,7 +2354,7 @@ Table&nbsp;5.14: What the belt actually costs when the horizon rolls, one month 
 <div id="tbl-dls-rollingstudy" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-rollingstudy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.15: Silver-Meal against Wagner-Whitin over 2,000 random schedules under a rolling horizon.
+Table&nbsp;5.19: Silver-Meal against Wagner-Whitin over 2,000 random schedules under a rolling horizon.
 </figcaption>
 <div aria-describedby="tbl-dls-rollingstudy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2019,7 +2412,7 @@ Table&nbsp;5.15: Silver-Meal against Wagner-Whitin over 2,000 random schedules u
 <section id="sec-dls-nervousness" class="level3" data-number="5.7.3">
 <h3 data-number="5.7.3" class="anchored" data-anchor-id="sec-dls-nervousness"><span class="header-section-number">5.7.3</span> Nervousness</h3>
 <p>There is a cost the tables do not show. Each period the plan is recomputed, and the new plan may disagree with the old one about orders that have not been placed yet. Suppliers were told to expect 300 belts in month 7, and now the plan says 0. That instability is called <em>nervousness</em>, and it is expensive in ways that do not appear in <a href="#eq-dls-relevantcost" class="quarto-xref">Equation&nbsp;<span>5.3</span></a>.</p>
-<p>Part of it comes from the method. <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a>’s first decision is instructive. Silver-Meal orders 100 belts in month 1 at every window length from two to six. Wagner-Whitin orders 100 at a two-month window and 220 at every longer one. The heuristic is steadier here, because it never looks far enough ahead for a distant period to change its mind.</p>
+<p>Part of it comes from the method. <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a>’s first decision is instructive. Silver-Meal orders 100 belts in month 1 at every window length from two to six. Wagner-Whitin orders 100 at a two-month window and 220 at every longer one. The heuristic is steadier here, because it never looks far enough ahead for a distant period to change its mind.</p>
 <p>Three devices are in common use against nervousness, and each of them buys stability at a price.</p>
 <p>A <em>freeze fence</em> fixes the plan for the first several periods and forbids the next solve from changing them. It converts instability into inflexibility, and that is sometimes the better problem. Committing <span class="math inline">\(F\)</span> periods at a time instead of one is the same idea.</p>
 <p>A <em>time fence</em> is softer. Inside it, changes need approval; outside it, the plan may move freely.</p>
@@ -2122,7 +2515,7 @@ Figure&nbsp;5.7: The recursion and the traceback, rows 29 to 54. The <span class
 <img src="figures/ch5/WagnerWhitinRows56To71.png" class="img-fluid figure-img" style="width:68.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-dls-traceback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.8: The plan, rows 56 to 71. The chain above has become an order quantity per month, and the two totals are the $1,800 and $680 of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a>. Notice month 6: it receives 420 belts and ends the month holding 160, which is the one place in the optimal plan where a month both orders and carries something forward.
+Figure&nbsp;5.8: The plan, rows 56 to 71. The chain above has become an order quantity per month, and the two totals are the $1,800 and $680 of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a>. Notice month 6: it receives 420 belts and ends the month holding 160, which is the one place in the optimal plan where a month both orders and carries something forward.
 </figcaption>
 </figure>
 </div>
@@ -2136,7 +2529,7 @@ Figure&nbsp;5.8: The plan, rows 56 to 71. The chain above has become an order qu
 <img src="figures/ch5/HeuristicsRows1to13.png" class="img-fluid figure-img" style="width:58.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-dls-heurtop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.9: The <code>Heuristics</code> sheet, rows 1 to 13. The three columns are the three heuristic rows of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a>, computed on this sheet from the window costs of the last one.
+Figure&nbsp;5.9: The <code>Heuristics</code> sheet, rows 1 to 13. The three columns are the three heuristic rows of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a>, computed on this sheet from the window costs of the last one.
 </figcaption>
 </figure>
 </div>
@@ -2147,7 +2540,7 @@ Figure&nbsp;5.9: The <code>Heuristics</code> sheet, rows 1 to 13. The three colu
 <img src="figures/ch5/HeuristicsRows14to28SM.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-dls-silvermeal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.10: The Silver-Meal scores, rows 14 to 28. Every entry is a window cost from <a href="#fig-ws-dls-windows" class="quarto-xref">Figure&nbsp;<span>5.6</span></a> divided by the length of its window. Read row 1 across: $300.00, $180.00, then $200.00. The rise at <span class="math inline">\(u = 3\)</span> is where the rule stops, and it is the first column of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.10</span></a>. Now read row 5, which is where the rule loses its money. The score falls from $300.00 through $280.00, $266.67 and $230.00 to $184.00 at <span class="math inline">\(u = 9\)</span>, and only then rises to $220.00. Nothing in that run tells the rule to stop, so one order covers five months.
+Figure&nbsp;5.10: The Silver-Meal scores, rows 14 to 28. Every entry is a window cost from <a href="#fig-ws-dls-windows" class="quarto-xref">Figure&nbsp;<span>5.6</span></a> divided by the length of its window. Read row 1 across: $300.00, $180.00, then $200.00. The rise at <span class="math inline">\(u = 3\)</span> is where the rule stops, and it is the first column of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.11</span></a>. Now read row 5, which is where the rule loses its money. The score falls from $300.00 through $280.00, $266.67 and $230.00 to $184.00 at <span class="math inline">\(u = 9\)</span>, and only then rises to $220.00. Nothing in that run tells the rule to stop, so one order covers five months.
 </figcaption>
 </figure>
 </div>
@@ -2168,7 +2561,7 @@ Figure&nbsp;5.11: The stopping test beside the Silver-Meal scores, columns O thr
 <img src="figures/ch5/HeuristicsRows30to44LUC.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-dls-luc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.12: The least unit cost scores, rows 30 to 44. Every entry is the same window cost divided by the units the window covers instead of by its length. Row 1 runs 7.50, 3.60, 2.73, then 2.88, which is the second column of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.10</span></a>. Notice the blank on the diagonal at <span class="math inline">\(t = u = 9\)</span>. That window covers no units at all, so it has no cost per unit, and the rule steps over it instead of dividing by zero. It is the only cell in the workbook that has to be guarded, and <a href="#sec-dls-design-template" class="quarto-xref"><span>Section 5.9.5</span></a> shows the guard.
+Figure&nbsp;5.12: The least unit cost scores, rows 30 to 44. Every entry is the same window cost divided by the units the window covers instead of by its length. Row 1 runs 7.50, 3.60, 2.73, then 2.88, which is the second column of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.11</span></a>. Notice the blank on the diagonal at <span class="math inline">\(t = u = 9\)</span>. That window covers no units at all, so it has no cost per unit, and the rule steps over it instead of dividing by zero. It is the only cell in the workbook that has to be guarded, and <a href="#sec-dls-design-template" class="quarto-xref"><span>Section 5.9.5</span></a> shows the guard.
 </figcaption>
 </figure>
 </div>
@@ -2183,14 +2576,14 @@ Figure&nbsp;5.13: The part-period balancing scores, rows 46 to 60. Here the entr
 </figcaption>
 </figure>
 </div>
-<p>Below the triangles, a chain row per rule starts at period 1 and reads each order’s start from the previous order’s stop, and a ledger per rule turns the chain into a plan and a cost. <a href="#fig-ws-dls-heuristicplans" class="quarto-xref">Figure&nbsp;<span>5.14</span></a> is both, and the three relevant costs it totals are the three heuristic rows of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a>.</p>
+<p>Below the triangles, a chain row per rule starts at period 1 and reads each order’s start from the previous order’s stop, and a ledger per rule turns the chain into a plan and a cost. <a href="#fig-ws-dls-heuristicplans" class="quarto-xref">Figure&nbsp;<span>5.14</span></a> is both, and the three relevant costs it totals are the three heuristic rows of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a>.</p>
 <div id="fig-ws-dls-heuristicplans" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ws-dls-heuristicplans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/ch5/HeuristicsRows63to86.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ws-dls-heuristicplans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.14: The chains and the three plans, rows 63 to 86. Each chain starts in month 1 and each order after it starts where the previous one stopped; a blank means the horizon is already covered. Reading the three chains down, the rules order in months 1, 3, 5, 10, 12; in 1, 4, 6, 8, 12; and in 1, 4, 6, 10, 12. All three place five orders and no two agree on where. The three ledgers below are <a href="#tbl-dls-heuristicplans" class="quarto-xref">Table&nbsp;<span>5.11</span></a>, and their totals are $1,500 of setup in every case against carrying of $1,160, $1,540 and $1,100. Notice the 840 in month 5 of the Silver-Meal ledger, which <a href="#fig-ws-dls-silvermeal" class="quarto-xref">Figure&nbsp;<span>5.10</span></a> explained.
+Figure&nbsp;5.14: The chains and the three plans, rows 63 to 86. Each chain starts in month 1 and each order after it starts where the previous one stopped; a blank means the horizon is already covered. Reading the three chains down, the rules order in months 1, 3, 5, 10, 12; in 1, 4, 6, 8, 12; and in 1, 4, 6, 10, 12. All three place five orders and no two agree on where. The three ledgers below are <a href="#tbl-dls-heuristicplans" class="quarto-xref">Table&nbsp;<span>5.13</span></a>, and their totals are $1,500 of setup in every case against carrying of $1,160, $1,540 and $1,100. Notice the 840 in month 5 of the Silver-Meal ledger, which <a href="#fig-ws-dls-silvermeal" class="quarto-xref">Figure&nbsp;<span>5.10</span></a> explained.
 </figcaption>
 </figure>
 </div>
@@ -2211,14 +2604,14 @@ Figure&nbsp;5.15: The <code>Solver</code> sheet, rows 1 to 32, with the constrai
 </section>
 <section id="sec-dls-build-limits" class="level3" data-number="5.8.6">
 <h3 data-number="5.8.6" class="anchored" data-anchor-id="sec-dls-build-limits"><span class="header-section-number">5.8.6</span> What the Worksheet Cannot Do</h3>
-<p>The rolling horizon of <a href="#sec-dls-rolling" class="quarto-xref"><span>Section 5.7</span></a> is not in the workbook, and it is not an oversight. <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a> is the cost of a sequence of twelve plans, eleven of which were computed, discarded, and never executed. A worksheet holds one instance of a model. Producing <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.15</span></a> needs 2,000 schedules solved twelve times each under two rules, or 48,000 solves, and a worksheet that is asked to do that stops being a thing anyone can read.</p>
+<p>The rolling horizon of <a href="#sec-dls-rolling" class="quarto-xref"><span>Section 5.7</span></a> is not in the workbook, and it is not an oversight. <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a> is the cost of a sequence of twelve plans, eleven of which were computed, discarded, and never executed. A worksheet holds one instance of a model. Producing <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.19</span></a> needs 2,000 schedules solved twelve times each under two rules, or 48,000 solves, and a worksheet that is asked to do that stops being a thing anyone can read.</p>
 <p>That is the boundary. A worksheet is the right tool for a model you want to look at, and the wrong tool for a model you want to run many times. That is where <a href="#sec-dls-design" class="quarto-xref"><span>Section 5.9</span></a> begins.</p>
 </section>
 </section>
 <section id="sec-dls-design" class="level2" data-number="5.9">
 <h2 data-number="5.9" class="anchored" data-anchor-id="sec-dls-design"><span class="header-section-number">5.9</span> Designing the Software</h2>
 <p><a href="#sec-dls-building" class="quarto-xref"><span>Section 5.8</span></a> built the models as worksheets, where the structure is visible. A program has no such thing. Its structure is a set of decisions about which classes exist and what each one is responsible for, and none of those decisions leaves a mark in the finished code. So we make them first, in the order such an analysis proceeds: what the software must do, what the domain calls things, what each thing knows and does, and how they collaborate.</p>
-<p>This chapter is a good one to design, because at first glance it is six unrelated recipes and at second glance it is one recipe with six settings. Getting that right in the code is what makes <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> a comparison.</p>
+<p>This chapter is a good one to design, because at first glance it is six unrelated recipes and at second glance it is one recipe with six settings. Getting that right in the code is what makes <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> a comparison.</p>
 <section id="sec-dls-design-requirements" class="level3" data-number="5.9.1">
 <h3 data-number="5.9.1" class="anchored" data-anchor-id="sec-dls-design-requirements"><span class="header-section-number">5.9.1</span> What the Software Must Do</h3>
 <p>Reading back over the chapter, we find that the software has to</p>
@@ -2241,7 +2634,7 @@ Figure&nbsp;5.15: The <code>Solver</code> sheet, rows 1 to 32, with the constrai
 <p>Two candidate nouns are instructive rejections.</p>
 <p><em>Window</em> looks like a class. It has a start, an end, a cost, and the chapter talks about it constantly. It fails because a window has no behavior of its own and no life of its own. It exists for the length of one comparison inside one rule, and <span class="math inline">\(w(t,u)\)</span> is a function of the schedule and two integers. Thus, making it a class would put <span class="math inline">\(N^2/2\)</span> objects on the heap to hold a number apiece.</p>
 <p><em>Order</em> also looks like a class, and it is a real thing in a warehouse. Here it is <span class="math inline">\(Q_t\)</span>, a number in a position. Every question the chapter asks about an order is a question about a plan: how many are there, what do they cost, and when do they fall.</p>
-<p>Thus, the schedule owns the window cost. That is the decision the rest of the design rests on. Every rule in <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> prices the same windows, so computing them in one place means the heuristics and the algorithm are compared on identical numbers and not on two implementations of <a href="#eq-dls-windowcost3" class="quarto-xref">Equation&nbsp;<span>5.7</span></a>.</p>
+<p>Thus, the schedule owns the window cost. That is the decision the rest of the design rests on. Every rule in <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> prices the same windows, so computing them in one place means the heuristics and the algorithm are compared on identical numbers and not on two implementations of <a href="#eq-dls-windowcost3" class="quarto-xref">Equation&nbsp;<span>5.7</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-dls-domain" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -2263,7 +2656,7 @@ Figure&nbsp;5.16: The concepts of this chapter before any thought about implemen
 <div id="tbl-dls-crc" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-crc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.16: Responsibilities for the four classes.
+Table&nbsp;5.20: Responsibilities for the four classes.
 </figcaption>
 <div aria-describedby="tbl-dls-crc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2305,7 +2698,7 @@ Table&nbsp;5.16: Responsibilities for the four classes.
 </div>
 </figure>
 </div>
-<p><a href="#tbl-dls-crc" class="quarto-xref">Table&nbsp;<span>5.16</span></a> illustrates one thing by leaving it out. A plan does not know its ending inventory as stored data. <a href="#eq-dls-balance" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> determines the inventory from the orders, so storing both would allow a plan to exist whose inventory no sequence of orders produces. The plan stores the quantities and computes the rest.</p>
+<p><a href="#tbl-dls-crc" class="quarto-xref">Table&nbsp;<span>5.20</span></a> illustrates one thing by leaving it out. A plan does not know its ending inventory as stored data. <a href="#eq-dls-balance" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> determines the inventory from the orders, so storing both would allow a plan to exist whose inventory no sequence of orders produces. The plan stores the quantities and computes the rest.</p>
 <p>Notice also that the plan validates itself. A plan that runs short in some period violates assumption 6, and the constructor refuses it. That is not defensive programming for its own sake. Thus, every plan anywhere in the program is feasible, and no method downstream has to ask.</p>
 </section>
 <section id="sec-dls-design-schedule" class="level3" data-number="5.9.4">
@@ -2428,7 +2821,7 @@ Table&nbsp;5.16: Responsibilities for the four classes.
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(</span>units <span class="op">&lt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="kw">null</span> <span class="cf">else</span> schedule<span class="op">.</span>relevantWindowCost<span class="op">(</span>from<span class="op">,</span> through<span class="op">)</span> <span class="op">/</span> units</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That is <a href="#tbl-dls-rules" class="quarto-xref">Table&nbsp;<span>5.9</span></a>, executable. The nullable return is the third column of that table’s one irregularity: a window covering no units has no cost per unit, so the rule steps over it instead of dividing by zero. Month 9 of the belt is such a period.</p>
+<p>That is <a href="#tbl-dls-rules" class="quarto-xref">Table&nbsp;<span>5.10</span></a>, executable. The nullable return is the third column of that table’s one irregularity: a window covering no units has no cost per unit, so the rule steps over it instead of dividing by zero. Month 9 of the belt is such a period.</p>
 <p>The third rule does not fit, and forcing it in would be the mistake.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Part-period balancing: extend until the carrying cost of the window is as close as</span></span>
@@ -2567,7 +2960,7 @@ Figure&nbsp;5.18: Producing a Silver-Meal plan. The rule asks the schedule to pr
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The subtle part is <code>netRequirements</code>. The planner at period <span class="math inline">\(t\)</span> may be holding stock left over from an earlier order, and assumption 8 says a schedule starts empty. So the stock on hand is netted against the nearest requirements, as a requirements record nets it, and planning begins at the first period the stock does not cover. Getting this wrong produces a plan that orders on top of stock it already has, which every rule in the chapter is supposed to forbid.</p>
-<p>Notice that <code>realizedPlan</code> returns a <code>LotSizingPlan</code> built against the <em>true</em> schedule and not against any of the windows. The plans the rule produced along the way were mostly discarded. What is reported is the cost of the orders that were actually placed, the only thing <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a> could mean.</p>
+<p>Notice that <code>realizedPlan</code> returns a <code>LotSizingPlan</code> built against the <em>true</em> schedule and not against any of the windows. The plans the rule produced along the way were mostly discarded. What is reported is the cost of the orders that were actually placed, the only thing <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a> could mean.</p>
 </section>
 <section id="sec-dls-design-usage" class="level3" data-number="5.9.9">
 <h3 data-number="5.9.9" class="anchored" data-anchor-id="sec-dls-design-usage"><span class="header-section-number">5.9.9</span> Solving the Chapter’s Examples</h3>
@@ -2581,7 +2974,7 @@ Figure&nbsp;5.18: Producing a Silver-Meal plan. The rule asks the schedule to pr
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>belt<span class="op">.</span>variabilityCoefficient<span class="op">)</span>   <span class="co">// 0.6191, @sec-dls-performance</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span>belt<span class="op">.</span>forcedOrderPeriod<span class="op">())</span>      <span class="co">// 5, @sec-dls-properties</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> is a loop, and that is what the design was for.</p>
+<p><a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> is a loop, and that is what the design was for.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">optimum</span> <span class="op">=</span> WagnerWhitin<span class="op">.</span>plan<span class="op">(</span>belt<span class="op">)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">rules</span> <span class="op">=</span> listOf<span class="op">(</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    LotForLot<span class="op">,</span> AdjustedEconomicOrderQuantity<span class="op">(),</span> PeriodicOrderQuantity<span class="op">(),</span></span>
@@ -2606,7 +2999,7 @@ Figure&nbsp;5.18: Producing a Silver-Meal plan. The rule asks the schedule to pr
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>format<span class="op">(</span>t<span class="op">,</span> solution<span class="op">.</span>valueAt<span class="op">(</span>t<span class="op">)</span> <span class="op">-</span> purchases<span class="op">,</span> t<span class="op">,</span> solution<span class="op">.</span>orderedFromAt<span class="op">(</span>t<span class="op">)))</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The subtraction is <a href="#sec-dls-purchase" class="quarto-xref"><span>Section 5.2.1</span></a>. <a href="#eq-dls-windowcost" class="quarto-xref">Equation&nbsp;<span>5.4</span></a> carries the purchase term, so <code>valueAt</code> carries it too, and what <a href="#exm-dls-recursion" class="quarto-xref">Example&nbsp;<span>5.3</span></a> reports is the relevant part. Leaving the term in shifts every <span class="math inline">\(V\)</span> by the same amount and changes no decision, which is the argument of <a href="#sec-dls-purchase" class="quarto-xref"><span>Section 5.2.1</span></a> seen from the other side.</p>
-<p>And <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a> is two lines per row.</p>
+<p>And <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a> is two lines per row.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>window <span class="kw">in</span> <span class="fl">2..6</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sm</span> <span class="op">=</span> RollingHorizon<span class="op">(</span>belt<span class="op">,</span> window<span class="op">,</span> freeze <span class="op">=</span> <span class="dv">1</span><span class="op">).</span>realizedPlan<span class="op">(</span>SilverMeal<span class="op">)</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ww</span> <span class="op">=</span> RollingHorizon<span class="op">(</span>belt<span class="op">,</span> window<span class="op">,</span> freeze <span class="op">=</span> <span class="dv">1</span><span class="op">).</span>realizedPlan<span class="op">(</span>WagnerWhitin<span class="op">)</span></span>
@@ -2621,12 +3014,12 @@ Figure&nbsp;5.18: Producing a Silver-Meal plan. The rule asks the schedule to pr
 <p>Two properties make the problem small enough to solve. Zero-inventory ordering says an optimal plan never orders into a shelf that is not empty, which means a plan is nothing but a choice of order periods. The window cost <span class="math inline">\(w(t,u)\)</span> prices any such choice, and it depends on no decision, so all of the window costs can be computed once.</p>
 <p>Those two together turn the problem into a shortest path on an acyclic network, and <a href="#eq-dls-recursion" class="quarto-xref">Equation&nbsp;<span>5.8</span></a> solves it in <span class="math inline">\(O(N^2)\)</span>. The same problem is a mixed integer program, slower, but it accepts constraints the recursion cannot.</p>
 <p>The heuristics exist because <a href="#eq-dls-recursion" class="quarto-xref">Equation&nbsp;<span>5.8</span></a> needs the whole horizon and the whole horizon is a forecast. Three of them are one procedure with three stopping rules. On the mower deck belt they land between 4.84% and 22.58% above the optimum, which is the same order of magnitude as the penalty for getting <span class="math inline">\(k/h\)</span> wrong by a factor of two.</p>
-<p>The rolling horizon is where all of this is actually used, and it removes Wagner-Whitin’s guarantee. It does not, on the evidence of <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.15</span></a>, hand the advantage to a heuristic. What it does is make the question empirical.</p>
+<p>The rolling horizon is where all of this is actually used, and it removes Wagner-Whitin’s guarantee. It does not, on the evidence of <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.19</span></a>, hand the advantage to a heuristic. What it does is make the question empirical.</p>
 <p><a href="06-Chapter6.html" class="quarto-xref"><span>Chapter 6</span></a> takes these methods up again with the requirements computed from a bill of material instead of forecast. That is where they do most of their work.</p>
 <div id="tbl-dls-notation" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dls-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.17: Notation introduced in this chapter.
+Table&nbsp;5.21: Notation introduced in this chapter.
 </figcaption>
 <div aria-describedby="tbl-dls-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2812,13 +3205,13 @@ Table&nbsp;5.17: Notation introduced in this chapter.
 <li>How many belts are ordered in total, against a requirement of 1,840?</li>
 <li>What is left at the end of month 12?</li>
 <li>Which of <a href="#sec-dls-assumptions" class="quarto-xref"><span>Section 5.1.2</span></a> does the plan break, and why can no rule of this shape avoid breaking it?</li>
-<li>The relevant cost comes to $3,792.49. Explain why comparing that with the $2,600 of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> is not a fair comparison, and say what you would have to do to the plan to make it one.</li>
+<li>The relevant cost comes to $3,792.49. Explain why comparing that with the $2,600 of <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> is not a fair comparison, and say what you would have to do to the plan to make it one.</li>
 </ol>
 </div>
 <div id="exr-ch5-ppb-original" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 5.12</strong></span> <a href="#sec-dls-heuristics" class="quarto-xref"><span>Section 5.5</span></a> notes that part-period balancing comes in two versions. The original takes the largest window whose carrying is at or under <span class="math inline">\(k_t\)</span>, and so never overshoots. The modification compares the two windows either side of <span class="math inline">\(k_t\)</span> and keeps whichever comes closer.</p>
 <ol type="a">
-<li>Using the carrying figures of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.10</span></a> and the rest of the belt, work both versions over the full twelve months and report the stop period for each starting month.</li>
+<li>Using the carrying figures of <a href="#tbl-dls-firstwindow" class="quarto-xref">Table&nbsp;<span>5.11</span></a> and the rest of the belt, work both versions over the full twelve months and report the stop period for each starting month.</li>
 <li>Report each version’s plan, its relevant cost and its penalty.</li>
 <li>Which is better here? Is the answer what you expected?</li>
 <li>Give the shape of a requirements pattern on which the original must do at least as well as the modification, and say why.</li>
@@ -2886,11 +3279,11 @@ Table&nbsp;5.17: Notation introduced in this chapter.
 <li>Cost the lot-for-lot plan and the periodic order quantity plan at the time supply from part (a).</li>
 <li>Solve the problem to optimality. Report <span class="math inline">\(V\)</span>, <span class="math inline">\(S\)</span>, the plan and its relevant cost.</li>
 <li>Apply all three heuristics and report the penalty of each.</li>
-<li>Compare your ranking of the three heuristics with <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a>. Does the belt’s ranking survive?</li>
+<li>Compare your ranking of the three heuristics with <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a>. Does the belt’s ranking survive?</li>
 </ol>
 </div>
 <div id="exr-ch5-ordercost" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.14</strong></span> <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.12</span></a> ranks the methods on the belt at <span class="math inline">\(k = \$300\)</span>. This exercise asks whether the ranking is a property of the methods or of that number.</p>
+<p><span class="theorem-title"><strong>Exercise 5.14</strong></span> <a href="#tbl-dls-comparison" class="quarto-xref">Table&nbsp;<span>5.15</span></a> ranks the methods on the belt at <span class="math inline">\(k = \$300\)</span>. This exercise asks whether the ranking is a property of the methods or of that number.</p>
 <p>Keep the requirements of <a href="#tbl-dls-belt" class="quarto-xref">Table&nbsp;<span>5.1</span></a>, <span class="math inline">\(c = \$50\)</span> and <span class="math inline">\(i = 0.02\)</span> per month, and solve the problem again at <span class="math inline">\(k = \$120\)</span> and at <span class="math inline">\(k = \$900\)</span>.</p>
 <ol type="a">
 <li>For each, report <span class="math inline">\(k/h\)</span> and the periods <a href="#sec-dls-property2" class="quarto-xref"><span>Section 5.3.3</span></a> forces.</li>
@@ -2924,7 +3317,7 @@ Table&nbsp;5.17: Notation introduced in this chapter.
 <section id="sec-dls-exr-rolling" class="level3" data-number="5.11.4">
 <h3 data-number="5.11.4" class="anchored" data-anchor-id="sec-dls-exr-rolling"><span class="header-section-number">5.11.4</span> The Rolling Horizon and the Solver</h3>
 <div id="exr-ch5-rolling" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.18</strong></span> Take the mower deck belt of <a href="#tbl-dls-belt" class="quarto-xref">Table&nbsp;<span>5.1</span></a> and a planner who sees only three months ahead. Starting in month 1, solve the three-month problem, place that month’s order, advance one month, and repeat. Report the twelve orders actually placed and their cost, and compare with <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a>.</p>
+<p><span class="theorem-title"><strong>Exercise 5.18</strong></span> Take the mower deck belt of <a href="#tbl-dls-belt" class="quarto-xref">Table&nbsp;<span>5.1</span></a> and a planner who sees only three months ahead. Starting in month 1, solve the three-month problem, place that month’s order, advance one month, and repeat. Report the twelve orders actually placed and their cost, and compare with <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a>.</p>
 </div>
 <div id="exr-ch5-mip" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 5.19</strong></span> Open the <code>Solver</code> sheet of <code>Chapter5Models.xlsx</code>, clear the order and flag columns to zero, and run Solver. Confirm that it reaches $2,480.</p>
@@ -2943,7 +3336,7 @@ Table&nbsp;5.17: Notation introduced in this chapter.
 <p><span class="theorem-title"><strong>Exercise 5.21</strong></span> Open <code>Chapter5Models.xlsx</code> and work entirely within it.</p>
 <ol type="a">
 <li>On the <code>Data</code> sheet, replace the requirements with those of <a href="#exr-ch5-spindle" class="quarto-xref">Exercise&nbsp;<span>5.13</span></a> and set <span class="math inline">\(k\)</span>, <span class="math inline">\(c\)</span> and <span class="math inline">\(i\)</span> to that item’s values. Read the optimal cost off the <code>WagnerWhitin</code> sheet and the three heuristic costs off the <code>Heuristics</code> sheet, and check them against your answers to <a href="#exr-ch5-spindle" class="quarto-xref">Exercise&nbsp;<span>5.13</span></a>.</li>
-<li>Restore the belt. On the <code>Plans</code> sheet, type the Wagner-Whitin plan of <a href="#tbl-dls-optimal12" class="quarto-xref">Table&nbsp;<span>5.8</span></a> into the fourth order column and confirm that the penalty reads 0.00%.</li>
+<li>Restore the belt. On the <code>Plans</code> sheet, type the Wagner-Whitin plan of <a href="#tbl-dls-optimal12" class="quarto-xref">Table&nbsp;<span>5.9</span></a> into the fourth order column and confirm that the penalty reads 0.00%.</li>
 <li>Now type a plan of your own into the same column that costs less than $2,600 and is not the optimum. Report it, or explain how the <code>WagnerWhitin</code> sheet tells you in advance how many such plans there are.</li>
 <li>On the <code>Heuristics</code> sheet, find the row of the Silver-Meal block that produces the order of 840 belts. Read off the six scores along it from <span class="math inline">\(u = 5\)</span> to <span class="math inline">\(u = 10\)</span> and say which one the rule stopped at and why.</li>
 <li>Change the requirement in month 9 from 0 to 200. Report what happens to the six scores of part (d), to the Silver-Meal plan, to the optimum, and to the penalty. Two of those four move in a direction most students do not predict.</li>
@@ -2955,11 +3348,11 @@ Table&nbsp;5.17: Notation introduced in this chapter.
 <div id="exr-ch5-software" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 5.22</strong></span> The code of <a href="#sec-dls-design" class="quarto-xref"><span>Section 5.9</span></a> is in <code>code/</code>, package <code>inventory.dynamiclotsizing</code>. Build it with <code>./gradlew build</code> and write a <code>main</code> of your own. Report the code you wrote alongside each answer.</p>
 <ol type="a">
-<li><p>Build the spindle assembly of <a href="#exr-ch5-spindle" class="quarto-xref">Exercise&nbsp;<span>5.13</span></a> with <code>RequirementsSchedule.constantCosts</code>. Print <code>averageRequirement</code>, <code>variabilityCoefficient</code> and <code>forcedOrderPeriod()</code>, and compute <span class="math inline">\(k/h\)</span> from <code>orderCostIn(1)</code> and <code>holdingRateIn(1)</code>. Check all four against your answers to <a href="#exr-ch5-spindle" class="quarto-xref">Exercise&nbsp;<span>5.13</span></a>, and say what it means that <code>forcedOrderPeriod()</code> returns <code>null</code>.</p></li>
+<li><p>Use <code>RequirementsSchedule.constantCosts</code> to build the spindle assembly of <a href="#exr-ch5-spindle" class="quarto-xref">Exercise&nbsp;<span>5.13</span></a>. Print <code>averageRequirement</code>, <code>variabilityCoefficient</code> and <code>forcedOrderPeriod()</code>, and compute <span class="math inline">\(k/h\)</span> from <code>orderCostIn(1)</code> and <code>holdingRateIn(1)</code>. Check all four against your answers to <a href="#exr-ch5-spindle" class="quarto-xref">Exercise&nbsp;<span>5.13</span></a>, and say what it means that <code>forcedOrderPeriod()</code> returns <code>null</code>.</p></li>
 <li><p>Put the seven rules in a list and loop over it, printing each rule’s <code>name</code>, <code>orderCount</code>, <code>setupCost</code>, <code>carryingCost</code>, <code>relevantCost</code> and <code>penaltyAgainst(WagnerWhitin.plan(spindle))</code>. Report the table. Which rule is worst, and does <a href="#sec-dls-aggregate" class="quarto-xref"><span>Section 5.6.3</span></a> predict it?</p></li>
-<li><p>Run <code>RollingHorizon(spindle, w, freeze = 1).realizedPlan(rule)</code> for <span class="math inline">\(w = 2\)</span> through 6, under both <code>SilverMeal</code> and <code>WagnerWhitin</code>, and report the two rows as <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.14</span></a> is reported. Two things happen on this item that do not happen to the belt. Identify both and say which claim of <a href="#sec-dls-heuristicwins" class="quarto-xref"><span>Section 5.7.2</span></a> they instantiate.</p></li>
+<li><p>Run <code>RollingHorizon(spindle, w, freeze = 1).realizedPlan(rule)</code> for <span class="math inline">\(w = 2\)</span> through 6, under both <code>SilverMeal</code> and <code>WagnerWhitin</code>, and report the two rows as <a href="#tbl-dls-rolling" class="quarto-xref">Table&nbsp;<span>5.17</span></a> is reported. Two things happen on this item that do not happen to the belt. Identify both and say which claim of <a href="#sec-dls-heuristicwins" class="quarto-xref"><span>Section 5.7.2</span></a> they instantiate.</p></li>
 <li><p>You worked both versions of part-period balancing over the belt by hand in <a href="#exr-ch5-ppb-original" class="quarto-xref">Exercise&nbsp;<span>5.12</span></a>. The package implements only the modified one. Implement the original as a <code>LotSizingRule</code>: extend the window while the carrying cost of the window is at or under <span class="math inline">\(k\)</span>, and stop before the period that would carry it past <span class="math inline">\(k\)</span>. Use <code>carryingCostOver(from, through)</code> and <code>planFrom(orderPeriods)</code>. Check it against your hand answer on the belt, then run both versions on the spindle assembly. The two items do not rank the two versions the same way, so say which is the better rule and defend the answer.</p></li>
-<li><p>The study of <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.15</span></a> draws its schedules as follows.</p>
+<li><p>The study of <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.19</span></a> draws its schedules as follows.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">schedules</span><span class="op">(</span><span class="va">count</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">seed</span><span class="op">:</span> <span class="dt">Long</span><span class="op">,</span> <span class="va">orderCost</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">List</span><span class="op">&lt;</span><span class="dt">RequirementsSchedule</span><span class="op">&gt;</span> <span class="op">{</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">draw</span> <span class="op">=</span> java<span class="op">.</span>util<span class="op">.</span>Random<span class="op">(</span>seed<span class="op">)</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">choices</span> <span class="op">=</span> listOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="fl">10.0</span><span class="op">,</span> <span class="fl">20.0</span><span class="op">,</span> <span class="fl">40.0</span><span class="op">,</span> <span class="fl">80.0</span><span class="op">,</span> <span class="fl">120.0</span><span class="op">,</span> <span class="fl">200.0</span><span class="op">,</span> <span class="fl">300.0</span><span class="op">)</span></span>
@@ -2970,7 +3363,7 @@ Table&nbsp;5.17: Notation introduced in this chapter.
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        RequirementsSchedule<span class="op">.</span>constantCosts<span class="op">(</span><span class="st">"Trial </span><span class="ss">$n</span><span class="st">"</span><span class="op">,</span> d<span class="op">,</span> orderCost<span class="op">,</span> <span class="fl">50.0</span><span class="op">,</span> <span class="fl">0.02</span><span class="op">)</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Call it as <code>schedules(2000, 20240501L, 200.0)</code> and reproduce <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.15</span></a>. Then raise the order cost to $600 and run it again. Report both tables and state the conditions under which <a href="#sec-dls-heuristicwins" class="quarto-xref"><span>Section 5.7.2</span></a>’s conclusion holds.</p></li>
+<p>Call it as <code>schedules(2000, 20240501L, 200.0)</code> and reproduce <a href="#tbl-dls-rollingstudy" class="quarto-xref">Table&nbsp;<span>5.19</span></a>. Then raise the order cost to $600 and run it again. Report both tables and state the conditions under which <a href="#sec-dls-heuristicwins" class="quarto-xref"><span>Section 5.7.2</span></a>’s conclusion holds.</p></li>
 </ol>
 </div>
 </section>

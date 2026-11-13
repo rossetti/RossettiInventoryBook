@@ -1047,8 +1047,9 @@ display:block!important;
 <h2>Averaging Base-Stock Results</h2>
 <p><span class="math display">\[
 \begin{aligned}
-\bar{B}(r, Q) &amp;= \frac{1}{Q}\sum_{j=r+1}^{r+Q} G^{1}(j)
-  &amp;&amp;\text{average } \bar{B}(S) = G^{1}(S) \text{ over } S = j\\
+\bar{B}(r, Q) &amp;= \sum_{j=r+1}^{r+Q} E[B \mid \mathit{IP} = j]\,P\{\mathit{IP} = j\}
+  = \frac{1}{Q}\sum_{j=r+1}^{r+Q} G^{1}(j)
+  &amp;&amp;\text{condition on the position, then average}\\
 &amp;= \frac{1}{Q}\left[G^{2}(r) - G^{2}(r+Q)\right]
   &amp;&amp;G^{2}(b) = \textstyle\sum_{x &gt; b}G^{1}(x)\\[6pt]
 \overline{\mathit{RR}}(r, Q) &amp;= \frac{1}{Q}\sum_{j=r+1}^{r+Q} G(j-1)
@@ -1193,6 +1194,42 @@ display:block!important;
 </div></div>
 <aside class="notes">
 <p>Every column is exact. The fill rate equals the ready rate because demand is Poisson. Notice how flat the total is between r = 8 and r = 9: nine dollars apart. Run the on-hand check every time; it is the (Q+1)/2 that gets written as Q/2.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
+<section id="the-row-for-r-9-worked" class="slide level2">
+<h2>The Row for <span class="math inline">\(r = 9\)</span>, Worked</h2>
+<p>At <span class="math inline">\((9, 5)\)</span> the position is 10, 11, 12, 13 or 14, each a fifth of the time. Every entry comes from the hand table.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{B} &amp;= \tfrac{1}{5}(0.2993 + 0.1616 + 0.0823 + 0.0397 + 0.0181) = 0.1202
+  &amp;&amp;G^{1}(10) \text{ to } G^{1}(14)\\
+&amp;= \tfrac{1}{5}\left[G^{2}(9) - G^{2}(14)\right] = \tfrac{1}{5}(0.6140 - 0.0130) = 0.1202
+  &amp;&amp;\text{the same, from two entries}\\
+\overline{\mathit{RR}} &amp;= 1 - \tfrac{1}{5}\left[G^{1}(9) - G^{1}(14)\right] = 1 - \tfrac{1}{5}(0.5229 - 0.0181) = 0.8990
+  &amp;&amp;\text{the fill rate, by PASTA}\\
+\bar{I} &amp;= \tfrac{5+1}{2} + 9 - 7.5 + 0.1202 = 4.6202
+  &amp;&amp;\text{mean position, less } \theta \text{, plus } \bar{B}\\
+C &amp;= 220\left(\tfrac{45}{5}\right) + 950(4.6202) + 8550(0.1202)
+  &amp;&amp;\text{ordering, holding, backorders}\\
+&amp;= 1{,}980 + 4{,}389 + 1{,}028 = \$7{,}397
+  &amp;&amp;\text{a year}\\
+E[B^{2}] &amp;= \tfrac{1}{5}\left[2(0.5827) + 0.6010\right] = 0.3533
+  &amp;&amp;\textstyle\sum_{10}^{14} G^{2}(j) = 0.5827
+\end{aligned}
+\]</span></p>
+<p>The other rows repeat these steps with the position shifted by one.</p>
+<aside class="notes">
+<p>The sum is the form to use by hand when Q is small, and the difference is the one to use when it is not, since it needs two table entries whatever Q is. The second moment of the shortage at a fixed level j is 2 G2(j) + G1(j), averaged over the same five positions. The check that travels with the table: on-hand less backorders is the mean position less theta, so at r = 10, 5.5619 less 0.0619 is 5.5, and (5 + 1)/2 + 10 - 7.5 is 5.5.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1431,6 +1468,39 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="one-pass-of-the-iteration" class="slide level2">
+<h2>One Pass of the Iteration</h2>
+<p>The compression connector: <span class="math inline">\(\lambda = 6{,}000\)</span>, <span class="math inline">\(k = \$27.50\)</span>, <span class="math inline">\(h = \$0.85\)</span>, <span class="math inline">\(\pi = \$8.50\)</span>, <span class="math inline">\(\theta = 230.77\)</span>, a gamma with <span class="math inline">\(\alpha = 230.77\)</span> and <span class="math inline">\(\beta = 1\)</span>. Each pass has four steps.</p>
+<p><span class="math display">\[
+\begin{aligned}
+Q &amp;= \sqrt{2(6000)(27.50)/0.85} = 623.09
+  &amp;&amp;\text{1. start from the EOQ}\\
+G^{0}(r) &amp;= \frac{Qh}{\pi\lambda} = \frac{623.09(0.85)}{8.50(6000)} = 0.010385
+  &amp;&amp;\text{2. the stockout probability for that } Q\\
+r &amp;= 267.33
+  &amp;&amp;\text{3. the quantile, from GAMMA.INV}\\
+G^{1}(r) &amp;= (\alpha - r)\,G^{0}(r) + r\,g(r)
+  &amp;&amp;\text{4. the gamma&#39;s loss function}\\
+&amp;= (-36.56)(0.010385) + 267.33(0.0016446) = 0.05995
+  &amp;&amp;g(r) \text{ from GAMMA.DIST}\\
+Q &amp;= \sqrt{\frac{2(6000)\left[27.50 + 8.50(0.05995)\right]}{0.85}} = 628.83
+  &amp;&amp;\text{pass 2 starts here}
+\end{aligned}
+\]</span></p>
+<aside class="notes">
+<p>The gamma has no closed form for its quantile, so step 3 comes from the worksheet: GAMMA.INV(1 - 0.010385, 230.77, 1). In step 4, alpha less r is 230.77 less 267.33. In step 4 the two terms are -0.37972 and 0.43967 and nearly cancel, so the digits have to be carried. Matching a gamma to a Poisson always returns beta = 1 and alpha = theta, since the two moments are equal.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="a-fast-mover-the-compression-connector" class="slide level2">
 <h2>A Fast Mover: the Compression Connector</h2>
 <p><span class="math inline">\(\lambda = 6{,}000\)</span> a year, <span class="math inline">\(c = \$3.40\)</span>, <span class="math inline">\(k = \$27.50\)</span>, <span class="math inline">\(h = 0.25(3.40) = \$0.85\)</span>, <span class="math inline">\(\pi = \$8.50\)</span>, two weeks: <span class="math inline">\(\theta = 6000 \times 2/52 = 230.77\)</span>, Poisson, so the gamma has <span class="math inline">\(\alpha = 230.77\)</span>, <span class="math inline">\(\beta = 1\)</span>.</p>
@@ -1495,9 +1565,175 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="the-transformers-iteration" class="slide level2">
+<h2>The Transformer’s Iteration</h2>
+<p><span class="math inline">\(\lambda = 45\)</span>, <span class="math inline">\(k = \$220\)</span>, <span class="math inline">\(h = \$950\)</span>, <span class="math inline">\(\theta = 7.5\)</span>, <span class="math inline">\(\pi = \$5{,}700\)</span> per unit short. Pass 1 starts from <span class="math inline">\(Q = 4.5653\)</span>: <span class="math inline">\(G^{0}(r) = 4.5653(950)/256{,}500 = 0.016909\)</span>, <span class="math inline">\(r = 14.4156\)</span>, <span class="math inline">\(G^{1}(r) = 0.02711\)</span>, and the new <span class="math inline">\(Q\)</span> is <span class="math inline">\(\sqrt{90\left[220 + 5700(0.02711)\right]/950} = 5.9567\)</span>.</p>
+<table style="font-size:0.85em; margin-top:0.2em;">
+<thead>
+<tr>
+<th>
+Pass
+</th>
+<th>
+<span class="math inline">\(Q\)</span> in
+</th>
+<th>
+<span class="math inline">\(G^{0}(r) = Qh/(\pi\lambda)\)</span>
+</th>
+<th>
+<span class="math inline">\(r\)</span>
+</th>
+<th>
+<span class="math inline">\(G^{1}(r)\)</span>
+</th>
+<th>
+new <span class="math inline">\(Q\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td>
+1
+</td>
+<td>
+4.5653
+</td>
+<td>
+0.016909
+</td>
+<td>
+14.4156
+</td>
+<td>
+0.0271
+</td>
+<td>
+5.9567
+</td>
+</tr>
+<tr class="fragment">
+<td>
+2
+</td>
+<td>
+5.9567
+</td>
+<td>
+0.022062
+</td>
+<td>
+13.9611
+</td>
+<td>
+0.0359
+</td>
+<td>
+6.3434
+</td>
+</tr>
+<tr class="fragment">
+<td>
+3
+</td>
+<td>
+6.3434
+</td>
+<td>
+0.023494
+</td>
+<td>
+13.8522
+</td>
+<td>
+0.0384
+</td>
+<td>
+6.4480
+</td>
+</tr>
+<tr class="fragment">
+<td>
+4
+</td>
+<td>
+6.4480
+</td>
+<td>
+0.023882
+</td>
+<td>
+13.8238
+</td>
+<td>
+0.0391
+</td>
+<td>
+6.4761
+</td>
+</tr>
+<tr class="fragment">
+<td>
+5
+</td>
+<td>
+6.4761
+</td>
+<td>
+0.023986
+</td>
+<td>
+13.8163
+</td>
+<td>
+0.0393
+</td>
+<td>
+6.4837
+</td>
+</tr>
+<tr class="fragment">
+<td>
+6
+</td>
+<td>
+6.4837
+</td>
+<td>
+0.024014
+</td>
+<td>
+13.8143
+</td>
+<td>
+0.0393
+</td>
+<td>
+6.4857
+</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>The pair is heading for <span class="math inline">\(r = 13.81\)</span> and <span class="math inline">\(Q = 6.49\)</span>, so the recommendation is <span class="math inline">\((14, 6)\)</span>. Each pass closes about three quarters of the distance that remains, where the connector’s first pass closed 99% of it.</p>
+</div>
+<aside class="notes">
+<p>Pass 1 in full: the quantile comes from GAMMA.INV(1 - 0.016909, 7.5, 1), the density there is 0.009992, and G1 is (7.5 - 14.4156)(0.016909) + 14.4156(0.009992), or -0.11693 + 0.14404. At two decimals the pair settles at the sixth pass, against the second for the connector, and the worksheet, which carries every digit, takes twenty-one. A slow iteration is itself a signal that the model is being asked to work outside its assumptions.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="a-slow-mover-the-transformer" class="slide level2">
 <h2>A Slow Mover: the Transformer</h2>
-<p><span class="math inline">\(\lambda = 45\)</span>, <span class="math inline">\(k = \$220\)</span>, <span class="math inline">\(h = \$950\)</span>, <span class="math inline">\(\theta = 7.5\)</span>; an emergency purchase costs $9,500 against $3,800, so <span class="math inline">\(\pi = \$5{,}700\)</span> per unit short. The iteration takes twenty-one passes and recommends <span class="math inline">\((14, 6)\)</span>:</p>
+<p>An emergency purchase costs $9,500 against $3,800, so <span class="math inline">\(\pi = \$5{,}700\)</span> per unit short. At the recommended <span class="math inline">\((14, 6)\)</span>, with the loss function recomputed at the rounded reorder point, <span class="math inline">\(G^{1}(14) = (7.5 - 14)(0.021569) + 14(0.012519) = 0.0351\)</span>:</p>
 <p><span class="math display">\[
 C = \underbrace{220\tfrac{45}{6}}_{1{,}650.00}
 + \underbrace{950\left(\tfrac{6}{2} + 14 - 7.5\right)}_{9{,}025.00}

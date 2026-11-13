@@ -1110,7 +1110,7 @@ display:block!important;
 </tr>
 </tbody>
 </table>
-<p>The 95% cycle service policy fills 98.4% of demand; the 95% fill rate policy runs a cycle service level of 92.1%. The two disagree by several points, in both directions, on the same item.</p>
+<p>The exact columns come from the hand table. At <span class="math inline">\((12, 5)\)</span> the fill rate is <span class="math inline">\(1 - \tfrac{1}{5}\left[G^{1}(12) - G^{1}(17)\right] = 1 - \tfrac{1}{5}(0.0823 - 0.0013) = 0.9838\)</span>, and the cycle service is <span class="math inline">\(G(12) = 0.9573\)</span>. The two targets disagree by several points, in both directions, on the same item.</p>
 <div class="callout callout-important callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -1122,7 +1122,7 @@ display:block!important;
 </div>
 </div>
 <aside class="notes">
-<p>The last two columns are computed from the exact formulas, not from the targets. Safety stock is r - theta = r - 7.5, and its holding cost is 950 times that. One extra transformer of safety stock is 950 dollars a year.</p>
+<p>The 95% cycle service policy fills 98.4% of demand; the 95% fill rate policy runs a cycle service level of 92.1%. The second row: 1 - (0.1616 - 0.0032)/5 = 0.9683 and G(11) = 0.9208. The last two columns are computed from the exact formulas, not from the targets. Safety stock is r - theta = r - 7.5, and its holding cost is 950 times that. One extra transformer of safety stock is 950 dollars a year.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1232,7 +1232,7 @@ display:block!important;
 </tbody>
 </table>
 </div><div class="column" style="width:42%;">
-<p>For fixed <span class="math inline">\(Q\)</span> the best <span class="math inline">\(r\)</span> is the smallest feasible one. Finding <span class="math inline">\(Q\)</span> needs a full search.</p>
+<p>For fixed <span class="math inline">\(Q\)</span> the best <span class="math inline">\(r\)</span> is the smallest feasible one. <em>Row <span class="math inline">\(Q = 6\)</span>:</em> <span class="math inline">\(G^{1}(r) \le 0.30\)</span> first holds at <span class="math inline">\(r = 10\)</span>, where <span class="math inline">\(G^{1}(10) = 0.2993\)</span>; ordering is <span class="math inline">\(220(45/6) = \$1{,}650\)</span> and holding is <span class="math inline">\(950(3 + 10 - 7.5) = \$5{,}225\)</span>.</p>
 <p>Notice that the total is <strong>not unimodal</strong>. It falls to $6,875 at <span class="math inline">\(Q = 6\)</span>, rises to $8,115 at <span class="math inline">\(Q = 10\)</span>, and falls again at <span class="math inline">\(Q = 11\)</span>, where the constraint slackens enough for <span class="math inline">\(r\)</span> to drop a whole unit and save <span class="math inline">\(h\)</span> at a stroke.</p>
 <p>The EOQ shortcut gives <span class="math inline">\((11, 5)\)</span> at $7,680; the program gives <span class="math inline">\((10, 6)\)</span> at $6,875. <strong>The shortcut costs $805 a year, 10.5%</strong>, at the same target.</p>
 </div></div>
@@ -1442,7 +1442,7 @@ C(8, 7) = \frac{9{,}900 + 40{,}676.04}{7} = \$7{,}225.15
 \]</span></p>
 <p>which is what the four exact formulas give directly. Two routes, one answer, and the second is the one that can be optimized.</p>
 <aside class="notes">
-<p>The first line uses the on-hand formula: (Q+1)/2 + r - theta + Bbar is the average of s - theta + G1(s) over the window, because the average of s over the window is r + (Q+1)/2. Everything else is collecting terms.</p>
+<p>The first line uses the on-hand formula: (Q+1)/2 + r - theta + Bbar is the average of s - theta + G1(s) over the window, because the average of s over the window is r + (Q+1)/2. Everything else is collecting terms. The seven values in the check are 6,392.69, 5,218.57, 4,859.83, 5,057.03, 5,601.71, 6,346.84 and 7,199.37, which sum to 40,676.04.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;

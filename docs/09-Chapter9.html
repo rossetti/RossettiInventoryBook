@@ -566,7 +566,8 @@ window.Quarto = {
   <li><a href="#sec-multiechelon-delay-depot" id="toc-sec-multiechelon-delay-depot" class="nav-link" data-scroll-target="#sec-multiechelon-delay-depot"><span class="header-section-number">9.6.1</span> The Depot Is a Single Location</a></li>
   <li><a href="#sec-multiechelon-delay-little" id="toc-sec-multiechelon-delay-little" class="nav-link" data-scroll-target="#sec-multiechelon-delay-little"><span class="header-section-number">9.6.2</span> From Backorders to a Wait</a></li>
   <li><a href="#sec-multiechelon-delay-shape" id="toc-sec-multiechelon-delay-shape" class="nav-link" data-scroll-target="#sec-multiechelon-delay-shape"><span class="header-section-number">9.6.3</span> What a Unit at the Depot Buys</a></li>
-  <li><a href="#sec-multiechelon-delay-forward" id="toc-sec-multiechelon-delay-forward" class="nav-link" data-scroll-target="#sec-multiechelon-delay-forward"><span class="header-section-number">9.6.4</span> Where This Leaves Us</a></li>
+  <li><a href="#sec-multiechelon-delay-table" id="toc-sec-multiechelon-delay-table" class="nav-link" data-scroll-target="#sec-multiechelon-delay-table"><span class="header-section-number">9.6.4</span> The Table the Depot’s Examples Read From</a></li>
+  <li><a href="#sec-multiechelon-delay-forward" id="toc-sec-multiechelon-delay-forward" class="nav-link" data-scroll-target="#sec-multiechelon-delay-forward"><span class="header-section-number">9.6.5</span> Where This Leaves Us</a></li>
   </ul></li>
   <li><a href="#sec-multiechelon-metric" id="toc-sec-multiechelon-metric" class="nav-link" data-scroll-target="#sec-multiechelon-metric"><span class="header-section-number">9.7</span> METRIC</a>
   <ul>
@@ -692,7 +693,7 @@ window.Quarto = {
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="sec-multiechelon-positioning-tradeoff"><span class="header-section-number">9.1.2</span> What Changes When Stock Moves Forward</h3>
 <p>Recall from <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> that a single location holds stock for one reason: demand arrives during a lead time and cannot be met from an empty shelf. Moving stock forward changes three things at once, and they do not point the same way.</p>
 <p>Forward stock is closer to demand, so it is faster. A unit held at a supported site can be issued immediately. The same unit held at a distribution center has to be picked, packed and shipped first.</p>
-<p>Forward stock is less pooled, so there is more of it. Recall from <a href="13-AppProbability.html#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.12</span></a> that aggregating independent demand streams makes the total relatively less variable, since the mean grows with the number of streams and the standard deviation only with its square root. <a href="13-AppProbability.html#sec-appprobability-sums-moments" class="quarto-xref"><span>Section B.2.1</span></a> named this chapter as the place that fact is spent. For example, one location serving ten supported sites faces the pooled stream. Splitting that stock across ten locations gives up the pooling, and each location then covers its own variability separately.</p>
+<p>Forward stock is less pooled, so there is more of it. Recall from <a href="13-AppProbability.html#eq-cv-shrink" class="quarto-xref">Equation&nbsp;<span>B.17</span></a> that aggregating independent demand streams makes the total relatively less variable, since the mean grows with the number of streams and the standard deviation only with its square root. <a href="13-AppProbability.html#sec-appprobability-sums-moments" class="quarto-xref"><span>Section B.2.1</span></a> named this chapter as the place that fact is spent. For example, one location serving ten supported sites faces the pooled stream. Splitting that stock across ten locations gives up the pooling, and each location then covers its own variability separately.</p>
 <p>Forward stock does not remove the need for stock behind it, either. The supplying location still faces demand, now from the locations it supports rather than from end customers, and it still needs a policy.</p>
 <p>Thus, positioning trades responsiveness against the total investment needed to achieve it, and the trade is not obvious in either direction. <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> computes it on real items and finds the answer going both ways depending on the item.</p>
 <p>One warning before the machinery starts. It is tempting to decide positioning by rules of thumb: stock fast movers forward, stock slow movers centrally, stock expensive items centrally. Those rules are usually right and they are not always right, and the cases where they fail are the ones to compute. You should treat them as a way to prioritize which items to analyze, and not as the analysis.</p>
@@ -713,7 +714,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>The transformer’s economic order quantity as a consumable is not one. From <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.5</span></a> it moves <span class="math inline">\(\lambda = 45\)</span> units a year against an ordering cost of <span class="math inline">\(k = \$220\)</span> and a holding cost of <span class="math inline">\(h = 0.25(\$3{,}800) = \$950\)</span> per unit per year, so <a href="03-Chapter3.html#eq-eoq" class="quarto-xref">Equation&nbsp;<span>3.17</span></a> gives</p>
+<p>The transformer’s economic order quantity as a consumable is not one. From <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.9</span></a> it moves <span class="math inline">\(\lambda = 45\)</span> units a year against an ordering cost of <span class="math inline">\(k = \$220\)</span> and a holding cost of <span class="math inline">\(h = 0.25(\$3{,}800) = \$950\)</span> per unit per year, so <a href="03-Chapter3.html#eq-eoq" class="quarto-xref">Equation&nbsp;<span>3.17</span></a> gives</p>
 <p><span class="math display">\[
 Q^{*} = \sqrt{\frac{2(220)(45)}{950}} = \sqrt{20.84} = 4.57
 \]</span></p>
@@ -776,6 +777,24 @@ Figure&nbsp;9.1: A two-echelon repairable system, drawn for one storeroom of the
 \lambda_0 = \sum_{j=1}^{J}\lambda_{j0} = \sum_{j=1}^{J}(1 - \phi_j)\lambda_j
 \tag{9.2}\]</span></span></p>
 <p><a href="#eq-repairable-passup" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> is the payoff for starting with one-for-one ordering. The stream a storeroom sends up is its own failure stream, thinned by local repair and nothing else. That is, the requests arrive one at a time, at the instants the failures occur, and a thinned Poisson process is Poisson. Thus, the depot faces Poisson demand at rate <span class="math inline">\(\lambda_0\)</span>, and <a href="#sec-multiechelon-metric" class="quarto-xref"><span>Section 9.7</span></a> can treat the depot with the same machinery as a storeroom.</p>
+<div class="callout callout-style-simple callout-tip callout-titled" title="Probability reminder: splitting and merging Poisson streams">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Probability reminder: splitting and merging Poisson streams
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Two facts about a Poisson process carry this chapter, and <a href="13-AppProbability.html#sec-appprobability-poisson-ops" class="quarto-xref"><span>Section B.3.2</span></a> proves both.</p>
+<ul>
+<li><strong>Splitting.</strong> Suppose events arrive in a Poisson process at rate <span class="math inline">\(\lambda\)</span>, and each event is sent one way with probability <span class="math inline">\(p\)</span> and the other way with probability <span class="math inline">\(1 - p\)</span>, independently of every other event. Then the two streams are Poisson processes at rates <span class="math inline">\(p\lambda\)</span> and <span class="math inline">\((1-p)\lambda\)</span>, and they are independent of one another.</li>
+<li><strong>Merging.</strong> The events of several independent Poisson processes, taken together, form one Poisson process at the sum of the rates.</li>
+</ul>
+<p>For example, a storeroom with 45 failures a year that rebuilds three in ten splits its failures into a local stream at <span class="math inline">\(0.3(45) = 13.5\)</span> a year and a depot stream at <span class="math inline">\(0.7(45) = 31.5\)</span> a year. The number of requests it sends the depot in a year is Poisson with mean 31.5, whatever the number it rebuilt itself that year. Four such storerooms merge into one stream of requests at <span class="math inline">\(4(31.5) = 126\)</span> a year.</p>
+</div>
+</div>
 <p>For example, take the utility’s transformer with <span class="math inline">\(\lambda_j = 45\)</span> failures a year at a storeroom that rebuilds three in ten locally. Then <span class="math inline">\(\phi_j = 0.3\)</span> and <a href="#eq-repairable-passup" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> gives <span class="math inline">\(\lambda_{j0} = 0.7(45) = 31.5\)</span> requests a year to the depot. If four such storerooms are supported and all look alike, then <a href="#eq-repairable-depotrate" class="quarto-xref">Equation&nbsp;<span>9.2</span></a> gives <span class="math inline">\(\lambda_0 = 4(31.5) = 126\)</span> requests a year.</p>
 <p><em>Compare that with what batching would demand.</em> When a location orders in batches the stream it sends up is not its demand stream at all. Its timing, its size and its variability all have to be derived, and none of them is Poisson. <a href="#eq-repairable-passup" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> is one line because <span class="math inline">\(Q = 1\)</span>.</p>
 </section>
@@ -815,7 +834,7 @@ P\{X = x\} = \frac{e^{-\lambda T}(\lambda T)^{x}}{x!}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Do not read this as “lead time variability never matters”.</strong> <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> built the opposite lesson, and <a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> inflates the lead time demand variance by <span class="math inline">\(\mathit{Var}[L](E[D])^{2}\)</span> when the lead time is random. Both are correct, and <a href="13-AppProbability.html#sec-appprobability-poisson-palm" class="quarto-xref"><span>Section B.3.3</span></a> sets them side by side. The separating question is whether an activity started later can finish earlier. Under a single common lead time it cannot, and one long draw stretches everything in the pipe at once. In a repair shop it can, and routinely does, so a long teardown and a quick reseat overlap and the long one delays nothing. Thus, the variability averages away between units rather than accumulating across them.</p>
+<p><strong>Do not read this as “lead time variability never matters”.</strong> <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> built the opposite lesson, and <a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> inflates the lead time demand variance by <span class="math inline">\(\mathit{Var}[L](E[D])^{2}\)</span> when the lead time is random. Both are correct, and <a href="13-AppProbability.html#sec-appprobability-poisson-palm" class="quarto-xref"><span>Section B.3.3</span></a> sets them side by side. The separating question is whether an activity started later can finish earlier. Under a single common lead time it cannot, and one long draw stretches everything in the pipe at once. In a repair shop it can, and routinely does, so a long teardown and a quick reseat overlap and the long one delays nothing. Thus, the variability averages away between units rather than accumulating across them.</p>
 </div>
 </div>
 </div>
@@ -926,9 +945,16 @@ E[\text{duration}] = (0.3)(30) + (0.7)(10) = 9 + 7 = 16 \text{ days}
 \Delta_j(S_j) = \bar{B}_j(S_j) - \bar{B}_j(S_j + 1)
 \tag{9.9}\]</span></span></p>
 <p>Recall from <a href="14-AppDistributions.html#eq-loss-discrete-first" class="quarto-xref">Equation&nbsp;<span>C.11</span></a> that the first order loss function is a tail sum of the complementary distribution function, <span class="math inline">\(G^{1}(b) = \sum_{x \ge b}
-G^{0}(x)\)</span>. We drop one term from the tail sum, which leaves that term, so</p>
+G^{0}(x)\)</span>. The two backorder levels in <a href="#eq-marginal-def" class="quarto-xref">Equation&nbsp;<span>9.9</span></a> are two such sums, and they differ by one term:</p>
 <p><span id="eq-marginal-value"><span class="math display">\[
-\Delta_j(S_j) = G^{0}(S_j) = P\{X_j &gt; S_j\}
+\begin{aligned}
+\Delta_j(S_j) &amp;= G^{1}(S_j) - G^{1}(S_j+1)
+  &amp;&amp;\text{two loss functions}\\
+&amp;= \sum_{x \ge S_j}G^{0}(x) - \sum_{x \ge S_j+1}G^{0}(x)
+  &amp;&amp;\text{each is a tail sum}\\
+&amp;= G^{0}(S_j) = P\{X_j &gt; S_j\}
+  &amp;&amp;\text{one term survives}
+\end{aligned}
 \tag{9.10}\]</span></span></p>
 <p><a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a> reads as a sentence. The next unit removes a backorder exactly when the pipeline would otherwise have exceeded the stock, and the value of that unit is simply the probability that it does. That is, you are paying for a unit and receiving, in expected backorders, the chance that you would have been short without it. Recall <a href="#eq-repairable-readyrate" class="quarto-xref">Equation&nbsp;<span>9.8</span></a> and notice the same object appearing twice: <span class="math inline">\(\Delta_j(S_j) = 1 - \overline{\mathit{RR}}_j(S_j+1)\)</span>.</p>
 <p>Notice that <span class="math inline">\(G^{0}\)</span> is nonincreasing, because it is a complementary distribution function. Thus, <span class="math inline">\(\Delta_j(S_j)\)</span> shrinks as <span class="math inline">\(S_j\)</span> grows: the first unit at a location buys more than the second, which buys more than the third. That is <strong>diminishing returns</strong>, and it is equivalent to saying <span class="math inline">\(\bar{B}_j\)</span> is <strong>convex</strong> in <span class="math inline">\(S_j\)</span>.</p>
@@ -936,25 +962,31 @@ G^{0}(x)\)</span>. We drop one term from the tail sum, which leaves that term, s
 <div id="exm-onelocation-transformer" class="theorem example">
 <p><span class="theorem-title"><strong>Example 9.2 (Stocking one storeroom with transformers)</strong></span> The item, the storeroom and the pipeline are those of <a href="#exm-palm-transformer" class="quarto-xref">Example&nbsp;<span>9.1</span></a>, and nothing about the system has changed, so the modeling questions there have the same answers. Take the depot to be generous, so that <span class="math inline">\(\bar{W}_j = 0\)</span> and <a href="#eq-storeroom-pipeline" class="quarto-xref">Equation&nbsp;<span>9.4</span></a> gives <span class="math inline">\(\mu_j = 1.9726\)</span> transformers in resupply on average.</p>
 <p><em>The question.</em> How many transformers should this storeroom hold?</p>
-<p><em>The computation.</em> <a href="#eq-repairable-backorders" class="quarto-xref">Equation&nbsp;<span>9.6</span></a> through <a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a> applied to the Poisson distribution with mean <span class="math inline">\(1.9726\)</span> give <a href="#tbl-onelocation-transformer" class="quarto-xref">Table&nbsp;<span>9.1</span></a>.</p>
+<p><em>The distribution, by hand.</em> Every measure of <a href="#sec-multiechelon-onelocation-measures" class="quarto-xref"><span>Section 9.4.2</span></a> is read from the mass function of the pipeline, its distribution function, and its loss function. Recall from <a href="07-Chapter7.html#sec-newsvendor-discrete-hand" class="quarto-xref"><span>Section 7.8.1</span></a> that those columns are built a row at a time by <a href="07-Chapter7.html#eq-newsvendor-handrecursion" class="quarto-xref">Equation&nbsp;<span>7.14</span></a>, as <a href="08-Chapter8.html#tbl-basestock-handtable" class="quarto-xref">Table&nbsp;<span>8.5</span></a> did for a mean of 7.5. The pipeline here has mean <span class="math inline">\(\mu_j = 1.9726\)</span>, which is not a column of any table in <a href="15-AppTables.html" class="quarto-xref"><span>Appendix D</span></a>, so we build it.</p>
+<p><em>Row 0.</em> The first mass is <span class="math inline">\(g(0) = e^{-1.9726} = 0.1391\)</span>, so <span class="math inline">\(G(0) = 0.1391\)</span> and <span class="math inline">\(G^{0}(0) = 1 - 0.1391 = 0.8609\)</span>. The loss column starts from the mean, <span class="math inline">\(G^{1}(0) = \mu_j = 1.9726\)</span>.</p>
+<p><em>Row 1.</em> The mass is <span class="math inline">\(g(1) = g(0)(1.9726/1) = 0.1391(1.9726) = 0.2744\)</span>, so <span class="math inline">\(G(1) = 0.1391 + 0.2744 = 0.4135\)</span> and <span class="math inline">\(G^{0}(1) = 1 - 0.4135 = 0.5865\)</span>. Then <span class="math inline">\(G^{1}(1) = G^{1}(0) - G^{0}(0) = 1.9726 - 0.8609 = 1.1117\)</span>.</p>
+<p><em>Row 2.</em> The mass is <span class="math inline">\(g(2) = g(1)(1.9726/2) = 0.2744(0.9863) = 0.2706\)</span>, so <span class="math inline">\(G(2) = 0.4135 + 0.2706 = 0.6841\)</span> and <span class="math inline">\(G^{0}(2) = 0.3159\)</span>. Then <span class="math inline">\(G^{1}(2) = G^{1}(1) - G^{0}(1) = 1.1117 - 0.5865 = 0.5252\)</span>.</p>
+<p><em>The measures.</em> Each row of <a href="#tbl-onelocation-transformer" class="quarto-xref">Table&nbsp;<span>9.1</span></a> is now four readings. Take <span class="math inline">\(S_j = 2\)</span>. By <a href="#eq-repairable-backorders" class="quarto-xref">Equation&nbsp;<span>9.6</span></a> the expected backorder level is the loss column, <span class="math inline">\(\bar{B}_j(2) = G^{1}(2) = 0.5252\)</span> units. By <a href="#eq-repairable-onhand" class="quarto-xref">Equation&nbsp;<span>9.7</span></a> the expected on-hand is <span class="math inline">\(\bar{I}_j(2) = 2 - 1.9726 + 0.5252 = 0.5526\)</span> units. By <a href="#eq-repairable-readyrate" class="quarto-xref">Equation&nbsp;<span>9.8</span></a> the ready rate is the distribution function <strong>one row up</strong>, <span class="math inline">\(\overline{\mathit{RR}}_j(2) = G(1) = 0.4135\)</span>. By <a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a> the third unit would remove <span class="math inline">\(\Delta_j(2) = G^{0}(2) = 0.3159\)</span> backorders. The rows for <span class="math inline">\(S_j = 3\)</span> to <span class="math inline">\(6\)</span> repeat the three steps of the recursion and then the four readings.</p>
 <div id="tbl-onelocation-transformer" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-onelocation-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipeline that is Poisson with mean 1.9726 units.
+Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipeline that is Poisson with mean 1.9726 units. The <span class="math inline">\(\bar{B}_j\)</span> column is <span class="math inline">\(G^{1}(S_j)\)</span> and the <span class="math inline">\(\Delta_j\)</span> column is <span class="math inline">\(G^{0}(S_j)\)</span>, so the table is also the hand table for this pipeline.
 </figcaption>
 <div aria-describedby="tbl-onelocation-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: right;"><span class="math inline">\(S_j\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(g(S_j)\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(G(S_j)\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(\bar{B}_j\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(\bar{I}_j\)</span></th>
@@ -966,6 +998,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 <tr class="odd">
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0.1391</td>
+<td style="text-align: right;">0.1391</td>
 <td style="text-align: right;">1.9726</td>
 <td style="text-align: right;">0.0000</td>
 <td style="text-align: right;">0.0000</td>
@@ -973,6 +1006,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">0.2744</td>
 <td style="text-align: right;">0.4135</td>
 <td style="text-align: right;">1.1117</td>
 <td style="text-align: right;">0.1391</td>
@@ -981,6 +1015,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">0.2706</td>
 <td style="text-align: right;">0.6841</td>
 <td style="text-align: right;">0.5252</td>
 <td style="text-align: right;">0.5526</td>
@@ -989,6 +1024,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">0.1779</td>
 <td style="text-align: right;">0.8620</td>
 <td style="text-align: right;">0.2093</td>
 <td style="text-align: right;">1.2367</td>
@@ -997,6 +1033,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 </tr>
 <tr class="odd">
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">0.0878</td>
 <td style="text-align: right;">0.9498</td>
 <td style="text-align: right;">0.0713</td>
 <td style="text-align: right;">2.0987</td>
@@ -1005,6 +1042,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0346</td>
 <td style="text-align: right;">0.9844</td>
 <td style="text-align: right;">0.0211</td>
 <td style="text-align: right;">3.0485</td>
@@ -1013,6 +1051,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 </tr>
 <tr class="odd">
 <td style="text-align: right;">6</td>
+<td style="text-align: right;">0.0114</td>
 <td style="text-align: right;">0.9958</td>
 <td style="text-align: right;">0.0055</td>
 <td style="text-align: right;">4.0329</td>
@@ -1027,7 +1066,7 @@ Table&nbsp;9.1: Performance at one storeroom against its stock level, for a pipe
 <p><em>The check.</em> Take the row <span class="math inline">\(S_j = 3\)</span>. Then <span class="math inline">\(\bar{I}_j - \bar{B}_j = 1.2367 - 0.2093 = 1.0274\)</span>, and <span class="math inline">\(S_j - \mu_j = 3 - 1.9726 = 1.0274\)</span>. The identity behind <a href="#eq-repairable-onhand" class="quarto-xref">Equation&nbsp;<span>9.7</span></a> holds, as it must, and it holds on every row.</p>
 <p><em>A second check, on the marginal column.</em> <a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a> says <span class="math inline">\(\Delta_j(2) = G^{0}(2) = 1 - G(2) = 1 - 0.6841 = 0.3159\)</span>, and the backorder column agrees: <span class="math inline">\(0.5252 - 0.2093 = 0.3159\)</span>. Perform this one too, because it confirms the loss function and the distribution function were evaluated at the same index, which is the error <a href="08-Chapter8.html#eq-basestock-backorders-hand" class="quarto-xref">Equation&nbsp;<span>8.11</span></a> warns about.</p>
 <p><em>Interpretation.</em> Read the <span class="math inline">\(\Delta_j\)</span> column down and the shape of the decision appears. The first transformer removes 0.86 units from the average number owed to waiting crews, the second 0.59, the third 0.32, and the fifth only 0.016. At $3,800 a unit the fifth transformer is buying almost nothing, and the utility would do better spending that $3,800 on a different item or a different storeroom. Notice that we have not needed a backorder cost to see this. We have a ranked list of what each unit buys, and <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> turns a list like this one into a decision.</p>
-<p><em>Validation against a closed form.</em> If a shortage cost were available the answer would be the critical ratio of <a href="08-Chapter8.html#eq-basestock-optimal" class="quarto-xref">Equation&nbsp;<span>8.15</span></a>, since <a href="#eq-repairable-net" class="quarto-xref">Equation&nbsp;<span>9.5</span></a> is <a href="08-Chapter8.html#eq-basestock-net" class="quarto-xref">Equation&nbsp;<span>8.9</span></a> and the base-stock problem is the newsvendor problem. For example, the <span class="math inline">\(h = \$950\)</span> and <span class="math inline">\(b = \$8{,}550\)</span> of <a href="08-Chapter8.html#exm-basestock-transformer" class="quarto-xref">Example&nbsp;<span>8.3</span></a> give a ratio of <span class="math inline">\(8550/9500 = 0.90\)</span>, and reading down the <span class="math inline">\(G(S_j)\)</span> column the first value at or above <span class="math inline">\(0.90\)</span> is <span class="math inline">\(0.9498\)</span> at <span class="math inline">\(S_j = 4\)</span>. Thus, four transformers, and the marginal reading agrees that the fourth is the last one that buys much.</p>
+<p><em>Validation against a closed form.</em> If a shortage cost were available the answer would be the critical ratio of <a href="08-Chapter8.html#eq-basestock-optimal" class="quarto-xref">Equation&nbsp;<span>8.16</span></a>, since <a href="#eq-repairable-net" class="quarto-xref">Equation&nbsp;<span>9.5</span></a> is <a href="08-Chapter8.html#eq-basestock-net" class="quarto-xref">Equation&nbsp;<span>8.9</span></a> and the base-stock problem is the newsvendor problem. For example, the <span class="math inline">\(h = \$950\)</span> and <span class="math inline">\(b = \$8{,}550\)</span> of <a href="08-Chapter8.html#exm-basestock-transformer" class="quarto-xref">Example&nbsp;<span>8.3</span></a> give a ratio of <span class="math inline">\(8550/9500 = 0.90\)</span>, and reading down the <span class="math inline">\(G(S_j)\)</span> column the first value at or above <span class="math inline">\(0.90\)</span> is <span class="math inline">\(0.9498\)</span> at <span class="math inline">\(S_j = 4\)</span>. Thus, four transformers, and the marginal reading agrees that the fourth is the last one that buys much.</p>
 <p><em>Where that stops applying.</em> The critical ratio needs <span class="math inline">\(b\)</span>, and the systems this chapter is aimed at cannot state it, per <a href="#sec-multiechelon-onefortone-measures" class="quarto-xref"><span>Section 9.2.4</span></a>. It also treats this storeroom alone, when in fact the $3,800 competes against every other item at every other storeroom. Both objections are answered the same way, by ranking marginal buys against a budget rather than pricing shortages, and that is what <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> does.</p>
 </div>
 </section>
@@ -1658,7 +1697,7 @@ Table&nbsp;9.2: The completed ledger, twenty-six weeks at a storeroom and the de
 </section>
 <section id="sec-multiechelon-delay-little" class="level3" data-number="9.6.2">
 <h3 data-number="9.6.2" class="anchored" data-anchor-id="sec-multiechelon-delay-little"><span class="header-section-number">9.6.2</span> From Backorders to a Wait</h3>
-<p>Recall from <a href="13-AppProbability.html#sec-appprobability-renewal-littles" class="quarto-xref"><span>Section B.4.3</span></a> that <a href="13-AppProbability.html#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.24</span></a> relates the average number in a system, the arrival rate into it, and the average time an arrival spends there, and that it assumes almost nothing.</p>
+<p>Recall from <a href="13-AppProbability.html#sec-appprobability-renewal-littles" class="quarto-xref"><span>Section B.4.3</span></a> that <a href="13-AppProbability.html#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> relates the average number in a system, the arrival rate into it, and the average time an arrival spends there, and that it assumes almost nothing.</p>
 <p>We take the system to be the set of requests the depot has accepted but not yet filled. Arrivals into that system are requests the depot cannot fill on the spot, departures are the shipments that clear them, the average number in it is the depot’s average backorder level <span class="math inline">\(\bar{B}_0\)</span>, and the rate at which requests present themselves is <span class="math inline">\(\lambda_0\)</span>. Thus</p>
 <p><span id="eq-depot-wait"><span class="math display">\[
 \bar{W} = \frac{\bar{B}_0(S_0)}{\lambda_0}
@@ -1688,6 +1727,225 @@ Table&nbsp;9.2: The completed ledger, twenty-six weeks at a storeroom and the de
 \tag{9.15}\]</span></span></p>
 <p>Thus, the delay falls with depot stock, and falls by less with every unit added. That is <a href="#sec-multiechelon-onelocation-marginal" class="quarto-xref"><span>Section 9.4.3</span></a> read at the upper level, and it means the depot’s stock level faces the same diminishing returns as a storeroom’s.</p>
 <p>It is not the same decision, however. A unit added at a storeroom helps that storeroom. A unit added at the depot shortens <span class="math inline">\(\bar{W}\)</span>, which by <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> shrinks the pipeline at <strong>every storeroom at once</strong>. That asymmetry is what makes multi-echelon stocking a subject of its own, and <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> is where the two kinds of unit are made to compete on even terms.</p>
+</section>
+<section id="sec-multiechelon-delay-table" class="level3" data-number="9.6.4">
+<h3 data-number="9.6.4" class="anchored" data-anchor-id="sec-multiechelon-delay-table"><span class="header-section-number">9.6.4</span> The Table the Depot’s Examples Read From</h3>
+<p>The utility’s depot, which the next example sets up, receives <span class="math inline">\(\lambda_0 = 126\)</span> requests a year and repairs a carcass in <span class="math inline">\(T_0 = 60\)</span> days on average. Thus by <a href="#eq-depot-pipeline" class="quarto-xref">Equation&nbsp;<span>9.12</span></a> its pipeline is Poisson with mean <span class="math inline">\(\mu_0 = 126(60/365) = 20.7123\)</span> units. Every example from here to the end of the chapter reads the depot from that one distribution. No table in <a href="15-AppTables.html" class="quarto-xref"><span>Appendix D</span></a> carries a mean of 20.7123, so we build it, and the method is <a href="07-Chapter7.html#eq-newsvendor-handrecursion" class="quarto-xref">Equation&nbsp;<span>7.14</span></a> unchanged.</p>
+<p><em>Row 0.</em> The first mass is <span class="math inline">\(g(0) = e^{-20.7123} = 1.011 \times 10^{-9}\)</span>, which prints as 0.0000. Thus <span class="math inline">\(G(0) = 0.0000\)</span> and <span class="math inline">\(G^{0}(0) = 1.0000\)</span> to four decimals, and the loss column starts from the mean, <span class="math inline">\(G^{1}(0) = \mu_0 = 20.7123\)</span>.</p>
+<p><em>Row 1.</em> The mass is <span class="math inline">\(g(1) = g(0)(20.7123/1) = 2.094 \times 10^{-8}\)</span>, still 0.0000 at four decimals, so <span class="math inline">\(G^{0}(1) = 1.0000\)</span>. Then <span class="math inline">\(G^{1}(1) = G^{1}(0) - G^{0}(0) = 20.7123 - 1.0000 = 19.7123\)</span>.</p>
+<p>Notice what a mean this large does to the first rows. Below <span class="math inline">\(x = 6\)</span> the masses are too small to print, so <span class="math inline">\(G^{0}\)</span> reads 1.0000 and <span class="math inline">\(G^{1}\)</span> falls by one unit a row. That is the model saying that a depot holding five transformers against a pipeline of twenty-one is certain to be short, and that each unit added there removes one whole backorder. The recursion does not change further down, but twenty-seven rows is a worksheet’s work and not a hand’s. <a href="#sec-multiechelon-build-depot" class="quarto-xref"><span>Section 9.10.1</span></a> builds this block with <code>POISSON.DIST</code>, and <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a> prints it. As in <a href="07-Chapter7.html#sec-newsvendor-discrete-hand" class="quarto-xref"><span>Section 7.8.1</span></a>, the working carries every digit and the page prints four, so a figure recomputed from the printed ones can differ in the last place.</p>
+<div id="tbl-depot-handtable" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-depot-handtable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.3: The depot’s pipeline for the transformer, Poisson with <span class="math inline">\(\mu_0 = 20.7123\)</span>, and its first order loss function, built a row at a time. Notice that the <span class="math inline">\(G^{1}\)</span> column is the depot’s expected backorder level <span class="math inline">\(\bar{B}_0\)</span> at each stock level.
+</figcaption>
+<div aria-describedby="tbl-depot-handtable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(g(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{0}(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{1}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">20.7123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">19.7123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">18.7123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">17.7123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">16.7123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">15.7123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.0001</td>
+<td style="text-align: right;">0.0002</td>
+<td style="text-align: right;">0.9998</td>
+<td style="text-align: right;">14.7124</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.0003</td>
+<td style="text-align: right;">0.0005</td>
+<td style="text-align: right;">0.9995</td>
+<td style="text-align: right;">13.7125</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.0008</td>
+<td style="text-align: right;">0.0013</td>
+<td style="text-align: right;">0.9987</td>
+<td style="text-align: right;">12.7130</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.0020</td>
+<td style="text-align: right;">0.0033</td>
+<td style="text-align: right;">0.9967</td>
+<td style="text-align: right;">11.7143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.0040</td>
+<td style="text-align: right;">0.0073</td>
+<td style="text-align: right;">0.9927</td>
+<td style="text-align: right;">10.7176</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.0076</td>
+<td style="text-align: right;">0.0150</td>
+<td style="text-align: right;">0.9850</td>
+<td style="text-align: right;">9.7250</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.0132</td>
+<td style="text-align: right;">0.0281</td>
+<td style="text-align: right;">0.9719</td>
+<td style="text-align: right;">8.7399</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.0210</td>
+<td style="text-align: right;">0.0491</td>
+<td style="text-align: right;">0.9509</td>
+<td style="text-align: right;">7.7680</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0310</td>
+<td style="text-align: right;">0.0801</td>
+<td style="text-align: right;">0.9199</td>
+<td style="text-align: right;">6.8171</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.0428</td>
+<td style="text-align: right;">0.1229</td>
+<td style="text-align: right;">0.8771</td>
+<td style="text-align: right;">5.8972</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.0554</td>
+<td style="text-align: right;">0.1783</td>
+<td style="text-align: right;">0.8217</td>
+<td style="text-align: right;">5.0201</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.0675</td>
+<td style="text-align: right;">0.2459</td>
+<td style="text-align: right;">0.7541</td>
+<td style="text-align: right;">4.1985</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.0777</td>
+<td style="text-align: right;">0.3236</td>
+<td style="text-align: right;">0.6764</td>
+<td style="text-align: right;">3.4443</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0.0847</td>
+<td style="text-align: right;">0.4083</td>
+<td style="text-align: right;">0.5917</td>
+<td style="text-align: right;">2.7680</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0.0877</td>
+<td style="text-align: right;">0.4961</td>
+<td style="text-align: right;">0.5039</td>
+<td style="text-align: right;">2.1763</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0.0865</td>
+<td style="text-align: right;">0.5826</td>
+<td style="text-align: right;">0.4174</td>
+<td style="text-align: right;">1.6724</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0.0815</td>
+<td style="text-align: right;">0.6641</td>
+<td style="text-align: right;">0.3359</td>
+<td style="text-align: right;">1.2550</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0.0734</td>
+<td style="text-align: right;">0.7375</td>
+<td style="text-align: right;">0.2625</td>
+<td style="text-align: right;">0.9191</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0.0633</td>
+<td style="text-align: right;">0.8008</td>
+<td style="text-align: right;">0.1992</td>
+<td style="text-align: right;">0.6565</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.0525</td>
+<td style="text-align: right;">0.8532</td>
+<td style="text-align: right;">0.1468</td>
+<td style="text-align: right;">0.4573</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0.0418</td>
+<td style="text-align: right;">0.8950</td>
+<td style="text-align: right;">0.1050</td>
+<td style="text-align: right;">0.3105</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><em>The check.</em> Two readings confirm the block. Each mass is the one above it times <span class="math inline">\(20.7123/x\)</span>, so the mass column must rise while <span class="math inline">\(x\)</span> is below the mean and fall once <span class="math inline">\(x\)</span> passes it. Its largest entry is at <span class="math inline">\(x = 20\)</span>, the last whole number below 20.7123, as it should be. In addition, the loss column unrolls into the sum of <a href="08-Chapter8.html#eq-basestock-backorders-hand" class="quarto-xref">Equation&nbsp;<span>8.11</span></a>: the sixteen <span class="math inline">\(G^{0}\)</span> entries of rows 0 to 15 add to 15.6922, and <span class="math inline">\(20.7123 - 15.6922 = 5.0201 = G^{1}(16)\)</span>. That check is worth performing every time, because it catches a loss column that was started one row late.</p>
 <div id="exm-delay-transformer" class="theorem example">
 <p><span class="theorem-title"><strong>Example 9.3 (What the depot’s stock does to four storerooms)</strong></span> The utility of <a href="#exm-palm-transformer" class="quarto-xref">Example&nbsp;<span>9.1</span></a> supports four storerooms alike, each seeing <span class="math inline">\(\lambda_j = 45\)</span> failures a year and rebuilding <span class="math inline">\(\phi_j = 0.3\)</span> of them locally. The central depot repairs what it receives in <span class="math inline">\(T_0 = 60\)</span> days on average.</p>
 <p><em>The depot’s demand.</em> By <a href="#eq-repairable-passup" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> each storeroom sends up <span class="math inline">\(0.7(45) = 31.5\)</span> requests a year, and by <a href="#eq-repairable-depotrate" class="quarto-xref">Equation&nbsp;<span>9.2</span></a> the depot sees <span class="math inline">\(\lambda_0 = 4(31.5) = 126\)</span> requests a year.</p>
@@ -1696,11 +1954,83 @@ Table&nbsp;9.2: The completed ledger, twenty-six weeks at a storeroom and the de
 \mu_0 = 126\left(\frac{60}{365}\right) = 20.7123 \text{ units}
 \]</span></p>
 <p>so the depot has about twenty-one transformers on benches at any moment. Notice that this is an order of magnitude larger than the 1.97 units in a storeroom’s pipeline, which is what a central location looks like.</p>
-<p><em>The delay, against depot stock.</em> <a href="#eq-repairable-backorders" class="quarto-xref">Equation&nbsp;<span>9.6</span></a> and <a href="#eq-depot-wait" class="quarto-xref">Equation&nbsp;<span>9.13</span></a> applied to the Poisson distribution with mean <span class="math inline">\(20.7123\)</span> give <a href="#tbl-delay-transformer" class="quarto-xref">Table&nbsp;<span>9.3</span></a>.</p>
+<p><em>The delay at one depot stock level.</em> Take <span class="math inline">\(S_0 = 16\)</span>. By <a href="#eq-repairable-backorders" class="quarto-xref">Equation&nbsp;<span>9.6</span></a> the depot’s expected backorders are the loss column of <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a> at row 16, so <span class="math inline">\(\bar{B}_0 = G^{1}(16) = 5.0201\)</span> units. By <a href="#eq-depot-wait" class="quarto-xref">Equation&nbsp;<span>9.13</span></a>,</p>
+<p><span class="math display">\[
+\bar{W} = \frac{5.0201}{126} = 0.039842 \text{ years}
+= 0.039842(365) = 14.54 \text{ days}
+\]</span></p>
+<p><em>The storeroom’s pipeline.</em> The local term of <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> is the 1.1096 units of <a href="#exm-palm-transformer" class="quarto-xref">Example&nbsp;<span>9.1</span></a>, and the depot term now carries the wait. With both times in years,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mu_j &amp;= 1.1096 + 31.5\left(\frac{10}{365} + 0.039842\right)
+  = 1.1096 + 31.5(0.067239)\\
+&amp;= 1.1096 + 2.1180 = 3.2276 \text{ units}
+\end{aligned}
+\]</span></p>
+<p><em>The storeroom’s backorders.</em> The storeroom holds <span class="math inline">\(S_j = 4\)</span>, and under <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> its pipeline is Poisson with mean 3.2276. That is a new mean, so it needs its own rows, and five of them are enough. The first mass is <span class="math inline">\(g(0) = e^{-3.2276} = 0.03965\)</span>, so <span class="math inline">\(G^{0}(0) = 0.9603\)</span> and <span class="math inline">\(G^{1}(0) = 3.2276\)</span>. The second is <span class="math inline">\(g(1) = 0.03965(3.2276/1) = 0.12798\)</span>, so <span class="math inline">\(G(1) = 0.03965 + 0.12798 = 0.16763\)</span>, <span class="math inline">\(G^{0}(1) = 0.8324\)</span> and <span class="math inline">\(G^{1}(1) = 3.2276 - 0.9603 = 2.2673\)</span>. The rest repeat, and <a href="#tbl-delay-storeroom" class="quarto-xref">Table&nbsp;<span>9.4</span></a> is the result.</p>
+<div id="tbl-delay-storeroom" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-delay-storeroom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.4: A storeroom’s pipeline under METRIC when the depot holds sixteen transformers, Poisson with mean 3.2276.
+</figcaption>
+<div aria-describedby="tbl-delay-storeroom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(g(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{0}(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{1}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0397</td>
+<td style="text-align: right;">0.0397</td>
+<td style="text-align: right;">0.9603</td>
+<td style="text-align: right;">3.2276</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.1280</td>
+<td style="text-align: right;">0.1676</td>
+<td style="text-align: right;">0.8324</td>
+<td style="text-align: right;">2.2673</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.2065</td>
+<td style="text-align: right;">0.3742</td>
+<td style="text-align: right;">0.6258</td>
+<td style="text-align: right;">1.4349</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.2222</td>
+<td style="text-align: right;">0.5964</td>
+<td style="text-align: right;">0.4036</td>
+<td style="text-align: right;">0.8091</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.1793</td>
+<td style="text-align: right;">0.7757</td>
+<td style="text-align: right;">0.2243</td>
+<td style="text-align: right;">0.4055</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Thus <span class="math inline">\(\bar{B}_j = G^{1}(4) = 0.4055\)</span> backorders at each storeroom. Unrolled, that entry is the mean less the four <span class="math inline">\(G^{0}\)</span> entries above it, <span class="math inline">\(3.2276 - (0.9603 + 0.8324 + 0.6258 + 0.4036) = 3.2276 - 2.8221 = 0.4055\)</span>.</p>
+<p><em>The delay, against depot stock.</em> The other rows of <a href="#tbl-delay-transformer" class="quarto-xref">Table&nbsp;<span>9.5</span></a> repeat those steps at a different <span class="math inline">\(S_0\)</span>: read <span class="math inline">\(G^{1}(S_0)\)</span> from <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a>, divide by 126 for the wait, rebuild <span class="math inline">\(\mu_j\)</span>, and rebuild the storeroom’s five rows at the new mean.</p>
 <div id="tbl-delay-transformer" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-delay-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.3: The depot’s stock level, the delay it imposes, and what that delay does at one storeroom holding four transformers.
+Table&nbsp;9.5: The depot’s stock level, the delay it imposes, and what that delay does at one storeroom holding four transformers.
 </figcaption>
 <div aria-describedby="tbl-delay-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1768,17 +2098,14 @@ Table&nbsp;9.3: The depot’s stock level, the delay it imposes, and what that d
 </div>
 </figure>
 </div>
-<p><em>Reading the table across.</em> At <span class="math inline">\(S_0 = 16\)</span> the depot makes a request wait 14.54 days on average, which is close to the fifteen days <a href="#exm-palm-transformer" class="quarto-xref">Example&nbsp;<span>9.1</span></a> supposed, so that illustration was a depot holding about sixteen units. Feeding 14.54 days into <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a>,</p>
-<p><span class="math display">\[
-\mu_j = 1.1096 + 31.5\left(\frac{10 + 14.54}{365}\right) = 1.1096 + 2.1180 = 3.2276
-\]</span></p>
-<p><em>The check.</em> <a href="#eq-depot-wait-marginal" class="quarto-xref">Equation&nbsp;<span>9.15</span></a> says the seventeenth depot unit should shorten the wait by <span class="math inline">\(G^{0}(16)/\lambda_0 = 0.8217/126\)</span> years, which is 2.38 days. Reading the table, 14.54 at <span class="math inline">\(S_0 = 16\)</span> against 12.16 at <span class="math inline">\(S_0 = 17\)</span>, not shown but computed the same way, is a drop of 2.38 days. The marginal relation and the table agree, as they must, and that check is worth running because it confirms the loss function and the distribution function were evaluated at the same index.</p>
+<p><em>Reading the table across.</em> At <span class="math inline">\(S_0 = 16\)</span> the depot makes a request wait 14.54 days on average, which is close to the fifteen days <a href="#exm-palm-transformer" class="quarto-xref">Example&nbsp;<span>9.1</span></a> supposed, so that illustration was a depot holding about sixteen units. Reading down, each pair of units added at the depot removes less of the wait than the pair before it: 4.56 days, then 3.68, then 2.66.</p>
+<p><em>The check.</em> <a href="#eq-depot-wait-marginal" class="quarto-xref">Equation&nbsp;<span>9.15</span></a> says the seventeenth depot unit should shorten the wait by <span class="math inline">\(G^{0}(16)/\lambda_0 = 0.8217/126\)</span> years, which is <span class="math inline">\(0.006521(365) = 2.38\)</span> days. Row 17 of <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a> gives <span class="math inline">\(G^{1}(17) = 4.1985\)</span>, so the wait at <span class="math inline">\(S_0 = 17\)</span> is <span class="math inline">\(4.1985(365)/126 = 12.16\)</span> days, and <span class="math inline">\(14.54 - 12.16 = 2.38\)</span> days. The marginal relation and the table agree, as they must, and that check is worth running because it confirms the loss function and the distribution function were evaluated at the same index.</p>
 <p><em>Interpretation.</em> Six extra transformers at the depot, from sixteen to twenty-two, cut the delay from 14.5 days to 3.6 and cut a storeroom’s pipeline from 3.23 units to 2.29. <strong>Those six units did that at all four storerooms simultaneously</strong>, so the backorders in the last column fall by about seventy percent at each of the four, for one purchase of six. Eight units bought at the storerooms, two apiece, would have done something comparable by forward stocking alone, and six against eight is the pooling comparison that <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> makes exactly.</p>
 <p><em>Where this stops being obvious.</em> The same six units are the most expensive six in the table by the measure that matters, because they are the ones that sit at the depot doing nothing for anyone until a request arrives. Whether they belong there or at the storerooms is the stock positioning question of <a href="#sec-multiechelon-positioning" class="quarto-xref"><span>Section 9.1</span></a>, and nothing so far decides it. <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> does, by making every candidate unit at every location compete on backorders removed per dollar.</p>
 </div>
 </section>
-<section id="sec-multiechelon-delay-forward" class="level3" data-number="9.6.4">
-<h3 data-number="9.6.4" class="anchored" data-anchor-id="sec-multiechelon-delay-forward"><span class="header-section-number">9.6.4</span> Where This Leaves Us</h3>
+<section id="sec-multiechelon-delay-forward" class="level3" data-number="9.6.5">
+<h3 data-number="9.6.5" class="anchored" data-anchor-id="sec-multiechelon-delay-forward"><span class="header-section-number">9.6.5</span> Where This Leaves Us</h3>
 <p>Every quantity in <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> is now available. <a href="#eq-depot-pipeline" class="quarto-xref">Equation&nbsp;<span>9.12</span></a> gives the depot’s pipeline from rates and a repair time, <a href="#sec-multiechelon-onelocation" class="quarto-xref"><span>Section 9.4</span></a> turns that into <span class="math inline">\(\bar{B}_0(S_0)\)</span>, <a href="#eq-depot-wait" class="quarto-xref">Equation&nbsp;<span>9.13</span></a> turns that into <span class="math inline">\(\bar{W}\)</span>, and <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> turns that into each storeroom’s pipeline.</p>
 <p><a href="#sec-multiechelon-metric" class="quarto-xref"><span>Section 9.7</span></a> collects those four steps into a procedure, runs it on a system, and then does the thing this chapter has been postponing since <a href="#sec-multiechelon-palm-pipeline" class="quarto-xref"><span>Section 9.3.3</span></a>: it examines the assumption the procedure rests on, and finds it wanting.</p>
 </section>
@@ -1830,15 +2157,17 @@ Algorithm&nbsp;9.1: Algorithm Metric. Step 1 is <a href="#eq-repairable-passup" 
 <p><em>What happens to unmet demand?</em> It is backordered, at the storeroom against a waiting crew and at the depot against a waiting storeroom.</p>
 <p><em>What costs are incurred, and when?</em> None are needed. <a href="#alg-metric" class="quarto-xref">Algorithm&nbsp;<span>9.1</span></a> returns backorders.</p>
 <p><em>Step 1.</em> Each storeroom passes up <span class="math inline">\(0.7(45) = 31.5\)</span> requests a year, so <span class="math inline">\(\lambda_0 = 4(31.5) = 126\)</span> a year.</p>
-<p><em>Step 2.</em> The depot’s pipeline is <span class="math inline">\(\mu_0 = 126(60/365) = 20.7123\)</span> units, and the first order loss function of the Poisson distribution with that mean, evaluated at <span class="math inline">\(S_0 = 16\)</span>, gives <span class="math inline">\(\bar{B}_0 = 5.0201\)</span> units.</p>
-<p><em>Step 3.</em> The delay is <span class="math inline">\(\bar{W} = 5.0201/126 = 0.03984\)</span> years, which is 14.54 days.</p>
-<p><em>Step 4.</em> Each storeroom’s pipeline is</p>
+<p><em>Step 2.</em> The depot’s pipeline is <span class="math inline">\(\mu_0 = 126(60/365) = 20.7123\)</span> units, which is the distribution of <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a>. Its loss column at row 16 gives <span class="math inline">\(\bar{B}_0 = G^{1}(16) = 5.0201\)</span> units, the mean less the sixteen <span class="math inline">\(G^{0}\)</span> entries above that row, <span class="math inline">\(20.7123 - 15.6922\)</span>.</p>
+<p><em>Step 3.</em> The delay is <span class="math inline">\(\bar{W} = 5.0201/126 = 0.039842\)</span> years, which is <span class="math inline">\(0.039842(365) = 14.54\)</span> days.</p>
+<p><em>Step 4.</em> Each storeroom’s pipeline, with the wait left in years, is</p>
 <p><span class="math display">\[
-\mu_j = (0.3)(45)\left(\frac{30}{365}\right)
-      + (0.7)(45)\left(\frac{10 + 14.54}{365}\right)
-      = 1.1096 + 2.1180 = 3.2276 \text{ units}
+\begin{aligned}
+\mu_j &amp;= (0.3)(45)\left(\frac{30}{365}\right)
+      + (0.7)(45)\left(\frac{10}{365} + 0.039842\right)\\
+&amp;= 1.1096 + 2.1180 = 3.2276 \text{ units}
+\end{aligned}
 \]</span></p>
-<p>and the loss function at <span class="math inline">\(S_j = 4\)</span> gives <span class="math inline">\(\bar{B}_j = 0.4055\)</span> backorders. Across four storerooms that is <span class="math inline">\(4(0.4055) = 1.6218\)</span> transformers owed to waiting crews at any moment (the product taken before rounding).</p>
+<p>That is the mean <a href="#tbl-delay-storeroom" class="quarto-xref">Table&nbsp;<span>9.4</span></a> was built for, and its loss column at row 4 gives <span class="math inline">\(\bar{B}_j = G^{1}(4) = 3.2276 - 2.8221 = 0.4055\)</span> backorders. Across four storerooms that is <span class="math inline">\(4(0.4055) = 1.6218\)</span> transformers owed to waiting crews at any moment (the product taken before rounding).</p>
 <p><em>The check.</em> Run <a href="#eq-repairable-onhand" class="quarto-xref">Equation&nbsp;<span>9.7</span></a> on a storeroom: <span class="math inline">\(\bar{I}_j = 4 - 3.2276 + 0.4055 = 1.1779\)</span>, so <span class="math inline">\(\bar{I}_j - \bar{B}_j = 0.7724\)</span> and <span class="math inline">\(S_j - \mu_j = 4 - 3.2276 = 0.7724\)</span>. The identity holds, and it is worth running at both levels every time.</p>
 <p><em>Interpretation.</em> Twenty transformers, of which sixteen sit at a depot where no crew can reach them, leave about 1.6 crews waiting at any moment across the utility. Whether that is acceptable, and whether the twenty are in the right places, are the questions <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> answers. What we have is a number attached to a plan, which is what was missing.</p>
 </div>
@@ -1846,7 +2175,7 @@ Algorithm&nbsp;9.1: Algorithm Metric. Step 1 is <a href="#eq-repairable-passup" 
 <section id="sec-multiechelon-metric-approximation" class="level3" data-number="9.7.2">
 <h3 data-number="9.7.2" class="anchored" data-anchor-id="sec-multiechelon-metric-approximation"><span class="header-section-number">9.7.2</span> What METRIC Approximates</h3>
 <p><a href="#sec-multiechelon-palm-pipeline" class="quarto-xref"><span>Section 9.3.3</span></a> warned that <a href="#eq-storeroom-pipeline" class="quarto-xref">Equation&nbsp;<span>9.4</span></a> applies Palm’s theorem outside its warrant. That debt now comes due, and paying it turns out to be the most useful thing in the chapter, because the model fails in a specific and repairable way that has been understood since the model was published.</p>
-<p>Every mean METRIC computes is exact, and that deserves establishing before anything is criticized. The depot’s pipeline really is Poisson with mean <span class="math inline">\(\lambda_0 T_0\)</span>, because <a href="#thm-palm" class="quarto-xref">Theorem&nbsp;<span>9.1</span></a> applies there without qualification. Thus <span class="math inline">\(\bar{B}_0\)</span> is exact, and <span class="math inline">\(\bar{W}\)</span> is exact because <a href="13-AppProbability.html#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.24</span></a> assumes nothing. The storeroom’s pipeline mean is exact too, for the same reason: Little’s Law applied to the storeroom’s own resupply says <span class="math inline">\(E[X_j] = \lambda_j E[\text{resupply duration}]\)</span>, and averaging that duration over the two routes gives <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> with no independence assumed anywhere.</p>
+<p>Every mean METRIC computes is exact, and that deserves establishing before anything is criticized. The depot’s pipeline really is Poisson with mean <span class="math inline">\(\lambda_0 T_0\)</span>, because <a href="#thm-palm" class="quarto-xref">Theorem&nbsp;<span>9.1</span></a> applies there without qualification. Thus <span class="math inline">\(\bar{B}_0\)</span> is exact, and <span class="math inline">\(\bar{W}\)</span> is exact because <a href="13-AppProbability.html#eq-littles-law" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> assumes nothing. The storeroom’s pipeline mean is exact too, for the same reason: Little’s Law applied to the storeroom’s own resupply says <span class="math inline">\(E[X_j] = \lambda_j E[\text{resupply duration}]\)</span>, and averaging that duration over the two routes gives <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> with no independence assumed anywhere.</p>
 <p>What is not exact is the claim that <span class="math inline">\(X_j\)</span> is Poisson. A Poisson distribution has its variance equal to its mean, and it is here that the model asserts something it has not earned. Recall the reason from <a href="#sec-multiechelon-palm-assumptions" class="quarto-xref"><span>Section 9.3.2</span></a>: Palm’s theorem wants each unit’s resupply duration drawn independently. The depot-routed durations are not independent. Two requests arriving while the depot is empty both wait for the same repairs to finish, so their delays move together. That is, the count is more variable than a Poisson count with the same mean.</p>
 <p>None of this is new. It was known to the model’s author at the time, and <span class="citation" data-cites="sherbrooke1968">Sherbrooke (<a href="references.html#ref-sherbrooke1968" role="doc-biblioref">1968</a>)</span> says so plainly in the paper that introduced it. Looking back on it eighteen years later, <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> writes that “when the METRIC model was developed, it was clear that it understated base backorders. In most cases the error was not large, and the simplicity of METRIC seemed to overshadow the lack of precision.”</p>
 <p>The direction of the error is the unsafe one, and the reason is precise. Backorders are a tail quantity, so a distribution that is too tight produces too few of them. <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> states the consequence for the whole family of models built this way: they “understate the multi-echelon delay in the resupply of a base from a depot that has backorders”, and thus “tend to understate expected backorders and overstate expected availability of repair items”. A utility sizing its spares with <a href="#alg-metric" class="quarto-xref">Algorithm&nbsp;<span>9.1</span></a> will believe it is doing better than it is.</p>
@@ -1882,16 +2211,48 @@ f_j = \frac{\lambda_{j0}}{\lambda_0} = \frac{(1-\phi_j)\lambda_j}{\sum_{k=1}^{J}
 \tag{9.16}\]</span></span></p>
 <p>represent that share. Then, conditional on the depot owing <span class="math inline">\(B_0\)</span> units in total, the number owed to storeroom <span class="math inline">\(j\)</span> is binomial with <span class="math inline">\(B_0\)</span> trials and success probability <span class="math inline">\(f_j\)</span>.</p>
 <p>This is a proved result rather than an assumption made for convenience. <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> records that “Simon (1971) and Graves have shown that the number of units in resupply at base <span class="math inline">\(I\)</span>, conditional on the total number of units in resupply at all bases, has a binomial distribution when the original demand process is Poisson.”</p>
-<p>We write <span class="math inline">\(B_{0j}\)</span> for the units the depot owes storeroom <span class="math inline">\(j\)</span>. The binomial gives <span class="math inline">\(E[B_{0j} \mid B_0] = f_j B_0\)</span> and <span class="math inline">\(\mathit{Var}[B_{0j} \mid B_0] = f_j(1-f_j)B_0\)</span>, and applying <a href="13-AppProbability.html#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.8</span></a> we obtain</p>
+<p>We write <span class="math inline">\(B_{0j}\)</span> for the units the depot owes storeroom <span class="math inline">\(j\)</span>. Recall from <a href="14-AppDistributions.html#eq-binomial" class="quarto-xref">Equation&nbsp;<span>C.4</span></a> that a binomial count with <span class="math inline">\(n\)</span> trials and success probability <span class="math inline">\(p\)</span> has mean <span class="math inline">\(np\)</span> and variance <span class="math inline">\(np(1-p)\)</span>. Thus, given that the depot owes <span class="math inline">\(b\)</span> units in total,</p>
+<p><span class="math display">\[
+E[B_{0j} \mid B_0 = b] = f_j\,b, \qquad
+\mathit{Var}[B_{0j} \mid B_0 = b] = f_j(1-f_j)\,b
+\]</span></p>
+<p>We do not know <span class="math inline">\(b\)</span>. It is the value of a random variable, so both moments have to be averaged over it, and the variance does not average the way the mean does.</p>
+<div class="callout callout-style-simple callout-tip callout-titled" title="Probability reminder: a variance has a within part and a between part">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Probability reminder: a variance has a within part and a between part
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The law of total variance, <a href="13-AppProbability.html#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.11</span></a>, says that the variance of <span class="math inline">\(X\)</span> is the <strong>average of its conditional variances</strong> plus the <strong>variance of its conditional means</strong>, <span class="math inline">\(\mathit{Var}[X] = E\big[\mathit{Var}[X \mid Y]\big] + \mathit{Var}\big[E[X \mid Y]\big]\)</span>. The first term is the variability left once <span class="math inline">\(Y\)</span> is known. The second is the variability that knowing <span class="math inline">\(Y\)</span> would remove.</p>
+<p>For example, four alike storerooms give <span class="math inline">\(f_j = 0.25\)</span>. Suppose the depot owes either 2 units or 6, each half the time, so that <span class="math inline">\(E[B_0] = 4\)</span> and <span class="math inline">\(\mathit{Var}[B_0] = 4\)</span>. Given 2 owed, the share of storeroom <span class="math inline">\(j\)</span> has mean <span class="math inline">\(0.25(2) = 0.5\)</span> and variance <span class="math inline">\(0.25(0.75)(2) = 0.375\)</span>. Given 6 owed, it has mean 1.5 and variance 1.125. The average of the two variances is <span class="math inline">\((0.375 + 1.125)/2 = 0.75\)</span>. The two means are 0.5 and 1.5, each half the time, and their variance is <span class="math inline">\((0.5^{2} + 1.5^{2})/2 - 1^{2} = 0.25\)</span>. Thus <span class="math inline">\(\mathit{Var}[B_{0j}] = 0.75 + 0.25 = 1.00\)</span>, and either term alone would have understated it. <a href="13-AppProbability.html#sec-appprobability-rv-conditioning" class="quarto-xref"><span>Section B.1.5</span></a> has the general statement.</p>
+</div>
+</div>
+<p>We condition on the depot’s total and average, the mean by <a href="13-AppProbability.html#eq-total-expectation" class="quarto-xref">Equation&nbsp;<span>B.10</span></a> and the variance by <a href="13-AppProbability.html#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.11</span></a>:</p>
 <p><span id="eq-varimetric-split"><span class="math display">\[
-E[B_{0j}] = f_j\bar{B}_0, \qquad
-\mathit{Var}[B_{0j}] = f_j(1-f_j)\bar{B}_0 + f_j^{2}\,\mathit{Var}[B_0]
+\begin{aligned}
+E[B_{0j}] &amp;= \sum_{b \ge 0}E[B_{0j} \mid B_0 = b]\,P\{B_0 = b\}
+  &amp;&amp;\text{condition}\\
+&amp;= f_j\sum_{b \ge 0}b\,P\{B_0 = b\} = f_j\bar{B}_0
+  &amp;&amp;\text{binomial mean}\\
+\mathit{Var}[B_{0j}] &amp;= E\big[\mathit{Var}[B_{0j} \mid B_0]\big] + \mathit{Var}\big[E[B_{0j} \mid B_0]\big]
+  &amp;&amp;\text{two parts}\\
+&amp;= E\big[f_j(1-f_j)B_0\big] + \mathit{Var}\big[f_j B_0\big]
+  &amp;&amp;\text{binomial moments}\\
+&amp;= f_j(1-f_j)\bar{B}_0 + f_j^{2}\,\mathit{Var}[B_0]
+  &amp;&amp;\text{constants out}
+\end{aligned}
 \tag{9.17}\]</span></span></p>
+<p>Notice the last line. A constant comes out of an expectation as itself and out of a variance <strong>squared</strong>, which is where <span class="math inline">\(f_j^{2}\)</span> comes from. The reminder’s numbers are an instance: <span class="math inline">\(0.25(0.75)(4) + 0.25^{2}(4) = 0.75 + 0.25 = 1.00\)</span>.</p>
 <p>Read the two terms of that variance separately, because they are different things. The first is the randomness in <em>which</em> storeroom each backorder belongs to, given how many there are. The second is the randomness in <em>how many there are</em>, scaled down by <span class="math inline">\(f_j^2\)</span> because storeroom <span class="math inline">\(j\)</span> receives only its share of any fluctuation. Notice that METRIC keeps neither.</p>
 </section>
 <section id="sec-multiechelon-varimetric-moments" class="level3" data-number="9.8.2">
 <h3 data-number="9.8.2" class="anchored" data-anchor-id="sec-multiechelon-varimetric-moments"><span class="header-section-number">9.8.2</span> The Pipeline’s Two Moments</h3>
-<p>The storeroom’s pipeline splits into two independent pieces. The units in local repair and the units in transit from the depot have independent durations and are thinnings of a Poisson process, so <a href="#thm-palm" class="quarto-xref">Theorem&nbsp;<span>9.1</span></a> applies to them exactly and their count is Poisson with mean equal to its variance. The units the depot owes but has not shipped are <span class="math inline">\(B_{0j}\)</span>, and <a href="#eq-varimetric-split" class="quarto-xref">Equation&nbsp;<span>9.17</span></a> has just supplied its moments. Adding the two pieces, we obtain</p>
+<p>The storeroom’s pipeline splits into two independent pieces. The units in local repair and the units in transit from the depot have independent durations and are thinnings of a Poisson process, so <a href="#thm-palm" class="quarto-xref">Theorem&nbsp;<span>9.1</span></a> applies to them exactly and their count is Poisson with mean equal to its variance. The units the depot owes but has not shipped are <span class="math inline">\(B_{0j}\)</span>, and <a href="#eq-varimetric-split" class="quarto-xref">Equation&nbsp;<span>9.17</span></a> has just supplied its moments.</p>
+<p>Thus <span class="math inline">\(X_j\)</span> is the sum of two independent counts. Recall from <a href="13-AppProbability.html#sec-appprobability-sums-moments" class="quarto-xref"><span>Section B.2.1</span></a> that the mean of a sum is the sum of the means, and that the variance of a sum of <strong>independent</strong> counts is the sum of the variances. The first count is Poisson, so its mean and its variance are the same number, the failure rate times the average duration over the two routes, <span class="math inline">\(\lambda_j\left[\phi_j T_j + (1-\phi_j)O_j\right]\)</span>. Adding the two pieces, we obtain</p>
 <p><span id="eq-varimetric-mean"><span class="math display">\[
 \mu_j = \lambda_j\left[\phi_j T_j + (1-\phi_j)O_j\right] + f_j\bar{B}_0
 \tag{9.18}\]</span></span></p>
@@ -1909,7 +2270,16 @@ E[B_{0j}] = f_j\bar{B}_0, \qquad
 <p><span id="eq-backorder-secondmoment"><span class="math display">\[
 E[B^{2}(s)] = E[B^{2}(s-1)] - E[B(s)] - E[B(s-1)], \qquad s \ge 1
 \tag{9.20}\]</span></span></p>
-<p>started from <span class="math inline">\(E[B^{2}(0)] = E[X^{2}]\)</span>, which for the Poisson pipeline of the depot is <span class="math inline">\(\mu_0 + \mu_0^{2}\)</span>. Then</p>
+<p>started from <span class="math inline">\(E[B^{2}(0)] = E[X^{2}]\)</span>, because a location holding nothing owes its whole pipeline. Recall that a variance is a second moment less a squared mean, so <span class="math inline">\(E[X^{2}] = \mathit{Var}[X] + (E[X])^{2}\)</span>, and for the Poisson pipeline of the depot, whose variance equals its mean, that is <span class="math inline">\(\mu_0 + \mu_0^{2}\)</span>.</p>
+<p>The recursion takes three lines to establish. For any <span class="math inline">\(x \ge s\)</span>, we write the shortfall at <span class="math inline">\(s\)</span> as the shortfall at <span class="math inline">\(s - 1\)</span> less one unit, so that <span class="math inline">\((x-s)^{2} = (x-s+1)^{2} - 2(x-s+1) + 1\)</span>. Multiplying by <span class="math inline">\(g(x)\)</span> and summing over <span class="math inline">\(x \ge s\)</span>, we obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[B^{2}(s)] &amp;= \sum_{x \ge s}(x-s+1)^{2}g(x) - 2\sum_{x \ge s}(x-s+1)\,g(x) + \sum_{x \ge s}g(x)\\
+&amp;= E[B^{2}(s-1)] - 2E[B(s-1)] + G^{0}(s-1)\\
+&amp;= E[B^{2}(s-1)] - E[B(s-1)] - E[B(s)]
+\end{aligned}
+\]</span></p>
+<p>The first line expands the square. The second recognizes each sum: the first two are the second and first moments of the shortfall at <span class="math inline">\(s - 1\)</span>, and the third is <span class="math inline">\(P\{X \ge s\} = P\{X &gt; s-1\}\)</span>. The third line uses <a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a>, which says <span class="math inline">\(G^{0}(s-1) = E[B(s-1)] - E[B(s)]\)</span>. With the second moment in hand,</p>
 <p><span id="eq-depot-backorder-variance"><span class="math display">\[
 \mathit{Var}[B_0] = E[B^{2}(S_0)] - \bar{B}_0^{2}
 \tag{9.21}\]</span></span></p>
@@ -1942,7 +2312,7 @@ r = \frac{\mu_j}{\beta}
 </div>
 <div class="callout-body-container">
 <p><strong>A ratio near one is still fitted with a negative binomial.</strong> <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a> divides by <span class="math inline">\(1 - p\)</span>, and <span class="math inline">\(p \to 1\)</span> as the variance approaches the mean, so a ratio of 1.001 produces a number of successes in the thousands. The VARI-METRIC code that the software of <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a> was ported from therefore used a Poisson for any ratio between 0.9 and 1.1, on the grounds that the negative binomial is a Poisson in everything but arithmetic there. That holds at 1.001. It fails well before 1.1.</p>
-<p>The ratio comes close to one at two quite different points: a depot so generous that it never delays anybody, and a depot so bare that its delay swamps everything else. For example, take <a href="#exm-delay-transformer" class="quarto-xref">Example&nbsp;<span>9.3</span></a> at <span class="math inline">\(S_0 = 24\)</span>, where the ratio is 1.0641. A Poisson gives <span class="math inline">\(\bar{B}_j = 0.0964\)</span> at <span class="math inline">\(S_j = 4\)</span>, which is METRIC’s figure in <a href="#tbl-delay-transformer" class="quarto-xref">Table&nbsp;<span>9.3</span></a>, and the negative binomial gives 0.1095, fourteen percent more. A discrete-event simulation of the system, 30 replications of 1,000 years, gives <span class="math inline">\(0.1101 \pm 0.0007\)</span>. Thus a variance only six percent above the mean still matters, because a storeroom’s stock level sits out in the tail, where the two distributions differ most.</p>
+<p>The ratio comes close to one at two quite different points: a depot so generous that it never delays anybody, and a depot so bare that its delay swamps everything else. For example, take <a href="#exm-delay-transformer" class="quarto-xref">Example&nbsp;<span>9.3</span></a> at <span class="math inline">\(S_0 = 24\)</span>, where the ratio is 1.0641. A Poisson gives <span class="math inline">\(\bar{B}_j = 0.0964\)</span> at <span class="math inline">\(S_j = 4\)</span>, which is METRIC’s figure in <a href="#tbl-delay-transformer" class="quarto-xref">Table&nbsp;<span>9.5</span></a>, and the negative binomial gives 0.1095, fourteen percent more. A discrete-event simulation of the system, 30 replications of 1,000 years, gives <span class="math inline">\(0.1101 \pm 0.0007\)</span>. Thus a variance only six percent above the mean still matters, because a storeroom’s stock level sits out in the tail, where the two distributions differ most.</p>
 <p>A band does a second kind of damage. Backorders jump where the ratio crosses its edge, and the allocation search of <a href="#sec-multiechelon-allocation" class="quarto-xref"><span>Section 9.9</span></a> finds the jump and buys to it. The software therefore fits the negative binomial whenever the ratio exceeds one, uses a Poisson only when the ratio is one to within rounding, and fits a gamma below one, a case that, as the warning below records, nobody has ruled out. Near one the negative binomial already agrees with the Poisson, so nothing is lost by fitting it there.</p>
 </div>
 </div>
@@ -2006,11 +2376,150 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 <p><span class="theorem-title"><strong>Example 9.5 (VARI-METRIC on the utility’s transformers)</strong></span> Take the system of <a href="#exm-metric-transformer" class="quarto-xref">Example&nbsp;<span>9.4</span></a> unchanged: four storerooms at <span class="math inline">\(\lambda_j = 45\)</span> failures a year, <span class="math inline">\(\phi_j = 0.3\)</span> rebuilt locally in <span class="math inline">\(T_j = 30\)</span> days, <span class="math inline">\(O_j = 10\)</span> days to ship, a depot repairing in <span class="math inline">\(T_0 = 60\)</span> days, and the proposed plan <span class="math inline">\(S_0 = 16\)</span> with <span class="math inline">\(S_j = 4\)</span> at each storeroom.</p>
 <p>The modeling questions have the same answers as in <a href="#exm-metric-transformer" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, since the system has not changed. Only the model has.</p>
 <p><em>Steps 1 to 3, unchanged.</em> <span class="math inline">\(\lambda_0 = 126\)</span> a year, <span class="math inline">\(\mu_0 = 20.7123\)</span> units, and <span class="math inline">\(\bar{B}_0 = 5.0201\)</span> units at <span class="math inline">\(S_0 = 16\)</span>.</p>
-<p><em>Step 3a, the depot’s backorder variance.</em> Starting from <span class="math inline">\(E[B^2(0)] = 20.7123 + 20.7123^2 = 449.7129\)</span> and running <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> up to <span class="math inline">\(s = 16\)</span> gives <span class="math inline">\(E[B^2(16)] = 41.8229\)</span>. Thus by <a href="#eq-depot-backorder-variance" class="quarto-xref">Equation&nbsp;<span>9.21</span></a>,</p>
+<p><em>Step 3a, the depot’s backorder variance.</em> The recursion starts from <span class="math inline">\(E[B^2(0)] = \mu_0 + \mu_0^{2}\)</span>. One more digit of the mean is needed here, because squaring 20.7123 loses the third decimal: <span class="math inline">\(20.71233 + (20.71233)^{2} = 20.71233 + 429.00061 = 449.7129\)</span>. Each step of <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> then subtracts two neighboring entries of the <span class="math inline">\(G^{1}\)</span> column of <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a>. The first two steps are</p>
 <p><span class="math display">\[
-\mathit{Var}[B_0] = 41.8229 - (5.0201)^{2} = 41.8229 - 25.2015 = 16.6215
+\begin{aligned}
+E[B^{2}(1)] &amp;= E[B^{2}(0)] - G^{1}(1) - G^{1}(0)
+  = 449.71289 - 19.71233 - 20.71233 = 409.2882\\
+E[B^{2}(2)] &amp;= E[B^{2}(1)] - G^{1}(2) - G^{1}(1)
+  = 409.2882 - 18.7123 - 19.7123 = 370.8636
+\end{aligned}
 \]</span></p>
-<p>Notice that the depot’s backorders are far more variable than their mean, a variance-to-mean ratio of <span class="math inline">\(16.6215/5.0201 = 3.31\)</span>. That is the quantity METRIC discards, and it is the reason discarding it matters.</p>
+<p>and the fourteen after them repeat the subtraction. <a href="#tbl-depot-secondmoment" class="quarto-xref">Table&nbsp;<span>9.6</span></a> carries the recursion to <span class="math inline">\(s = 16\)</span>, where its last step is <span class="math inline">\(52.7402 - 5.0201 - 5.8972 = 41.8229\)</span>.</p>
+<div id="tbl-depot-secondmoment" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-depot-secondmoment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.6: The second moment of the depot’s backorders by <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a>, and the variance it gives by <a href="#eq-depot-backorder-variance" class="quarto-xref">Equation&nbsp;<span>9.21</span></a>, for the pipeline of <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a>.
+</figcaption>
+<div aria-describedby="tbl-depot-secondmoment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(s\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\bar{B}_0(s) = G^{1}(s)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(E[B^{2}(s)]\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{Var}[B_0]\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">20.7123</td>
+<td style="text-align: right;">449.7129</td>
+<td style="text-align: right;">20.7123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">19.7123</td>
+<td style="text-align: right;">409.2882</td>
+<td style="text-align: right;">20.7123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">18.7123</td>
+<td style="text-align: right;">370.8636</td>
+<td style="text-align: right;">20.7123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">17.7123</td>
+<td style="text-align: right;">334.4389</td>
+<td style="text-align: right;">20.7123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16.7123</td>
+<td style="text-align: right;">300.0143</td>
+<td style="text-align: right;">20.7123</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15.7123</td>
+<td style="text-align: right;">267.5896</td>
+<td style="text-align: right;">20.7120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">14.7124</td>
+<td style="text-align: right;">237.1649</td>
+<td style="text-align: right;">20.7107</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">13.7125</td>
+<td style="text-align: right;">208.7399</td>
+<td style="text-align: right;">20.7064</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">12.7130</td>
+<td style="text-align: right;">182.3144</td>
+<td style="text-align: right;">20.6937</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11.7143</td>
+<td style="text-align: right;">157.8870</td>
+<td style="text-align: right;">20.6612</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10.7176</td>
+<td style="text-align: right;">135.4551</td>
+<td style="text-align: right;">20.5875</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">9.7250</td>
+<td style="text-align: right;">115.0125</td>
+<td style="text-align: right;">20.4376</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">8.7399</td>
+<td style="text-align: right;">96.5476</td>
+<td style="text-align: right;">20.1614</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">7.7680</td>
+<td style="text-align: right;">80.0397</td>
+<td style="text-align: right;">19.6974</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">6.8171</td>
+<td style="text-align: right;">65.4545</td>
+<td style="text-align: right;">18.9816</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5.8972</td>
+<td style="text-align: right;">52.7402</td>
+<td style="text-align: right;">17.9633</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">5.0201</td>
+<td style="text-align: right;">41.8229</td>
+<td style="text-align: right;">16.6215</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>At <span class="math inline">\(S_0 = 16\)</span>, <a href="#eq-depot-backorder-variance" class="quarto-xref">Equation&nbsp;<span>9.21</span></a> gives</p>
+<p><span class="math display">\[
+\mathit{Var}[B_0] = 41.82292 - (5.020105)^{2} = 41.82292 - 25.20146 = 16.6215
+\]</span></p>
+<p>Notice that the depot’s backorders are far more variable than their mean, a variance-to-mean ratio of <span class="math inline">\(16.6215/5.0201 = 3.31\)</span>. That is the quantity METRIC discards, and it is the reason discarding it matters. Notice also the top of the variance column. A depot holding nothing owes its whole pipeline, which is Poisson, so the variance starts at the mean of 20.7123, and it then falls far more slowly than the mean does as stock is added.</p>
 <p><em>Step 4, the storerooms.</em> All four are alike, so <span class="math inline">\(f_j = 31.5/126 = 0.25\)</span>. The Poisson part is</p>
 <p><span class="math display">\[
 \lambda_j\left[\phi_j T_j + (1-\phi_j)O_j\right]
@@ -2023,11 +2532,86 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 \]</span></p>
 <p>the same figure <a href="#exm-metric-transformer" class="quarto-xref">Example&nbsp;<span>9.4</span></a> reached, and <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a> gives</p>
 <p><span class="math display">\[
-\sigma_j^{2} = 1.9726 + (0.25)(0.75)(5.0201) + (0.25)^{2}(16.6215)
-= 1.9726 + 0.9413 + 1.0388 = 3.9527
+\begin{aligned}
+\sigma_j^{2} &amp;= 1.9726 + (0.25)(0.75)(5.0201) + (0.25)^{2}(16.6215)\\
+&amp;= 1.9726 + 0.9413 + 1.0388 = 3.9527
+\end{aligned}
 \]</span></p>
-<p><em>The fit.</em> By <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a>, <span class="math inline">\(p = 3.2276/3.9527 = 0.8166\)</span>, so <span class="math inline">\(\beta = 0.1834/0.8166 = 0.2246\)</span> and <span class="math inline">\(r = 3.2276/0.2246 = 14.3674\)</span>. The variance-to-mean ratio is <span class="math inline">\(1/p = 1.2246\)</span>.</p>
-<p><em>The answer.</em> The first order loss function of that negative binomial at <span class="math inline">\(S_j = 4\)</span> gives <span class="math inline">\(\bar{B}_j = 0.4815\)</span> backorders, against METRIC’s 0.4055. Across four storerooms, 1.9259 transformers owed to waiting crews rather than 1.6218.</p>
+<p><em>The fit.</em> By <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a>, <span class="math inline">\(p = 3.2276/3.9527 = 0.8166\)</span>, so <span class="math inline">\(\beta = 0.1834/0.8166 = 0.2246\)</span> and <span class="math inline">\(r = \mu_j/\beta = 14.3674\)</span>. The last figure is computed from the unrounded <span class="math inline">\(\beta = 0.224649\)</span>. Dividing 3.2276 by the printed 0.2246 gives 14.37, which shows how sensitive <span class="math inline">\(r\)</span> is to the last digit of <span class="math inline">\(p\)</span>, and why a worksheet that carries every digit is the place for this step. The variance-to-mean ratio is <span class="math inline">\(1/p = 1.2246\)</span>.</p>
+<p><em>The distribution, by hand.</em> The fitted <span class="math inline">\(r\)</span> is not a whole number, so the binomial coefficient of <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> cannot be counted out. It does not have to be. Dividing the mass at <span class="math inline">\(x\)</span> by the mass at <span class="math inline">\(x - 1\)</span> cancels everything in <a href="14-AppDistributions.html#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> except one ratio, which leaves a recursion of the same kind as the Poisson’s:</p>
+<p><span id="eq-varimetric-negbinrecursion"><span class="math display">\[
+g(0) = p^{r}, \qquad
+g(x) = g(x-1)\left(\frac{r + x - 1}{x}\right)(1 - p)
+\tag{9.23}\]</span></span></p>
+<p>The distribution function and the loss function then follow as they do in <a href="07-Chapter7.html#eq-newsvendor-handrecursion" class="quarto-xref">Equation&nbsp;<span>7.14</span></a>, because those two lines never ask which family produced the mass.</p>
+<p><em>Row 0.</em> The first mass is <span class="math inline">\(g(0) = p^{r} = e^{r\ln p} = e^{14.3674(-0.202655)} = e^{-2.91163} = 0.054388\)</span>, so <span class="math inline">\(G^{0}(0) = 1 - 0.0544 = 0.9456\)</span>, and the loss column starts from the mean, <span class="math inline">\(G^{1}(0) = \mu_j = 3.2276\)</span>.</p>
+<p><em>Row 1.</em> The multiplier is <span class="math inline">\((14.3674/1)(0.18344) = 2.6356\)</span>, so <span class="math inline">\(g(1) = 0.054388(2.6356) = 0.1433\)</span> and <span class="math inline">\(G(1) = 0.0544 + 0.1433 = 0.1977\)</span>. Thus <span class="math inline">\(G^{0}(1) = 0.8023\)</span> and <span class="math inline">\(G^{1}(1) = G^{1}(0) - G^{0}(0) = 3.2276 - 0.9456 = 2.2820\)</span>.</p>
+<p>Rows 2 to 4 repeat those steps with the multipliers <span class="math inline">\((15.3674/2)(0.18344)\)</span>, <span class="math inline">\((16.3674/3)(0.18344)\)</span> and <span class="math inline">\((17.3674/4)(0.18344)\)</span>, and <a href="#tbl-varimetric-negbin" class="quarto-xref">Table&nbsp;<span>9.7</span></a> is the result.</p>
+<div id="tbl-varimetric-negbin" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-varimetric-negbin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.7: A storeroom’s pipeline under VARI-METRIC when the depot holds sixteen transformers, negative binomial with mean 3.2276 and variance 3.9527, built by <a href="#eq-varimetric-negbinrecursion" class="quarto-xref">Equation&nbsp;<span>9.23</span></a>. Compare it row by row with <a href="#tbl-delay-storeroom" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, which has the same mean.
+</figcaption>
+<div aria-describedby="tbl-varimetric-negbin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;">Multiplier</th>
+<th style="text-align: right;"><span class="math inline">\(g(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{0}(x)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(G^{1}(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.0544</td>
+<td style="text-align: right;">0.0544</td>
+<td style="text-align: right;">0.9456</td>
+<td style="text-align: right;">3.2276</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.6356</td>
+<td style="text-align: right;">0.1433</td>
+<td style="text-align: right;">0.1977</td>
+<td style="text-align: right;">0.8023</td>
+<td style="text-align: right;">2.2820</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.4095</td>
+<td style="text-align: right;">0.2020</td>
+<td style="text-align: right;">0.3998</td>
+<td style="text-align: right;">0.6002</td>
+<td style="text-align: right;">1.4797</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.0008</td>
+<td style="text-align: right;">0.2022</td>
+<td style="text-align: right;">0.6020</td>
+<td style="text-align: right;">0.3980</td>
+<td style="text-align: right;">0.8795</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.7965</td>
+<td style="text-align: right;">0.1610</td>
+<td style="text-align: right;">0.7630</td>
+<td style="text-align: right;">0.2370</td>
+<td style="text-align: right;">0.4815</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><em>The answer.</em> The loss column at row 4 gives <span class="math inline">\(\bar{B}_j = G^{1}(4) = 0.4815\)</span> backorders, which unrolls as <span class="math inline">\(3.2276 - (0.9456 + 0.8023 + 0.6002 + 0.3980) = 3.2276 - 2.7461 = 0.4815\)</span>. METRIC gave 0.4055. Across four storerooms that is 1.9259 transformers owed to waiting crews rather than 1.6218.</p>
+<p>Set <a href="#tbl-varimetric-negbin" class="quarto-xref">Table&nbsp;<span>9.7</span></a> beside <a href="#tbl-delay-storeroom" class="quarto-xref">Table&nbsp;<span>9.4</span></a> to see where the difference comes from. The two distributions have the same mean. The negative binomial puts more mass at zero, 0.0544 against 0.0397, and more beyond four, <span class="math inline">\(G^{0}(4) = 0.2370\)</span> against 0.2243. That is, it is wider at both ends, and a backorder calculation reads only the upper end.</p>
 <p><em>The check.</em> <a href="#eq-repairable-onhand" class="quarto-xref">Equation&nbsp;<span>9.7</span></a> holds whatever the distribution, since it is an identity: <span class="math inline">\(\bar{I}_j = 4 - 3.2276 + 0.4815 = 1.2539\)</span>, and <span class="math inline">\(\bar{I}_j - \bar{B}_j = 1.2539 - 0.4815 = 0.7724\)</span>, which is <span class="math inline">\(S_j - \mu_j = 4 - 3.2276\)</span>. Run it on both models, because it is the one relation that must agree between them, the means being shared.</p>
 <p><em>Interpretation.</em> VARI-METRIC reports about <strong>19 percent more backorders</strong> than METRIC on the same plan, and the whole of that difference came from the two terms in <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a>. Notice that the plan did not change and the system did not change. What changed is that the model now admits it does not know how long a request will wait, only what that wait averages.</p>
 <p>The direction is not accidental. <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> states that VARI-METRIC “produces an estimate of backorders that exceeds that of METRIC in all cases except when stock levels are zero (when the two models agree)”. Thus, wherever the two differ, VARI-METRIC is the pessimistic one, and the extra backorders it reports are ones METRIC was concealing rather than ones VARI-METRIC invented.</p>
@@ -2048,7 +2632,7 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 <p>The objective is the one argued for in <a href="#sec-multiechelon-onefortone-measures" class="quarto-xref"><span>Section 9.2.4</span></a>: minimize the <strong>total expected backorders at the storerooms</strong>,</p>
 <p><span id="eq-allocation-objective"><span class="math display">\[
 \mathit{EBO} = \sum_{\text{items}}\;\sum_{j=1}^{J}\bar{B}_j(S_j)
-\tag{9.23}\]</span></span></p>
+\tag{9.24}\]</span></span></p>
 <p>subject to the total cost of the units bought not exceeding a budget. Let <span class="math inline">\(c_j\)</span> represent the unit cost of the item stocked at storeroom <span class="math inline">\(j\)</span>, and <span class="math inline">\(c_0\)</span> its unit cost at the depot. Thus, one item’s plan costs <span class="math inline">\(c_0 S_0 + \sum_{j=1}^{J} c_j S_j\)</span>, and the budget applies to that sum taken over every item in the range.</p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -2056,7 +2640,7 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Notice that <span class="math inline">\(\bar{B}_0\)</span> does not appear in <a href="#eq-allocation-objective" class="quarto-xref">Equation&nbsp;<span>9.23</span></a>.</strong> A backorder at the depot costs nothing directly, because no crew is waiting at a depot. It costs by lengthening <span class="math inline">\(\bar{W}\)</span>, which by <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> inflates every storeroom’s pipeline, which raises the storeroom backorders that <a href="#eq-allocation-objective" class="quarto-xref">Equation&nbsp;<span>9.23</span></a> does count. Thus, depot stock is valued entirely for what it does four hundred miles away rather than for what it does at the depot, and that is what makes this a multi-echelon optimization rather than five separate ones.</p>
+<p><strong>Notice that <span class="math inline">\(\bar{B}_0\)</span> does not appear in <a href="#eq-allocation-objective" class="quarto-xref">Equation&nbsp;<span>9.24</span></a>.</strong> A backorder at the depot costs nothing directly, because no crew is waiting at a depot. It costs by lengthening <span class="math inline">\(\bar{W}\)</span>, which by <a href="#eq-storeroom-pipeline-solved" class="quarto-xref">Equation&nbsp;<span>9.14</span></a> inflates every storeroom’s pipeline, which raises the storeroom backorders that <a href="#eq-allocation-objective" class="quarto-xref">Equation&nbsp;<span>9.24</span></a> does count. Thus, depot stock is valued entirely for what it does four hundred miles away rather than for what it does at the depot, and that is what makes this a multi-echelon optimization rather than five separate ones.</p>
 </div>
 </div>
 </div>
@@ -2067,7 +2651,7 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 <p>For each item and each location, compute the <strong>delta value</strong>: the reduction in expected backorders that the next unit would buy, divided by what that unit costs. Recall from <a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a> that the reduction itself is <span class="math inline">\(G^{0}(S)\)</span>, so for an item costing <span class="math inline">\(c\)</span> the delta value at stock level <span class="math inline">\(S\)</span> is</p>
 <p><span id="eq-delta-value"><span class="math display">\[
 \delta(S) = \frac{\bar{B}(S) - \bar{B}(S+1)}{c} = \frac{G^{0}(S)}{c}
-\tag{9.24}\]</span></span></p>
+\tag{9.25}\]</span></span></p>
 <p>Then buy repeatedly, at each step taking the candidate with the largest delta value, until the budget runs out. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> calls this “the increase in system effectiveness per dollar”, and notes drily that “recent references sometimes refer to the technique as the ‘greedy heuristic’, hardly an improvement.”</p>
 <p>The procedure works only if the delta values decline as you buy. <a href="#sec-multiechelon-onelocation-marginal" class="quarto-xref"><span>Section 9.4.3</span></a> established that they do at a single location, because <span class="math inline">\(G^{0}\)</span> is a complementary distribution function and therefore nonincreasing. That is the convexity of <span class="math inline">\(\bar{B}(S)\)</span>, and <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> makes the same argument: “since the expected backorder function is convex, the marginal analysis values are non-increasing”, and “it is easy to show that the sum of convex functions is convex.”</p>
 <p>Were that not so, the procedure would go wrong in a specific way. Sherbrooke states it: “the problem with marginal analysis that looks only one step ahead is that there may be other items whose values are between” the true two-step improvement and the understated one-step improvement, and “those item stock levels will be augmented prematurely.”</p>
@@ -2076,11 +2660,11 @@ Algorithm&nbsp;9.2: Algorithm Varimetric. Step 3a is <a href="#eq-backorder-seco
 <h3 data-number="9.9.3" class="anchored" data-anchor-id="sec-multiechelon-allocation-convexity"><span class="header-section-number">9.9.3</span> Two Echelons Break the Convexity</h3>
 <p>At two echelons it is not so. This is the one place in the chapter where the machinery built so far does not simply extend.</p>
 <p>Fix the depot’s stock and vary a storeroom’s, and everything is convex, for the single-location reason. But the depot’s stock is a decision too, and moving it changes <span class="math inline">\(\bar{W}\)</span>, which moves every storeroom’s pipeline at once. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> puts it exactly: “each row of <a href="03-Chapter3.html#tbl-incremental-schedule" class="quarto-xref">Table&nbsp;<span>3.3</span></a> is convex, because the marginal analysis procedure is identical with Chapter 2. But as we move from one level of depot stock to another in the optimal solutions, there is no assurance of convexity.”</p>
-<p><a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a> shows it happening on the chapter’s own item. For each total number of transformers bought, it reports the best split between the depot and the four storerooms, the expected backorders that split produces, and the reduction the last unit bought.</p>
+<p><a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> shows it happening on the chapter’s own item. For each total number of transformers bought, it reports the best split between the depot and the four storerooms, the expected backorders that split produces, and the reduction the last unit bought.</p>
 <div id="tbl-allocation-transformer" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-allocation-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.4: The best two-echelon split of a given number of transformers, computed with <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>. The two bold reductions are larger than the reduction above them, so the totals <strong>above</strong> them, 12 and 20, are the ones lying off the convex curve.
+Table&nbsp;9.8: The best two-echelon split of a given number of transformers, computed with <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>. The two bold reductions are larger than the reduction above them, so the totals <strong>above</strong> them, 12 and 20, are the ones lying off the convex curve.
 </figcaption>
 <div aria-describedby="tbl-allocation-transformer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2190,9 +2774,76 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 </div>
 </figure>
 </div>
-<p>Read the Reduction column looking for an increase. The twelfth transformer removes 0.9850 backorders and the thirteenth removes 0.9870, which is more. The same thing happens at the twentieth and twenty-first. A procedure that buys by comparing one-step improvements will undervalue this item at exactly those two points, and will spend money on something else instead.</p>
+<p><em>How a row with no forward stock is computed.</em> The first three rows need nothing beyond <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a>. A storeroom holding nothing owes its whole pipeline, so <span class="math inline">\(\bar{B}_j(0) = \mu_j\)</span>. We sum <a href="#eq-varimetric-mean" class="quarto-xref">Equation&nbsp;<span>9.18</span></a> over the four storerooms, whose shares <span class="math inline">\(f_j\)</span> add to one, and obtain</p>
+<p><span class="math display">\[
+\mathit{EBO} = \sum_{j=1}^{4}\mu_j = 4(1.9726) + \bar{B}_0(S_0) = 7.8904 + G^{1}(S_0)
+\]</span></p>
+<p>For example, at <span class="math inline">\(S_0 = 12\)</span> the table gives <span class="math inline">\(G^{1}(12) = 8.7399\)</span>, so <span class="math inline">\(\mathit{EBO} = 7.8904 + 8.7399 = 16.6303\)</span>, which is the row for 12 units. Notice that on these rows the reduction is the depot’s own <span class="math inline">\(G^{0}\)</span> one row up, by <a href="#eq-marginal-value" class="quarto-xref">Equation&nbsp;<span>9.10</span></a>: 0.9927 is <span class="math inline">\(G^{0}(10)\)</span> and 0.9850 is <span class="math inline">\(G^{0}(11)\)</span>.</p>
+<p><em>How the best split is found.</em> A total of thirteen can be held in fourteen ways, from all thirteen at the depot to none. <a href="#tbl-allocation-thirteen" class="quarto-xref">Table&nbsp;<span>9.9</span></a> evaluates the first six, spreading the forward units as evenly as the count allows.</p>
+<div id="tbl-allocation-thirteen" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-allocation-thirteen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.9: Six ways of holding thirteen transformers, each evaluated by <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>. The smallest is the row <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> reports for a total of 13.
+</figcaption>
+<div aria-describedby="tbl-allocation-thirteen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(S_0\)</span></th>
+<th style="text-align: right;">Units at storerooms</th>
+<th style="text-align: right;"><span class="math inline">\(\mathit{EBO}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15.6584</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15.6519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15.6485</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">15.6461</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;"><strong>15.6433</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15.6744</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The first row is the formula above, <span class="math inline">\(7.8904 + G^{1}(13) = 7.8904 + 7.7680 =
+15.6584\)</span>. The winning row is <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a> in full, and every input is already on the page. <a href="#tbl-depot-secondmoment" class="quarto-xref">Table&nbsp;<span>9.6</span></a> at <span class="math inline">\(s = 9\)</span> gives <span class="math inline">\(\bar{B}_0 = 11.7143\)</span> and <span class="math inline">\(\mathit{Var}[B_0] = 20.6612\)</span>. Then by <a href="#eq-varimetric-mean" class="quarto-xref">Equation&nbsp;<span>9.18</span></a> and <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mu_j &amp;= 1.9726 + 0.25(11.7143) = 1.9726 + 2.9286 = 4.9012\\
+\sigma_j^{2} &amp;= 1.9726 + (0.25)(0.75)(11.7143) + (0.25)^{2}(20.6612)\\
+&amp;= 1.97260 + 2.19644 + 1.29132 = 5.4604
+\end{aligned}
+\]</span></p>
+<p>and by <a href="#eq-varimetric-fit" class="quarto-xref">Equation&nbsp;<span>9.22</span></a>, <span class="math inline">\(p = 4.9012/5.4604 = 0.8976\)</span> and <span class="math inline">\(r = 42.959\)</span>. Each storeroom holds one unit, so only the first row of <a href="#eq-varimetric-negbinrecursion" class="quarto-xref">Equation&nbsp;<span>9.23</span></a> is needed: <span class="math inline">\(g(0) = p^{r} = e^{42.959(-0.108038)} = e^{-4.6412} = 0.0096\)</span>, so <span class="math inline">\(G^{0}(0) = 0.9904\)</span> and <span class="math inline">\(\bar{B}_j(1) = G^{1}(1) = \mu_j - G^{0}(0) = 4.9012 - 0.9904 = 3.9108\)</span>. Four storerooms give <span class="math inline">\(4(3.9108) = 15.6433\)</span>, the product taken before rounding.</p>
+<p>Thus moving four of the thirteen forward beats holding them all at the depot by <span class="math inline">\(15.6584 - 15.6433 = 0.0151\)</span> backorders, and a fifth forward unit gives the advantage back. Every row of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> is the smallest entry of a comparison like this one.</p>
+<p>Read the Reduction column of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> looking for an increase. The twelfth transformer removes 0.9850 backorders and the thirteenth removes 0.9870, which is more. The same thing happens at the twentieth and twenty-first. A procedure that buys by comparing one-step improvements will undervalue this item at exactly those two points, and will spend money on something else instead.</p>
 <p>Precision about which point is the bad one matters, because it is easy to name the wrong row. The reduction rising at total 13 means that total <strong>12</strong> lies above the straight line joining 11 and 13, so 12 is the plan that is never worth buying. Check it: <span class="math inline">\((17.6154 + 15.6433)/2 = 16.6294\)</span>, which is below the 16.6303 the table reports at 12.</p>
-<p>The fix is to refuse to stop there. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span>: the non-convex points “are easily dealt with by excluding them as potential solutions”, and “by dropping the interior points, the marginal analysis will jump to the next convex point at the correct time, buying at least two more units of stock of the item because of the eliminated interior point or points.” Applied to <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, totals of 12 and 20 are struck out, so the procedure moves from 11 units straight to 13 and from 19 straight to 21, buying two at a time and quoting the average of the two reductions as its delta value. This step is called <strong>convexification</strong>.</p>
+<p>The fix is to refuse to stop there. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span>: the non-convex points “are easily dealt with by excluding them as potential solutions”, and “by dropping the interior points, the marginal analysis will jump to the next convex point at the correct time, buying at least two more units of stock of the item because of the eliminated interior point or points.” Applied to <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a>, totals of 12 and 20 are struck out, so the procedure moves from 11 units straight to 13 and from 19 straight to 21, buying two at a time and quoting the average of the two reductions as its delta value. This step is called <strong>convexification</strong>.</p>
 </section>
 <section id="sec-multiechelon-allocation-flushout" class="level3" data-number="9.9.4">
 <h3 data-number="9.9.4" class="anchored" data-anchor-id="sec-multiechelon-allocation-flushout"><span class="header-section-number">9.9.4</span> Flushout</h3>
@@ -2232,12 +2883,12 @@ Table&nbsp;9.4: The best two-echelon split of a given number of transformers, co
 </section>
 <section id="sec-multiechelon-allocation-items" class="level3" data-number="9.9.5">
 <h3 data-number="9.9.5" class="anchored" data-anchor-id="sec-multiechelon-allocation-items"><span class="header-section-number">9.9.5</span> Across Items</h3>
-<p>Everything so far concerned one item. Items are combined by the same rule, with the reductions divided by unit cost as <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.24</span></a> requires. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> is explicit that this division is what makes them comparable: “when we combine across items, the backorder reductions (first differences) must be divided by unit cost.”</p>
-<p>Suppose the utility also stocks a voltage regulator at $9,500, failing 12 times a year at each storeroom, of which it rebuilds a fifth locally in 45 days, with a depot repair time of 90 days and the same ten day shipment from the depot. <a href="#tbl-allocation-merge" class="quarto-xref">Table&nbsp;<span>9.5</span></a> follows the merged buy sequence, each row taking whichever item offers the larger delta value.</p>
+<p>Everything so far concerned one item. Items are combined by the same rule, with the reductions divided by unit cost as <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> requires. <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> is explicit that this division is what makes them comparable: “when we combine across items, the backorder reductions (first differences) must be divided by unit cost.”</p>
+<p>Suppose the utility also stocks a voltage regulator at $9,500, failing 12 times a year at each storeroom, of which it rebuilds a fifth locally in 45 days, with a depot repair time of 90 days and the same ten day shipment from the depot. <a href="#tbl-allocation-merge" class="quarto-xref">Table&nbsp;<span>9.10</span></a> follows the merged buy sequence, each row taking whichever item offers the larger delta value.</p>
 <div id="tbl-allocation-merge" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-allocation-merge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a href="#alg-allocate" class="quarto-xref">Algorithm&nbsp;<span>9.3</span></a> reports them. The delta column never rises, which is what convexification bought. Steps 12 and 19 buy two transformers at once, jumping the struck-out totals of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>.
+Table&nbsp;9.10: Selected steps of the merged buy sequence for two items, as <a href="#alg-allocate" class="quarto-xref">Algorithm&nbsp;<span>9.3</span></a> reports them. The delta column never rises, which is what convexification bought. Steps 12 and 19 buy two transformers at once, jumping the struck-out totals of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a>.
 </figcaption>
 <div aria-describedby="tbl-allocation-merge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2353,6 +3004,12 @@ Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a h
 </div>
 </figure>
 </div>
+<p><em>How a delta value is computed.</em> Take three rows of <a href="#tbl-allocation-merge" class="quarto-xref">Table&nbsp;<span>9.10</span></a>. With no stock anywhere the transformer’s backorders are <span class="math inline">\(7.8904 + G^{1}(0) = 7.8904 + 20.7123 = 28.6027\)</span>. Step 1 puts the first unit at the depot, which removes <span class="math inline">\(G^{0}(0) = 1.0000\)</span> of them and leaves 27.6027. By <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.25</span></a>,</p>
+<p><span class="math display">\[
+\delta = \frac{1.0000}{3800} = 0.0002632 \text{ per dollar}
+= 0.2632 \text{ per \$1,000}
+\]</span></p>
+<p>Step 12 is a jump over a struck-out total, from 11 units to 13, so its reduction is the fall across both units and its cost is two units: <span class="math inline">\((17.6154 - 15.6433)/(2 \times 3800) = 1.9721/7600\)</span>, which is 0.2595 per $1,000. Step 29 is the regulator’s first unit. It goes to the regulator’s depot and removes that depot’s <span class="math inline">\(G^{0}(0) = 0.9999\)</span> backorders, so <span class="math inline">\(\delta = 0.9999/9500\)</span>, which is 0.1053 per $1,000.</p>
 <p>Read the delta column down. It never rises, which is the whole point of convexification: without it, steps 12 and 19 would have quoted understated deltas and the regulator would have been bought too early.</p>
 <p>Read the first twenty-eight steps, too. Not one regulator is purchased until $114,000 has gone into transformers. That is arithmetic, not a judgment about regulators. The transformer removes about a quarter of a backorder per thousand dollars at the start and the regulator about a tenth, because the transformer fails nearly four times as often and costs less than half as much per unit. Notice that a planner reasoning by unit price alone would have bought regulators first, on the grounds that they are the expensive item and therefore the important one.</p>
 </section>
@@ -2361,7 +3018,7 @@ Table&nbsp;9.5: Selected steps of the merged buy sequence for two items, as <a h
 <div id="alg-allocate" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-alg figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-alg" id="alg-allocate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Algorithm&nbsp;9.3: Algorithm Allocate. Step 1 calls <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>, step 2 is the convexification of <a href="#sec-multiechelon-allocation-convexity" class="quarto-xref"><span>Section 9.9.3</span></a>, and step 3 is <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.24</span></a>. The procedure follows the eight steps <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> sets out for METRIC, with <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a> in place of <a href="#alg-metric" class="quarto-xref">Algorithm&nbsp;<span>9.1</span></a>.
+Algorithm&nbsp;9.3: Algorithm Allocate. Step 1 calls <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a>, step 2 is the convexification of <a href="#sec-multiechelon-allocation-convexity" class="quarto-xref"><span>Section 9.9.3</span></a>, and step 3 is <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.25</span></a>. The procedure follows the eight steps <span class="citation" data-cites="sherbrooke2004">Sherbrooke (<a href="references.html#ref-sherbrooke2004" role="doc-biblioref">2004</a>)</span> sets out for METRIC, with <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a> in place of <a href="#alg-metric" class="quarto-xref">Algorithm&nbsp;<span>9.1</span></a>.
 </figcaption>
 <div aria-describedby="alg-allocate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <pre><code>allocate(budget, items):
@@ -2394,7 +3051,7 @@ Algorithm&nbsp;9.3: Algorithm Allocate. Step 1 calls <a href="#alg-varimetric" c
 </figure>
 </div>
 <hr>
-<p>What <a href="#alg-allocate" class="quarto-xref">Algorithm&nbsp;<span>9.3</span></a> returns is not one answer but a curve. Every step of the merge is an efficient plan for the money spent up to that point, so the output is the whole schedule of backorders against budget. That is more useful than a single plan, because the budget is usually not fixed until someone has seen what the money buys. A utility that sees <a href="#tbl-allocation-merge" class="quarto-xref">Table&nbsp;<span>9.5</span></a> can ask whether the step from $114,000 to $123,500 is worth it, which is a question it can answer and the model cannot.</p>
+<p>What <a href="#alg-allocate" class="quarto-xref">Algorithm&nbsp;<span>9.3</span></a> returns is not one answer but a curve. Every step of the merge is an efficient plan for the money spent up to that point, so the output is the whole schedule of backorders against budget. That is more useful than a single plan, because the budget is usually not fixed until someone has seen what the money buys. A utility that sees <a href="#tbl-allocation-merge" class="quarto-xref">Table&nbsp;<span>9.10</span></a> can ask whether the step from $114,000 to $123,500 is worth it, which is a question it can answer and the model cannot.</p>
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -2408,7 +3065,7 @@ Algorithm&nbsp;9.3: Algorithm Allocate. Step 1 calls <a href="#alg-varimetric" c
 </section>
 <section id="sec-multiechelon-allocation-forward" class="level3" data-number="9.9.7">
 <h3 data-number="9.9.7" class="anchored" data-anchor-id="sec-multiechelon-allocation-forward"><span class="header-section-number">9.9.7</span> Where This Leaves Us</h3>
-<p>The chapter is now closed. <a href="#sec-multiechelon-positioning" class="quarto-xref"><span>Section 9.1</span></a> asked where stock should sit and argued that the answer would come out of a policy calculation rather than alongside one. <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a> is that answer, arriving as a column of a table whose purpose was to choose stock levels, and behaving in a way no rule of thumb would have produced.</p>
+<p>The chapter is now closed. <a href="#sec-multiechelon-positioning" class="quarto-xref"><span>Section 9.1</span></a> asked where stock should sit and argued that the answer would come out of a policy calculation rather than alongside one. <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> is that answer, arriving as a column of a table whose purpose was to choose stock levels, and behaving in a way no rule of thumb would have produced.</p>
 <p>What remains is practice. <a href="#sec-multiechelon-building" class="quarto-xref"><span>Section 9.10</span></a> builds these calculations in a worksheet, and <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a> says what changes when the same calculations have to run over forty thousand items.</p>
 </section>
 </section>
@@ -2420,7 +3077,7 @@ Algorithm&nbsp;9.3: Algorithm Allocate. Step 1 calls <a href="#alg-varimetric" c
 <h3 data-number="9.10.1" class="anchored" data-anchor-id="sec-multiechelon-build-depot"><span class="header-section-number">9.10.1</span> The Depot</h3>
 <p><code>Depot</code> is <a href="#sec-multiechelon-palm" class="quarto-xref"><span>Section 9.3</span></a> and <a href="#sec-multiechelon-delay" class="quarto-xref"><span>Section 9.6</span></a>. The rates block at the top turns the item and the network into <span class="math inline">\(\lambda_0\)</span> and <span class="math inline">\(\mu_0 = \lambda_0 T_0\)</span>, and the block below walks one row per unit of pipeline.</p>
 <p>Three of its four columns are the ones <a href="08-Chapter8.html#sec-continuousreview-build-evaluate" class="quarto-xref"><span>Section 8.16.2</span></a> already used, and they need no function Excel does not have. <span class="math inline">\(G\)</span> comes from <code>POISSON.DIST</code> with the cumulative flag, <span class="math inline">\(G^{0}\)</span> is its complement, and <span class="math inline">\(G^{1}\)</span> is the recursion of <a href="14-AppDistributions.html#eq-loss-discrete-recursion" class="quarto-xref">Equation&nbsp;<span>C.13</span></a> filled down.</p>
-<p>The fourth column is new, and it is the one VARI-METRIC needs. <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> is a recursion of the same shape, so it costs one more column:</p>
+<p>These three columns are those of <a href="#tbl-depot-handtable" class="quarto-xref">Table&nbsp;<span>9.3</span></a>, carried down to <span class="math inline">\(x = 60\)</span>. The fourth column is new, and it is the one VARI-METRIC needs, the <span class="math inline">\(E[B^{2}(s)]\)</span> column of <a href="#tbl-depot-secondmoment" class="quarto-xref">Table&nbsp;<span>9.6</span></a>. <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> is a recursion of the same shape, so it costs one more column:</p>
 <pre><code>E21:  =$B$13+$B$13^2
 E22:  =E21-D22-D21</code></pre>
 <p>the first cell being <span class="math inline">\(\mu_0 + \mu_0^{2}\)</span> and every cell after it subtracting the two loss values on its own row and the row above. Notice that this is the whole of the extra work VARI-METRIC asks of a worksheet at the depot. Everything else on the sheet METRIC needed too.</p>
@@ -2469,7 +3126,7 @@ Figure&nbsp;9.4: The moments block on the <code>Storeroom</code> sheet. Nothing 
 <p>VARI-METRIC does not close in one cell, and the reason matters. The fitted <span class="math inline">\(r\)</span> is 14.3674 and not an integer, and <code>NEGBINOM.DIST</code> truncates that argument to a whole number. A sheet that used it would quietly compute the wrong distribution and report a plausible answer. So the sheet does not use it. It builds the mass function from its own recursion instead, which needs nothing but arithmetic:</p>
 <pre><code>B38:  =$B$27^$B$29
 B39:  =B38*($B$29+A39-1)/A39*(1-$B$27)</code></pre>
-<p>that is, <span class="math inline">\(g(0) = p^{r}\)</span> and <span class="math inline">\(g(x) = g(x-1)\,\frac{r+x-1}{x}(1-p)\)</span>, and then walks <span class="math inline">\(G^{0}\)</span> and <span class="math inline">\(G^{1}\)</span> up the block as the Poisson block does. The sum of the mass column sits at the bottom and should read 1; that is the check that the block was walked far enough.</p>
+<p>that is, <span class="math inline">\(g(0) = p^{r}\)</span> and <span class="math inline">\(g(x) = g(x-1)\,\frac{r+x-1}{x}(1-p)\)</span>, which is <a href="#eq-varimetric-negbinrecursion" class="quarto-xref">Equation&nbsp;<span>9.23</span></a>, and then walks <span class="math inline">\(G^{0}\)</span> and <span class="math inline">\(G^{1}\)</span> up the block as the Poisson block does. The first five rows of the block are <a href="#tbl-varimetric-negbin" class="quarto-xref">Table&nbsp;<span>9.7</span></a>. The sum of the mass column sits at the bottom and should read 1; that is the check that the block was walked far enough.</p>
 <div id="fig-ws9-negbin" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ws9-negbin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2515,10 +3172,10 @@ Figure&nbsp;9.7: The <code>Allocate</code> sheet. Each row is a total number of 
 </figcaption>
 </figure>
 </div>
-<p>Flushout is on the sheet, in the best <span class="math inline">\(S_0\)</span> column, as <a href="#sec-multiechelon-allocation-flushout" class="quarto-xref"><span>Section 9.9.4</span></a> described it. Notice that it arrives one unit earlier than in <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, at a total of 12 rather than 13. The sheet runs METRIC, and METRIC understates the backorders at a storeroom that holds stock, so it makes forward stock look slightly better than it is.</p>
+<p>Flushout is on the sheet, in the best <span class="math inline">\(S_0\)</span> column, as <a href="#sec-multiechelon-allocation-flushout" class="quarto-xref"><span>Section 9.9.4</span></a> described it. Notice that it arrives one unit earlier than in <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a>, at a total of 12 rather than 13. The sheet runs METRIC, and METRIC understates the backorders at a storeroom that holds stock, so it makes forward stock look slightly better than it is.</p>
 <p>The last three columns are the reduction, a flag, and the delta value. The flag is the one piece of <a href="#sec-multiechelon-allocation-convexity" class="quarto-xref"><span>Section 9.9.3</span></a> a worksheet can do for you:</p>
 <pre><code>M9:   =IF(OR(L9="",L10=""),"",IF(L10&gt;L9,"drop",""))</code></pre>
-<p>Notice which row the flag lands on. A total lies off the convex curve when the reduction on the row <em>below</em> it is the larger, so the formula looks forward, not back. Writing it the other way round marks the row after the offending plan, which reads plausibly and strikes out the wrong one. That is the non-convexity of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a> showing up as a word in a column. The sheet marks them; striking them out and merging across items is left to you, because a worksheet cannot sort a list it is also computing.</p>
+<p>Notice which row the flag lands on. A total lies off the convex curve when the reduction on the row <em>below</em> it is the larger, so the formula looks forward, not back. Writing it the other way round marks the row after the offending plan, which reads plausibly and strikes out the wrong one. That is the non-convexity of <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> showing up as a word in a column. The sheet marks them; striking them out and merging across items is left to you, because a worksheet cannot sort a list it is also computing.</p>
 </section>
 <section id="sec-multiechelon-build-ledger" class="level3" data-number="9.10.4">
 <h3 data-number="9.10.4" class="anchored" data-anchor-id="sec-multiechelon-build-ledger"><span class="header-section-number">9.10.4</span> The Ledger</h3>
@@ -2624,7 +3281,7 @@ Figure&nbsp;9.8: The <code>Ledger</code> sheet. The blue columns are typed and t
 </tbody>
 </table>
 <p>At <span class="math inline">\(S_0 = 22\)</span> the storeroom reaches 0.1501, which is past the contract’s 0.1523. <strong>Six more transformers at the depot do what the contract does.</strong></p>
-<p><em>Step 4, the price.</em> Six transformers at $3,800 is $22,800 of capital, and at the carrying charge <span class="math inline">\(\gamma = 0.25\)</span> of <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.5</span></a> that is <span class="math inline">\(6(0.25)(3800) = \$5{,}700\)</span> a year to hold. Thus the contract is worth <strong>up to $5,700 a year</strong>, and above that the utility should buy transformers instead.</p>
+<p><em>Step 4, the price.</em> Six transformers at $3,800 is $22,800 of capital, and at the carrying charge <span class="math inline">\(\gamma = 0.25\)</span> of <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.9</span></a> that is <span class="math inline">\(6(0.25)(3800) = \$5{,}700\)</span> a year to hold. Thus the contract is worth <strong>up to $5,700 a year</strong>, and above that the utility should buy transformers instead.</p>
 <p><em>The check.</em> Two, and both are free. <a href="#eq-depot-wait" class="quarto-xref">Equation&nbsp;<span>9.13</span></a> says the delay is the backorder level over the demand rate, so at the contract terms <span class="math inline">\(1.3500/126 = 0.010714\)</span> years, which is 3.91 days and is what <code>Depot!B20</code> reports. <code>Storeroom!B37</code> also holds <a href="#eq-repairable-onhand" class="quarto-xref">Equation&nbsp;<span>9.7</span></a> rearranged; it read zero before any of this and reads zero after, so nothing above disturbed an identity that has to hold.</p>
 <p><em>Interpretation.</em> The answer is a rate, not a number, which is what makes it usable. A shop asking $4,000 a year should be taken; one asking $9,000 should be refused and the money spent on stock. Notice also what the exercise revealed about the system rather than the contract: at the present depot stock the utility is operating where the delay curve is steep, and either lever moves it a long way. A utility already holding 26 at the depot would find the same contract worth far less.</p>
 <p>Where should the six go? That is the <code>Allocate</code> sheet’s question, and the answer is not obvious. Adding six units brings the total to 38. Find the row whose total is 38, which is sheet row 46: the best split it reports is 18 at the depot and 5 at each storeroom, not 22 and 4.</p>
@@ -2635,7 +3292,7 @@ Figure&nbsp;9.8: The <code>Ledger</code> sheet. The blue columns are typed and t
 <h3 data-number="9.10.6" class="anchored" data-anchor-id="sec-multiechelon-build-limits"><span class="header-section-number">9.10.6</span> What the Worksheet Cannot Do</h3>
 <p>The <code>Allocate</code> sheet runs METRIC, not VARI-METRIC, and the reason is the one difference between the two models that matters to a spreadsheet.</p>
 <p>A Poisson first order loss function closes in one cell, so a grid of a few hundred candidate plans is a few hundred cells. A negative binomial one does not. Writing it the same way needs a distribution function evaluated at a non-integer <span class="math inline">\(r\)</span>, which is <a href="#sec-multiechelon-build-storeroom" class="quarto-xref"><span>Section 9.10.2</span></a>’s problem again, and the alternative is the recursion block, which is fifty cells per candidate plan rather than one. Fifty cells times a few hundred plans is not a worksheet.</p>
-<p>Thus the <code>Allocate</code> sheet answers a slightly different question than <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a> did, and its flushout and its dropped totals land at slightly different places. That the two agree on the shape and not on the digits is itself instructive.</p>
+<p>Thus the <code>Allocate</code> sheet answers a slightly different question than <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> did, and its flushout and its dropped totals land at slightly different places. That the two agree on the shape and not on the digits is itself instructive.</p>
 <p>The right reading is that the worksheet has reached its limit here rather than the method. <a href="#sec-multiechelon-building" class="quarto-xref"><span>Section 9.10</span></a> is where a chapter usually ends; this one does not, because a utility with nine repairable items and four storerooms is already past what the <code>Allocate</code> sheet can carry, and a defense establishment with forty thousand items is not in the same conversation. <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a> takes that up.</p>
 </section>
 </section>
@@ -2715,7 +3372,7 @@ Figure&nbsp;9.9: The concepts of this chapter before any thought about implement
 <tr class="even">
 <td><code>VariMetricModel</code></td>
 <td>a set of items</td>
-<td>the totals of <a href="#eq-allocation-objective" class="quarto-xref">Equation&nbsp;<span>9.23</span></a></td>
+<td>the totals of <a href="#eq-allocation-objective" class="quarto-xref">Equation&nbsp;<span>9.24</span></a></td>
 </tr>
 <tr class="odd">
 <td><code>MAFItemData</code></td>
@@ -2769,7 +3426,7 @@ Figure&nbsp;9.10: The evaluation classes. Everything a location can be asked liv
 <p>The second moment of a backorder level. <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> walks <span class="math inline">\(E[B^{2}(s)]\)</span> up one stock level at a time, and a worksheet needs that because it has rows and no second order loss function. A program has the reverse. We write the square as <span class="math inline">\((x-s)^{2} = (x-s)(x-s-1) + (x-s)\)</span> and take expectations over <span class="math inline">\(x &gt; s\)</span>, which gives</p>
 <p><span id="eq-backorder-secondmoment-closed"><span class="math display">\[
 E[B^{2}(s)] = 2\,G^{2}(s) + G^{1}(s)
-\tag{9.25}\]</span></span></p>
+\tag{9.26}\]</span></span></p>
 <p>so <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a> needs one line:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">varianceBackOrders</span><span class="op">:</span> <span class="kw">Double</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">get</span><span class="op">()</span> <span class="op">{</span></span>
@@ -2823,7 +3480,7 @@ E[B^{2}(s)] = 2\,G^{2}(s) + G^{1}(s)
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> slope<span class="op">(</span>kIndex<span class="op">,</span> c<span class="op">)</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s <span class="op">&gt;=</span> slopeMax<span class="op">)</span> <span class="op">{</span> slopeMax <span class="op">=</span> s<span class="op">;</span> kLast <span class="op">=</span> c <span class="op">}</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The totals it skips are the ones <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a> strikes out, and <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.24</span></a> is then computed across the jump, over however many units it spans.</p>
+<p>The totals it skips are the ones <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a> strikes out, and <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> is then computed across the jump, over however many units it spans.</p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -2842,12 +3499,12 @@ E[B^{2}(s)] = 2\,G^{2}(s) + G^{1}(s)
 <p>Attach a price to money and the problem falls apart into pieces. Let <span class="math inline">\(\theta\)</span> represent a charge per dollar held. We minimize</p>
 <p><span id="eq-lagrange-relaxation"><span class="math display">\[
 w(\theta) = \sum_j \bar{B}_j(S_j) + \theta \left(c_0 S_0 + \sum_j c_j S_j\right)
-\tag{9.26}\]</span></span></p>
+\tag{9.27}\]</span></span></p>
 <p>At a fixed <span class="math inline">\(\theta\)</span> the storerooms no longer compete for a budget, so each solves its own problem, and its problem is the newsvendor of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>: buy while the chance of needing the next unit exceeds its price. Thus</p>
 <p><span id="eq-lagrange-newsvendor"><span class="math display">\[
 S_j = \min\left\{ S : G(S) \ge 1 - \theta c_j \right\}
-\tag{9.27}\]</span></span></p>
-<p>and no search is needed at a storeroom at all. The depot still needs one, because moving it moves every storeroom, so <code>LagrangeAlgorithm</code> enumerates the depot over a window and reads <a href="#eq-lagrange-newsvendor" class="quarto-xref">Equation&nbsp;<span>9.27</span></a> off each storeroom at each trial level.</p>
+\tag{9.28}\]</span></span></p>
+<p>and no search is needed at a storeroom at all. The depot still needs one, because moving it moves every storeroom, so <code>LagrangeAlgorithm</code> enumerates the depot over a window and reads <a href="#eq-lagrange-newsvendor" class="quarto-xref">Equation&nbsp;<span>9.28</span></a> off each storeroom at each trial level.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-multiechelon-search" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -2868,7 +3525,7 @@ Figure&nbsp;9.11: The two families of search. Marginal analysis builds a curve f
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>The multiplier lives on a scale set by the unit cost.</strong> By <a href="#eq-lagrange-newsvendor" class="quarto-xref">Equation&nbsp;<span>9.27</span></a> a storeroom stocks nothing once <span class="math inline">\(\theta \ge 1/c_j\)</span>, so the whole useful range is <span class="math inline">\((0, 1/c_j)\)</span>. For a transformer at $3,800 that is <span class="math inline">\(2.6 \times 10^{-4}\)</span>. Search an interval far above it and the algorithm reports, correctly and uselessly, that no root exists: every candidate multiplier prices money so dearly that no storeroom stocks anything.</p>
+<p><strong>The multiplier lives on a scale set by the unit cost.</strong> By <a href="#eq-lagrange-newsvendor" class="quarto-xref">Equation&nbsp;<span>9.28</span></a> a storeroom stocks nothing once <span class="math inline">\(\theta \ge 1/c_j\)</span>, so the whole useful range is <span class="math inline">\((0, 1/c_j)\)</span>. For a transformer at $3,800 that is <span class="math inline">\(2.6 \times 10^{-4}\)</span>. Search an interval far above it and the algorithm reports, correctly and uselessly, that no root exists: every candidate multiplier prices money so dearly that no storeroom stocks anything.</p>
 </div>
 </div>
 </div>
@@ -2930,7 +3587,7 @@ Figure&nbsp;9.11: The two families of search. Marginal analysis builds a curve f
 <pre><code>  METRIC       mu_j   3.2276  var   3.2276  Bbar_j   0.4055  Ibar_j   1.1778  system   1.6218
   VARI-METRIC  mu_j   3.2276  var   3.9527  Bbar_j   0.4815  Ibar_j   1.2539  system   1.9259</code></pre>
 <p><em>Read the two lines against each other.</em> The <code>mu_j</code> column agrees to four decimals and the <code>var</code> column does not, which is <a href="#sec-multiechelon-varimetric" class="quarto-xref"><span>Section 9.8</span></a>’s claim that no mean changes, enforced by the fact that one object produced both.</p>
-<p>The allocation prints <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.4</span></a>, including which totals it struck out:</p>
+<p>The allocation prints <a href="#tbl-allocation-transformer" class="quarto-xref">Table&nbsp;<span>9.8</span></a>, including which totals it struck out:</p>
 <pre><code>  total        EBO    S_0  reduction    kept?
      11    17.6154     11     0.9927         
      12    16.6303     12     0.9850  dropped
@@ -2952,17 +3609,17 @@ Figure&nbsp;9.11: The two families of search. Marginal analysis builds a curve f
 <h2 data-number="9.12" class="anchored" data-anchor-id="sec-multiechelon-summary"><span class="header-section-number">9.12</span> Summary</h2>
 <p><strong>A repairable item is not bought, so one-for-one replenishment is not a policy choice.</strong> A failure is simultaneously a demand for a serviceable unit and an arrival of an unserviceable one, and they are the same physical event. Thus the repair pipeline is fed one failure at a time and there is no ordering cost standing between the failure and the induction that waiting could amortize. <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> presented <span class="math inline">\(Q = 1\)</span> as a decision the storeroom made, and for a consumable it is one; here the item makes it. That is what allows this chapter to carry two locations without also carrying an order quantity, and it is the whole reason to meet multi-echelon inventory in this setting first.</p>
 <p><strong>The population is fixed, so the only question is where the units sit.</strong> <a href="#fig-repairable" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> has no arrow entering it and none leaving. Buying more units is a separate and much slower decision, usually taken once when a fleet is fielded. Thus the stock positioning problem of <a href="#sec-multiechelon-positioning" class="quarto-xref"><span>Section 9.1</span></a> stops being one question among several and becomes the only one there is.</p>
-<p><strong>Palm’s theorem is the chapter’s one exact result, and it asks for a mean and nothing else.</strong> With Poisson failures and independently drawn resupply times, the number of units in resupply is Poisson with mean <span class="math inline">\(\lambda T\)</span> whatever the resupply time distribution may be. That license is worth more here than it looks, because repair time data is the worst data in this business: a shop can usually report an average flow time and rarely more. <strong>The condition that fails in practice is the third one.</strong> The <span class="math inline">\(M/G/\infty\)</span> reading makes it explicit that repair capacity never binds, and a shop with three benches and twelve carcasses breaks it. Notice also that <a href="#eq-palm-pipeline" class="quarto-xref">Equation&nbsp;<span>9.3</span></a> and <a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.30</span></a> do not contradict one another. The separating question is whether an activity started later can finish earlier, which is a fact about the shop and not about the model.</p>
+<p><strong>Palm’s theorem is the chapter’s one exact result, and it asks for a mean and nothing else.</strong> With Poisson failures and independently drawn resupply times, the number of units in resupply is Poisson with mean <span class="math inline">\(\lambda T\)</span> whatever the resupply time distribution may be. That license is worth more here than it looks, because repair time data is the worst data in this business: a shop can usually report an average flow time and rarely more. <strong>The condition that fails in practice is the third one.</strong> The <span class="math inline">\(M/G/\infty\)</span> reading makes it explicit that repair capacity never binds, and a shop with three benches and twelve carcasses breaks it. Notice also that <a href="#eq-palm-pipeline" class="quarto-xref">Equation&nbsp;<span>9.3</span></a> and <a href="13-AppProbability.html#eq-ltd-moments" class="quarto-xref">Equation&nbsp;<span>B.36</span></a> do not contradict one another. The separating question is whether an activity started later can finish earlier, which is a fact about the shop and not about the model.</p>
 <p><strong>The depot’s backorders are the storeroom’s lead time.</strong> That sentence is the coupling, and <a href="#eq-depot-wait" class="quarto-xref">Equation&nbsp;<span>9.13</span></a> is the arithmetic of it: divide the depot’s average backorder level by its demand rate and a wait falls out, by Little’s Law, which assumes almost nothing. <a href="#sec-multiechelon-ledger" class="quarto-xref"><span>Section 9.5</span></a> obtained the same number twice on twenty-six weeks of one realization, once by following individual requests and once by weighting a level by how long it was held, and the two agreed because they are the same area counted along two different axes. <strong>A quantity written <span class="math inline">\(B(t)\)</span> is averaged over time and not over the rows of a ledger</strong>, and a table with more rows in its quiet stretches will mislead anyone who forgets it.</p>
 <p><strong>One-for-one ordering buys a system that solves in one pass.</strong> The depot’s pipeline contains no storeroom stock level, so the depot is solved first, once, and on its own, and the storerooms follow from the delay it imposes. There is no circle to iterate around, no convergence to test, and no fixed point anywhere in <a href="#alg-metric" class="quarto-xref">Algorithm&nbsp;<span>9.1</span></a>, <a href="#alg-varimetric" class="quarto-xref">Algorithm&nbsp;<span>9.2</span></a> or the package of <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a>. That is a property of <span class="math inline">\(Q = 1\)</span>, and it does not survive batching.</p>
 <p><strong>METRIC gets every mean right and one distribution wrong.</strong> The depot’s pipeline really is Poisson, so its backorders are exact; the delay is exact because Little’s Law is; and the storeroom’s pipeline <strong>mean</strong> is exact for the same reason, with no independence assumed anywhere. What is not earned is the claim that the storeroom’s pipeline is Poisson, because two requests arriving while the depot is empty wait on the same repairs and their delays move together. The error runs the unsafe way, understating backorders and overstating availability, and it was known to the model’s author at the time. <span class="citation" data-cites="graves1985">Graves (<a href="references.html#ref-graves1985" role="doc-biblioref">1985</a>)</span> measured it where a planner would feel it, in stock levels rather than reported backorders.</p>
-<p><strong>VARI-METRIC changes no mean; it restores a variance that METRIC discarded.</strong> Conditional on the depot’s backorder total, the number owed to any one storeroom is binomial, so <a href="13-AppProbability.html#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.8</span></a> supplies two terms: the randomness in which storeroom each backorder belongs to, and the randomness in how many there are. Adding them to the Poisson part gives <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a>, and setting them to zero gives METRIC back. Thus the two models are not rivals but one model read to one moment or to two, which is what <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> means by calling METRIC a first-order model. <strong>One step rests on evidence rather than proof</strong>, and the authors say so: neither Graves nor Sherbrooke could show that the variance always exceeds the mean, so a program should test it rather than assume it.</p>
+<p><strong>VARI-METRIC changes no mean; it restores a variance that METRIC discarded.</strong> Conditional on the depot’s backorder total, the number owed to any one storeroom is binomial, so <a href="13-AppProbability.html#eq-law-total-variance" class="quarto-xref">Equation&nbsp;<span>B.11</span></a> supplies two terms: the randomness in which storeroom each backorder belongs to, and the randomness in how many there are. Adding them to the Poisson part gives <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a>, and setting them to zero gives METRIC back. Thus the two models are not rivals but one model read to one moment or to two, which is what <span class="citation" data-cites="sherbrooke1986">Sherbrooke (<a href="references.html#ref-sherbrooke1986" role="doc-biblioref">1986</a>)</span> means by calling METRIC a first-order model. <strong>One step rests on evidence rather than proof</strong>, and the authors say so: neither Graves nor Sherbrooke could show that the variance always exceeds the mean, so a program should test it rather than assume it.</p>
 <p><strong>Two echelons break the convexity that licenses marginal analysis, and the break is where positioning gets answered.</strong> Hold the depot’s stock and every storeroom curve is convex, so the greedy rule is exact. Move the depot’s stock and it is not, because one unit there shifts every storeroom at once; the remedy is to strike out the interior points so the procedure buys two units at a time. <strong>Reading the same table’s depot column produces flushout</strong>: buying one more unit can make it right to move three units already held out of the depot and forward. Thus <a href="#sec-multiechelon-positioning" class="quarto-xref"><span>Section 9.1</span></a>’s claim is delivered, and delivered in a better form than it was made. The answer to “should this item be forward stocked” is a schedule against the budget rather than a yes or a no; it is not monotone, and no rule of thumb produces it.</p>
-<p><a href="#tbl-multiechelon-notation" class="quarto-xref">Table&nbsp;<span>9.6</span></a> collects the notation, which <a href="12-AppNotation.html" class="quarto-xref"><span>Appendix A</span></a> repeats alongside the rest of the book’s.</p>
+<p><a href="#tbl-multiechelon-notation" class="quarto-xref">Table&nbsp;<span>9.11</span></a> collects the notation, which <a href="12-AppNotation.html" class="quarto-xref"><span>Appendix A</span></a> repeats alongside the rest of the book’s.</p>
 <div id="tbl-multiechelon-notation" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-multiechelon-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;9.6: Notation introduced in this chapter.
+Table&nbsp;9.11: Notation introduced in this chapter.
 </figcaption>
 <div aria-describedby="tbl-multiechelon-notation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -3053,7 +3710,7 @@ Table&nbsp;9.6: Notation introduced in this chapter.
 </section>
 <section id="sec-multiechelon-exercises" class="level2" data-number="9.13">
 <h2 data-number="9.13" class="anchored" data-anchor-id="sec-multiechelon-exercises"><span class="header-section-number">9.13</span> Exercises</h2>
-<p>Unless an exercise says otherwise, use the conventions of <a href="01-Chapter1.html#sec-introduction-exercises" class="quarto-xref"><span>Section 1.8</span></a>. Report stock levels as whole units. Times are given in days and rates per year, so divide by 365 before combining them, and show the division. Take the utility of <a href="#exm-metric-transformer" class="quarto-xref">Example&nbsp;<span>9.4</span></a> as the setting: four alike storerooms supplied by one depot, with the item data of <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.5</span></a> and a carrying charge of 0.25 a year.</p>
+<p>Unless an exercise says otherwise, use the conventions of <a href="01-Chapter1.html#sec-introduction-exercises" class="quarto-xref"><span>Section 1.8</span></a>. Report stock levels as whole units. Times are given in days and rates per year, so divide by 365 before combining them, and show the division. Take the utility of <a href="#exm-metric-transformer" class="quarto-xref">Example&nbsp;<span>9.4</span></a> as the setting: four alike storerooms supplied by one depot, with the item data of <a href="04-Chapter4.html#tbl-storeroom-data" class="quarto-xref">Table&nbsp;<span>4.9</span></a> and a carrying charge of 0.25 a year.</p>
 <section id="sec-multiechelon-exr-hand" class="level3" data-number="9.13.1">
 <h3 data-number="9.13.1" class="anchored" data-anchor-id="sec-multiechelon-exr-hand"><span class="header-section-number">9.13.1</span> Working the Model by Hand</h3>
 <div id="exr-ch9-concepts" class="theorem exercise">
@@ -3103,7 +3760,7 @@ Table&nbsp;9.6: Notation introduced in this chapter.
 <p><span class="theorem-title"><strong>Exercise 9.4</strong></span> The utility also stocks a voltage regulator, one for one, at the same four storerooms. Each storeroom sees <span class="math inline">\(\lambda_j = 12\)</span> failures a year and rebuilds a fifth of them locally in 45 days. The rest go to the depot, which repairs in <span class="math inline">\(T_0 = 90\)</span> days and ships in <span class="math inline">\(O_j = 10\)</span> days. A regulator costs $9,500.</p>
 <ol type="a">
 <li>Obtain <span class="math inline">\(\lambda_{j0}\)</span> and <span class="math inline">\(\lambda_0\)</span> from <a href="#eq-repairable-passup" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> and <a href="#eq-repairable-depotrate" class="quarto-xref">Equation&nbsp;<span>9.2</span></a>, and the depot’s pipeline mean from <a href="#eq-depot-pipeline" class="quarto-xref">Equation&nbsp;<span>9.12</span></a>.</li>
-<li>For <span class="math inline">\(S_0 = 6, 8, 10\)</span> and <span class="math inline">\(12\)</span>, report the depot’s expected backorders, the variance of its backorders, and the delay in days. Use <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> for the variance rather than the recursion.</li>
+<li>For <span class="math inline">\(S_0 = 6, 8, 10\)</span> and <span class="math inline">\(12\)</span>, report the depot’s expected backorders, the variance of its backorders, and the delay in days. Use <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.26</span></a> for the variance rather than the recursion.</li>
 <li>The utility will not tolerate a delay above three weeks. What is the smallest depot stock meeting that, and what does holding that much cost the utility each year at a carrying charge of 0.25?</li>
 <li>Notice that the variance of the depot’s backorders falls more slowly than their mean as <span class="math inline">\(S_0\)</span> rises. Report the variance to mean ratio at each level in part (b), and say what that does to <a href="#eq-varimetric-variance" class="quarto-xref">Equation&nbsp;<span>9.19</span></a>.</li>
 </ol>
@@ -3119,10 +3776,10 @@ Table&nbsp;9.6: Notation introduced in this chapter.
 </ol>
 </div>
 <div id="exr-ch9-secondmoment" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.6</strong></span> <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> and <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> compute the same quantity by different routes.</p>
+<p><span class="theorem-title"><strong>Exercise 9.6</strong></span> <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> and <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.26</span></a> compute the same quantity by different routes.</p>
 <ol type="a">
-<li>Prove <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> by writing <span class="math inline">\((x-s)^{2} = (x-s)(x-s-1) + (x-s)\)</span> and taking expectations over <span class="math inline">\(x &gt; s\)</span>.</li>
-<li>For the regulator’s depot of <a href="#exr-ch9-delay" class="quarto-xref">Exercise&nbsp;<span>9.4</span></a> at <span class="math inline">\(S_0 = 8\)</span>, evaluate <span class="math inline">\(E[B^{2}(8)]\)</span> both ways: walk <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> up from <span class="math inline">\(s = 0\)</span>, and evaluate <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> directly. Report both to four decimals.</li>
+<li>Prove <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.26</span></a> by writing <span class="math inline">\((x-s)^{2} = (x-s)(x-s-1) + (x-s)\)</span> and taking expectations over <span class="math inline">\(x &gt; s\)</span>.</li>
+<li>For the regulator’s depot of <a href="#exr-ch9-delay" class="quarto-xref">Exercise&nbsp;<span>9.4</span></a> at <span class="math inline">\(S_0 = 8\)</span>, evaluate <span class="math inline">\(E[B^{2}(8)]\)</span> both ways: walk <a href="#eq-backorder-secondmoment" class="quarto-xref">Equation&nbsp;<span>9.20</span></a> up from <span class="math inline">\(s = 0\)</span>, and evaluate <a href="#eq-backorder-secondmoment-closed" class="quarto-xref">Equation&nbsp;<span>9.26</span></a> directly. Report both to four decimals.</li>
 <li><a href="#sec-multiechelon-building" class="quarto-xref"><span>Section 9.10</span></a> uses the recursion and <a href="#sec-multiechelon-design" class="quarto-xref"><span>Section 9.11</span></a> uses the closed form. Say what each has that the other does not, and why neither choice is a mistake.</li>
 <li>The recursion subtracts. At what sort of stock level would you expect it to lose precision, and how would you check?</li>
 </ol>
@@ -3147,7 +3804,7 @@ Table&nbsp;9.6: Notation introduced in this chapter.
 <li>Print the total, the best depot level, the expected storeroom backorders and the reduction, for totals 4 through 16.</li>
 <li>Identify every total the convexification drops, and for each one show the chord test: the plan lies above the straight line joining its neighbors.</li>
 <li>Identify every flushout, meaning a total at which the best depot level falls.</li>
-<li>The regulator costs $9,500 and the transformer $3,800. Without running the merge, say which item the first dollar buys, and check your answer against <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.24</span></a> at a stock level of zero for each.</li>
+<li>The regulator costs $9,500 and the transformer $3,800. Without running the merge, say which item the first dollar buys, and check your answer against <a href="#eq-delta-value" class="quarto-xref">Equation&nbsp;<span>9.25</span></a> at a stock level of zero for each.</li>
 </ol>
 </div>
 </section>

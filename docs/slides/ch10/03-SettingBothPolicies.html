@@ -1228,6 +1228,40 @@ display:block!important;
 }</style></aside>
 </div>
 </section>
+<section id="pass-1-a-step-at-a-time" class="slide level2">
+<h2>Pass 1, a Step at a Time</h2>
+<p><span class="math inline">\(k = \$82.50\)</span>, <span class="math inline">\(h = \$0.5529\)</span> and <span class="math inline">\(b = \$5.5288\)</span> a week; the hub’s backorder rate is <span class="math inline">\(b_0 = 4h = \$2.2115\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{storeroom}: \theta &amp;= \lambda_jO_j = 2(1) = 2 \text{, Poisson} \;\Rightarrow\; (r_j, Q_j) = (-1, 26)
+  &amp;&amp;\text{step 1: no wait}\\
+\bar{B}_j &amp;= \tfrac{4}{26} = 0.1538, \quad \bar{I}_j = \tfrac{27}{2} - 1 - 2 + 0.1538 = 10.6538
+  &amp;&amp;\textstyle\sum G^{1}(j) = \theta + \theta^{2}/2 = 4\\
+C_j &amp;= \tfrac{82.50(2)}{26} + 0.5529(10.6538) + 5.5288(0.1538) = \$13.09
+  &amp;&amp;6.35 + 5.89 + 0.85\\
+\text{hub}: \mathit{Var}[D_0] &amp;= 6 + 6 + \tfrac{26^{2}}{6} = 124.67 \;\Rightarrow\; (r_0, Q_0) = (2, 47)
+  &amp;&amp;\text{step 2: the recipe}\\
+C_0 &amp;= \tfrac{82.50(4)}{47} + 0.5529(16.2536) + 2.2115(2.2536) = \$20.99
+  &amp;&amp;7.02 + 8.99 + 4.98\\
+E[W] &amp;= \tfrac{2.2536}{4} = 0.5634, \quad \mathit{Var}[W] = \tfrac{43.1532 - 2.2536}{4^{2}} = 2.5562
+  &amp;&amp;\text{step 3: } \sigma_W = 1.5988
+\end{aligned}
+\]</span></p>
+<p><em>Pass 2, step 1.</em> The storeroom’s lead time now has mean <span class="math inline">\(1 + 0.5634 = 1.5634\)</span> weeks and variance 2.5562, so its lead time demand has mean <span class="math inline">\(2(1.5634) = 3.1268\)</span> and variance <span class="math inline">\(3.1268 + 2^{2}(2.5562) = 13.35\)</span>: negative binomial, and <span class="math inline">\((0, 29)\)</span>.</p>
+<aside class="notes">
+<p>The storeroom’s positions are 0 through 25, and the loss entries beyond 25 are zero to many decimals, which is why the sum over the positions is 4. The hub’s backorders, 2.2536, and their variance, 43.1532, come from the Iterate sheet or the software: forty-seven positions of a negative binomial are not a hand computation. The hub’s on-hand is 24 + 2 - 12 + 2.2536. The remaining steps of pass 2 repeat those of pass 1.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="the-exact-route-and-the-exact-price" class="slide level2">
 <h2>The Exact Route, and the Exact Price</h2>
 <p><strong>The exact route</strong> reaches hub <span class="math inline">\((2, 48)\)</span> and storeroom <span class="math inline">\((3, 28)\)</span>, also in three passes. Its storeroom holds <strong>three more units</strong>: its orders of 28 wait for their last unit, <strong>1.75 weeks</strong> on average, where the moment route carries the per-unit wait of 0.62.</p>

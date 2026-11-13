@@ -556,6 +556,7 @@ window.Quarto = {
   <li><a href="#sec-appdistributions-matching" id="toc-sec-appdistributions-matching" class="nav-link" data-scroll-target="#sec-appdistributions-matching"><span class="header-section-number">C.4.2</span> Matching the First Two Moments</a></li>
   <li><a href="#sec-appdistributions-intermittent" id="toc-sec-appdistributions-intermittent" class="nav-link" data-scroll-target="#sec-appdistributions-intermittent"><span class="header-section-number">C.4.3</span> When the Demand Is Intermittent</a></li>
   </ul></li>
+  <li><a href="#sec-appdistributions-exercises" id="toc-sec-appdistributions-exercises" class="nav-link" data-scroll-target="#sec-appdistributions-exercises"><span class="header-section-number">C.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -785,9 +786,10 @@ G^{2}(b) = \tfrac{1}{2}\left(E\left[X^{2}\right] - (2b+1)E[X] + b(b+1)\right)
 <h3 data-number="C.3.3" class="anchored" data-anchor-id="sec-appdistributions-loss-continuous"><span class="header-section-number">C.3.3</span> Continuous Random Variables</h3>
 <p>Let <span class="math inline">\(g(x)\)</span> represent the probability density function. The sums become integrals and the tail relations survive:</p>
 <p><span id="eq-loss-continuous"><span class="math display">\[
-G^{1}(b) = \int_{b}^{\infty}(x-b)g(x)\,dx = \int_{b}^{\infty}G^{0}(x)\,dx,
-\qquad
-G^{2}(b) = \tfrac{1}{2}\int_{b}^{\infty}(x-b)^{2}g(x)\,dx = \int_{b}^{\infty}G^{1}(x)\,dx
+\begin{aligned}
+G^{1}(b) &amp;= \int_{b}^{\infty}(x-b)g(x)\,dx = \int_{b}^{\infty}G^{0}(x)\,dx\\
+G^{2}(b) &amp;= \tfrac{1}{2}\int_{b}^{\infty}(x-b)^{2}g(x)\,dx = \int_{b}^{\infty}G^{1}(x)\,dx
+\end{aligned}
 \tag{C.16}\]</span></span></p>
 <p>For a non-negative <span class="math inline">\(X\)</span> and <span class="math inline">\(b \le 0\)</span> the truncation again never binds, so <span class="math inline">\(G^{1}(b) = E[X] - b\)</span> and <span class="math inline">\(G^{2}(b) = \tfrac{1}{2}\left(E[X^{2}] - 2bE[X] + b^{2}\right)\)</span>. Thus, <span class="math inline">\(G^{1}(0) = E[X]\)</span> and <span class="math inline">\(G^{2}(0) = \tfrac{1}{2}E[X^{2}]\)</span>.</p>
 <p>The closed forms for the continuous families are all obtained the same way, through the <strong>partial expectation functions</strong>. Let</p>
@@ -995,8 +997,8 @@ Table&nbsp;C.4: Second order loss functions for the discrete distributions. Noti
 <div aria-describedby="tbl-loss-discrete-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1015,7 +1017,7 @@ Table&nbsp;C.4: Second order loss functions for the discrete distributions. Noti
 </tr>
 <tr class="odd">
 <td>Negative binomial, size <span class="math inline">\(r\)</span></td>
-<td><span class="math inline">\(\tfrac{1}{2}\left\{\left[r(r+1)\beta^{2} - 2r\beta x + x(x+1)\right]G^{0}(x) + \left[(r+1)\beta - x\right](x+r)\beta g(x)\right\}\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{2}\big\{\left[r(r+1)\beta^{2} - 2r\beta x + x(x+1)\right]G^{0}(x)\)</span> <span class="math inline">\(+ \left[(r+1)\beta - x\right](x+r)\beta g(x)\big\}\)</span></td>
 </tr>
 <tr class="even">
 <td>Binomial</td>
@@ -1077,8 +1079,8 @@ Table&nbsp;C.6: Second order loss functions for the continuous distributions. No
 <div aria-describedby="tbl-loss-continuous-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1093,7 +1095,7 @@ Table&nbsp;C.6: Second order loss functions for the continuous distributions. No
 </tr>
 <tr class="even">
 <td>Gamma, shape <span class="math inline">\(\alpha\)</span> and scale <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\tfrac{1}{2}\beta^{2}\left\{\left[\left(\alpha - \tfrac{x}{\beta}\right)^{2} + \alpha\right]G^{0}(x) + \left(\alpha - \tfrac{x}{\beta} + 1\right)xg(x)\right\}\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{2}\beta^{2}\big\{\left[\left(\alpha - \tfrac{x}{\beta}\right)^{2} + \alpha\right]G^{0}(x)\)</span> <span class="math inline">\(+ \left(\alpha - \tfrac{x}{\beta} + 1\right)xg(x)\big\}\)</span></td>
 </tr>
 <tr class="odd">
 <td>Erlang</td>
@@ -1105,7 +1107,7 @@ Table&nbsp;C.6: Second order loss functions for the continuous distributions. No
 </tr>
 <tr class="odd">
 <td>Lognormal</td>
-<td><span class="math inline">\(\tfrac{1}{2}\left[\left(\mathit{Var}[X] + (E[X])^{2}\right)\Phi(2\sigma - z) - 2xE[X]\,\Phi(\sigma - z) + x^{2}\Phi^{0}(z)\right]\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{2}\big[\left(\mathit{Var}[X] + (E[X])^{2}\right)\Phi(2\sigma - z)\)</span> <span class="math inline">\(- 2xE[X]\,\Phi(\sigma - z) + x^{2}\Phi^{0}(z)\big]\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -1124,7 +1126,7 @@ E\left[\left((X-b)^{+}\right)^{2}\right] = \begin{cases}
 2G^{2}(b) &amp; X \text{ continuous}
 \end{cases}
 \tag{C.21}\]</span></span></p>
-<p>so <span class="math inline">\(\mathit{Var}\left[(X-b)^{+}\right]\)</span> needs nothing beyond <span class="math inline">\(G^{2}\)</span>. Notice the extra <span class="math inline">\(G^{1}\)</span> in the discrete case. It is there because <span class="math inline">\((X-b)^{+}(X-b-1)^{+} = \left((X-b)^{+}\right)^{2} - (X-b)^{+}\)</span> when <span class="math inline">\(X\)</span> and <span class="math inline">\(b\)</span> are whole numbers, which is the same convention difference <a href="#eq-loss-second" class="quarto-xref">Equation&nbsp;<span>C.10</span></a> records.</p>
+<p>so <span class="math inline">\(\mathit{Var}\left[(X-b)^{+}\right]\)</span> needs nothing beyond <span class="math inline">\(G^{2}\)</span>. Notice the extra <span class="math inline">\(G^{1}\)</span> in the discrete case. It is there because <span class="math inline">\((X-b)^{+}(X-b-1)^{+} = \left((X-b)^{+}\right)^{2} - (X-b)^{+}\)</span> when <span class="math inline">\(X\)</span> and <span class="math inline">\(b\)</span> are whole numbers, which is the same convention difference <a href="#eq-loss-second" class="quarto-xref">Equation&nbsp;<span>C.10</span></a> records. <a href="13-AppProbability.html#sec-appprobability-rv-factorial" class="quarto-xref"><span>Section B.1.4</span></a> reads the same fact as a statement about factorial moments.</p>
 <p><strong>The stock level is not always fixed, and that is what forces a third order function.</strong> In the policies of <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> the quantity the demand is compared against is itself random, and the shortage has to be averaged over its distribution. Averaging <span class="math inline">\(G^{1}\)</span> over a range produces a difference of <span class="math inline">\(G^{2}\)</span>, by the tail relations of <a href="#eq-loss-discrete-second" class="quarto-xref">Equation&nbsp;<span>C.12</span></a> and <a href="#eq-loss-continuous" class="quarto-xref">Equation&nbsp;<span>C.16</span></a>. Averaging <a href="#eq-shortage-second-moment" class="quarto-xref">Equation&nbsp;<span>C.21</span></a> over the same range produces a difference of the function one order higher again, and that function is not yet defined.</p>
 <p>Thus, define the loss function of order <span class="math inline">\(n\)</span> by extending <a href="#eq-loss-second" class="quarto-xref">Equation&nbsp;<span>C.10</span></a> in the obvious way:</p>
 <p><span id="eq-loss-order-n"><span class="math display">\[
@@ -1155,8 +1157,8 @@ Table&nbsp;C.7: Third order loss functions. In the gamma row <span class="math i
 <div aria-describedby="tbl-loss-third-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1179,7 +1181,7 @@ Table&nbsp;C.7: Third order loss functions. In the gamma row <span class="math i
 </tr>
 <tr class="even">
 <td>Gamma, shape <span class="math inline">\(\alpha\)</span> and scale <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\tfrac{1}{6}\left[\alpha^{(3)}\beta^{3}G^{0}_{\alpha+3}(x) - 3x\,\alpha^{(2)}\beta^{2}G^{0}_{\alpha+2}(x) + 3x^{2}\alpha\beta\,G^{0}_{\alpha+1}(x) - x^{3}G^{0}_{\alpha}(x)\right]\)</span></td>
+<td><span class="math inline">\(\tfrac{1}{6}\big[\alpha^{(3)}\beta^{3}G^{0}_{\alpha+3}(x) - 3x\,\alpha^{(2)}\beta^{2}G^{0}_{\alpha+2}(x)\)</span> <span class="math inline">\(+ 3x^{2}\alpha\beta\,G^{0}_{\alpha+1}(x) - x^{3}G^{0}_{\alpha}(x)\big]\)</span></td>
 </tr>
 <tr class="odd">
 <td>Normal</td>
@@ -1215,7 +1217,7 @@ G^{3}(62) = \sigma^{3}\Phi^{3}(z) = 12^{3}(0.0152) = 1728(0.0152) = 26.27 \text{
 </section>
 <section id="sec-appdistributions-loss-mixtures" class="level3" data-number="C.3.8">
 <h3 data-number="C.3.8" class="anchored" data-anchor-id="sec-appdistributions-loss-mixtures"><span class="header-section-number">C.3.8</span> Mixtures</h3>
-<p><a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> describes demand that is intermittent, and a mixture is one way to represent it. Let <span class="math inline">\(X\)</span> be distributed as a mixture of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> with weights <span class="math inline">\(p_{1}\)</span> and <span class="math inline">\(p_{2} = 1-p_{1}\)</span>, so that</p>
+<p><a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> describes demand that is intermittent, and a mixture is one way to represent it. <a href="13-AppProbability.html#sec-appprobability-rv-mixture" class="quarto-xref"><span>Section B.1.6</span></a> defines a mixture by conditioning and gives its moments for any number of components. This section takes two and adds the loss functions. Let <span class="math inline">\(X\)</span> be distributed as a mixture of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> with weights <span class="math inline">\(p_{1}\)</span> and <span class="math inline">\(p_{2} = 1-p_{1}\)</span>, so that</p>
 <p><span id="eq-mixture"><span class="math display">\[
 g_{X}(x) = p_{1}g_{X_{1}}(x) + p_{2}g_{X_{2}}(x), \qquad
 G_{X}(x) = p_{1}G_{X_{1}}(x) + p_{2}G_{X_{2}}(x)
@@ -1230,7 +1232,7 @@ G_{X}^{2}(x) = p_{1}G_{X_{1}}^{2}(x) + p_{2}G_{X_{2}}^{2}(x)
 \mathit{Var}[X] = p_{1}\mathit{Var}[X_{1}] + p_{2}\mathit{Var}[X_{2}]
 + p_{1}p_{2}\left(E[X_{1}] - E[X_{2}]\right)^{2}
 \tag{C.29}\]</span></span></p>
-<p>Notice that last term. Two components with identical variances still produce a mixture more variable than either, and the excess grows with the square of the distance between their means. Thus, a mixture can reach a variability the component families cannot, which is what an intermittent demand series demands of a model.</p>
+<p><a href="#eq-mixture-variance" class="quarto-xref">Equation&nbsp;<span>C.29</span></a> is <a href="13-AppProbability.html#eq-mixture-moments" class="quarto-xref">Equation&nbsp;<span>B.13</span></a> with two components. Notice that last term. Two components with identical variances still produce a mixture more variable than either, and the excess grows with the square of the distance between their means. Thus, a mixture can reach a variability the component families cannot, which is what an intermittent demand series demands of a model.</p>
 <p>What a mixture does not inherit is an inverse. There is no closed form for <span class="math inline">\(G_{X}^{-1}(\cdot)\)</span>, which the newsvendor solution of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> needs. However, the quantile is bracketed by the component quantiles. For any <span class="math inline">\(p \in [0,1]\)</span>, with <span class="math inline">\(x_{1} = G_{X_{1}}^{-1}(p)\)</span> and <span class="math inline">\(x_{2} = G_{X_{2}}^{-1}(p)\)</span>,</p>
 <p><span id="eq-mixture-quantile"><span class="math display">\[
 \min\{x_{1}, x_{2}\} \le G_{X}^{-1}(p) \le \max\{x_{1}, x_{2}\}
@@ -1400,6 +1402,88 @@ p_{2} = \frac{\mu}{2(1-q) + \mu}
 <p>The first is a <strong>zero-modified</strong> family, which mixes a point mass at zero with one of the families of <a href="#sec-appdistributions-1" class="quarto-xref"><span>Section C.1</span></a>. <span class="citation" data-cites="rossettiunlu2011">Rossetti and Ünlü (<a href="references.html#ref-rossettiunlu2011" role="doc-biblioref">2011</a>)</span> recommend a zero-modified form of Adan’s rule when the probability of a zero period exceeds one half, and switching back to the ordinary rule below that.</p>
 <p>The second is a <strong>compound representation</strong>, in which the time between demands and the size of a demand are modeled separately and the period demand is the sum of a random number of sizes. <a href="13-AppProbability.html#sec-appprobability-5" class="quarto-xref"><span>Section B.5</span></a> gives the moments. That representation is the more faithful one, and it is the one that connects to the demand classification of <a href="02-Chapter2.html#sec-managing-grouping-demandpattern" class="quarto-xref"><span>Section 2.2.6</span></a>, where the interval between demands and the variability of the sizes are the two axes.</p>
 <p>Both are beyond what <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> needs, and both matter from <a href="08-Chapter8.html" class="quarto-xref"><span>Chapter 8</span></a> onward, where the quantity being modeled is demand over a lead time and the zeros no longer conveniently aggregate away.</p>
+</section>
+</section>
+<section id="sec-appdistributions-exercises" class="level2" data-number="C.5">
+<h2 data-number="C.5" class="anchored" data-anchor-id="sec-appdistributions-exercises"><span class="header-section-number">C.5</span> Exercises</h2>
+<p>Like those of <a href="13-AppProbability.html#sec-appprobability-exercises" class="quarto-xref"><span>Section B.6</span></a>, these exercises are a diagnostic, and they use the same conventions. Read the standard normal quantities from <a href="#tbl-loss-normal" class="quarto-xref">Table&nbsp;<span>C.2</span></a> and the Poisson quantities from <a href="15-AppTables.html#tbl-poisson-cdf" class="quarto-xref">Table&nbsp;<span>D.3</span></a> and <a href="15-AppTables.html#tbl-poisson-loss-first" class="quarto-xref">Table&nbsp;<span>D.4</span></a>.</p>
+<div id="exr-appc-families" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise C.1</strong></span> Three items have the monthly demand histories summarized below.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.2</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">22.5</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">1.92</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>Compute the variance to mean ratio of each item and name the family of <a href="#sec-appdistributions-1" class="quarto-xref"><span>Section C.1</span></a> that it points to.</li>
+<li>Obtain the parameters of each family. Match the mean and the variance for items 2 and 3. For item 1 match the mean alone, and say why.</li>
+<li>Compute the probability of a month with no demand under each fitted family.</li>
+<li>For item 2, state <span class="math inline">\(p\)</span> in both conventions of <a href="#sec-appdistributions-negbin" class="quarto-xref"><span>Section C.1.2</span></a>. A routine written for <a href="#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a> is handed the other convention’s value with the same <span class="math inline">\(r\)</span>. What mean and variance does it report?</li>
+<li>What would have to be true of item 3’s demand for its family to be believed?</li>
+</ol>
+</div>
+<div id="exr-appc-discreteloss" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise C.2</strong></span> Take the weekly demand of <a href="13-AppProbability.html#exr-appb-moments" class="quarto-xref">Exercise&nbsp;<span>B.2</span></a>, which is 0, 1, 2 or 3 sockets with probabilities 0.40, 0.30, 0.20 and 0.10.</p>
+<ol type="a">
+<li>Tabulate <span class="math inline">\(G^{0}(b)\)</span> for <span class="math inline">\(b = 0, 1, 2\)</span> and 3.</li>
+<li>Tabulate <span class="math inline">\(G^{1}(b)\)</span> and <span class="math inline">\(G^{2}(b)\)</span> for the same values, with the tail sums of <a href="#eq-loss-discrete-first" class="quarto-xref">Equation&nbsp;<span>C.11</span></a> and <a href="#eq-loss-discrete-second" class="quarto-xref">Equation&nbsp;<span>C.12</span></a>.</li>
+<li>Confirm that <span class="math inline">\(G^{1}(0) = E[X]\)</span> and that <span class="math inline">\(G^{2}(0) = \tfrac{1}{2}E[X(X-1)]\)</span>.</li>
+<li>For a stock level of one socket, compute the second moment of the shortage from <a href="#eq-shortage-second-moment" class="quarto-xref">Equation&nbsp;<span>C.21</span></a> and again directly from the mass function. Report the variance of the shortage.</li>
+<li>A classmate takes <span class="math inline">\(G^{0}(b)\)</span> to be <span class="math inline">\(P\{X \ge b\}\)</span>. What value does the classmate obtain for the expected shortage at <span class="math inline">\(b = 1\)</span>, and which correct value has been computed by mistake?</li>
+</ol>
+</div>
+<div id="exr-appc-normalloss" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise C.3</strong></span> Take the demand over a lead time as <span class="math inline">\(N(50, 12^{2})\)</span> units, as in <a href="#sec-appdistributions-loss-normal" class="quarto-xref"><span>Section C.3.4</span></a>.</p>
+<ol type="a">
+<li>For a stock level of 68 units, compute <span class="math inline">\(z\)</span>, the probability of a shortage and the expected shortage.</li>
+<li>Compute the expected leftover at 68 units from <a href="07-Chapter7.html#eq-newsvendor-leftover" class="quarto-xref">Equation&nbsp;<span>7.9</span></a>.</li>
+<li>Compute the standard deviation of the shortage at 68 units, from <a href="#eq-shortage-second-moment" class="quarto-xref">Equation&nbsp;<span>C.21</span></a> and <a href="#eq-loss-normal-scaling" class="quarto-xref">Equation&nbsp;<span>C.20</span></a>.</li>
+<li>For a stock level of 50 units, compute the expected shortage and the expected leftover, and say why they are equal.</li>
+<li>A classmate reports an expected shortage of 0.0293 units at a stock level of 68 units. What was left out, and how do the units show it?</li>
+<li>Compute the coefficient of variation, and say what <a href="#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a> concludes about the normal model here.</li>
+</ol>
+</div>
+<div id="exr-appc-matching" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise C.4</strong></span> The lead time demand of <a href="13-AppProbability.html#exr-appb-randomsum" class="quarto-xref">Exercise&nbsp;<span>B.9</span></a> has a mean of 72 kits and a variance of 756 kits squared, and no sample of it exists.</p>
+<ol type="a">
+<li>Compute the squared coefficient of variation and the variance to mean ratio.</li>
+<li>Match a gamma distribution with <a href="#eq-gamma-match" class="quarto-xref">Equation&nbsp;<span>C.33</span></a>, and confirm that it reproduces both targets.</li>
+<li>Obtain the parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^{2}\)</span> of the lognormal distribution with the same mean and variance from <a href="#eq-lognormal-parameters" class="quarto-xref">Equation&nbsp;<span>C.8</span></a>.</li>
+<li>Match a negative binomial distribution in the convention of <a href="#eq-negbin" class="quarto-xref">Equation&nbsp;<span>C.3</span></a>, and confirm its variance.</li>
+<li>Under a normal model with the same two moments, compute the probability of a negative demand, taking <span class="math inline">\(\Phi(-2.62) = 0.0044\)</span>. Say where the coefficient of variation places the model against <a href="#tbl-normal-negative" class="quarto-xref">Table&nbsp;<span>C.1</span></a>.</li>
+</ol>
+</div>
+<div id="exr-appc-zeromodified" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise C.5</strong></span> A storeroom issues a warning tape roll irregularly. In 60% of weeks there is no call for it at all, and in the other weeks the demand is Poisson with a mean of 5 rolls. The weekly demand is therefore a mixture of a point mass at zero and a Poisson distribution, the zero-modified form of <a href="#sec-appdistributions-intermittent" class="quarto-xref"><span>Section C.4.3</span></a>.</p>
+<ol type="a">
+<li>Compute the probability of a week with no demand.</li>
+<li>Compute the mean, the variance and the variance to mean ratio of the weekly demand from <a href="#eq-mixture-variance" class="quarto-xref">Equation&nbsp;<span>C.29</span></a>.</li>
+<li>Use <a href="#eq-mixture" class="quarto-xref">Equation&nbsp;<span>C.27</span></a> and <a href="#eq-mixture-loss" class="quarto-xref">Equation&nbsp;<span>C.28</span></a> to compute <span class="math inline">\(P\{X \le 6\}\)</span> and the expected shortage against a stock level of 6 rolls.</li>
+<li>A plain Poisson model with the same mean gives an expected shortage of 0.0059 rolls at a stock level of 6. By roughly what factor does it understate the mixture’s?</li>
+<li>Find the smallest stock level <span class="math inline">\(b\)</span> with <span class="math inline">\(P\{X \le b\} \ge 0.95\)</span> under the mixture and under the plain Poisson model. Confirm that the mixture’s answer lies inside the bracket of <a href="#eq-mixture-quantile" class="quarto-xref">Equation&nbsp;<span>C.30</span></a>.</li>
+</ol>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -1410,7 +1494,6 @@ Adan, Ivo, Michel van Eenige, and Jacques Resing. 1995. <span>“Fitting Discret
 Rossetti, Manuel D., and Yasin Ünlü. 2011. <span>“Evaluating the Robustness of Lead Time Demand Models.”</span> <em>International Journal of Production Economics</em> 134 (1): 159–76.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
